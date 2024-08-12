@@ -9,4 +9,4 @@ generate_artifacts:
     - ./gradlew clean jar
   artifacts:
     paths:
-      - build/libs/<your_project_name>.jar
+      - build/libs/WineWise.jar
