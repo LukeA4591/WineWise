@@ -9,7 +9,7 @@ public class Wine {
     int volume;
     String region;
     Winery winery;
-    ArrayList<Rating> userRatings = new ArrayList<Rating>();
+    List<Rating> userRatings = new ArrayList<Rating>();
 
     /**
      * The Getter method for the type of wine
@@ -55,7 +55,7 @@ public class Wine {
      * The Getter method for the ratings which users have left on the wine
      * @return userRatings
      */
-    public ArrayList<Rating> getUserRatings() {
+    public List<Rating> getUserRatings() {
         return userRatings;
     }
 
