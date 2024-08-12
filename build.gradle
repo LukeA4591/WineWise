@@ -5,7 +5,7 @@ plugins {
     id 'jacoco'
 }
 
-archivesBaseName = 'wino'
+archivesBaseName = 'WineWise'
 group = 'seng202.team0'
 version = '1.0-SNAPSHOT'
 mainClassName = 'seng202.team0.App'
