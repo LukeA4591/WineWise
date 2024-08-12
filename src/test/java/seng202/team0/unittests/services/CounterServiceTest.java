@@ -59,4 +59,10 @@ public class CounterServiceTest
 
         assertEquals(0, testCounterServiceMock.getCurrentCount());
     }
+    @Test
+    public void failCounterTest() {
+        CounterService fail = new CounterService();
+        fail.incrementCounter();
+        assertEquals(hashCode(), fail.getCurrentCount());
+    }
 }
