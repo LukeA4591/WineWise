@@ -1,6 +1,5 @@
 package seng202.team0.gui;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +8,6 @@ import javafx.stage.Stage;
 import seng202.team0.models.Winery;
 
 import java.io.IOException;
-import java.util.Random;
 
 public class FXWrapper {
     /**
