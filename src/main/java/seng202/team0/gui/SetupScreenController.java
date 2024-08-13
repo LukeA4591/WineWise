@@ -1,12 +1,12 @@
 package seng202.team0.gui;
 
-import seng202.team0.models.Winery;
+import seng202.team0.services.WineEnvironment;
 
 public class SetupScreenController {
 
-    private final Winery winery;
+    private final WineEnvironment winery;
 
-    public SetupScreenController(final Winery tempEnvironment) {
+    public SetupScreenController(final WineEnvironment tempEnvironment) {
         this.winery = tempEnvironment;
     }
 }
