@@ -4,40 +4,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Wine {
-    String typeWine;
-    float alcoholPerc;
-    int volume;
+    String colour;
+    String wineName;
+    String award;
+    int score;
+    int vintage;
     String region;
     Winery winery;
+    String description;
     List<Rating> userRatings = new ArrayList<Rating>();
 
     /**
-     * The Getter method for the type of wine
-     * @return typeWine
+     * Constructor for the wine class
+     * @param colour
+     * @param wineName
+     * @param award
+     * @param score
+     * @param vintage
+     * @param region
+     * @param winery
+     * @param description
+     * @param userRatings
      */
-    public String getTypeWine() {
-        return typeWine;
+    public Wine(String colour, String wineName, String award, int score, int vintage, String region, Winery winery, String description, List<Rating> userRatings) {
+        this.colour = colour;
+        this.wineName = wineName;
+        this.award = award;
+        this.score = score;
+        this.vintage = vintage;
+        this.region = region;
+        this.winery = winery;
+        this.description = description;
+        this.userRatings = userRatings;
     }
 
     /**
-     * The Getter method for the alcohol percentage of the wine
-     * @return alcoholPerc
+     * The Getter method for the colour of wine
+     * @return typeWine
      */
-    public float getAlcoholPerc() {
-        return alcoholPerc;
+    public String getColor() {
+        return colour;
     }
 
     /**
      * The Getter method for the volume of the wine
      * @return volume
-     */
-    public int getVolume() {
-        return volume;
-    }
-
-    /**
-     * The Getter method for the region of the wine
-     * @return region
      */
     public String getRegion() {
         return region;
@@ -60,27 +71,43 @@ public class Wine {
     }
 
     /**
-     * The Setter method for the type of wine
-     * @param typeWine
+     * The Getter method for the name of the wine
+     * @return wineName
      */
-    public void setTypeWine(String typeWine) {
-        this.typeWine = typeWine;
+    public String getWineName() {
+        return wineName;
     }
 
     /**
-     * The Setter method for the alcohol percentage of the wine
-     * @param alcoholPerc
+     * The Getter method for the award that the wine has won
+     * @return award
      */
-    public void setAlcoholPerc(float alcoholPerc) {
-        this.alcoholPerc = alcoholPerc;
+    public String getAward() {
+        return award;
     }
 
     /**
-     * The Setter method for the volume of the wine
-     * @param volume
+     * The Getter method for the critic score that the wine received
+     * @return score
      */
-    public void setVolume(int volume) {
-        this.volume = volume;
+    public int getScore() {
+        return score;
+    }
+
+    /**
+     * The Getter method for the vintage of the wine
+     * @return vintage
+     */
+    public int getVintage() {
+        return vintage;
+    }
+
+    /**
+     * The Getter method for the description of the wine
+     * @return description
+     */
+    public String getDescription() {
+        return description;
     }
 
     /**
@@ -105,5 +132,53 @@ public class Wine {
      */
     public void setUserRatings(ArrayList<Rating> userRatings) {
         this.userRatings = userRatings;
+    }
+
+    /**
+     * The Setter method for the colour of the wine
+     * @param colour
+     */
+    public void setColour(String colour) {
+        this.colour = colour;
+    }
+
+    /**
+     * The Setter method for the name of the wine
+     * @param wineName
+     */
+    public void setWineName(String wineName) {
+        this.wineName = wineName;
+    }
+
+    /**
+     * The Setter method for the award that the wine won
+     * @param award
+     */
+    public void setAward(String award) {
+        this.award = award;
+    }
+
+    /**
+     * The Setter method for the score that the wine received
+     * @param score
+     */
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    /**
+     * The Setter method for the vintage of the wine
+     * @param vintage
+     */
+    public void setVintage(int vintage) {
+        this.vintage = vintage;
+    }
+
+    /**
+     * The Setter method for the description of the wine
+     * @param description
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
