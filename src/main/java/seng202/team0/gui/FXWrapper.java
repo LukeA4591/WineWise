@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import seng202.team0.models.Winery;
+import seng202.team0.services.WineEnvironment;
 
 import java.io.IOException;
 
@@ -27,7 +27,7 @@ public class FXWrapper {
      */
     public void init(final Stage stage) {
         this.stage = stage;
-        new Winery(this::launchSetupScreen);
+        new WineEnvironment(this::launchSetupScreen);
     }
 
     /**
@@ -35,7 +35,7 @@ public class FXWrapper {
      *
      * @param winery the game environment which manages the game's state.
      */
-    public void launchSetupScreen(final Winery winery) {
+    public void launchSetupScreen(final WineEnvironment winery) {
         try {
             FXMLLoader setupLoader = new FXMLLoader(getClass().getResource("/fxml/setup_screen.fxml"));
             setupLoader.setControllerFactory(param -> new SetupScreenController(winery));
