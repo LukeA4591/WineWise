@@ -46,4 +46,11 @@ public class FXWrapper {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Clears Page
+     */
+    public void clearPane(){
+        pane.getChildren().removeAll(pane.getChildren());
+    }
 }
