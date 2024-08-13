@@ -16,15 +16,15 @@ public class Wine {
 
     /**
      * Constructor for the wine class
-     * @param colour
-     * @param wineName
-     * @param award
-     * @param score
-     * @param vintage
-     * @param region
-     * @param winery
-     * @param description
-     * @param userRatings
+     * @param colour colour of wine
+     * @param wineName name of wine
+     * @param award awards won by wine
+     * @param score score awarded to the wine
+     * @param vintage vintage of the wine
+     * @param region region the wine is from
+     * @param winery winery which the wine is from
+     * @param description description of the wine
+     * @param userRatings ratings which the users have left on the wine
      */
     public Wine(String colour, String wineName, String award, int score, int vintage, String region, Winery winery, String description, List<Rating> userRatings) {
         this.colour = colour;
@@ -112,7 +112,7 @@ public class Wine {
 
     /**
      * The Setter method for the region the wine comes from
-     * @param region
+     * @param region region of the wine
      */
     public void setRegion(String region) {
         this.region = region;
@@ -120,7 +120,7 @@ public class Wine {
 
     /**
      * The Setter method for the winery the wine comes from
-     * @param winery
+     * @param winery winery which the wine is from
      */
     public void setWinery(Winery winery) {
         this.winery = winery;
@@ -128,7 +128,7 @@ public class Wine {
 
     /**
      * The Setter method for the ratings which users have left on the wine
-     * @param userRatings
+     * @param userRatings ratings left by users
      */
     public void setUserRatings(ArrayList<Rating> userRatings) {
         this.userRatings = userRatings;
@@ -136,7 +136,7 @@ public class Wine {
 
     /**
      * The Setter method for the colour of the wine
-     * @param colour
+     * @param colour colour of the wine
      */
     public void setColour(String colour) {
         this.colour = colour;
@@ -144,7 +144,7 @@ public class Wine {
 
     /**
      * The Setter method for the name of the wine
-     * @param wineName
+     * @param wineName name of the wine
      */
     public void setWineName(String wineName) {
         this.wineName = wineName;
@@ -152,7 +152,7 @@ public class Wine {
 
     /**
      * The Setter method for the award that the wine won
-     * @param award
+     * @param award award given to the wine
      */
     public void setAward(String award) {
         this.award = award;
@@ -160,7 +160,7 @@ public class Wine {
 
     /**
      * The Setter method for the score that the wine received
-     * @param score
+     * @param score score given to the wine
      */
     public void setScore(int score) {
         this.score = score;
@@ -168,7 +168,7 @@ public class Wine {
 
     /**
      * The Setter method for the vintage of the wine
-     * @param vintage
+     * @param vintage vintage of the wine
      */
     public void setVintage(int vintage) {
         this.vintage = vintage;
@@ -176,7 +176,7 @@ public class Wine {
 
     /**
      * The Setter method for the description of the wine
-     * @param description
+     * @param description description of the wine
      */
     public void setDescription(String description) {
         this.description = description;
