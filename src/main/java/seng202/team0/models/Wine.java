@@ -12,7 +12,7 @@ public class Wine {
     String region;
     Winery winery;
     String description;
-    List<Rating> userRatings = new ArrayList<Rating>();
+    List<Rating> userRatings;
 
     /**
      * Constructor for the wine class
@@ -180,5 +180,13 @@ public class Wine {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Adds a rating to the rating list of a wine
+     * @param rating user rating
+     */
+    public void addRating(Rating rating) {
+        this.userRatings.add(rating);
     }
 }
