@@ -30,7 +30,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Button layoutX="508.0" layoutY="18.0" mnemonicParsing="false" onAction="#AdminButtonClicked" text="Login as Admin">
+                              <Button layoutX="508.0" layoutY="18.0" mnemonicParsing="false" text="Login as Admin">
                                  <font>
                                     <Font name="Times New Roman" size="10.0" />
                                  </font>
