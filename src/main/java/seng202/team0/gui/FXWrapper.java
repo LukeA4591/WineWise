@@ -38,7 +38,7 @@ public class FXWrapper {
     public void launchSetupScreen(final WineEnvironment winery) {
         try {
             FXMLLoader setupLoader = new FXMLLoader(getClass().getResource("/fxml/setup_screen.fxml"));
-            setupLoader.setControllerFactory(param -> new SetupScreenController(winery));
+            //setupLoader.setControllerFactory(param -> new SetupScreenController(winery));
             Parent setupParent  = setupLoader.load();
             pane.getChildren().add(setupParent);
             stage.setTitle("Setup Screen");
