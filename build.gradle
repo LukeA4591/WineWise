@@ -51,6 +51,12 @@ dependencies {
     // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 
+    // https://mvnrepository.com/artifact/org.apache.poi/poi
+    implementation 'org.apache.poi:poi:5.2.0'
+
+    // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
+    implementation 'org.apache.poi:poi-ooxml:5.2.0'
+
     // https://mvnrepository.com/artifact/io.cucumber/cucumber-junit-platform-engine
     testImplementation "io.cucumber:cucumber-junit-platform-engine:${cucumberVersion}"
 
