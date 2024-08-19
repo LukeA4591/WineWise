@@ -27,21 +27,40 @@ public class FXWrapper {
      */
     public void init(final Stage stage) {
         this.stage = stage;
-        new WineEnvironment(this::launchSetupScreen);
+        new WineEnvironment(this::launchSetupScreen, this::launchNavBar);
     }
 
     /**
      * Launches the setup screen.
      *
-     * @param winery the game environment which manages the game's state.
+     * @param winery the wine environment which manages the app's state.
      */
     public void launchSetupScreen(final WineEnvironment winery) {
         try {
             FXMLLoader setupLoader = new FXMLLoader(getClass().getResource("/fxml/setup_screen.fxml"));
-            setupLoader.setControllerFactory(param -> new SetupScreenController(winery));
+            //setupLoader.setControllerFactory(param -> new SetupScreenController(winery));
             Parent setupParent  = setupLoader.load();
             pane.getChildren().add(setupParent);
             stage.setTitle("Setup Screen");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Launches the NavBar Screen
+     * @param wineEnvironment the environment which manages the state of the application
+     */
+    public void launchNavBar(final WineEnvironment wineEnvironment) {
+        try {
+            FXMLLoader navBarLoader = new FXMLLoader(getClass().getResource("/fxml/nav_bar.fxml"));
+            //navBarLoader.setControllerFactory(param -> new NavBarController(wineEnvironment, stage));
+            Parent setupParent  = navBarLoader.load();
+            NavBarController navBarController = navBarLoader.getController();
+            navBarController.setWineEnvironment(wineEnvironment);
+            navBarController.setStage(stage);
+            pane.getChildren().add(setupParent);
+            stage.setTitle("WineWise Nav Bar");
         } catch (IOException e) {
             e.printStackTrace();
         }
