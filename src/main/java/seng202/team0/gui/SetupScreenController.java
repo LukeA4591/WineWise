@@ -10,7 +10,6 @@ public class SetupScreenController {
     //private final WineEnvironment winery;
     void init(Stage stage) {
         this.stage = stage;
-        System.out.println("Init ran");
     }
 
     public SetupScreenController() {
