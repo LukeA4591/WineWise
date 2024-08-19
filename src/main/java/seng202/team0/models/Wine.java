@@ -1,5 +1,7 @@
 package seng202.team0.models;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +38,22 @@ public class Wine {
         this.winery = winery;
         this.description = description;
         this.userRatings = userRatings;
+    }
+
+    /**
+     * New fast way to make a wine object
+     * @param wineName
+     */
+    public Wine(String wineName){
+        this.colour = "White";
+        this.wineName = wineName;
+        this.award = "Won Something Lol";
+        this.score = 3;
+        this.vintage = 2000;
+        this.region = "NZ";
+        this.winery = new Winery("wine place", 100, 100);
+        this.description = "very wine'y taste";
+        this.userRatings = new ArrayList<>();
     }
 
     /**

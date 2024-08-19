@@ -16,4 +16,9 @@ public class SetupScreenController {
     public void AdminButtonClicked(){
 //        FXWrapper.clearpane();
     }
+
+    @FXML
+    public void Search_Clicked(){
+
+    }
 }
