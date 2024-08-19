@@ -32,7 +32,7 @@ public class NavBarController {
     }
 
     /**
-     * FXML initialize method, loads
+     * FXML initialize method, loads home page
      */
     @FXML
     private void initialize() {
