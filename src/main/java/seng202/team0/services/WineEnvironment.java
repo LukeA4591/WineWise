@@ -16,4 +16,5 @@ public class WineEnvironment {
     public void launchSetupScreen() {
         setupScreenLauncher.accept(this);
     }
+
 }
