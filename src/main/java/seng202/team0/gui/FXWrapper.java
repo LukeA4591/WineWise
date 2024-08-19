@@ -54,8 +54,11 @@ public class FXWrapper {
     public void launchNavBar(final WineEnvironment wineEnvironment) {
         try {
             FXMLLoader navBarLoader = new FXMLLoader(getClass().getResource("/fxml/nav_bar.fxml"));
-            navBarLoader.setControllerFactory(param -> new NavBarController(wineEnvironment, stage));
+            //navBarLoader.setControllerFactory(param -> new NavBarController(wineEnvironment, stage));
             Parent setupParent  = navBarLoader.load();
+            NavBarController navBarController = navBarLoader.getController();
+            navBarController.setWineEnvironment(wineEnvironment);
+            navBarController.setStage(stage);
             pane.getChildren().add(setupParent);
             stage.setTitle("WineWise Nav Bar");
         } catch (IOException e) {
