@@ -1,0 +1,8 @@
+.transparent{
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+
+.displayed-wine{
+    -fx-background-color: #FFFFFF;
+        -fx-background-radius: 30;
+}
