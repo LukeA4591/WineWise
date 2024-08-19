@@ -27,8 +27,8 @@ public class SearchPageController implements Initializable {
     @FXML
     private ScrollPane scroll;
 
-    private int sizeOfRows;
-    private int sizeOfColumns;
+    private int sizeOfRows = 2;
+    private int sizeOfColumns = 3;
 
     private List<Wine> wines_displayed = new ArrayList<>();
 
