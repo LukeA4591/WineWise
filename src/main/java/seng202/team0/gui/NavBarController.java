@@ -77,7 +77,15 @@ public class NavBarController {
      * @param stage
      */
     private void loadGraphsPage(Stage stage) {
-        //TO DO implement
+        try {
+            FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("/fxml/graphs_page.fxml"));
+            Parent graphsParent = homePageLoader.load();
+            GraphsPageController graphsPageController = homePageLoader.getController();
+            graphsPageController.init(stage);
+            mainWindow.setCenter(graphsParent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -85,7 +93,9 @@ public class NavBarController {
      * @param stage
      */
     private void loadMapsPage(Stage stage) {
-        //TO DO implement
+        loadHomePage(this.stage);
+        setAllButtonsGrey();
+        mapsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
     /**
