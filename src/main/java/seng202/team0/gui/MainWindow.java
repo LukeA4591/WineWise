@@ -14,6 +14,7 @@ import java.io.IOException;
  */
 public class MainWindow extends Application {
 
+    public Stage stage;
     /**
      * Opens the gui with the fxml content specified in resources/fxml/main.fxml
      * @param primaryStage The current fxml stage, handled by javaFX Application class
