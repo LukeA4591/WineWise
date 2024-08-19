@@ -4,9 +4,9 @@ import seng202.team0.services.WineEnvironment;
 
 public class SetupScreenController {
 
-    private final WineEnvironment winery;
+    //private final WineEnvironment winery;
 
-    public SetupScreenController(final WineEnvironment tempEnvironment) {
-        this.winery = tempEnvironment;
+    public SetupScreenController() {
+
     }
 }
