@@ -1,6 +1,7 @@
 package seng202.team0.services;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -54,6 +55,7 @@ public class AdminLoginService {
         return f;
     }
 
+    //TODO this logic doesnt make sense to me
     public boolean createCredentialsFileIfNotExists() {
         File f = getCredentialsFile();
         if (!f.exists()) {
@@ -66,15 +68,36 @@ public class AdminLoginService {
     public void createCredentialsFile() {
         try {
             getCredentialsFile().createNewFile();
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void createNewUser(String username, String password) {
-        File f = getCredentialsFile();
+    // maybe change the null code
+    public String checkPasswordConfirmation(String password, String confirmPassword) {
+        if (password.length() == 0 || confirmPassword.length() == 0) {
+            return "Please dont leave a field blank";
+        } else if (!password.equals(confirmPassword)) {
+            return "The two passwords do not match";
+        } else if (password.length() < 8) {
+            return "The password is under 8 characters";
+        }
+        return "";
+    }
 
+    public String hashPassword(String password) {
+        return "##Hashed##"+password;
+    }
+
+    public void createNewUser(String username, String password) {
+        try {
+            FileWriter writeCredentialsToFile = new FileWriter(getCredentialsFile(), true);
+            writeCredentialsToFile.write(username + System.lineSeparator());
+            writeCredentialsToFile.write(hashPassword(password));
+            writeCredentialsToFile.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

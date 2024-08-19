@@ -1,27 +1,49 @@
 package seng202.team0.gui;
 
 import javafx.fxml.FXML;
+import seng202.team0.services.AdminLoginService;
 import seng202.team0.services.WineEnvironment;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 
-import java.util.function.Consumer;
 
 public class AdminSetupScreenController {
 
     private final WineEnvironment winery;
 
-    //pass this class the wine environment
-    //in the on action method for the create button:
-    //wineEnvironment.clear.run();
-    //wineEnvironment.launch Adminscreen
+    private final AdminLoginService adminLoginInstance;
+
+    @FXML
+    private TextField createUsernameInputField;
+
+    @FXML
+    private TextField createPasswordInputField;
+
+    @FXML
+    private TextField createConfirmPasswordInputField;
+
+    @FXML
+    private Label errorLabel;
 
     public AdminSetupScreenController(WineEnvironment winery) {
         this.winery = winery;
+        this.adminLoginInstance = winery.getAdminLoginInstance();
     }
 
+    // TODO need to make sure username inputs are validated.
     @FXML
     public void createAccountLaunchAdminScreen() {
-        winery.getClearRunnable().run();
-        winery.launchAdminScreen();
+        String inputtedUsername = createUsernameInputField.getText();
+        String inputtedPassword = createPasswordInputField.getText();
+        String confirmPassword = createConfirmPasswordInputField.getText();
+        String errorMessage = adminLoginInstance.checkPasswordConfirmation(inputtedPassword, confirmPassword);
+        if (errorMessage != "") {
+            errorLabel.setText(errorMessage);
+        } else {
+            adminLoginInstance.createNewUser(inputtedUsername, inputtedPassword);
+            winery.getClearRunnable().run();
+            winery.launchAdminScreen();
+        }
     }
 
 
