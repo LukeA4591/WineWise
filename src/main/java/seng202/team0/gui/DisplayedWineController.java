@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import seng202.team0.models.Wine;
 
+import javax.swing.text.html.ImageView;
+
 //import java.awt.*;
 
 public class DisplayedWineController {
@@ -17,4 +19,8 @@ public class DisplayedWineController {
         this.wine = wine;
         nameLabel.setText(wine.getWineName());
     }
+
+//    public void setImageSize(int width, int height){
+//        image.setSize(width, height);
+//    }
 }

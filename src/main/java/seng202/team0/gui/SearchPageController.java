@@ -63,13 +63,16 @@ public class SearchPageController implements Initializable {
                 DisplayedWineController displayedWineController = fxmlLoader.getController();
                 displayedWineController.setData(wines_displayed.get(i));
 
+
                 if (column == sizeOfColumns) {
                     column = 0;
                     row++;
                 }
 
+//                displayedWineController.setImageSize(100, 100);
+
                 grid.add(anchorPane, column++, row);
-                GridPane.setMargin(anchorPane, new Insets(20));
+                GridPane.setMargin(anchorPane, new Insets(15));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
