@@ -56,4 +56,13 @@ public class WineryCSVImporter implements Importable<Winery> {
         }
         return null;
     }
+
+    public static void main(String[] args) {
+        Importable<Winery> importer = new WineryCSVImporter();
+        File file = new File("testwinery.csv");
+        List<Winery> wineries = importer.readFromFile(file);
+        for (Winery winery : wineries) {
+            System.out.printf("%s\n%.2f\n%.2f\n", winery.getName(), winery.getLatitude(), winery.getLongitude());
+        }
+    }
 }
