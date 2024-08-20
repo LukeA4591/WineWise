@@ -20,6 +20,11 @@ public class WineEnvironment {
     private final Consumer<WineEnvironment> adminScreenLauncher;
 
     /**
+     * Consumer that is used to launch add wine screem.
+     */
+    private final Consumer<WineEnvironment> addWineScreenLauncher;
+
+    /**
      * Runnable that clears the current page.
      */
     private final Runnable clear;
@@ -35,11 +40,13 @@ public class WineEnvironment {
      * @param adminScreenLauncher Launches the admin screen
      * @param clear Runnable to clear the page
      */
-    public WineEnvironment(Consumer<WineEnvironment> navBarLauncher, Consumer<WineEnvironment> adminSetupScreenLauncher, Consumer<WineEnvironment> adminScreenLauncher, Runnable clear) {
+    public WineEnvironment(Consumer<WineEnvironment> navBarLauncher, Consumer<WineEnvironment> adminSetupScreenLauncher,
+                           Consumer<WineEnvironment> adminScreenLauncher, Consumer<WineEnvironment> addWineScreenLauncher, Runnable clear) {
         this.adminLoginInstance = AdminLoginService.getInstance();
         this.navBarLauncher = navBarLauncher;
         this.adminSetupScreenLauncher = adminSetupScreenLauncher;
         this.adminScreenLauncher = adminScreenLauncher;
+        this.addWineScreenLauncher = addWineScreenLauncher;
         this.clear = clear;
         boolean isFirstRun = adminLoginInstance.createCredentialsFileIfNotExists();
         if(!isFirstRun) {
@@ -80,6 +87,13 @@ public class WineEnvironment {
      */
     public void launchAdminScreen() {
         adminScreenLauncher.accept(this);
+    }
+
+    /**
+     * Launches the add wine screen
+     */
+    public void launchAddWineScreen() {
+        addWineScreenLauncher.accept(this);
     }
 
     /**
