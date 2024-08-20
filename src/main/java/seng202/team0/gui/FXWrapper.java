@@ -27,7 +27,7 @@ public class FXWrapper {
      */
     public void init(final Stage stage) {
         this.stage = stage;
-        new WineEnvironment(this::launchSetupScreen, this::launchNavBar);
+        new WineEnvironment(this::launchSetupScreen, this::launchNavBar, this::launchAdminSetupScreen, this::launchAdminScreen, this::clearPane);
     }
 
     /**
@@ -65,6 +65,32 @@ public class FXWrapper {
             e.printStackTrace();
         }
     }
+
+    public void launchAdminSetupScreen(final WineEnvironment winery) {
+        try {
+            FXMLLoader setupLoader = new FXMLLoader(getClass().getResource("/fxml/setup_admin.fxml"));
+            setupLoader.setControllerFactory(param -> new AdminSetupScreenController(winery));
+            Parent setupParent  = setupLoader.load();
+            pane.getChildren().add(setupParent);
+            stage.setTitle("Admin Setup Screen");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void launchAdminScreen(final WineEnvironment winery) {
+        try {
+            FXMLLoader setupLoader = new FXMLLoader(getClass().getResource("/fxml/admin_screen.fxml"));
+            //setupLoader.setControllerFactory(param -> new SetupScreenController(winery));
+            Parent setupParent  = setupLoader.load();
+            pane.getChildren().add(setupParent);
+            stage.setTitle("Admin Screen");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     /**
      * Clears Page
