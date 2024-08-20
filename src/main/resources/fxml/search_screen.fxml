@@ -229,7 +229,7 @@
             </GridPane>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.vgrow="ALWAYS">
                <children>
-                  <ScrollPane prefHeight="200.0" prefWidth="785.0" stylesheets="@../style/search_screen_style.css">
+                  <ScrollPane fx:id="scroll" prefHeight="200.0" prefWidth="785.0" stylesheets="@../style/search_screen_style.css">
                      <content>
                         <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0">
                           <columnConstraints>
