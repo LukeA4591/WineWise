@@ -27,25 +27,9 @@ public class FXWrapper {
      */
     public void init(final Stage stage) {
         this.stage = stage;
-        new WineEnvironment(this::launchSetupScreen, this::launchNavBar);
+        new WineEnvironment(this::launchNavBar, this::launchAdminSetupScreen, this::launchAdminScreen, this::clearPane);
     }
 
-    /**
-     * Launches the setup screen.
-     *
-     * @param winery the wine environment which manages the app's state.
-     */
-    public void launchSetupScreen(final WineEnvironment winery) {
-        try {
-            FXMLLoader setupLoader = new FXMLLoader(getClass().getResource("/fxml/setup_screen.fxml"));
-            //setupLoader.setControllerFactory(param -> new SetupScreenController(winery));
-            Parent setupParent  = setupLoader.load();
-            pane.getChildren().add(setupParent);
-            stage.setTitle("Setup Screen");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Launches the NavBar Screen
@@ -65,6 +49,40 @@ public class FXWrapper {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Launches the Admin setup screen
+     * @param wineEnvironment the environment which manages the state of the application
+     */
+    public void launchAdminSetupScreen(final WineEnvironment wineEnvironment) {
+        try {
+            FXMLLoader setupLoader = new FXMLLoader(getClass().getResource("/fxml/setup_admin.fxml"));
+            setupLoader.setControllerFactory(param -> new AdminSetupScreenController(wineEnvironment));
+            Parent setupParent  = setupLoader.load();
+            pane.getChildren().add(setupParent);
+            stage.setTitle("Admin Setup Screen");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Launches the admin setup screen
+     * @param wineEnvironment the environment which manages the state of the application
+     */
+    public void launchAdminScreen(final WineEnvironment wineEnvironment) {
+        try {
+            FXMLLoader setupLoader = new FXMLLoader(getClass().getResource("/fxml/admin_screen.fxml"));
+            //setupLoader.setControllerFactory(param -> new SetupScreenController(wineEnvironment));
+            Parent setupParent  = setupLoader.load();
+            pane.getChildren().add(setupParent);
+            stage.setTitle("Admin Screen");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     /**
      * Clears Page
