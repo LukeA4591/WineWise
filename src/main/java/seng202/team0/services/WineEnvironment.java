@@ -3,16 +3,41 @@ package seng202.team0.services;
 import java.util.function.Consumer;
 
 public class WineEnvironment {
-    private final Consumer<WineEnvironment> setupScreenLauncher;
+
+    /**
+     * Consumer that is used to launch nav bar
+     */
     private final Consumer<WineEnvironment> navBarLauncher;
+
+    /**
+     * Consumer that is used to launch admin setup screen.
+     */
     private final Consumer<WineEnvironment> adminSetupScreenLauncher;
+
+    /**
+     * Consumer that is used to launch admin screen.
+     */
     private final Consumer<WineEnvironment> adminScreenLauncher;
+
+    /**
+     * Runnable that clears the current page.
+     */
     private final Runnable clear;
+    /**
+     * The singleton instance of AdminLoginService.
+     */
     private final AdminLoginService adminLoginInstance;
 
-    public WineEnvironment(Consumer<WineEnvironment> setupScreenLauncher, Consumer<WineEnvironment> navBarLauncher, Consumer<WineEnvironment> adminSetupScreenLauncher, Consumer<WineEnvironment> adminScreenLauncher, Runnable clear) {
+    /**
+     * WineEnvironment keeps track of the state of the program
+     * @param navBarLauncher Launches the nav bar
+     * @param adminSetupScreenLauncher Launches the admin setup screen
+     * @param adminScreenLauncher Launches the admin screen
+     * @param clear Runnable to clear the page
+     */
+    public WineEnvironment(Consumer<WineEnvironment> navBarLauncher, Consumer<WineEnvironment> adminSetupScreenLauncher, Consumer<WineEnvironment> adminScreenLauncher, Runnable clear) {
         this.adminLoginInstance = AdminLoginService.getInstance();
-        this.setupScreenLauncher = setupScreenLauncher;
+        this.navBarLauncher = navBarLauncher;
         this.adminSetupScreenLauncher = adminSetupScreenLauncher;
         this.adminScreenLauncher = adminScreenLauncher;
         this.clear = clear;
@@ -22,21 +47,18 @@ public class WineEnvironment {
             launchAdminSetupScreen();
         } else {
             // launch main screen code
-            launchSetupScreen();
+            launchNavBar();
         }
-        this.navBarLauncher = navBarLauncher;
-        launchNavBar();
-    }
 
-    public AdminLoginService getAdminLoginInstance() {
-        return adminLoginInstance;
+
     }
 
     /**
-     * Launches the setup screen.
+     * Getter for the singleton instance of AdminLoginService
+     * @return singleton instance of AdminLoginService
      */
-    public void launchSetupScreen() {
-        setupScreenLauncher.accept(this);
+    public AdminLoginService getAdminLoginInstance() {
+        return adminLoginInstance;
     }
 
     /**
@@ -45,16 +67,25 @@ public class WineEnvironment {
     public void launchNavBar() {
         navBarLauncher.accept(this);
     }
-}
 
+    /**
+     * Launches the admin setup screen
+     */
     public void launchAdminSetupScreen() {
         adminSetupScreenLauncher.accept(this);
     }
 
+    /**
+     * Launches the admin screen
+     */
     public void launchAdminScreen() {
         adminScreenLauncher.accept(this);
     }
 
+    /**
+     *
+     * @return returns the clear runnable that controllers use to clear the page
+     */
     public Runnable getClearRunnable() {
         return clear;
     }
