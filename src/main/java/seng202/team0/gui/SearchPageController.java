@@ -31,7 +31,7 @@ public class SearchPageController implements Initializable {
     private Stage stage;
 
     private int sizeOfRows = 2;
-    private int sizeOfColumns = 3;
+    private int sizeOfColumns = 4;
 
     private List<Wine> wines_displayed = new ArrayList<>();
 
@@ -61,15 +61,15 @@ public class SearchPageController implements Initializable {
 
 
                 DisplayedWineController displayedWineController = fxmlLoader.getController();
-                //displayedWineController.setData(wines_displayed.get(i));
+                displayedWineController.setData(wines_displayed.get(i));
 
                 if (column == sizeOfColumns) {
                     column = 0;
                     row++;
                 }
 
-                //grid.add(anchorPane, column++, row);
-                //GridPane.setMargin(anchorPane, new Insets(10));
+                grid.add(anchorPane, column++, row);
+                GridPane.setMargin(anchorPane, new Insets(20));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
