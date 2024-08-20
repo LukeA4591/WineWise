@@ -1,9 +1,10 @@
 package seng202.team0.gui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import seng202.team0.models.Wine;
 
-import java.awt.*;
+//import java.awt.*;
 
 public class DisplayedWineController {
 

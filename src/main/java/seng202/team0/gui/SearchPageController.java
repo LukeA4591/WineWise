@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import org.apache.commons.lang3.ObjectUtils;
 import seng202.team0.models.Rating;
 import seng202.team0.models.Wine;
@@ -26,6 +27,8 @@ public class SearchPageController implements Initializable {
 
     @FXML
     private ScrollPane scroll;
+
+    private Stage stage;
 
     private int sizeOfRows = 2;
     private int sizeOfColumns = 3;
@@ -52,25 +55,29 @@ public class SearchPageController implements Initializable {
         try {
             for (int i = 0; i < wines_displayed.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/src/main/resources/fxml/wine_displayed.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/fxml/wine_displayed.fxml"));
 
                 AnchorPane anchorPane = fxmlLoader.load();
 
 
                 DisplayedWineController displayedWineController = fxmlLoader.getController();
-                displayedWineController.setData(wines_displayed.get(i));
+                //displayedWineController.setData(wines_displayed.get(i));
 
                 if (column == sizeOfColumns) {
                     column = 0;
                     row++;
                 }
 
-                grid.add(anchorPane, column++, row);
-                GridPane.setMargin(anchorPane, new Insets(10));
+                //grid.add(anchorPane, column++, row);
+                //GridPane.setMargin(anchorPane, new Insets(10));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void init(Stage stage){
+        this.stage = stage;
     }
 }
 
