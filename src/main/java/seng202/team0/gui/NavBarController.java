@@ -1,10 +1,13 @@
 package seng202.team0.gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seng202.team0.services.WineEnvironment;
 
@@ -15,6 +18,8 @@ public class NavBarController {
     private WineEnvironment wineEnvironment;
     @FXML
     private BorderPane mainWindow;
+    @FXML
+    private AnchorPane navWindow;
     private Stage stage;
     @FXML
     private Button homeButton;
@@ -36,8 +41,16 @@ public class NavBarController {
      */
     @FXML
     private void initialize() {
+
         homeButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+        Platform.runLater(() -> {
+            Scene scene = mainWindow.getScene();
+            if (scene != null) {
+                scene.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
+            }
+        });
         loadHomePage(stage);
+
     }
 
     /**
