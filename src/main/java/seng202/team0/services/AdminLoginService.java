@@ -127,7 +127,7 @@ public class AdminLoginService {
      */
     public void createCredentialsFile() {
         try {
-            getCredentialsFile().createNewFile(); //TODO check this.
+            getCredentialsFile().createNewFile();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
