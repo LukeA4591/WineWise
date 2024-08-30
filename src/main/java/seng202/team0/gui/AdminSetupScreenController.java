@@ -1,6 +1,9 @@
 package seng202.team0.gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import seng202.team0.services.AdminLoginService;
 import seng202.team0.services.WineEnvironment;
 import javafx.scene.control.TextField;
@@ -44,6 +47,9 @@ public class AdminSetupScreenController {
     @FXML
     private Label errorLabel;
 
+    @FXML
+    private AnchorPane mainWindow;
+
     /**
      * Constructor for admin setup screen controller
      * @param winery WineEnvironment keeps track of the state of the program
@@ -51,6 +57,7 @@ public class AdminSetupScreenController {
     public AdminSetupScreenController(WineEnvironment winery) {
         this.winery = winery;
         this.adminLoginInstance = winery.getAdminLoginInstance();
+
     }
 
     // TODO need to make sure username inputs are validated.

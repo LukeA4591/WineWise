@@ -61,7 +61,13 @@ public class FXWrapper {
             setupLoader.setControllerFactory(param -> new AdminSetupScreenController(wineEnvironment));
             Parent setupParent  = setupLoader.load();
             pane.getChildren().add(setupParent);
+
+            setupParent.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
+
             stage.setTitle("Admin Setup Screen");
+            stage.setWidth(600);
+            stage.setHeight(400);
+            stage.setResizable(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,6 +82,7 @@ public class FXWrapper {
             FXMLLoader setupLoader = new FXMLLoader(getClass().getResource("/fxml/admin_screen.fxml"));
             setupLoader.setControllerFactory(param -> new AdminScreenController(wineEnvironment));
             Parent setupParent  = setupLoader.load();
+            setupParent.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
             pane.getChildren().add(setupParent);
             stage.setTitle("Admin Screen");
         } catch (IOException e) {
