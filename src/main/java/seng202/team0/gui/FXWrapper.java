@@ -46,6 +46,8 @@ public class FXWrapper {
             navBarController.setStage(stage);
             pane.getChildren().add(setupParent);
             stage.setTitle("WineWise Nav Bar");
+            stage.setWidth(900);
+            stage.setHeight(624);
         } catch (IOException e) {
             e.printStackTrace();
         }

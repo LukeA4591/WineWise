@@ -17,8 +17,14 @@ public class AdminScreenController {
     }
 
     @FXML
-    public void onAddWine(){
+    public void onAddWine() {
         winery.getClearRunnable().run();
         winery.launchAddWineScreen();
+    }
+
+    @FXML
+    public void onLogout() {
+        winery.getClearRunnable().run();
+        winery.launchNavBar();
     }
 }

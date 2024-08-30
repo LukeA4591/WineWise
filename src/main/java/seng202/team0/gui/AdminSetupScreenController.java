@@ -3,6 +3,8 @@ package seng202.team0.gui;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import seng202.team0.services.AdminLoginService;
 import seng202.team0.services.WineEnvironment;
@@ -79,6 +81,19 @@ public class AdminSetupScreenController {
             winery.launchAdminScreen();
         }
     }
+
+    /**
+     * Method to trigger when the enter key is pressed
+     * @param event keyboard event
+     */
+    @FXML
+    private void enterKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            createAccountLaunchAdminScreen();
+        }
+    }
+
+
 
 
 }
