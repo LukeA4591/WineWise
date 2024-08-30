@@ -9,7 +9,12 @@ import org.junit.jupiter.api.Assertions;
 import seng202.team0.services.AdminLoginService;
 import seng202.team0.services.WineEnvironment;
 import seng202.team0.gui.AdminSetupScreenController;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.FileHandler;
 
 
 public class AdminStepDefs {
@@ -32,9 +37,7 @@ public class AdminStepDefs {
         this.wineEnvironment = new WineEnvironment(this::consumer1, this::consumer2, this::consumer3, this::consumer4, this::clear);
         this.adminLoginService = AdminLoginService.getInstance();
         this.adminSetupScreenController = new AdminSetupScreenController(wineEnvironment);
-        String jarStr = adminLoginService.getJarFilePath();
-        jarStr += "/credentials.txt";
-        File file = new File(jarStr);
+        File file = adminLoginService.getCredentialsFile();
         if (file.exists()) {
             file.delete();
         }
@@ -50,6 +53,7 @@ public class AdminStepDefs {
     @When("The admin creates a valid account")
     public void adminCreatesValidAccount() {
         Assertions.assertEquals("", adminLoginService.checkPasswordConfirmation(this.password, this.confirmPassword));
+        adminLoginService.createCredentialsFileIfNotExists();
         adminLoginService.createNewUser(this.username, this.password);
     }
 
@@ -59,8 +63,17 @@ public class AdminStepDefs {
     }
 
     @And("The username and password match")
-    public void usernameAndPasswordMatch() {
-        //TODO implement, need access file
+    public void usernameAndPasswordMatch() throws IOException {
+        String jarStr = adminLoginService.getJarFilePath();
+        jarStr += "/credentials.txt";
+        File file = new File(jarStr);
+
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String enteredUsername = br.readLine();
+        String hashedPassword = br.readLine();
+        Assertions.assertEquals(this.username, enteredUsername);
+        Assertions.assertEquals("##Hashed##" + this.password, hashedPassword);
+
     }
 
     @Given("An admin registers with username {string}, incorrect password {string}, and confirm password {string}")
@@ -78,7 +91,7 @@ public class AdminStepDefs {
 
     @Then("The account is not created")
     public void accountIsNotCreated() {
-        //TODO implement, need access to file
+        //TODO, invalid accounts are still created which is probably not good
     }
 
 
