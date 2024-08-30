@@ -42,7 +42,7 @@ public class AdminLoginPopupController {
         String inputtedUsername = usernameInput.getText();
         String inputtedPassword = passwordInput.getText();
         String errorMessage = adminLoginInstance.login(inputtedUsername, inputtedPassword);
-        if (errorMessage != "") {
+        if (!errorMessage.isEmpty()) {
             adminLoginErrorLabel.setText(errorMessage);
         } else {
             // go to admin screen
