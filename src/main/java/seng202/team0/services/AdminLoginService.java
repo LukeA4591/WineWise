@@ -187,12 +187,6 @@ public class AdminLoginService {
         return salt;
     }
 
-    public String convertStoredHashToString(String storedHash) {
-        byte[] decodedBytes = Base64.getDecoder().decode(storedHash);
-        return Base64.getEncoder().encodeToString(decodedBytes);
-    }
-
-
     /**
      * writes the given username and hashes the password to credentials.txt
      * Catches invalid key and no such algorithm exceptions from hashPassword method.
@@ -220,20 +214,16 @@ public class AdminLoginService {
             String storedHash = readLine.nextLine();
             readLine.close();
             byte[] salt = getSalt(storedHash);
-            String storedHashedPassword = convertStoredHashToString(storedHash);
             String hashedInputtedPassword = hashPasswordWithSalt(inputtedPassword, salt);
-            System.out.println(storedHashedPassword);
-            System.out.println(hashedInputtedPassword);
             if (!validateUsername(storedUsername, inputtedUsername)) {
                 return "Username is incorrect";
-            } else if (!validatePassword(storedHashedPassword, hashedInputtedPassword)) {
+            } else if (!validatePassword(storedHash, hashedInputtedPassword)) {
                 return "Password is incorrect";
             }
         } catch (FileNotFoundException | InvalidKeySpecException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         setLoggedIn(true);;
-        System.out.println("Logged in");
         return "";
     }
 

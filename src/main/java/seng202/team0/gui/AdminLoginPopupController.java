@@ -47,6 +47,7 @@ public class AdminLoginPopupController {
         } else {
             // go to admin screen
             // close controller
+            ((Stage) usernameInput.getScene().getWindow()).close();
         }
     }
 
