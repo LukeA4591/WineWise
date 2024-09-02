@@ -1,16 +1,17 @@
 DROP TABLE IF EXISTS wine;
 --SPLIT
-CREATE TABLE IF NOT EXISTS wine (
-     name varchar() not null primary key,
-     type varchar() not null,
-
-    );
+CREATE TABLE IF NOT EXISTS wines (
+     name TEXT not null primary key,
+     type TEXT not null,
+     vintage int not null,
+     crit_score int,
+     user_score int);
 --SPLIT
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS winerys;
 --SPLIT
-CREATE TABLE IF NOT EXISTS users (
-     id INTEGER PRIMARY KEY AUTOINCREMENT,
-     username TEXT UNIQUE,
-     password TEXT);
+CREATE TABLE IF NOT EXISTS winerys (
+     name TEXT not null primary key,
+     Lon int,
+     Lat int,
+     region TEXT not null);
 --SPLIT
-INSERT INTO users (username, password) VALUES ('admin', 'admin');

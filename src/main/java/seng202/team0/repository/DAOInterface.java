@@ -16,6 +16,4 @@ public interface DAOInterface<T> {
      * @return List of all objects type T from the database
      */
     List<T> getAll();
-
-    }
 }

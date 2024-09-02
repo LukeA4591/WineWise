@@ -33,7 +33,10 @@ public class WineDAO implements DAOInterface<Wine> {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                wines.add(new Wine(rs.getString("type"), rs.getString("name"), rs.getInt("score"), rs.getInt("vintage"), rs.getString("region"), rs.getObject("winery", Winery.class<> Winery), rs.getString("description"), rs.getNString("userRatings")));
+                // todo fix how wine object / database will work together
+                //wines.add(new Wine(rs.getString("type"), rs.getString("name"), rs.getInt("score"), rs.getInt("vintage"), rs.getString("region"), rs.getObject("winery", Winery.class<> Winery), rs.getString("description"), rs.getNString("userRatings")));
+                // temp fix just using dev way of making wine
+                wines.add(new Wine(rs.getString("name")));
             }
             return wines;
         } catch (SQLException sqlException) {
