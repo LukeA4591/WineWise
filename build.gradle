@@ -74,6 +74,10 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.mockito/mockito-core
     testImplementation 'org.mockito:mockito-core:5.4.0'
+
+    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    testImplementation 'org.xerial:sqlite-jdbc:3.39.2.1'
+
 }
 
 application {
