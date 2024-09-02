@@ -37,10 +37,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -59,27 +55,19 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.vgrow="ALWAYS" />
             <GridPane gridLinesVisible="true" prefHeight="598.0" prefWidth="222.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="97.0" prefHeight="100.0" vgrow="ALWAYS" />
-                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="27.0" prefHeight="100.0" vgrow="ALWAYS" />
-                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="118.0" prefHeight="100.0" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="1.7976931348623157E308" prefHeight="100.0" vgrow="ALWAYS" />
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="97.0" prefHeight="100.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="97.0" prefHeight="100.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="97.0" prefHeight="100.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="27.0" prefHeight="100.0" vgrow="ALWAYS" />
                   <RowConstraints maxHeight="93.0" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+               </rowConstraints>
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
-                     <children>
-                        <Button mnemonicParsing="false" text="Filter">
-                           <font>
-                              <Font name="Liberation Sans Bold" size="13.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </HBox>
                   <GridPane>
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -87,45 +75,139 @@
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <RadioButton mnemonicParsing="false" selected="true" text="White" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="Liberation Sans" size="13.0" />
-                           </font>
-                           <toggleGroup>
-                              <ToggleGroup fx:id="Category" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <Label prefHeight="19.0" prefWidth="73.0" text="Category">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                           <children>
+                              <MenuButton mnemonicParsing="false" text="Category: ALL">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="Action 1" />
+                                    <MenuItem mnemonicParsing="false" text="Action 2" />
+                                 </items>
+                                 <font>
+                                    <Font name="Liberation Sans Bold" size="13.0" />
+                                 </font>
+                              </MenuButton>
+                           </children>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </HBox>
+                        <Label prefHeight="19.0" prefWidth="188.0" text="Category of Wine">
                            <font>
                               <Font name="Liberation Sans Bold" size="16.0" />
                            </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
                         </Label>
-                        <RadioButton mnemonicParsing="false" text="Red" toggleGroup="$Category" GridPane.rowIndex="2">
-                           <font>
-                              <Font name="Liberation Sans" size="13.0" />
-                           </font>
-                        </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Rose" toggleGroup="$Category" GridPane.rowIndex="3">
-                           <font>
-                              <Font name="Liberation Sans" size="13.0" />
-                           </font>
-                        </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Sparkling" toggleGroup="$Category" GridPane.rowIndex="4">
-                           <font>
-                              <Font name="Liberation Sans" size="13.0" />
-                           </font>
-                        </RadioButton>
                      </children>
-                     <padding>
-                        <Insets left="5.0" />
-                     </padding>
                   </GridPane>
                   <GridPane GridPane.rowIndex="1">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                           <children>
+                              <MenuButton mnemonicParsing="false" text="User Score Range: ALL" wrapText="true">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="Action 1" />
+                                    <MenuItem mnemonicParsing="false" text="Action 2" />
+                                 </items>
+                                 <font>
+                                    <Font name="Liberation Sans Bold" size="13.0" />
+                                 </font>
+                              </MenuButton>
+                           </children>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                           <children>
+                              <MenuButton mnemonicParsing="false" text="Critic Score Range: ALL" wrapText="true">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="Action 1" />
+                                    <MenuItem mnemonicParsing="false" text="Action 2" />
+                                 </items>
+                                 <font>
+                                    <Font name="Liberation Sans Bold" size="13.0" />
+                                 </font>
+                              </MenuButton>
+                           </children>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </HBox>
+                        <Label prefHeight="19.0" prefWidth="73.0" text="Scores">
+                           <font>
+                              <Font name="Liberation Sans Bold" size="16.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </GridPane>
+                  <GridPane GridPane.rowIndex="2">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label prefHeight="19.0" prefWidth="73.0" text="Wine">
+                           <font>
+                              <Font name="Liberation Sans Bold" size="16.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                           <children>
+                              <MenuButton mnemonicParsing="false" text="Tasting Notes: ALL">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="Action 1" />
+                                    <MenuItem mnemonicParsing="false" text="Action 2" />
+                                 </items>
+                                 <font>
+                                    <Font name="Liberation Sans Bold" size="13.0" />
+                                 </font>
+                              </MenuButton>
+                           </children>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                           <children>
+                              <MenuButton mnemonicParsing="false" text="Year: ALL">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="Action 1" />
+                                    <MenuItem mnemonicParsing="false" text="Action 2" />
+                                 </items>
+                                 <font>
+                                    <Font name="Liberation Sans Bold" size="13.0" />
+                                 </font>
+                              </MenuButton>
+                           </children>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </GridPane>
+                  <GridPane GridPane.rowIndex="3">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
@@ -138,78 +220,19 @@
                            <font>
                               <Font name="Liberation Sans Bold" size="16.0" />
                            </font>
-                        </Label>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
-                           <children>
-                              <MenuButton mnemonicParsing="false" text="MenuButton">
-                                <items>
-                                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                                  <MenuItem mnemonicParsing="false" text="Action 2" />
-                                </items>
-                                 <font>
-                                    <Font name="Liberation Sans" size="13.0" />
-                                 </font>
-                              </MenuButton>
-                           </children>
                            <padding>
                               <Insets left="5.0" />
                            </padding>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets left="5.0" />
-                     </padding>
-                  </GridPane>
-                  <GridPane GridPane.rowIndex="2">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label prefHeight="19.0" prefWidth="73.0" text="Rating">
-                           <font>
-                              <Font name="Liberation Sans Bold" size="16.0" />
-                           </font>
                         </Label>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
                            <children>
-                              <Slider blockIncrement="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" prefHeight="40.0" prefWidth="200.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-                           </children>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets left="5.0" />
-                     </padding>
-                  </GridPane>
-                  <GridPane GridPane.rowIndex="3">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label prefHeight="19.0" prefWidth="73.0" text="Region">
-                           <font>
-                              <Font name="Liberation Sans Bold" size="16.0" />
-                           </font>
-                        </Label>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
-                           <children>
-                              <MenuButton mnemonicParsing="false" text="MenuButton">
+                              <MenuButton mnemonicParsing="false" text="Region: ALL">
                                  <items>
                                     <MenuItem mnemonicParsing="false" text="Action 1" />
                                     <MenuItem mnemonicParsing="false" text="Action 2" />
                                  </items>
                                  <font>
-                                    <Font name="Liberation Sans" size="13.0" />
+                                    <Font name="Liberation Sans Bold" size="13.0" />
                                  </font>
                               </MenuButton>
                            </children>
@@ -218,28 +241,51 @@
                            </padding>
                         </HBox>
                      </children>
-                     <padding>
-                        <Insets left="5.0" />
-                     </padding>
                   </GridPane>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
+                     <children>
+                        <GridPane alignment="CENTER">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Reset">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Liberation Sans Bold" size="13.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Filter">
+                                       <font>
+                                          <Font name="Liberation Sans Bold" size="13.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </HBox>
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </GridPane>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.vgrow="ALWAYS">
-               <children>
-                  <ScrollPane fx:id="scroll" prefHeight="200.0" prefWidth="785.0" stylesheets="@../style/search_screen_style.css">
-                     <content>
-                        <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                        </GridPane>
-                     </content>
-                  </ScrollPane>
-               </children>
-            </HBox>
          </children>
       </GridPane>
   </children>
