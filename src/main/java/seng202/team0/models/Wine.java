@@ -8,7 +8,7 @@ import java.util.List;
 public class Wine {
     String colour;
     String wineName;
-    String award;
+//    String award;
     int score;
     int vintage;
     String region;
@@ -20,7 +20,7 @@ public class Wine {
      * Constructor for the wine class
      * @param colour colour of wine
      * @param wineName name of wine
-     * @param award awards won by wine
+//     * @param award awards won by wine
      * @param score score awarded to the wine
      * @param vintage vintage of the wine
      * @param region region the wine is from
@@ -28,10 +28,10 @@ public class Wine {
      * @param description description of the wine
      * @param userRatings ratings which the users have left on the wine
      */
-    public Wine(String colour, String wineName, String award, int score, int vintage, String region, Winery winery, String description, List<Rating> userRatings) {
+    public Wine(String colour, String wineName, int score, int vintage, String region, Winery winery, String description, List<Rating> userRatings) {
         this.colour = colour;
         this.wineName = wineName;
-        this.award = award;
+//        this.award = award;
         this.score = score;
         this.vintage = vintage;
         this.region = region;
@@ -47,7 +47,7 @@ public class Wine {
     public Wine(String wineName){
         this.colour = "White";
         this.wineName = wineName;
-        this.award = "Won Something Lol";
+//        this.award = "Won Something Lol";
         this.score = 3;
         this.vintage = 2000;
         this.region = "NZ";
@@ -100,9 +100,9 @@ public class Wine {
      * The Getter method for the award that the wine has won
      * @return award
      */
-    public String getAward() {
-        return award;
-    }
+//    public String getAward() {
+//        return award;
+//    }
 
     /**
      * The Getter method for the critic score that the wine received
@@ -172,9 +172,9 @@ public class Wine {
      * The Setter method for the award that the wine won
      * @param award award given to the wine
      */
-    public void setAward(String award) {
-        this.award = award;
-    }
+//    public void setAward(String award) {
+//        this.award = award;
+//    }
 
     /**
      * The Setter method for the score that the wine received

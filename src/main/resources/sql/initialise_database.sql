@@ -1,14 +1,10 @@
 DROP TABLE IF EXISTS wine;
 --SPLIT
 CREATE TABLE IF NOT EXISTS wine (
-     id INTEGER PRIMARY KEY AUTOINCREMENT,
-     item TEXT,
-     buyer_first_name TEXT,
-     buyer_last_name TEXT,
-     price REAL,
-     lat REAL,
-     lng REAL,
-     UNIQUE (lat, lng));
+     name varchar() not null primary key,
+     type varchar() not null,
+
+    );
 --SPLIT
 DROP TABLE IF EXISTS users;
 --SPLIT
