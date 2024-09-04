@@ -86,6 +86,29 @@ public class DatabaseManager {
         return conn;
     }
 
+    public void drop_it() {
+        String sql;
+        Connection conn = connect();
+
+        if (this.url == null){
+            System.out.println("URL IS NULL");
+        } else {
+            System.out.println(this.url);
+            Statement stmt = null;
+            try {
+                stmt = conn.createStatement();
+                String sqlCommand = "DROP TABLE wines;";
+                stmt.executeUpdate(sqlCommand);
+                stmt.close();
+                conn.commit();
+                conn.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
     /**
      * Initialises the database if it does not exist using the sql script included in resources
      */
@@ -107,6 +130,10 @@ public class DatabaseManager {
         path = URLDecoder.decode(path, StandardCharsets.UTF_8);
         File jarDir = new File(path);
         return "jdbc:sqlite:"+jarDir.getParentFile()+"/database.db";
+    }
+
+    public boolean getReturnIfExists() {
+        return checkDatabaseExists(getDatabasePath());
     }
 
     /**

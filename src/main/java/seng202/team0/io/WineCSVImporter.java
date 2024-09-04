@@ -11,6 +11,7 @@ import seng202.team0.repository.WineDAO;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,10 +76,6 @@ public class WineCSVImporter implements Importable<Wine>{
         wineDAO = new WineDAO();
     }
 
-    void drop_it() {
-
-    }
-
     public static void main(String[] args) {
         Importable<Wine> importer = new WineCSVImporter();
         File file = new File("Decanter23NZ.csv");
@@ -88,6 +85,15 @@ public class WineCSVImporter implements Importable<Wine>{
             setup();
         } catch (DuplicateExc e) {
             throw new RuntimeException(e);
+        }
+
+        System.out.println("Attempting Drop...");
+
+        if (databaseManager.getReturnIfExists()){
+            System.out.println("Get return is true");
+            databaseManager.drop_it();
+        } else {
+            System.out.println("Something is REALLY wrong lol");
         }
 
         for (Wine el_wines : wines) {
