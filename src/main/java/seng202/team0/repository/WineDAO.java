@@ -3,6 +3,7 @@ package seng202.team0.repository;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import seng202.team0.exceptions.DuplicateExc;
 import seng202.team0.models.Wine;
 import seng202.team0.models.Winery;
 
@@ -22,7 +23,7 @@ public class WineDAO implements DAOInterface<Wine> {
     }
 
     /**
-     * Gets all users in database
+     * Gets all wines in database
      * @return a list of all users
      */
     @Override
@@ -44,4 +45,39 @@ public class WineDAO implements DAOInterface<Wine> {
             return new ArrayList<>();
         }
     }
+
+    /**
+     * Adds single wine to database
+     * @param toAdd object of type T to add
+     * @return
+     * @throws DuplicateExc
+     */
+    @Override
+    public int add(Wine toAdd) throws DuplicateExc {
+        String sql = "INSERT INTO wines (type, name, score, year, region, winery, description, userRatings) values (?,?,?,?,?,?,?,?);";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, toAdd.getColor());
+            ps.setString(2, toAdd.getWineName());
+            ps.setInt(3, toAdd.getScore());
+            ps.setInt(4, toAdd.getVintage());
+            ps.setString(5, toAdd.getRegion());
+            ps.setObject(6, toAdd.getWinery());
+            ps.setString(7, toAdd.getDescription());
+            ps.setString(8, "userRatings go here"); // TODO Find a way to ps.setLIST???
+
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            int insertId = -1;
+            if (rs.next()) {
+                insertId = rs.getInt(1);
+            }
+            return insertId;
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            return -1;
+        }
+    }
+
+
 }

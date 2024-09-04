@@ -65,7 +65,6 @@ public class WineryXLSImporter implements Importable<Winery>{
         File file = new File("testwinery.xlsx");
         List<Winery> wineries = importer.readFromFile(file);
         for (Winery winery : wineries) {
-            System.out.println("Printing Wine: \n");
             System.out.printf("%s\n%.2f\n%.2f\n", winery.getName(), winery.getLatitude(), winery.getLongitude());
         }
     }

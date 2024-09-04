@@ -1,11 +1,14 @@
 DROP TABLE IF EXISTS wine;
 --SPLIT
 CREATE TABLE IF NOT EXISTS wines (
-     name TEXT not null primary key,
-     type TEXT not null,
-     vintage int not null,
-     crit_score int,
-     user_score int);
+    type TEXT not null,
+    UNIQUE name TEXT not null primary key,
+    score int,
+    year int,
+    region TEXT,
+    winery sql_variant,
+    description TEXT,
+    userRatings TEXT);
 --SPLIT
 DROP TABLE IF EXISTS winerys;
 --SPLIT

@@ -16,14 +16,17 @@ public class DatabaseManager {
     /**
      * Private constructor for singleton purposes
      * Creates database if it does not already exist in specified location
+     *
+     * MADE PUBLIC -- MIGHT CAUSE ISSUES
      */
-    private DatabaseManager(String urlIn) {
+    public DatabaseManager(String urlIn) {
         if (urlIn==null || urlIn.isEmpty()){
             this.url = getDatabasePath();
         } else {
             this.url = urlIn;
         }
         if(!checkDatabaseExists(url)){
+            System.out.println("######################### CREATING DB FIELD AND resetDB() #########################");
             createDatabaseFile(url);
             resetDB();
         }
@@ -41,6 +44,13 @@ public class DatabaseManager {
             instance = new DatabaseManager(null);
 
         return instance;
+    }
+
+    /**
+     *  WARNING Sets the current singleton instance to null
+     */
+    public static void REMOVE_INSTANCE() {
+        instance = null;
     }
 
     /**
