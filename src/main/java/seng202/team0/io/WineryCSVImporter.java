@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -36,6 +37,7 @@ public class WineryCSVImporter implements Importable<Winery> {
         } catch (IOException | CsvException e) {
             System.out.println("An error occurred: " + e.getMessage());
         }
+        wineries.sort(Comparator.comparing(Winery::getName));
         return wineries;
     }
     /**
@@ -45,10 +47,22 @@ public class WineryCSVImporter implements Importable<Winery> {
      */
     private Winery readWineryFromLine(String[] line) {
         try {
-            return null;
+            String name = line[0];
+            float latitude = Float.parseFloat(line[1]);
+            float longitude = Float.parseFloat(line[2]);
+            return new Winery(name, latitude, longitude);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             System.out.println("An error occurred: " + e.getMessage());
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+        Importable<Winery> importer = new WineryCSVImporter();
+        File file = new File("testwinery.csv");
+        List<Winery> wineries = importer.readFromFile(file);
+        for (Winery winery : wineries) {
+            System.out.printf("%s\n%.2f\n%.2f\n", winery.getName(), winery.getLatitude(), winery.getLongitude());
+        }
     }
 }
