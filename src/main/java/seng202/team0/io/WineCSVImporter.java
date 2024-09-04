@@ -71,8 +71,8 @@ public class WineCSVImporter implements Importable<Wine>{
 
     static void setup() throws DuplicateExc {
         DatabaseManager.REMOVE_INSTANCE();
-//        databaseManager = DatabaseManager.initialiseInstanceWithUrl("jdbc:sqlite:./src/main/resources/sql/initialise_database.sql");
-        databaseManager = new DatabaseManager("jdbc:sqlite:./src/main/resources/sql/initialise_database.sql");
+        databaseManager = DatabaseManager.initialiseInstanceWithUrl("jdbc:sqlite:./src/main/resources/sql/initialise_database.sql");
+//        databaseManager = new DatabaseManager("jdbc:sqlite:./src/main/resources/sql/initialise_database.sql");
         wineDAO = new WineDAO();
     }
 
@@ -87,14 +87,7 @@ public class WineCSVImporter implements Importable<Wine>{
             throw new RuntimeException(e);
         }
 
-        System.out.println("Attempting Drop...");
-
-        if (databaseManager.getReturnIfExists()){
-            System.out.println("Get return is true");
-            //databaseManager.drop_it();
-        } else {
-            System.out.println("Something is REALLY wrong lol");
-        }
+//        databaseManager.drop_it();
 
         for (Wine el_wines : wines) {
             System.out.printf("Adding Wine: %s to Database", el_wines.getWineName());
@@ -104,8 +97,8 @@ public class WineCSVImporter implements Importable<Wine>{
                 throw new RuntimeException(e);
             }
 
-//            System.out.printf("Colour: %s\nName: %s\nScore: %d\nVintage: %d\n...\nDesc.: %s", el_wines.getColor(), el_wines.getWineName(), el_wines.getScore(), el_wines.getVintage(), el_wines.getDescription());
-//            System.out.println("\n\n");
+            System.out.printf("Colour: %s\nName: %s\nScore: %d\nVintage: %d\n...\nDesc.: %s", el_wines.getColor(), el_wines.getWineName(), el_wines.getScore(), el_wines.getVintage(), el_wines.getDescription());
+            System.out.println("\n\n");
         }
 
         System.out.println("## ALl Wines in Database ##");
