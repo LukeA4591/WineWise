@@ -289,7 +289,7 @@
                         <TableColumn minWidth="20.0" prefWidth="110.0" text="User Ratings" />
                         <TableColumn prefWidth="75.0" text="Vintage" />
                         <TableColumn prefWidth="75.0" text="Region" />
-                        <TableColumn prefWidth="75.0" text="Desc." />
+                        <TableColumn prefWidth="250.0" text="Desc." />
                     </columns>
                   </TableView>
                </content>

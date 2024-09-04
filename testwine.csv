@@ -1,8 +1,7 @@
-WINERY,VINTAGE,COLOUR,DESCRIPTION
-1 Winery,First Era,1990,White,First is very tangy and sweet
-Sunny Day,Second Delight,1989,White,Awful... I hate it
-Cold Day,Third Warcrime,2003,Red,
-Colder Day (TeeHee),Fourth Trial,2004,Red,A great improvement with Oaky notes and a hint of raspberries and peaches
-Mt Wine,Fifth Wine... name?,2006,Rose,Beautiful and lush as always
-Wine Bay,Sugondese,2000,Champagne,Me likely :D
-
+TYPE,NAME,WINERY,VINTAGE,SCORE,REGION,DESCRIPTION
+White,First Era,1 Winery,1990,12,Region1,First is very tangy and sweet
+White,Second Delight,Sunny Day,1989,56,Region2,Awful... I hate it
+Red,Third Warcrime,Cold Day,2003,56,Region3,
+Red,Fourth Trial,Colder Day (TeeHee),2004,78,Region4,A great improvement with Oaky notes and a hint of raspberries and peaches
+Rose,Fifth Wine... name?,Mt Wine,2006,90,Region5,Beautiful and lush as always
+White,Sugondese,Wine Bay,2000,91,Region6,Me likely :D

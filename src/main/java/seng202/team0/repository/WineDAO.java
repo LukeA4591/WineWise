@@ -35,7 +35,7 @@ public class WineDAO implements DAOInterface<Wine> {
             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 // todo fix how wine object / database will work together
-                //wines.add(new Wine(rs.getString("type"), rs.getString("name"), rs.getInt("score"), rs.getInt("vintage"), rs.getString("region"), rs.getObject("winery", Winery.class<> Winery), rs.getString("description"), rs.getNString("userRatings")));
+                wines.add(new Wine(rs.getString("type"),rs.getString("name"), rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"), rs.getString("region"), rs.getString("description")));
                 // temp fix just using dev way of making wine
                 wines.add(new Wine(rs.getString("name")));
             }
@@ -54,17 +54,17 @@ public class WineDAO implements DAOInterface<Wine> {
      */
     @Override
     public int add(Wine toAdd) throws DuplicateExc {
-        String sql = "INSERT INTO wines (type, name, score, year, region, winery, description, userRatings) values (?,?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO wines (type, name, winery, vintage, score, region, description) VALUES (?,?,?,?,?,?,?);";
         try (Connection conn = databaseManager.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, toAdd.getColor());
             ps.setString(2, toAdd.getWineName());
-            ps.setInt(3, toAdd.getScore());
+            ps.setString(3, toAdd.getWineryString());
             ps.setInt(4, toAdd.getVintage());
-            ps.setString(5, toAdd.getRegion());
-            ps.setObject(6, toAdd.getWinery());
+            ps.setInt(5, toAdd.getScore());
+            ps.setString(6, toAdd.getRegion());
             ps.setString(7, toAdd.getDescription());
-            ps.setString(8, "userRatings go here"); // TODO Find a way to ps.setLIST???
+//            ps.setString(8, "userRatings go here"); // TODO Find a way to ps.setLIST???
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();

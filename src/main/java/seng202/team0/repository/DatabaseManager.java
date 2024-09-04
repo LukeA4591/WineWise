@@ -2,6 +2,7 @@ package seng202.team0.repository;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import seng202.team0.exceptions.DuplicateExc;
 
 import java.io.*;
 import java.net.URLDecoder;
@@ -21,8 +22,10 @@ public class DatabaseManager {
      */
     public DatabaseManager(String urlIn) {
         if (urlIn==null || urlIn.isEmpty()){
+            System.out.println("GETTING DATABASE PATH");
             this.url = getDatabasePath();
         } else {
+            System.out.println("this.url = urlIN");
             this.url = urlIn;
         }
         if(!checkDatabaseExists(url)){
@@ -30,6 +33,22 @@ public class DatabaseManager {
             createDatabaseFile(url);
             resetDB();
         }
+    }
+
+    /**
+     * WARNING Allows for setting specific database url (currently only needed for test databases, but may be useful
+     * in future) USE WITH CAUTION. This does not override the current singleton instance so must be the first call.
+     * @param url string url of database to load (this needs to be full url e.g. "jdbc:sqlite:./src/...")
+     * @throws DuplicateExc if there is already a singleton instance
+     * @return current singleton instance
+     */
+    public static DatabaseManager initialiseInstanceWithUrl(String url) throws DuplicateExc {
+        if(instance == null)
+            instance = new DatabaseManager(url);
+        else
+            throw new DuplicateExc("Database Manager instance already exists, cannot create with url: " + url);
+
+        return instance;
     }
 
     /**

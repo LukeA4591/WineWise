@@ -54,35 +54,41 @@ public class WineCSVImporter implements Importable<Wine>{
      */
     private Wine readWineFromLine(String[] line) {
         try {
-            // Add winery
-            String wineryname = line[0];
-            String wineName = line[1];
-            // Probably remove award
-            // Probably remove score
-            int vintage = Integer.parseInt(line[2]);
-            String colour = line[3];
-            String description = line[4];
-            // Could add list of ratings
-            return new Wine(colour, wineName, 007, vintage, "Bay of Unimplemented", new Winery(wineryname, 0, 0), description, new ArrayList<>());
+            String type = line[5];
+            String name = line[1];
+            String winery = line[0];
+            int score = Integer.parseInt(line[2]);
+            int vintage = Integer.parseInt(line[4]);
+            String description = line[6];
+            String region = line[3];
+            return new Wine(type, name, winery, vintage, score, region, description);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             System.out.println("An error occurred: " + e.getMessage());
         }
         return null;
     }
 
-    static void setup() {
+    static void setup() throws DuplicateExc {
         DatabaseManager.REMOVE_INSTANCE();
-//        databaseManager = DatabaseManager.initialiseInstanceWithUrl("jdbc:sqlite:./src/test/resources/test_database.db");
+//        databaseManager = DatabaseManager.initialiseInstanceWithUrl("jdbc:sqlite:./src/main/resources/sql/initialise_database.sql");
         databaseManager = new DatabaseManager("jdbc:sqlite:./src/main/resources/sql/initialise_database.sql");
         wineDAO = new WineDAO();
     }
 
+    void drop_it() {
+
+    }
+
     public static void main(String[] args) {
         Importable<Wine> importer = new WineCSVImporter();
-        File file = new File("testwine.csv");
+        File file = new File("Decanter23NZ.csv");
         List<Wine> wines = importer.readFromFile(file);
 
-        setup();
+        try {
+            setup();
+        } catch (DuplicateExc e) {
+            throw new RuntimeException(e);
+        }
 
         for (Wine el_wines : wines) {
             System.out.printf("Adding Wine: %s to Database", el_wines.getWineName());

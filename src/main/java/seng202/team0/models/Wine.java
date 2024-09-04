@@ -12,7 +12,8 @@ public class Wine {
     int score;
     int vintage;
     String region;
-    Winery winery;
+    Winery winery; // TODO CHANGED TO STRING CHANGE BCK WHEN FIXED
+    String wineryString;
     String description;
     List<Rating> userRatings;
 
@@ -51,9 +52,30 @@ public class Wine {
         this.score = 3;
         this.vintage = 2000;
         this.region = "NZ";
-        this.winery = new Winery("wine place", 100, 100);
+        this.wineryString = "wine place";
         this.description = "very wine'y taste";
         this.userRatings = new ArrayList<>();
+    }
+
+    /**
+     * NEW CONSTRUCTOR FOR THE SQL DATABASE
+     * @param type
+     * @param name
+     * @param wineryString
+     * @param vintage
+     * @param score
+     * @param region
+     * @param description
+     */
+    public Wine(String type, String name, String wineryString, int vintage, int score, String region, String description)
+    {
+        this.colour = type;
+        this.wineName = name;
+        this.wineryString = wineryString;
+        this.vintage = vintage;
+        this.score = score;
+        this.region = region;
+        this.description = description;
     }
 
     /**
@@ -126,6 +148,14 @@ public class Wine {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * returns winerystring
+     * @return wineryString
+     */
+    public String getWineryString() {
+        return wineryString;
     }
 
     /**
