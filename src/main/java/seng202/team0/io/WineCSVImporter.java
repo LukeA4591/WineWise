@@ -91,7 +91,7 @@ public class WineCSVImporter implements Importable<Wine>{
 
         if (databaseManager.getReturnIfExists()){
             System.out.println("Get return is true");
-            databaseManager.drop_it();
+            //databaseManager.drop_it();
         } else {
             System.out.println("Something is REALLY wrong lol");
         }

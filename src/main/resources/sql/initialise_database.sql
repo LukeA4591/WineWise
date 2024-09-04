@@ -5,10 +5,10 @@ CREATE TABLE IF NOT EXISTS wines (
     name TEXT not null,
     winery TEXT not null,
     vintage int not null,
-    primary key (name, winery, vintage),
     score int,
     region TEXT,
-    description TEXT);
+    description TEXT,
+    primary key (name, winery, vintage));
 --SPLIT
 DROP TABLE IF EXISTS winerys;
 --SPLIT
