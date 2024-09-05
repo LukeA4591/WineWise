@@ -64,16 +64,5 @@ public class AdminLoginPopupController {
         ((Stage) usernameInput.getScene().getWindow()).close();
     }
 
-    /**
-     * Method to trigger when the enter key is pressed
-     * @param event keyboard event
-    */
-    @FXML
-    private void enterKeyPressed(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-            onLogin();
-        }
-    }
-
 
 }
