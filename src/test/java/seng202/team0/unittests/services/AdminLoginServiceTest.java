@@ -33,7 +33,7 @@ public class AdminLoginServiceTest {
      * Deletes credentials file between tests.
      * Resets the login status to false.
      */
-    @BeforeEach
+    @AfterEach
     public void deleteCredentialsFile() {
         String jarPath = testAdminLoginService.getJarFilePath();
         File credentialsFile = new File(jarPath + "\\credentials.txt");
@@ -172,8 +172,8 @@ public class AdminLoginServiceTest {
         assertTrue(testAdminLoginService.getLoginStatus());
         testAdminLoginService.setLoggedIn(false);
         assertEquals("Password is incorrect", testAdminLoginService.login("username", "invalid"));
-        assertFalse(testAdminLoginService.getLoginStatus());    }
-
+        assertFalse(testAdminLoginService.getLoginStatus());
+    }
 
     /**
      * Tests that given valid credentials the login method doesn't return an error message.
