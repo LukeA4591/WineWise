@@ -73,7 +73,7 @@ public class FXWrapper {
     public void launchAdminScreen(final WineEnvironment wineEnvironment) {
         try {
             FXMLLoader setupLoader = new FXMLLoader(getClass().getResource("/fxml/admin_screen.fxml"));
-            //setupLoader.setControllerFactory(param -> new SetupScreenController(wineEnvironment));
+            setupLoader.setControllerFactory(param -> new AdminScreenController(wineEnvironment));
             Parent setupParent  = setupLoader.load();
             pane.getChildren().add(setupParent);
             stage.setTitle("Admin Screen");
