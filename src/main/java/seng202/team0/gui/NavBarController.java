@@ -59,9 +59,9 @@ public class NavBarController {
      */
     private void loadHomePage(Stage stage) {
         try {
-            FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("/fxml/setup_screen.fxml"));
+            FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
             Parent mainParent = homePageLoader.load();
-            SetupScreenController homePageController = homePageLoader.getController();
+            HomePageController homePageController = homePageLoader.getController();
             homePageController.init(stage);
             mainWindow.setCenter(mainParent);
         } catch (IOException e) {

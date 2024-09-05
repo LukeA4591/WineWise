@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.HomePageController">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="48.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/base_wine.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="48.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/base_wine.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="48.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/base_wine.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="14.0" layoutY="14.0" text="Top Wines to Try">
+         <font>
+            <Font name="Liberation Sans Bold" size="26.0" />
+         </font>
+      </Label>
+      <Label layoutX="225.0" layoutY="70.0" text="rating of wine">
+         <font>
+            <Font name="Liberation Sans" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="225.0" layoutY="240.0" text="rating of wine">
+         <font>
+            <Font name="Liberation Sans" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="225.0" layoutY="410.0" text="rating of wine">
+         <font>
+            <Font name="Liberation Sans" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="225.0" layoutY="125.0" text="description of wine">
+         <font>
+            <Font name="Liberation Sans" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="225.0" layoutY="295.0" text="description of wine">
+         <font>
+            <Font name="Liberation Sans" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="225.0" layoutY="465.0" text="description of wine">
+         <font>
+            <Font name="Liberation Sans" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
