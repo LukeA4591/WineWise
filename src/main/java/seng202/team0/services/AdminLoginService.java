@@ -77,7 +77,7 @@ public class AdminLoginService {
      * gets the jar parents file path and appends "credentials.txt"
      * @return new file path to credentials.txt
      */
-    private File getCredentialsFile() {
+    public File getCredentialsFile() {
         String jarStr = this.getJarFilePath();
         jarStr += "/credentials.txt";
         File f = new File(jarStr);
