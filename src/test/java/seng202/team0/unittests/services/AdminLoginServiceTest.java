@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seng202.team0.services.AdminLoginService;
 
@@ -32,7 +33,7 @@ public class AdminLoginServiceTest {
      * Deletes credentials file between tests.
      * Resets the login status to false.
      */
-    @AfterEach
+    @BeforeEach
     public void deleteCredentialsFile() {
         String jarPath = testAdminLoginService.getJarFilePath();
         File credentialsFile = new File(jarPath + "\\credentials.txt");
