@@ -2,6 +2,8 @@ package seng202.team0.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import seng202.team0.services.AdminLoginService;
 import seng202.team0.services.WineEnvironment;
@@ -61,5 +63,17 @@ public class AdminLoginPopupController {
     public void onCancel() {
         ((Stage) usernameInput.getScene().getWindow()).close();
     }
+
+    /**
+     * Method to trigger when the enter key is pressed
+     * @param event keyboard event
+    */
+    @FXML
+    private void enterKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            onLogin();
+        }
+    }
+
 
 }
