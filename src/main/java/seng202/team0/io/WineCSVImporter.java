@@ -45,7 +45,15 @@ public class WineCSVImporter implements Importable<Wine>{
      */
     private Wine readWineFromLine(String[] line) {
         try {
-            return null;
+            // Add winery
+            String wineName = line[1];
+            // Probably remove award
+            // Probably remove score
+            int vintage = Integer.parseInt(line[2]);
+            String colour = line[3];
+            String description = line[4];
+            // Could add list of ratings
+            return null; // Return winery
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             System.out.println("An error occurred: " + e.getMessage());
         }
