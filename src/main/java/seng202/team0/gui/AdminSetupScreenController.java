@@ -83,7 +83,7 @@ public class AdminSetupScreenController {
     }
 
     /**
-     * Method to trigger when the enter key is pressed
+     * Method to trigger login when the enter key is pressed
      * @param event keyboard event
      */
     @FXML
