@@ -81,7 +81,6 @@ public class NavBarController {
             FXMLLoader searchPageLoader = new FXMLLoader(getClass().getResource("/fxml/search_screen.fxml"));
             Parent searchParent = searchPageLoader.load();
             SearchPageController searchPageController = searchPageLoader.getController();
-            searchPageController.init(stage);
             mainWindow.setCenter(searchParent);
         } catch (IOException e) {
             e.printStackTrace();

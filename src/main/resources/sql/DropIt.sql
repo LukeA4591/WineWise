@@ -1,0 +1,2 @@
+DROP TABLE wine;
+DROP TABLE wines;
