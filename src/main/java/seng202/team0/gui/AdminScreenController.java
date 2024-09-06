@@ -7,24 +7,21 @@ import seng202.team0.services.AdminLoginService;
 import seng202.team0.services.WineEnvironment;
 
 public class AdminScreenController {
-    @FXML
-    Button addWine;
+    private WineEnvironment wineEnvironment;
 
-    private final WineEnvironment winery;
-
-    public AdminScreenController(WineEnvironment winery) {
-        this.winery = winery;
+    public AdminScreenController(WineEnvironment wineEnvironment) {
+        this.wineEnvironment = wineEnvironment;
     }
 
     @FXML
     public void onAddWine() {
-        winery.getClearRunnable().run();
-        winery.launchAddWineScreen();
+        wineEnvironment.getClearRunnable().run();
+        wineEnvironment.launchAddWineScreen();
     }
 
     @FXML
-    public void onLogout() {
-        winery.getClearRunnable().run();
-        winery.launchNavBar();
+    void adminLogout() {
+        wineEnvironment.getClearRunnable().run();
+        wineEnvironment.launchNavBar();
     }
 }

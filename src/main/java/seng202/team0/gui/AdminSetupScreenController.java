@@ -73,7 +73,7 @@ public class AdminSetupScreenController {
         String inputtedPassword = createPasswordInputField.getText();
         String confirmPassword = createConfirmPasswordInputField.getText();
         String errorMessage = adminLoginInstance.checkPasswordConfirmation(inputtedPassword, confirmPassword);
-        if (errorMessage != "") {
+        if (!errorMessage.isEmpty()) {
             errorLabel.setText(errorMessage);
         } else {
             adminLoginInstance.createNewUser(inputtedUsername, inputtedPassword);

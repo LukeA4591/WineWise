@@ -126,6 +126,12 @@ tasks.named("check") {
     finalizedBy jacocoTestReport
 }
 
+tasks.named('test') {
+    // trying to setup test coverage reports
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 

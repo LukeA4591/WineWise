@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seng202.team0.services.WineEnvironment;
 
@@ -29,6 +30,8 @@ public class NavBarController {
     private Button graphsButton;
     @FXML
     private Button mapsButton;
+    @FXML
+    private Button adminButton;
 
     /**
      * NavBarController initializer, needs to be empty for FXML
@@ -149,6 +152,33 @@ public class NavBarController {
         loadMapsPage(this.stage);
         setAllButtonsGrey();
         mapsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+    }
+
+    @FXML
+    void loginPressed() {
+        try {
+            // load a new fxml file
+            FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_login_popup.fxml"));
+            AnchorPane root = newStageLoader.load();
+
+            AdminLoginPopupController controller = newStageLoader.getController();
+            controller.init(wineEnvironment);
+            Scene modalScene = new Scene(root);
+            Stage modalStage = new Stage();
+            modalStage.setScene(modalScene);
+            modalStage.setWidth(600);
+            modalStage.setHeight(400);
+            modalStage.setResizable(false);
+            modalStage.setTitle("Admin Login Popup");
+            // If we want the modal to not block the other window we can change modality to Modality.NONE
+            modalStage.initModality(Modality.WINDOW_MODAL);
+            modalStage.initOwner(adminButton.getScene().getWindow());
+            // Show the modal and wait for it to be closed
+            modalStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
