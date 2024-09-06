@@ -71,8 +71,8 @@ public class WineCSVImporter implements Importable<Wine>{
 
     static void setup() throws DuplicateExc {
         DatabaseManager.REMOVE_INSTANCE();
-        databaseManager = DatabaseManager.initialiseInstanceWithUrl("jdbc:sqlite:./src/main/resources/sql/initialise_database.sql");
-//        databaseManager = new DatabaseManager("jdbc:sqlite:./src/main/resources/sql/initialise_database.sql");
+//        databaseManager = DatabaseManager.initialiseInstanceWithUrl("jdbc:sqlite:./src/main/resources/sql/initialise_database.sql");
+        databaseManager = new DatabaseManager("jdbc:sqlite:./src/main/resources/sql/initialise_database.sql");
         wineDAO = new WineDAO();
     }
 
