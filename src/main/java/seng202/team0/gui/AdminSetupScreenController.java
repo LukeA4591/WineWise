@@ -76,6 +76,7 @@ public class AdminSetupScreenController {
         if (!errorMessage.isEmpty()) {
             errorLabel.setText(errorMessage);
         } else {
+            adminLoginInstance.createCredentialsFile();
             adminLoginInstance.createNewUser(inputtedUsername, inputtedPassword);
             winery.getClearRunnable().run();
             winery.launchAdminScreen();

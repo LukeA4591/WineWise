@@ -61,8 +61,9 @@ public class AdminLoginServiceTest {
      */
     @Test
     public void testCreatingCredentialsFile() {
-        assertFalse(testAdminLoginService.createCredentialsFileIfNotExists());
-        assertTrue(testAdminLoginService.createCredentialsFileIfNotExists());
+        assertFalse(testAdminLoginService.doesFileExist());
+        testAdminLoginService.createCredentialsFile();
+        assertTrue(testAdminLoginService.doesFileExist());
     }
 
 
