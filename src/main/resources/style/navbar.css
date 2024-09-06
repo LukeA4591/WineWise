@@ -1,9 +1,11 @@
 .root {
     -fx-background-color: #ffffff;
+    -fx-font-family: "Liberation Sans";
 }
 
 .button {
     -fx-background-radius: 0em;
+
 }
 
 .button:hover {
