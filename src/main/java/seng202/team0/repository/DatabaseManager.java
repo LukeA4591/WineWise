@@ -18,9 +18,8 @@ public class DatabaseManager {
      * Private constructor for singleton purposes
      * Creates database if it does not already exist in specified location
      * <p>
-     * MADE PUBLIC -- MIGHT CAUSE ISSUES
      */
-    public DatabaseManager(String urlIn) {
+    private DatabaseManager(String urlIn) {
         if (urlIn == null || urlIn.isEmpty()) {
             System.out.println("GETTING DATABASE PATH");
             this.url = getDatabasePath();
@@ -43,7 +42,7 @@ public class DatabaseManager {
      * @return current singleton instance
      * @throws DuplicateExc if there is already a singleton instance
      */
-    public static DatabaseManager initialiseInstanceWithUrl(String url) throws DuplicateExc {
+    private static DatabaseManager initialiseInstanceWithUrl(String url) throws DuplicateExc {
         if (instance == null)
             instance = new DatabaseManager(url);
         else
@@ -61,8 +60,9 @@ public class DatabaseManager {
         if (instance == null)
             // todo find a way to actually get db within jar
             // The following line can be used to reach a db file within the jar, however this will not be modifiable
-            // instance = new DatabaseManager("jdbc:sqlite:./src/main/resources/database.db");
-            instance = new DatabaseManager(null);
+//             instance = new DatabaseManager("jdbc:sqlite:./src/main/resources/sql/initialise_database.sql");
+            instance = new DatabaseManager("jdbc:sqlite:./src/main/resources/database.db");
+//            instance = new DatabaseManager(null);
 
         return instance;
     }
