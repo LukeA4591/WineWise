@@ -35,8 +35,7 @@ public class AdminLoginServiceTest {
      */
     @AfterEach
     public void deleteCredentialsFile() {
-        String jarPath = testAdminLoginService.getJarFilePath();
-        File credentialsFile = new File(jarPath + "\\credentials.txt");
+        File credentialsFile = testAdminLoginService.getCredentialsFile();
         if (credentialsFile.exists()) {
             credentialsFile.delete();
         }
