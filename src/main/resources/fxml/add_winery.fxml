@@ -18,20 +18,20 @@
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <TextField fx:id="wineName" layoutX="99.0" layoutY="78.0" prefHeight="24.0" prefWidth="320.0" />
+        <TextField fx:id="wineryName" layoutX="99.0" layoutY="78.0" prefHeight="24.0" prefWidth="320.0" />
         <Label layoutX="23.0" layoutY="137.0" text="Region:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <TextField fx:id="wineWinery" layoutX="99.0" layoutY="133.0" prefHeight="24.0" prefWidth="320.0" />
+        <TextField fx:id="wineryRegion" layoutX="99.0" layoutY="133.0" prefHeight="24.0" prefWidth="320.0" />
         <Label layoutX="23.0" layoutY="192.0" text="Latitude:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <TextField fx:id="wineRegion" layoutX="99.0" layoutY="188.0" prefHeight="24.0" prefWidth="105.0" />
-        <Button fx:id="saveWine" layoutX="237.0" layoutY="263.0" mnemonicParsing="false" text="Save New Winery">
+        <TextField fx:id="wineryLatitude" layoutX="99.0" layoutY="188.0" prefHeight="24.0" prefWidth="105.0" />
+        <Button fx:id="saveWine" layoutX="169.0" layoutY="263.0" mnemonicParsing="false" onAction="#saveNewWinery" text="Save New Winery">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
@@ -41,8 +41,8 @@
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <TextField fx:id="wineRegion2" layoutX="313.0" layoutY="188.0" prefHeight="24.0" prefWidth="105.0" />
-        <Button layoutX="498.0" layoutY="20.0" mnemonicParsing="false" onAction="#goBackToAdmin" text="Go Back">
+        <TextField fx:id="wineryLongitude" layoutX="313.0" layoutY="188.0" prefHeight="24.0" prefWidth="105.0" />
+        <Button layoutX="347.0" layoutY="20.0" mnemonicParsing="false" onAction="#goBackToAdmin" text="Go Back">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
