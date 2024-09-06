@@ -41,7 +41,7 @@ public class AdminScreenController {
      * Allows csv file to be chosen when the add dataset button is pressed.
      */
     @FXML
-    void addDataSet() {
+    private void addDataSet() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
@@ -53,5 +53,13 @@ public class AdminScreenController {
         }
         stage = (Stage) addWine.getScene().getWindow(); // Need to have scene variable, has to find scene through addWine button
         File file = fileChooser.showOpenDialog(stage);
+    }
+
+    /**
+     * Chooses data type selected in combo box
+     * @return The string of the data type
+     */
+    private String getDataType() {
+        return dataTypeComboBox.getValue();
     }
 }
