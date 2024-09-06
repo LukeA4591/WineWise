@@ -2,6 +2,7 @@ package seng202.team0.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import seng202.team0.services.WineEnvironment;
 
@@ -14,6 +15,8 @@ public class AddWineryController {
     TextField wineryLatitude;
     @FXML
     TextField wineryLongitude;
+    @FXML
+    Label saveNewWineryMessage;
 
     private final WineEnvironment winery;
 
@@ -30,11 +33,22 @@ public class AddWineryController {
     public void saveNewWinery() {
         try {
             String wineryNameString = wineryName.getText();
-            String wineryRegionString = wineryRegion.getText();
-            float wineryLatitudeFloat = Float.parseFloat(wineryLatitude.getText());
-            float wineryLongitudeFloat = Float.parseFloat(wineryLongitude.getText());
+            if (wineryNameString.isEmpty()) {
+                saveNewWineryMessage.setStyle("-fx-text-fill: #FF0000");
+                saveNewWineryMessage.setText("Winery Name field is empty.");
+            } else {
+                String wineryRegionString = wineryRegion.getText();
+                float wineryLatitudeFloat = Float.parseFloat(wineryLatitude.getText());
+                float wineryLongitudeFloat = Float.parseFloat(wineryLongitude.getText());
+
+                // Add save winery to database
+
+                saveNewWineryMessage.setStyle("-fx-text-fill: #00FF00");
+                saveNewWineryMessage.setText("New winery saved.");
+            }
         } catch (NumberFormatException e) {
-            System.out.println("An error occurred: " + e.getMessage());
+            saveNewWineryMessage.setStyle("-fx-text-fill: #FF0000");
+            saveNewWineryMessage.setText("Winery Latitude and Longitude should be a number.");
         }
     }
 }

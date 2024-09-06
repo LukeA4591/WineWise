@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="415.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.AddWineController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.AddWineController">
     <children>
         <Label layoutX="23.0" layoutY="22.0" text="Add a New Wine">
             <font>
@@ -38,16 +38,16 @@
             </font>
         </Label>
         <TextField fx:id="wineVintage" layoutX="99.0" layoutY="148.0" prefHeight="24.0" prefWidth="114.0" />
-        <Button layoutX="185.0" layoutY="373.0" mnemonicParsing="false" onAction="#saveNewWine" text="Save New Wine">
+        <Button layoutX="185.0" layoutY="410.0" mnemonicParsing="false" onAction="#saveNewWine" text="Save New Wine">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Button>
-      <RadioButton fx:id="wineTypeWhite" layoutX="103.0" layoutY="197.0" mnemonicParsing="false" text="White">
+      <RadioButton fx:id="wineTypeWhite" layoutX="103.0" layoutY="197.0" mnemonicParsing="false" selected="true" text="White">
          <toggleGroup>
             <ToggleGroup fx:id="wineTypeToggle" />
          </toggleGroup></RadioButton>
-      <RadioButton fx:id="wineTypeRed" layoutX="193.0" layoutY="197.0" mnemonicParsing="false" text="Red" />
+      <RadioButton fx:id="wineTypeRed" layoutX="193.0" layoutY="197.0" mnemonicParsing="false" text="Red" toggleGroup="$wineTypeToggle" />
       <RadioButton fx:id="wineTypeRose" layoutX="283.0" layoutY="197.0" mnemonicParsing="false" text="Rose" toggleGroup="$wineTypeToggle" />
       <Label layoutX="23.0" layoutY="242.0" text="Region:">
          <font>
@@ -61,7 +61,7 @@
          </font>
       </Label>
       <TextField fx:id="wineScore" layoutX="304.0" layoutY="148.0" prefHeight="24.0" prefWidth="114.0" />
-      <Label layoutX="23.0" layoutY="287.0" text="Decription:">
+      <Label layoutX="23.0" layoutY="287.0" text="Description:">
          <font>
             <Font name="Liberation Sans Bold" size="13.0" />
          </font>
@@ -72,5 +72,10 @@
             <Font name="Liberation Sans Bold" size="13.0" />
          </font>
       </Button>
+      <Label fx:id="saveNewWineMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="88.0" layoutY="372.0" maxWidth="300.0" prefWidth="300.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>
