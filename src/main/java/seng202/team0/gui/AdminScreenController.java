@@ -33,8 +33,14 @@ public class AdminScreenController {
 
     @FXML
     public void onAddWine(){
-        winery.getClearRunnable().run();
-        winery.launchAddWineScreen();
+        String dataType = getDataType();
+        if (dataType == "Wine") {
+            winery.getClearRunnable().run();
+            winery.launchAddWineScreen();
+        } else if (dataType == "Winery") {
+            winery.getClearRunnable().run();
+            winery.launchAddWineryScreen();
+        }
     }
 
     /**

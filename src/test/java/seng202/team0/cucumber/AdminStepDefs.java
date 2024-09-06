@@ -30,11 +30,12 @@ public class AdminStepDefs {
     void consumer2(WineEnvironment wineEnvironment){}
     void consumer3(WineEnvironment wineEnvironment){}
     void consumer4(WineEnvironment wineEnvironment){}
+    void consumer5(WineEnvironment wineEnvironment){}
     void clear(){}
 
     @Before
     public void setup() {
-        this.wineEnvironment = new WineEnvironment(this::consumer1, this::consumer2, this::consumer3, this::consumer4, this::clear);
+        this.wineEnvironment = new WineEnvironment(this::consumer1, this::consumer2, this::consumer3, this::consumer4, this::consumer5, this::clear);
         this.adminLoginService = AdminLoginService.getInstance();
         this.adminSetupScreenController = new AdminSetupScreenController(wineEnvironment);
         File file = adminLoginService.getCredentialsFile();

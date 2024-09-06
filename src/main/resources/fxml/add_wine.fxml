@@ -8,48 +8,70 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.AddWineController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="415.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.AddWineryController">
     <children>
         <Label layoutX="23.0" layoutY="22.0" text="Add a New Wine">
             <font>
                 <Font name="Liberation Sans Bold" size="16.0" />
             </font>
         </Label>
-        <Label layoutX="23.0" layoutY="80.0" text="Name: ">
+        <Label layoutX="23.0" layoutY="62.0" text="Winery:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <TextField fx:id="wineName" layoutX="86.0" layoutY="76.0" prefHeight="24.0" prefWidth="255.0" />
-        <Label layoutX="23.0" layoutY="140.0" text="Category: ">
+        <TextField fx:id="wineName" layoutX="99.0" layoutY="58.0" prefHeight="24.0" prefWidth="320.0" />
+        <Label layoutX="23.0" layoutY="107.0" text="Name:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <Label layoutX="23.0" layoutY="200.0" text="Winery: ">
+        <Label layoutX="23.0" layoutY="197.0" text="Type:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <TextField fx:id="wineWinery" layoutX="86.0" layoutY="196.0" prefHeight="24.0" prefWidth="255.0" />
-        <Label layoutX="23.0" layoutY="260.0" text="Region: ">
+        <TextField fx:id="wineWinery" layoutX="99.0" layoutY="103.0" prefHeight="24.0" prefWidth="320.0" />
+        <Label layoutX="23.0" layoutY="152.0" text="Vintage:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <TextField fx:id="wineRegion" layoutX="86.0" layoutY="256.0" prefHeight="24.0" prefWidth="255.0" />
-        <Button fx:id="saveWine" layoutX="242.0" layoutY="335.0" mnemonicParsing="false" text="Save New Wine">
+        <TextField fx:id="wineRegion" layoutX="99.0" layoutY="148.0" prefHeight="24.0" prefWidth="114.0" />
+        <Button fx:id="saveWine" layoutX="241.0" layoutY="373.0" mnemonicParsing="false" text="Save New Wine">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Button>
-      <RadioButton fx:id="typeWhite" layoutX="118.0" layoutY="140.0" mnemonicParsing="false" text="White">
+      <RadioButton fx:id="typeWhite" layoutX="103.0" layoutY="197.0" mnemonicParsing="false" text="White">
          <toggleGroup>
             <ToggleGroup fx:id="wines" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="typeRed" layoutX="220.0" layoutY="140.0" mnemonicParsing="false" text="Red" toggleGroup="$wines" />
-      <RadioButton fx:id="typeRose" layoutX="316.0" layoutY="140.0" mnemonicParsing="false" text="Rose" toggleGroup="$wines" />
-      <RadioButton fx:id="typeSparkling" layoutX="406.0" layoutY="140.0" mnemonicParsing="false" text="Sparkling" toggleGroup="$wines" />
+      <RadioButton fx:id="typeRed" layoutX="193.0" layoutY="197.0" mnemonicParsing="false" text="Red" toggleGroup="$wines" />
+      <RadioButton fx:id="typeRose" layoutX="283.0" layoutY="197.0" mnemonicParsing="false" text="Rose" toggleGroup="$wines" />
+      <Label layoutX="23.0" layoutY="242.0" text="Region:">
+         <font>
+            <Font name="Liberation Sans Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="wineRegion1" layoutX="99.0" layoutY="236.0" prefHeight="24.0" prefWidth="320.0" />
+      <Label layoutX="243.0" layoutY="152.0" text="Score:">
+         <font>
+            <Font name="Liberation Sans Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="wineRegion2" layoutX="304.0" layoutY="148.0" prefHeight="24.0" prefWidth="114.0" />
+      <Label layoutX="23.0" layoutY="287.0" text="Decription:">
+         <font>
+            <Font name="Liberation Sans Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="wineRegion11" alignment="TOP_LEFT" layoutX="99.0" layoutY="283.0" prefHeight="60.0" prefWidth="320.0" />
+      <Button layoutX="498.0" layoutY="20.0" mnemonicParsing="false" onAction="#goBackToAdmin" text="Go Back">
+         <font>
+            <Font name="Liberation Sans Bold" size="13.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

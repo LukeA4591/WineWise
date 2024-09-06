@@ -37,4 +37,10 @@ public class AddWineController {
     public AddWineController(WineEnvironment winery) {
         this.winery = winery;
     }
+
+    @FXML
+    private void goBackToAdmin() {
+        winery.getClearRunnable().run();
+        winery.launchAdminScreen();
+    }
 }

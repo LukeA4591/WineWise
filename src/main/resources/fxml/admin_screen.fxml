@@ -8,7 +8,7 @@
    <children>
       <Button layoutX="468.0" layoutY="28.0" mnemonicParsing="false" text="Logout" />
       <Button layoutX="80.0" layoutY="200.0" mnemonicParsing="false" onAction="#addDataSet" text="Add a dataset" />
-      <Button layoutX="81.0" layoutY="290.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="View table (delete)" />
+      <Button layoutX="80.0" layoutY="290.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" text="View table (delete)" />
       <Label layoutX="81.0" layoutY="94.0" text="Modify Data">
          <font>
             <Font size="18.0" />
@@ -33,7 +33,7 @@
       <Button layoutX="435.0" layoutY="336.0" mnemonicParsing="false" text="Unflag review" />
       <Button fx:id="addWine" layoutX="80.0" layoutY="245.0" mnemonicParsing="false" onAction="#onAddWine" text="Add data" />
       <Button layoutX="323.0" layoutY="28.0" mnemonicParsing="false" text="Change credentials" />
-      <Label layoutX="80.0" layoutY="147.0" text="Select Data Type:" />
-      <ComboBox fx:id="dataTypeComboBox" layoutX="198.0" layoutY="143.0" prefHeight="25.0" prefWidth="91.0" />
+      <Label layoutX="80.0" layoutY="147.0" text="Data Type:" />
+      <ComboBox fx:id="dataTypeComboBox" layoutX="180.0" layoutY="143.0" prefHeight="25.0" prefWidth="109.0" />
    </children>
 </AnchorPane>

@@ -72,6 +72,4 @@ public class AdminSetupScreenController {
             winery.launchAdminScreen();
         }
     }
-
-
 }
