@@ -8,17 +8,17 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.HomePageController">
    <children>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="48.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="48.0" layoutY="60.0" onMouseClicked="#winePressed" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/base_wine.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="48.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="48.0" layoutY="230.0" onMouseClicked="#winePressed" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/base_wine.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="48.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="48.0" layoutY="400.0" onMouseClicked="#winePressed" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/base_wine.jpg" />
          </image>
@@ -28,32 +28,32 @@
             <Font name="Liberation Sans Bold" size="26.0" />
          </font>
       </Label>
-      <Label fx:id="wine1" layoutX="225.0" layoutY="71.0" text="Name:">
+      <Label fx:id="wine1" layoutX="225.0" layoutY="71.0" onMouseClicked="#winePressed" text="Name:">
          <font>
             <Font name="Liberation Sans" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="wine2" layoutX="225.0" layoutY="240.0" text="Name:">
+      <Label fx:id="wine2" layoutX="225.0" layoutY="240.0" onMouseClicked="#winePressed" text="Name:">
          <font>
             <Font name="Liberation Sans" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="wine3" layoutX="225.0" layoutY="410.0" text="Name:">
+      <Label fx:id="wine3" layoutX="225.0" layoutY="410.0" onMouseClicked="#winePressed" text="Name:">
          <font>
             <Font name="Liberation Sans" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="desc1" layoutX="225.0" layoutY="125.0" text="description of wine">
+      <Label fx:id="desc1" layoutX="225.0" layoutY="125.0" onMouseClicked="#winePressed" text="description of wine">
          <font>
             <Font name="Liberation Sans" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="desc2" layoutX="225.0" layoutY="295.0" text="description of wine">
+      <Label fx:id="desc2" layoutX="225.0" layoutY="295.0" onMouseClicked="#winePressed" text="description of wine">
          <font>
             <Font name="Liberation Sans" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="desc3" layoutX="225.0" layoutY="465.0" text="description of wine">
+      <Label fx:id="desc3" layoutX="225.0" layoutY="465.0" onMouseClicked="#winePressed" text="description of wine">
          <font>
             <Font name="Liberation Sans" size="16.0" />
          </font>
