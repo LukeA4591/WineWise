@@ -3,13 +3,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.winePopupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.winePopupController">
    <children>
-      <Label layoutX="35.0" layoutY="38.0" text="Wine Name: " />
-      <Label layoutX="32.0" layoutY="75.0" text="From Winery: " />
+      <Label fx:id="wineName" layoutX="35.0" layoutY="38.0" text="Wine Name: " />
+      <Label fx:id="winery" layoutX="32.0" layoutY="75.0" text="From Winery: " />
       <Label layoutX="35.0" layoutY="158.0" text="Region: " />
       <Label layoutX="32.0" layoutY="116.0" text="Rating: " />
-      <Label layoutX="32.0" layoutY="200.0" text="Description" />
+      <Label fx:id="wineDesc" layoutX="32.0" layoutY="200.0" text="Description" />
    </children>
 </AnchorPane>
