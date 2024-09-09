@@ -48,7 +48,7 @@ public class WineDAO implements DAOInterface<Wine> {
     /**
      * Adds single wine to database
      * @param toAdd object of type T to add
-     * @return
+     * @return int
      * @throws DuplicateExc
      */
     @Override

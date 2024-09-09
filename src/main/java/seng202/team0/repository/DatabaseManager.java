@@ -58,9 +58,6 @@ public class DatabaseManager {
      */
     public static DatabaseManager getInstance() {
         if (instance == null)
-            // todo find a way to actually get db within jar
-            // The following line can be used to reach a db file within the jar, however this will not be modifiable
-//             instance = new DatabaseManager("jdbc:sqlite:./src/main/resources/sql/initialise_database.sql");
             instance = new DatabaseManager("jdbc:sqlite:./src/main/resources/database.db");
 //            instance = new DatabaseManager(null);
 

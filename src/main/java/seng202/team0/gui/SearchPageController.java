@@ -2,29 +2,14 @@ package seng202.team0.gui;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-import org.apache.commons.lang3.ObjectUtils;
-import seng202.team0.models.Rating;
 import seng202.team0.models.Wine;
-import seng202.team0.models.Winery;
 import seng202.team0.repository.DatabaseManager;
 import seng202.team0.repository.WineDAO;
-import seng202.team0.services.WineEnvironment;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 
 public class SearchPageController {
@@ -44,13 +29,17 @@ public class SearchPageController {
     }
 
     @FXML
-    void filterClick(){
-        System.out.println("Filter Running...");
+    private void initialize() {
         initTable();
     }
 
+    @FXML
+    void filterClick(){
+        System.out.println("Filter Running...");
+    }
+
     private void initTable(){
-        table.getColumns().removeAll();
+        table.setItems(null);
 
         System.out.println("Initing Table...");
         TableColumn<Wine, String> typeCol = new TableColumn<>("Type");
