@@ -44,13 +44,12 @@ public class HomePageController {
     public void init(Stage stage){
         this.stage = stage;
         wineDAO = new WineDAO();
-        // displayWines();
-        // displayDescriptions();
+        displayWines();
+        displayDescriptions();
     }
 
     public void displayWines(){
         List<Wine> wines = wineDAO.getAll();
-
         wine1.setText(wines.get(0).getWineName());
         wine2.setText(wines.get(1).getWineName());
         wine3.setText(wines.get(2).getWineName());
@@ -64,14 +63,32 @@ public class HomePageController {
     }
 
     @FXML
-    void winePressed() {
+    void wine1Pressed() {
+        List<Wine> wines = wineDAO.getAll();
+        winePressed(wines.get(0));
+    }
+
+    @FXML
+    void wine2Pressed() {
+        List<Wine> wines = wineDAO.getAll();
+        winePressed(wines.get(1));
+    }
+
+    @FXML
+    void wine3Pressed() {
+        List<Wine> wines = wineDAO.getAll();
+        winePressed(wines.get(2));
+    }
+
+
+    void winePressed(Wine wine) {
         try {
             // load a new fxml file
             FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/wine_popup.fxml"));
             AnchorPane root = newStageLoader.load();
 
             winePopupController controller = newStageLoader.getController();
-            controller.init();
+            controller.init(wine);
             Scene modalScene = new Scene(root);
             Stage modalStage = new Stage();
             modalStage.setScene(modalScene);
