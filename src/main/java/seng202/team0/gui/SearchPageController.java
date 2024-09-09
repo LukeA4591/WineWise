@@ -44,9 +44,13 @@ public class SearchPageController {
     }
 
     @FXML
+    public void initialize() {
+        initTable();
+    }
+
+    @FXML
     void filterClick(){
         System.out.println("Filter Running...");
-        initTable();
     }
 
     private void initTable(){
