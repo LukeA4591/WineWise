@@ -46,20 +46,18 @@ public class SearchPageController {
 
     @FXML
     private void filterClick(){
-        System.out.println("Filter Running...");
+        initTable(wines);
     }
 
     @FXML
     private void categoryFilterClicked(Event event) {
         MenuItem clickedItem = (MenuItem) event.getSource();
         categoryMenuButton.setText("Category: " + clickedItem.getText());
-        List<Wine> wines;
         if (!Objects.equals(clickedItem.getText(), "ALL")) {
             wines = wineDAO.getCategory(clickedItem.getText());
         } else {
             wines = wineDAO.getAll();
         }
-        initTable(wines);
     }
 
     private void initTable(List<Wine> wines){
