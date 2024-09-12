@@ -48,8 +48,8 @@ public class WineDAO implements DAOInterface<Wine> {
     }
 
     /**
-     * Gets all wines of a certain type
-     * @param type colour of wine
+     * Gets a list of wines depending on filters
+     * @param filters map of filters
      * @return a list of the wines
      */
     public List<Wine> getFilteredWines(Map<String, String> filters) {
@@ -114,7 +114,22 @@ public class WineDAO implements DAOInterface<Wine> {
             log.error(sqlException);
             return new ArrayList<>();
         }
+    }
 
+    public List<Integer> getDistinctVintages() {
+        List<Integer> vintages = new ArrayList<>();
+        String sql = "SELECT DISTINCT vintage FROM wines";
+        try(Connection conn = databaseManager.connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                vintages.add(rs.getInt("vintage"));
+            }
+            return vintages;
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            return new ArrayList<>();
+        }
     }
 
     /**

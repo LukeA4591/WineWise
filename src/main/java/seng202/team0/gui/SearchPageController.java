@@ -12,10 +12,10 @@ import seng202.team0.models.Wine;
 import seng202.team0.repository.DatabaseManager;
 import seng202.team0.repository.WineDAO;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+
+import static java.util.Collections.max;
+import static java.util.Collections.min;
 
 
 public class SearchPageController {
@@ -26,8 +26,11 @@ public class SearchPageController {
     private MenuButton categoryMenuButton;
     @FXML
     private MenuButton regionMenuButton;
+    @FXML
+    private MenuButton yearMenuButton;
     private List<Wine> wines;
     private List<String> regions;
+    private List<Integer> vintages;
     private Map<String, String> filters = new HashMap<>();
     static WineDAO wineDAO;
     static DatabaseManager databaseManager;
@@ -50,6 +53,20 @@ public class SearchPageController {
                 regionMenuButton.getItems().add(menu);
             }
         }
+
+
+        List<Integer> vintages = wineDAO.getDistinctVintages();
+
+        int i = min(vintages);
+        while (i < max(vintages)) {
+            MenuItem menu = new MenuItem();
+            menu.setText(String.valueOf(i));
+            menu.setOnAction(this::vintageFilterClicked);
+            yearMenuButton.getItems().add(menu);
+            i++;
+        }
+
+
 
         filters.put("type", "ALL");
         filters.put("score", "ALL");
@@ -78,10 +95,26 @@ public class SearchPageController {
         filters.put("region", clickedItem.getText());
     }
 
+    @FXML
+    private void vintageFilterClicked(Event event) {
+        MenuItem clickedItem = (MenuItem) event.getSource();
+        yearMenuButton.setText("Year: " + clickedItem.getText());
+        filters.put("vintage", clickedItem.getText());
+    }
+
+    @FXML
+    private void resetClicked() {
+        filters.replaceAll((k, v) -> "ALL");
+        categoryMenuButton.setText("Category: ALL");
+        regionMenuButton.setText("Region: ALL");
+        yearMenuButton.setText("Year: ALL");
+        wines = wineDAO.getAll();
+        initTable(wines);
+    }
+
     private void initTable(List<Wine> wines){
         table.setItems(null);
 
-        System.out.println("Initing Table...");
         TableColumn<Wine, String> typeCol = new TableColumn<>("Type");
         typeCol.setCellValueFactory(new PropertyValueFactory<>("color"));
 
