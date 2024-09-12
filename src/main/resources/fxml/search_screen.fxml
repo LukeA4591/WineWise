@@ -82,6 +82,7 @@
                            <children>
                               <MenuButton fx:id="categoryMenuButton" mnemonicParsing="false" text="Category: ALL">
                                  <items>
+                                    <MenuItem fx:id="allCategory" mnemonicParsing="false" onAction="#categoryFilterClicked" text="ALL" />
                                     <MenuItem fx:id="whiteCategory" mnemonicParsing="false" onAction="#categoryFilterClicked" text="White" />
                                     <MenuItem fx:id="redCategory" mnemonicParsing="false" onAction="#categoryFilterClicked" text="Red" />
                                  </items>

@@ -13,6 +13,7 @@ import seng202.team0.repository.DatabaseManager;
 import seng202.team0.repository.WineDAO;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class SearchPageController {
@@ -25,6 +26,8 @@ public class SearchPageController {
     private MenuItem redCategory;
     @FXML
     private MenuItem whiteCategory;
+    @FXML
+    private MenuItem allCategory;
     private List<Wine> wines;
     private String categoryFilter = null;
     static WineDAO wineDAO;
@@ -50,7 +53,12 @@ public class SearchPageController {
     private void categoryFilterClicked(Event event) {
         MenuItem clickedItem = (MenuItem) event.getSource();
         categoryMenuButton.setText("Category: " + clickedItem.getText());
-        List<Wine> wines = wineDAO.getCategory(clickedItem.getText());
+        List<Wine> wines;
+        if (!Objects.equals(clickedItem.getText(), "ALL")) {
+            wines = wineDAO.getCategory(clickedItem.getText());
+        } else {
+            wines = wineDAO.getAll();
+        }
         initTable(wines);
     }
 
