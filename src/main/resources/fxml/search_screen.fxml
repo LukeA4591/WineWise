@@ -224,10 +224,6 @@
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <children>
                               <MenuButton fx:id="regionMenuButton" mnemonicParsing="false" text="Region: ALL">
-                                 <items>
-                                    <MenuItem mnemonicParsing="false" text="Action 1" />
-                                    <MenuItem mnemonicParsing="false" text="Action 2" />
-                                 </items>
                                  <font>
                                     <Font name="Liberation Sans Bold" size="13.0" />
                                  </font>

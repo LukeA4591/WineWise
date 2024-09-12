@@ -11,6 +11,8 @@ import javax.xml.namespace.QName;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class WineDAO implements DAOInterface<Wine> {
     private static final Logger log = LogManager.getLogger(WineDAO.class);
@@ -50,12 +52,42 @@ public class WineDAO implements DAOInterface<Wine> {
      * @param type colour of wine
      * @return a list of the wines
      */
-    public List<Wine> getCategory(String type) {
+    public List<Wine> getFilteredWines(Map<String, String> filters) {
         List<Wine> wines = new ArrayList<>();
-        String sql = "SELECT * FROM wines WHERE type=?";
+        StringBuilder sql = new StringBuilder("SELECT * FROM wines WHERE 1=1");
+        for (Map.Entry<String, String> filter : filters.entrySet()) {
+            String key = filter.getKey();
+            String value = filter.getValue();
+
+            if (!Objects.equals(value, "ALL")) {
+                switch (key) {
+                    case "type":
+                        sql.append(" AND type = ?");
+                        break;
+                    case "score":
+                        sql.append(" AND score = ?");
+                        break;
+                    case "winery":
+                        sql.append(" AND winery = ?");
+                        break;
+                    case "vintage":
+                        sql.append(" AND vintage = ?");
+                        break;
+                    case "region":
+                        sql.append(" AND region = ?");
+                        break;
+                }
+            }
+        }
         try(Connection conn = databaseManager.connect();
-            PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, type);
+            PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+            int index = 1;
+            for (Map.Entry<String, String> filter : filters.entrySet()) {
+                String value = filter.getValue();
+                if (!Objects.equals(value, "ALL")) {
+                    ps.setObject(index++, value);
+                }
+            }
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 wines.add(new Wine(rs.getString("type"), rs.getString("name"), rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"), rs.getString("region"), rs.getString("description")));

@@ -12,7 +12,9 @@ import seng202.team0.models.Wine;
 import seng202.team0.repository.DatabaseManager;
 import seng202.team0.repository.WineDAO;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -26,6 +28,7 @@ public class SearchPageController {
     private MenuButton regionMenuButton;
     private List<Wine> wines;
     private List<String> regions;
+    private Map<String, String> filters = new HashMap<>();
     static WineDAO wineDAO;
     static DatabaseManager databaseManager;
 
@@ -43,13 +46,21 @@ public class SearchPageController {
             if (!Objects.equals(region, "Not Applicable")) {
                 MenuItem menu = new MenuItem();
                 menu.setText(region);
+                menu.setOnAction(this::regionFilterClicked);
                 regionMenuButton.getItems().add(menu);
             }
         }
+
+        filters.put("type", "ALL");
+        filters.put("score", "ALL");
+        filters.put("winery", "ALL");
+        filters.put("vintage", "ALL");
+        filters.put("region", "ALL");
     }
 
     @FXML
     private void filterClick(){
+        wines = wineDAO.getFilteredWines(filters);
         initTable(wines);
     }
 
@@ -57,11 +68,14 @@ public class SearchPageController {
     private void categoryFilterClicked(Event event) {
         MenuItem clickedItem = (MenuItem) event.getSource();
         categoryMenuButton.setText("Category: " + clickedItem.getText());
-        if (!Objects.equals(clickedItem.getText(), "ALL")) {
-            wines = wineDAO.getCategory(clickedItem.getText());
-        } else {
-            wines = wineDAO.getAll();
-        }
+        filters.put("type", clickedItem.getText());
+    }
+
+    @FXML
+    private void regionFilterClicked(Event event) {
+        MenuItem clickedItem = (MenuItem) event.getSource();
+        regionMenuButton.setText("Region: " + clickedItem.getText());
+        filters.put("region", clickedItem.getText());
     }
 
     private void initTable(List<Wine> wines){
