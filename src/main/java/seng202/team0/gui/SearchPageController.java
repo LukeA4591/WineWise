@@ -23,13 +23,9 @@ public class SearchPageController {
     @FXML
     private MenuButton categoryMenuButton;
     @FXML
-    private MenuItem redCategory;
-    @FXML
-    private MenuItem whiteCategory;
-    @FXML
-    private MenuItem allCategory;
+    private MenuButton regionMenuButton;
     private List<Wine> wines;
-    private String categoryFilter = null;
+    private List<String> regions;
     static WineDAO wineDAO;
     static DatabaseManager databaseManager;
 
@@ -42,6 +38,14 @@ public class SearchPageController {
     private void initialize() {
         wines = wineDAO.getAll();
         initTable(wines);
+        regions = wineDAO.getDistinctRegions();
+        for (String region : regions) {
+            if (!Objects.equals(region, "Not Applicable")) {
+                MenuItem menu = new MenuItem();
+                menu.setText(region);
+                regionMenuButton.getItems().add(menu);
+            }
+        }
     }
 
     @FXML

@@ -68,6 +68,23 @@ public class WineDAO implements DAOInterface<Wine> {
 
     }
 
+    public List<String> getDistinctRegions() {
+        List<String> regions = new ArrayList<>();
+        String sql = "SELECT DISTINCT region FROM wines";
+        try(Connection conn = databaseManager.connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                regions.add(rs.getString("region"));
+            }
+            return regions;
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            return new ArrayList<>();
+        }
+
+    }
+
     /**
      * Adds single wine to database
      * @param toAdd object of type T to add
