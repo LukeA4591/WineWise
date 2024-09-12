@@ -1,7 +1,10 @@
 package seng202.team0.gui;
 
 import javafx.collections.FXCollections;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -16,29 +19,42 @@ public class SearchPageController {
 
     @FXML
     private TableView<Wine> table;
-
+    @FXML
+    private MenuButton categoryMenuButton;
+    @FXML
+    private MenuItem redCategory;
+    @FXML
+    private MenuItem whiteCategory;
+    private List<Wine> wines;
+    private String categoryFilter = null;
     static WineDAO wineDAO;
     static DatabaseManager databaseManager;
 
     public SearchPageController() {
         databaseManager = DatabaseManager.getInstance();
         wineDAO = new WineDAO();
-        // TODO Init table on start instead of filter button click but error:
-        // Cannot invoke "javafx.scene.control.TableView.getColumns()" because "this.table" is null
-//        initTable();
     }
 
     @FXML
     private void initialize() {
-        initTable();
+        wines = wineDAO.getAll();
+        initTable(wines);
     }
 
     @FXML
-    void filterClick(){
+    private void filterClick(){
         System.out.println("Filter Running...");
     }
 
-    private void initTable(){
+    @FXML
+    private void categoryFilterClicked(Event event) {
+        MenuItem clickedItem = (MenuItem) event.getSource();
+        categoryMenuButton.setText("Category: " + clickedItem.getText());
+        List<Wine> wines = wineDAO.getCategory(clickedItem.getText());
+        initTable(wines);
+    }
+
+    private void initTable(List<Wine> wines){
         table.setItems(null);
 
         System.out.println("Initing Table...");
@@ -71,10 +87,8 @@ public class SearchPageController {
         table.getColumns().add(regionCol);
         table.getColumns().add(descCol);
 
-        table.setItems(FXCollections.observableArrayList(wineDAO.getAll()));
+        table.setItems(FXCollections.observableArrayList(wines));
     }
-
-
 
     private List<Wine> getData() {
         return null;
