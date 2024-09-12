@@ -24,7 +24,7 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Gets all wines in database
-     * @return a list of all users
+     * @return a list of all wines
      */
     @Override
     public List<Wine> getAll() {
@@ -43,6 +43,29 @@ public class WineDAO implements DAOInterface<Wine> {
             log.error(sqlException);
             return new ArrayList<>();
         }
+    }
+
+    /**
+     * Gets all wines of a certain type
+     * @param type colour of wine
+     * @return a list of the wines
+     */
+    public List<Wine> getCategory(String type) {
+        List<Wine> wines = new ArrayList<>();
+        String sql = "SELECT * FROM wines WHERE type=?";
+        try(Connection conn = databaseManager.connect();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, type);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                wines.add(new Wine(rs.getString("type"), rs.getString("name"), rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"), rs.getString("region"), rs.getString("description")));
+            }
+            return wines;
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            return new ArrayList<>();
+        }
+
     }
 
     /**

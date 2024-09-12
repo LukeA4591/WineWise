@@ -80,10 +80,10 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <children>
-                              <MenuButton mnemonicParsing="false" text="Category: ALL">
+                              <MenuButton fx:id="categoryMenuButton" mnemonicParsing="false" text="Category: ALL">
                                  <items>
-                                    <MenuItem mnemonicParsing="false" text="Action 1" />
-                                    <MenuItem mnemonicParsing="false" text="Action 2" />
+                                    <MenuItem fx:id="whiteCategory" mnemonicParsing="false" onAction="#categoryFilterClicked" text="White" />
+                                    <MenuItem fx:id="redCategory" mnemonicParsing="false" onAction="#categoryFilterClicked" text="Red" />
                                  </items>
                                  <font>
                                     <Font name="Liberation Sans Bold" size="13.0" />
