@@ -3,10 +3,7 @@ package seng202.team0.gui;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team0.models.Wine;
 import seng202.team0.repository.DatabaseManager;
@@ -30,9 +27,15 @@ public class SearchPageController {
     private MenuButton yearMenuButton;
     @FXML
     private MenuButton wineryMenuButton;
+    @FXML
+    private TextField criticScoreMinText;
+    @FXML
+    private TextField criticScoreMaxText;
+    @FXML
+    private Label errorLabel;
     private List<Wine> wines;
-    private List<Integer> vintages;
     private Map<String, String> filters = new HashMap<>();
+    private Map<String, List<String>> scoreFilters = new HashMap<>();
     static WineDAO wineDAO;
     static DatabaseManager databaseManager;
 
@@ -74,10 +77,9 @@ public class SearchPageController {
             i++;
         }
 
-
+        scoreFilters.put("score", new ArrayList<>()); //will need to change when user scores come in
 
         filters.put("type", "ALL");
-        filters.put("score", "ALL");
         filters.put("winery", "ALL");
         filters.put("vintage", "ALL");
         filters.put("region", "ALL");
@@ -85,8 +87,13 @@ public class SearchPageController {
 
     @FXML
     private void filterClick(){
-        wines = wineDAO.getFilteredWines(filters);
-        initTable(wines);
+        if ((Objects.equals(criticScoreMinText.getText(), "") && !(Objects.equals(criticScoreMaxText.getText(), ""))) || (!(Objects.equals(criticScoreMinText.getText(), "")) && Objects.equals(criticScoreMaxText.getText(), ""))) {
+            errorLabel.setText("Error");
+        } else {
+            scoreFilters.put("score", Arrays.asList(criticScoreMinText.getText(), criticScoreMaxText.getText()));
+            wines = wineDAO.getFilteredWines(filters, scoreFilters);
+            initTable(wines);
+        }
     }
 
     @FXML

@@ -52,7 +52,7 @@ public class WineDAO implements DAOInterface<Wine> {
      * @param filters map of filters
      * @return a list of the wines
      */
-    public List<Wine> getFilteredWines(Map<String, String> filters) {
+    public List<Wine> getFilteredWines(Map<String, String> filters, Map<String, List<String>> scoreFilters) {
         List<Wine> wines = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT * FROM wines WHERE 1=1");
         for (Map.Entry<String, String> filter : filters.entrySet()) {
@@ -63,9 +63,6 @@ public class WineDAO implements DAOInterface<Wine> {
                 switch (key) {
                     case "type":
                         sql.append(" AND type = ?");
-                        break;
-                    case "score":
-                        sql.append(" AND score = ?");
                         break;
                     case "winery":
                         sql.append(" AND winery = ?");
@@ -79,6 +76,23 @@ public class WineDAO implements DAOInterface<Wine> {
                 }
             }
         }
+
+        StringBuilder sqlScores = new StringBuilder("SELECT * FROM wines WHERE 1=1");
+        boolean criticScoreIncluded = false;
+        for (Map.Entry<String, List<String>> filter : scoreFilters.entrySet()) {
+            if (!Objects.equals(filter.getValue().get(0), "")) {
+                criticScoreIncluded = true;
+                //this will change with user reviews
+                sqlScores.append(" AND score <= ? ");
+                sqlScores.append(" AND score >= ? ");
+            }
+
+        }
+
+        if (criticScoreIncluded) {
+            sql.append(" INTERSECT ");
+            sql.append(sqlScores.toString());
+        }
         try(Connection conn = databaseManager.connect();
             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
             int index = 1;
@@ -87,6 +101,11 @@ public class WineDAO implements DAOInterface<Wine> {
                 if (!Objects.equals(value, "ALL")) {
                     ps.setObject(index++, value);
                 }
+            }
+            if (criticScoreIncluded) {
+                List<String> bounds = scoreFilters.get("score");
+                ps.setObject(index++, bounds.get(1));
+                ps.setObject(index++, bounds.get(0));
             }
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

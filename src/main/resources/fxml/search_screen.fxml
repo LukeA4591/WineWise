@@ -39,6 +39,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -118,34 +119,14 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                            <children>
-                              <MenuButton contentDisplay="CENTER" mnemonicParsing="false" text="User Score Range: ALL" wrapText="true">
-                                 <items>
-                                    <MenuItem mnemonicParsing="false" text="Action 1" />
-                                    <MenuItem mnemonicParsing="false" text="Action 2" />
-                                 </items>
+                              <Label fx:id="errorLabel" prefHeight="19.0" prefWidth="84.0" wrapText="true">
                                  <font>
                                     <Font name="Liberation Sans Bold" size="13.0" />
                                  </font>
-                                 <HBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </HBox.margin>
-                              </MenuButton>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
-                           <children>
-                              <MenuButton mnemonicParsing="false" text="Critic Score Range: ALL" wrapText="true">
-                                 <items>
-                                    <MenuItem mnemonicParsing="false" text="Action 1" />
-                                    <MenuItem mnemonicParsing="false" text="Action 2" />
-                                 </items>
-                                 <font>
-                                    <Font name="Liberation Sans Bold" size="13.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </HBox.margin>
-                              </MenuButton>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
                            </children>
                         </HBox>
                         <Label prefHeight="19.0" prefWidth="73.0" text="Scores">
@@ -156,6 +137,49 @@
                               <Insets left="5.0" />
                            </padding>
                         </Label>
+                        <Label prefHeight="19.0" prefWidth="84.0" text="Critic Score" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Liberation Sans Bold" size="13.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="30.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label prefHeight="19.0" prefWidth="49.0" text="From:" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Liberation Sans Bold" size="13.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets top="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <TextField fx:id="criticScoreMinText" maxWidth="35.0" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="45.0" top="10.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <Label prefHeight="19.0" prefWidth="35.0" text="To:" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Liberation Sans Bold" size="13.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets left="81.0" top="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <TextField fx:id="criticScoreMaxText" maxWidth="35.0" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="111.0" top="10.0" />
+                           </GridPane.margin>
+                        </TextField>
                      </children>
                   </GridPane>
                   <GridPane prefHeight="122.0" prefWidth="154.0" GridPane.rowIndex="2">
