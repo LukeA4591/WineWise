@@ -28,8 +28,9 @@ public class SearchPageController {
     private MenuButton regionMenuButton;
     @FXML
     private MenuButton yearMenuButton;
+    @FXML
+    private MenuButton wineryMenuButton;
     private List<Wine> wines;
-    private List<String> regions;
     private List<Integer> vintages;
     private Map<String, String> filters = new HashMap<>();
     static WineDAO wineDAO;
@@ -44,7 +45,7 @@ public class SearchPageController {
     private void initialize() {
         wines = wineDAO.getAll();
         initTable(wines);
-        regions = wineDAO.getDistinctRegions();
+        List<String> regions = wineDAO.getDistinct("region");
         for (String region : regions) {
             if (!Objects.equals(region, "Not Applicable")) {
                 MenuItem menu = new MenuItem();
@@ -54,6 +55,13 @@ public class SearchPageController {
             }
         }
 
+        List<String> wineries = wineDAO.getDistinct("winery");
+        for (String winery : wineries) {
+            MenuItem menu = new MenuItem();
+            menu.setText(winery);
+            menu.setOnAction(this::wineryFilterClicked);
+            wineryMenuButton.getItems().add(menu);
+        }
 
         List<Integer> vintages = wineDAO.getDistinctVintages();
 
@@ -103,11 +111,19 @@ public class SearchPageController {
     }
 
     @FXML
+    private void wineryFilterClicked(Event event) {
+        MenuItem clickedItem = (MenuItem) event.getSource();
+        wineryMenuButton.setText("Winery: " + clickedItem.getText());
+        filters.put("winery", clickedItem.getText());
+    }
+
+    @FXML
     private void resetClicked() {
         filters.replaceAll((k, v) -> "ALL");
         categoryMenuButton.setText("Category: ALL");
         regionMenuButton.setText("Region: ALL");
         yearMenuButton.setText("Year: ALL");
+        wineryMenuButton.setText("Winery: ALL");
         wines = wineDAO.getAll();
         initTable(wines);
     }
