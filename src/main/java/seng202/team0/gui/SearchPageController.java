@@ -90,7 +90,7 @@ public class SearchPageController {
         if ((Objects.equals(criticScoreMinText.getText(), "") && !(Objects.equals(criticScoreMaxText.getText(), ""))) || (!(Objects.equals(criticScoreMinText.getText(), "")) && Objects.equals(criticScoreMaxText.getText(), ""))) {
             errorLabel.setText("Please input both scores");
             errorLabel.setStyle("-fx-text-fill: red;");
-        } else if (Integer.parseInt(criticScoreMaxText.getText()) <= Integer.parseInt(criticScoreMinText.getText())) {
+        } else if (!Objects.equals(criticScoreMaxText.getText(), "") && !Objects.equals(criticScoreMinText.getText(), "") && (Integer.parseInt(criticScoreMaxText.getText()) <= Integer.parseInt(criticScoreMinText.getText()))) {
             errorLabel.setText("Please input a valid from and to score");
             errorLabel.setStyle("-fx-text-fill: red;");
         } else {
@@ -142,7 +142,7 @@ public class SearchPageController {
     }
 
     private void initTable(List<Wine> wines){
-        table.setItems(null);
+        table.getColumns().clear();
 
         TableColumn<Wine, String> typeCol = new TableColumn<>("Type");
         typeCol.setCellValueFactory(new PropertyValueFactory<>("color"));
