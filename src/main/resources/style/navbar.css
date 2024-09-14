@@ -12,3 +12,20 @@
     -fx-base: #9b59b6 ;
     -fx-text-fill: #ffffff;
 }
+
+.menu-button {
+    -fx-background-radius: 0em;
+}
+
+.menu-item:hover {
+    -fx-background-color: #9b59b6;
+    -fx-text-fill: #ffffff;
+}
+
+.menu-button:hover {
+    -fx-background-color: #9b59b6;
+}
+
+.menu-button .label:hover {
+    -fx-text-fill: #FFFFFF;
+}

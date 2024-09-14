@@ -89,7 +89,7 @@
                                     <MenuItem fx:id="roseCategory" mnemonicParsing="false" onAction="#categoryFilterClicked" text="Rose" />
                                  </items>
                                  <font>
-                                    <Font name="Liberation Sans Bold" size="13.0" />
+                                    <Font name="Liberation Sans" size="13.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets bottom="20.0" />
@@ -203,7 +203,7 @@
                            <children>
                               <MenuButton fx:id="yearMenuButton" mnemonicParsing="false" prefHeight="30.0" text="Year: ALL">
                                  <font>
-                                    <Font name="Liberation Sans Bold" size="13.0" />
+                                    <Font name="Liberation Sans" size="13.0" />
                                  </font>
                               </MenuButton>
                            </children>
@@ -232,7 +232,7 @@
                            <children>
                               <MenuButton fx:id="regionMenuButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="141.0" text="Region: ALL" wrapText="true">
                                  <font>
-                                    <Font name="Liberation Sans Bold" size="13.0" />
+                                    <Font name="Liberation Sans" size="13.0" />
                                  </font>
                               </MenuButton>
                            </children>
@@ -241,7 +241,7 @@
                            <children>
                               <MenuButton fx:id="wineryMenuButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="141.0" text="Winery: ALL" wrapText="true">
                                  <font>
-                                    <Font name="Liberation Sans Bold" size="13.0" />
+                                    <Font name="Liberation Sans" size="13.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets />

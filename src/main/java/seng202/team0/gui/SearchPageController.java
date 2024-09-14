@@ -49,6 +49,8 @@ public class SearchPageController {
 
     /**
      * Initialize method for the fx elements of the page, sets up the filter menus with all the valid data
+     * @author Oliver Barclay
+     * @author Alex Wilson
      */
     @FXML
     private void initialize() {
@@ -75,7 +77,10 @@ public class SearchPageController {
         List<String> vintageStrings = wineDAO.getDistinct("vintage");
         List<Integer> vintages = new ArrayList<>();
         for (int i = 0; i < vintageStrings.size(); i++) {
-            vintages.add(Integer.parseInt(vintageStrings.get(i)));
+            try {
+                vintages.add(Integer.parseInt(vintageStrings.get(i)));
+            } catch (NumberFormatException ignored) {
+            }
         }
 
         int i = min(vintages);
@@ -97,6 +102,7 @@ public class SearchPageController {
 
     /**
      * On Action method for the filter button, initializes the table depending on the filters
+     * @Author Alex Wilson
      */
     @FXML
     private void filterClick(){
@@ -116,6 +122,7 @@ public class SearchPageController {
     /**
      * On Action method for the category filter
      * @param event MenuItem clicked
+     * @author Alex Wilson
      */
     @FXML
     private void categoryFilterClicked(Event event) {
@@ -127,6 +134,7 @@ public class SearchPageController {
     /**
      * On Action method for the region filter
      * @param event MenuItem clicked
+     * @author Alex Wilson
      */
     @FXML
     private void regionFilterClicked(Event event) {
@@ -138,6 +146,7 @@ public class SearchPageController {
     /**
      * On Action method for the vintage filter
      * @param event MenuItem clicked
+     * @author Alex Wilson
      */
     @FXML
     private void vintageFilterClicked(Event event) {
@@ -149,6 +158,7 @@ public class SearchPageController {
     /**
      * On Action method for the winery filter
      * @param event MenuItem clicked
+     * @author Alex Wilson
      */
     @FXML
     private void wineryFilterClicked(Event event) {
@@ -159,6 +169,7 @@ public class SearchPageController {
 
     /**
      * On Action method for the reset button, sets everything back to the original state
+     * @author Alex Wilson
      */
     @FXML
     private void resetClicked() {
@@ -176,6 +187,7 @@ public class SearchPageController {
     /**
      * Method to initialize the table from a list of wines
      * @param wines list of wines to load into the table
+     * @author Oliver Barclay
      */
     private void initTable(List<Wine> wines){
         table.getColumns().clear();

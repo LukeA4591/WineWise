@@ -27,6 +27,7 @@ public class WineDAO implements DAOInterface<Wine> {
     /**
      * Gets all wines in database
      * @return a list of all wines
+     * @author Oliver Barclay
      */
     @Override
     public List<Wine> getAll() {
@@ -51,6 +52,7 @@ public class WineDAO implements DAOInterface<Wine> {
      * Gets a list of wines depending on filters
      * @param filters map of filters
      * @return a list of the wines
+     * @author Alex Wilson
      */
     public List<Wine> getFilteredWines(Map<String, String> filters, Map<String, List<String>> scoreFilters) {
         List<Wine> wines = new ArrayList<>();
@@ -123,6 +125,7 @@ public class WineDAO implements DAOInterface<Wine> {
      * Method for getting all the distinct values of a column from the wine table
      * @param column column which all the distinct values are needed
      * @return list of the distinct values
+     * @author Alex Wilson
      */
     public List<String> getDistinct(String column) {
         List<String> result = new ArrayList<>();
@@ -145,6 +148,7 @@ public class WineDAO implements DAOInterface<Wine> {
      * @param toAdd object of type T to add
      * @return int
      * @throws DuplicateExc
+     * @author Oliver Barclay
      */
     @Override
     public int add(Wine toAdd) throws DuplicateExc {
