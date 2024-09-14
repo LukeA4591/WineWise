@@ -31,14 +31,36 @@ public class AdminLoginPopupController {
     @FXML
     private Label adminLoginErrorLabel;
 
+    /**
+     * Empty constructor
+     */
     public AdminLoginPopupController() {}
+
+    /**
+     * Init method for admin login popup
+     * It is called from in the AdminScreenController
+     * Passes in the wine environment and gets the singleton instance of admin login service.
+     * Sets up a listener that listens for when the TextField is attached to the scene
+     * Then it can return a non-null scene.
+     */
 
     @FXML
     public void init(WineEnvironment winery) {
         this.winery = winery;
         this.adminLoginInstance = winery.getAdminLoginInstance();
+        passwordInput.sceneProperty().addListener((observable, oldscene, newscene) -> {
+            if (newscene != null) {
+                newscene.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
+            }
+        });
     }
 
+
+    /**
+     * FXML on action method for when the login button is clicked.
+     * Returns error message if invalid credentials.
+     * If valid launches the admin screen.
+     */
     @FXML
     public void onLogin() {
         String inputtedUsername = usernameInput.getText();
@@ -47,8 +69,6 @@ public class AdminLoginPopupController {
         if (!errorMessage.isEmpty()) {
             adminLoginErrorLabel.setText(errorMessage);
         } else {
-            // go to admin screen
-            // close controller
             ((Stage) usernameInput.getScene().getWindow()).close();
             winery.getClearRunnable().run();
             winery.launchAdminScreen();

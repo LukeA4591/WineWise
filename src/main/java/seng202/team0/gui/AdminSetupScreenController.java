@@ -1,6 +1,5 @@
 package seng202.team0.gui;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -59,10 +58,23 @@ public class AdminSetupScreenController {
     public AdminSetupScreenController(WineEnvironment winery) {
         this.winery = winery;
         this.adminLoginInstance = winery.getAdminLoginInstance();
-
     }
 
-    // TODO need to make sure username inputs are validated.
+    /**
+     * Initialize method for admin setup screen.
+     * Sets up a listener that listens for when the TextField is attached to the scene
+     * Then it can return a non-null scene.
+     */
+    @FXML
+    private void initialize() {
+        createUsernameInputField.sceneProperty().addListener((observable, oldscene, newscene) -> {
+            if (newscene != null) {
+                newscene.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
+            }
+        });
+    }
+
+
 
     /**
      * A button clicked OnAction method that creates an account and launches admin screen
@@ -76,6 +88,7 @@ public class AdminSetupScreenController {
         if (!errorMessage.isEmpty()) {
             errorLabel.setText(errorMessage);
         } else {
+            adminLoginInstance.createCredentialsFile();
             adminLoginInstance.createNewUser(inputtedUsername, inputtedPassword);
             winery.getClearRunnable().run();
             winery.launchAdminScreen();
