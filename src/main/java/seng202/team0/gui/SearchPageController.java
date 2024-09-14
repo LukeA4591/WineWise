@@ -39,11 +39,17 @@ public class SearchPageController {
     static WineDAO wineDAO;
     static DatabaseManager databaseManager;
 
+    /**
+     * Constructor for search page controller
+     */
     public SearchPageController() {
         databaseManager = DatabaseManager.getInstance();
         wineDAO = new WineDAO();
     }
 
+    /**
+     * Initialize method for the fx elements of the page, sets up the filter menus with all the valid data
+     */
     @FXML
     private void initialize() {
         wines = wineDAO.getAll();
@@ -66,7 +72,11 @@ public class SearchPageController {
             wineryMenuButton.getItems().add(menu);
         }
 
-        List<Integer> vintages = wineDAO.getDistinctVintages();
+        List<String> vintageStrings = wineDAO.getDistinct("vintage");
+        List<Integer> vintages = new ArrayList<>();
+        for (int i = 0; i < vintageStrings.size(); i++) {
+            vintages.add(Integer.parseInt(vintageStrings.get(i)));
+        }
 
         int i = min(vintages);
         while (i < max(vintages)) {
@@ -85,6 +95,9 @@ public class SearchPageController {
         filters.put("region", "ALL");
     }
 
+    /**
+     * On Action method for the filter button, initializes the table depending on the filters
+     */
     @FXML
     private void filterClick(){
         if ((Objects.equals(criticScoreMinText.getText(), "") && !(Objects.equals(criticScoreMaxText.getText(), ""))) || (!(Objects.equals(criticScoreMinText.getText(), "")) && Objects.equals(criticScoreMaxText.getText(), ""))) {
@@ -100,6 +113,10 @@ public class SearchPageController {
         }
     }
 
+    /**
+     * On Action method for the category filter
+     * @param event MenuItem clicked
+     */
     @FXML
     private void categoryFilterClicked(Event event) {
         MenuItem clickedItem = (MenuItem) event.getSource();
@@ -107,6 +124,10 @@ public class SearchPageController {
         filters.put("type", clickedItem.getText());
     }
 
+    /**
+     * On Action method for the region filter
+     * @param event MenuItem clicked
+     */
     @FXML
     private void regionFilterClicked(Event event) {
         MenuItem clickedItem = (MenuItem) event.getSource();
@@ -114,6 +135,10 @@ public class SearchPageController {
         filters.put("region", clickedItem.getText());
     }
 
+    /**
+     * On Action method for the vintage filter
+     * @param event MenuItem clicked
+     */
     @FXML
     private void vintageFilterClicked(Event event) {
         MenuItem clickedItem = (MenuItem) event.getSource();
@@ -121,6 +146,10 @@ public class SearchPageController {
         filters.put("vintage", clickedItem.getText());
     }
 
+    /**
+     * On Action method for the winery filter
+     * @param event MenuItem clicked
+     */
     @FXML
     private void wineryFilterClicked(Event event) {
         MenuItem clickedItem = (MenuItem) event.getSource();
@@ -128,6 +157,9 @@ public class SearchPageController {
         filters.put("winery", clickedItem.getText());
     }
 
+    /**
+     * On Action method for the reset button, sets everything back to the original state
+     */
     @FXML
     private void resetClicked() {
         filters.replaceAll((k, v) -> "ALL");
@@ -141,6 +173,10 @@ public class SearchPageController {
         initTable(wines);
     }
 
+    /**
+     * Method to initialize the table from a list of wines
+     * @param wines list of wines to load into the table
+     */
     private void initTable(List<Wine> wines){
         table.getColumns().clear();
 

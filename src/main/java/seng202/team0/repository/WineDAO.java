@@ -105,7 +105,7 @@ public class WineDAO implements DAOInterface<Wine> {
             if (criticScoreIncluded) {
                 List<String> bounds = scoreFilters.get("score");
                 ps.setObject(index++, bounds.get(1));
-                ps.setObject(index++, bounds.get(0));
+                ps.setObject(index, bounds.get(0));
             }
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -119,6 +119,11 @@ public class WineDAO implements DAOInterface<Wine> {
 
     }
 
+    /**
+     * Method for getting all the distinct values of a column from the wine table
+     * @param column column which all the distinct values are needed
+     * @return list of the distinct values
+     */
     public List<String> getDistinct(String column) {
         List<String> result = new ArrayList<>();
         String sql = "SELECT DISTINCT " + column + " FROM wines";
@@ -129,22 +134,6 @@ public class WineDAO implements DAOInterface<Wine> {
                 result.add(rs.getString(column));
             }
             return result;
-        } catch (SQLException sqlException) {
-            log.error(sqlException);
-            return new ArrayList<>();
-        }
-    }
-
-    public List<Integer> getDistinctVintages() {
-        List<Integer> vintages = new ArrayList<>();
-        String sql = "SELECT DISTINCT vintage FROM wines";
-        try(Connection conn = databaseManager.connect();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                vintages.add(rs.getInt("vintage"));
-            }
-            return vintages;
         } catch (SQLException sqlException) {
             log.error(sqlException);
             return new ArrayList<>();
