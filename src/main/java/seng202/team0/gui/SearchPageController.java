@@ -88,7 +88,11 @@ public class SearchPageController {
     @FXML
     private void filterClick(){
         if ((Objects.equals(criticScoreMinText.getText(), "") && !(Objects.equals(criticScoreMaxText.getText(), ""))) || (!(Objects.equals(criticScoreMinText.getText(), "")) && Objects.equals(criticScoreMaxText.getText(), ""))) {
-            errorLabel.setText("Error");
+            errorLabel.setText("Please input both scores");
+            errorLabel.setStyle("-fx-text-fill: red;");
+        } else if (Integer.parseInt(criticScoreMaxText.getText()) <= Integer.parseInt(criticScoreMinText.getText())) {
+            errorLabel.setText("Please input a valid from and to score");
+            errorLabel.setStyle("-fx-text-fill: red;");
         } else {
             scoreFilters.put("score", Arrays.asList(criticScoreMinText.getText(), criticScoreMaxText.getText()));
             wines = wineDAO.getFilteredWines(filters, scoreFilters);
@@ -131,6 +135,8 @@ public class SearchPageController {
         regionMenuButton.setText("Region: ALL");
         yearMenuButton.setText("Year: ALL");
         wineryMenuButton.setText("Winery: ALL");
+        criticScoreMinText.setText("");
+        criticScoreMaxText.setText("");
         wines = wineDAO.getAll();
         initTable(wines);
     }

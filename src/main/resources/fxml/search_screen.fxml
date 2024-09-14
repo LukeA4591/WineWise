@@ -119,7 +119,7 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                            <children>
-                              <Label fx:id="errorLabel" prefHeight="19.0" prefWidth="84.0" wrapText="true">
+                              <Label fx:id="errorLabel" prefHeight="39.0" prefWidth="140.0" wrapText="true">
                                  <font>
                                     <Font name="Liberation Sans Bold" size="13.0" />
                                  </font>
