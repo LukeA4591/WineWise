@@ -42,7 +42,7 @@ public class DatabaseManager {
      * @return current singleton instance
      * @throws DuplicateExc if there is already a singleton instance
      */
-    private static DatabaseManager initialiseInstanceWithUrl(String url) throws DuplicateExc {
+    public static DatabaseManager initialiseInstanceWithUrl(String url) throws DuplicateExc {
         if (instance == null)
             instance = new DatabaseManager(url);
         else
