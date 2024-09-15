@@ -1,6 +1,8 @@
 package seng202.team0.gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -36,6 +38,12 @@ public class winePopupController {
     public void init(Wine wine, Image image) {
         this.image = image;
         this.wine = wine;
+        Platform.runLater(() -> {
+            Scene scene = wineNavWindow.getScene();
+            if (scene != null) {
+                scene.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
+            }
+        });
         wineDetailsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
         loadDetailsScreen(wine, image);
     }

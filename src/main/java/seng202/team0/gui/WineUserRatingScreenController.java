@@ -15,11 +15,13 @@ public class WineUserRatingScreenController {
     Wine wine;
 
     @FXML
-    private Label currentWineLabel;
-    @FXML
-    private Label currentUserRatingLabel;
+    private Label wineNameLabel;
     @FXML
     private Label criticRatingLabel;
+    @FXML
+    private Label wineryLabel;
+    @FXML
+    private Label vintageLabel;
     @FXML
     private Slider ratingSlider;
     @FXML
@@ -44,16 +46,17 @@ public class WineUserRatingScreenController {
     @FXML
     public void init(Wine wine) {
         this.wine = wine;
-        currentWineLabel.setText("Wine: " + wine.getWineName() + " from " + wine.getWineryString());
-        //TODO display current user rating
-        criticRatingLabel.setText("Critic Rating: " + wine.getScore());
+        wineNameLabel.setText(wineNameLabel.getText() + wine.getWineName());
+        wineryLabel.setText(wineryLabel.getText() + wine.getWineryString());
+        vintageLabel.setText(vintageLabel.getText() + wine.getVintage());
+        criticRatingLabel.setText(criticRatingLabel.getText() + wine.getScore());
     }
 
     @FXML
     private void saveReview() throws DuplicateExc {
         if (movedSlider) {
-            //Rating rating = new Rating((int) ratingSlider.getValue(), reviewTextArea.getText(), wine); //will break with new rating system
-            //reviewDAO.add(rating);
+            Rating rating = new Rating((int) ratingSlider.getValue(), reviewTextArea.getText(), wine.getWineName(), wine.getWineryString(), wine.getVintage());
+            reviewDAO.add(rating);
             savedLabel.setText("Saved!");
             savedLabel.setStyle("-fx-text-fill: indigo");
             resetReview();
