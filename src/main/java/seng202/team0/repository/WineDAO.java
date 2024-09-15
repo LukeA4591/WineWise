@@ -37,9 +37,14 @@ public class WineDAO implements DAOInterface<Wine> {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                wines.add(new Wine(rs.getString("type"), rs.getString("name"), rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"), rs.getString("region"), rs.getString("description")));
-                // temp fix just using dev way of making wine
-//                wines.add(new Wine(rs.getString("name")));
+                wines.add(new Wine(
+                        rs.getString("type"),
+                        rs.getString("name"),
+                        rs.getString("winery"),
+                        rs.getInt("vintage"),
+                        rs.getInt("score"),
+                        rs.getString("region"),
+                        rs.getString("description")));
             }
             return wines;
         } catch (SQLException sqlException) {
@@ -151,7 +156,7 @@ public class WineDAO implements DAOInterface<Wine> {
      * @author Oliver Barclay
      */
     @Override
-    public int add(Wine toAdd) throws DuplicateExc {
+    public int add(Wine toAdd) {
         String sql = "INSERT INTO wines (type, name, winery, vintage, score, region, description) VALUES (?,?,?,?,?,?,?);";
         try (Connection conn = databaseManager.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -162,7 +167,6 @@ public class WineDAO implements DAOInterface<Wine> {
             ps.setInt(5, toAdd.getScore());
             ps.setString(6, toAdd.getRegion());
             ps.setString(7, toAdd.getDescription());
-//            ps.setString(8, "userRatings go here"); // TODO Find a way to ps.setLIST???
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -174,6 +178,13 @@ public class WineDAO implements DAOInterface<Wine> {
         } catch (SQLException sqlException) {
             log.error(sqlException);
             return -1;
+        }
+    }
+
+
+    public void addBatch (List <Wine> wines) {
+        for (Wine wine : wines) {
+            add(wine);
         }
     }
 

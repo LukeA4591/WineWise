@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import seng202.team0.business.WineManager;
+import seng202.team0.io.WineCSVImporter;
 import seng202.team0.models.Wine;
 import seng202.team0.services.AdminLoginService;
 import seng202.team0.services.WineEnvironment;
@@ -20,6 +22,7 @@ public class AdminScreenController {
     private ComboBox<String> dataTypeComboBox;
 
     private final WineEnvironment winery;
+    private final WineManager wineManager;
     private Stage stage; // Make final and add void init(Stage stage)
 
     // Could make it an init function with the stage.
@@ -29,6 +32,7 @@ public class AdminScreenController {
 
     public AdminScreenController(WineEnvironment winery) {
         this.winery = winery;
+        wineManager = new WineManager();
     }
 
     @FXML
@@ -59,6 +63,7 @@ public class AdminScreenController {
         }
         stage = (Stage) addWine.getScene().getWindow(); // Need to have scene variable, has to find scene through addWine button
         File file = fileChooser.showOpenDialog(stage);
+        wineManager.addAllWinesFromFile(new WineCSVImporter(), file);
     }
 
     /**

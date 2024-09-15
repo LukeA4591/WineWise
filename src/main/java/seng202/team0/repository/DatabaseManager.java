@@ -21,14 +21,11 @@ public class DatabaseManager {
      */
     private DatabaseManager(String urlIn) {
         if (urlIn == null || urlIn.isEmpty()) {
-            System.out.println("GETTING DATABASE PATH");
             this.url = getDatabasePath();
         } else {
-            System.out.println("this.url = urlIN");
             this.url = urlIn;
         }
         if (!checkDatabaseExists(url)) {
-            System.out.println("######################### CREATING DB FIELD AND resetDB() #########################");
             createDatabaseFile(url);
             resetDB();
         }
@@ -60,7 +57,6 @@ public class DatabaseManager {
         if (instance == null)
             instance = new DatabaseManager("jdbc:sqlite:./src/main/resources/database.db");
 //            instance = new DatabaseManager(null);
-
         return instance;
     }
 
@@ -84,46 +80,6 @@ public class DatabaseManager {
             log.error(e);
         }
         return conn;
-    }
-
-    public void drop_it() {
-        String our_path = instance.getDatabasePath();
-        Connection conn = null;
-        Statement stmt = null;
-
-        if (this.url == null) {
-            System.out.println("URL IS NULL");
-        } else {
-            System.out.println(this.url);
-            try {
-                conn = DriverManager.getConnection(our_path);
-                stmt = conn.createStatement();
-
-                String sql = "DROP TABLE IF EXISTS wines";
-
-                stmt.executeUpdate(sql);
-
-                System.out.println("Table wines dropped");
-
-//                stmt = conn.createStatement();
-//                String sqlCommand = "DROP TABLE wines;";
-//                stmt.executeUpdate(sqlCommand);
-//                stmt.close();
-//                conn.commit();
-//                conn.close();
-            } catch (SQLException e) {
-                System.err.println("SQL error occurred.");
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (stmt != null) stmt.close();
-                    if (conn != null) conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
     }
 
     /**

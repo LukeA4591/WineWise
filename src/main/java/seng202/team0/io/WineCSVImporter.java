@@ -69,43 +69,35 @@ public class WineCSVImporter implements Importable<Wine>{
         return null;
     }
 
-    static void setup() throws DuplicateExc {
-        DatabaseManager.REMOVE_INSTANCE();
-//        databaseManager = DatabaseManager.initialiseInstanceWithUrl("jdbc:sqlite:./src/main/resources/sql/initialise_database.sql");
-//        databaseManager = new DatabaseManager("jdbc:sqlite:./src/main/resources/sql/initialise_database.sql");
-        databaseManager = DatabaseManager.getInstance();
-        wineDAO = new WineDAO();
-    }
-
-    public static void main(String[] args) {
-        Importable<Wine> importer = new WineCSVImporter();
-        File file = new File("Decanter23NZ.csv");
-        List<Wine> wines = importer.readFromFile(file);
-
-        try {
-            setup();
-        } catch (DuplicateExc e) {
-            throw new RuntimeException(e);
-        }
-
-//        databaseManager.drop_it();
-
-        for (Wine el_wines : wines) {
-            System.out.printf("Adding Wine: %s to Database", el_wines.getWineName());
-            try {
-                wineDAO.add(el_wines);
-            } catch (DuplicateExc e) {
-                throw new RuntimeException(e);
-            }
-
-            System.out.printf("Colour: %s\nName: %s\nScore: %d\nVintage: %d\n...\nDesc.: %s", el_wines.getColor(), el_wines.getWineName(), el_wines.getScore(), el_wines.getVintage(), el_wines.getDescription());
-            System.out.println("\n\n");
-        }
-
-        System.out.println("## ALl Wines in Database ##");
-        System.out.println(wineDAO.getAll());
-
-        // Removes Database at end
-        DatabaseManager.REMOVE_INSTANCE();
-    }
+//    public static void main(String[] args) {
+//        Importable<Wine> importer = new WineCSVImporter();
+//        File file = new File("Decanter23NZ.csv");
+//        List<Wine> wines = importer.readFromFile(file);
+//
+//        try {
+//            setup();
+//        } catch (DuplicateExc e) {
+//            throw new RuntimeException(e);
+//        }
+//
+////        databaseManager.drop_it();
+//
+//        for (Wine el_wines : wines) {
+//            System.out.printf("Adding Wine: %s to Database", el_wines.getWineName());
+//            try {
+//                wineDAO.add(el_wines);
+//            } catch (DuplicateExc e) {
+//                throw new RuntimeException(e);
+//            }
+//
+//            System.out.printf("Colour: %s\nName: %s\nScore: %d\nVintage: %d\n...\nDesc.: %s", el_wines.getColor(), el_wines.getWineName(), el_wines.getScore(), el_wines.getVintage(), el_wines.getDescription());
+//            System.out.println("\n\n");
+//        }
+//
+//        System.out.println("## ALl Wines in Database ##");
+//        System.out.println(wineDAO.getAll());
+//
+//        // Removes Database at end
+//        DatabaseManager.REMOVE_INSTANCE();
+//    }
 }
