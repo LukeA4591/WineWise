@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import seng202.team0.exceptions.DuplicateExc;
 import seng202.team0.models.Rating;
 import seng202.team0.models.Wine;
 import javafx.scene.control.Label;
@@ -58,6 +59,8 @@ public class winePopupController {
             wineNavWindow.getChildren().add(reviewsScreen);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (DuplicateExc e) {
+            throw new RuntimeException(e);
         }
     }
 

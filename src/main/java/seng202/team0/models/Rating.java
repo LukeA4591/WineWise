@@ -7,19 +7,27 @@ public class Rating {
     int rating;
     List<String> tastingNotes = new ArrayList<>();
     String review;
+    String wineName;
+    String winery;
+    int vintage;
     String name;
     Wine wine;
     String address;
+
+    private boolean isReported;
 
     /**
      * Constructor for Ratings for SQL that only holds score + review
      * @param rating
      * @param description
      */
-    public Rating(int rating, String description, Wine wine) {
+    public Rating(int rating, String description, String wineName, String winery, int vintage) {
         this.rating = rating;
         this.review = description;
-        this.wine = wine;
+        this.wineName = wineName;
+        this.winery = winery;
+        this.vintage = vintage;
+        this.isReported = false;
     }
 
     public Wine getWine() {
@@ -70,6 +78,18 @@ public class Rating {
         return address;
     }
 
+    public String getWineName() {
+        return wineName;
+    }
+
+    public String getWinery() {
+        return winery;
+    }
+
+    public int getVintage() {
+        return vintage;
+    }
+
     /**
      * The Setter method for the rating a user leaves within a rating
      * @param rating
@@ -108,5 +128,13 @@ public class Rating {
      */
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public boolean getIsReported() {
+        return isReported;
+    }
+
+    public void setIsReported(boolean reported) {
+        isReported = reported;
     }
 }
