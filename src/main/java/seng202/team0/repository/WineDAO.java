@@ -177,5 +177,22 @@ public class WineDAO implements DAOInterface<Wine> {
         }
     }
 
+    public  List<Wine> getTopRated() {
+        List<Wine> topRated = new ArrayList<>();
+        String sql = "SELECT * FROM wines ORDER BY score DESC LIMIT 3;";
+        try (Connection conn = databaseManager.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                topRated.add(new Wine(rs.getString("type"), rs.getString("name"),
+                        rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"),
+                        rs.getString("region"), rs.getString("description")));
+            }
+            return topRated;
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            return new ArrayList<>();
+        }
+    }
 
 }

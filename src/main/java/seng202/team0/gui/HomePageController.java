@@ -5,15 +5,38 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import seng202.team0.models.Wine;
 
+import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import seng202.team0.repository.WineDAO;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class HomePageController {
+
+    @FXML
+    private ImageView imageView1;
+
+    @FXML
+    private ImageView imageView2;
+
+    @FXML
+    private ImageView imageView3;
+
+    @FXML
+    private Label rating1;
+
+    @FXML
+    private Label rating2;
+
+    @FXML
+    private Label rating3;
 
     @FXML
     private Label desc1;
@@ -44,22 +67,53 @@ public class HomePageController {
     public void init(Stage stage){
         this.stage = stage;
         wineDAO = new WineDAO();
-        displayWines();
-        displayDescriptions();
+        List<Wine> wines = wineDAO.getTopRated();
+        displayWines(wines);
+        displayWinery(wines);
+        displayRatings(wines);
+        setImage(wines);
     }
 
-    public void displayWines(){
-        List<Wine> wines = wineDAO.getAll();
+    public void displayWines(List<Wine> wines){
         wine1.setText(wines.get(0).getWineName());
         wine2.setText(wines.get(1).getWineName());
         wine3.setText(wines.get(2).getWineName());
     }
 
-    public void displayDescriptions(){
-        List<Wine> wines = wineDAO.getAll();
-        desc1.setText(wines.get(0).getDescription());
-        desc2.setText(wines.get(1).getDescription());
-        desc3.setText(wines.get(2).getDescription());
+    public void displayWinery(List<Wine> wines){
+        desc1.setText("Winery: " + wines.get(0).getWineryString());
+        desc2.setText("Winery: " + wines.get(1).getWineryString());
+        desc3.setText("Winery: " + wines.get(2).getWineryString());
+    }
+
+    public void displayRatings(List<Wine> wines){
+        rating1.setText(wines.get(0).getScore() + " / 100");
+        rating2.setText(wines.get(1).getScore() + " / 100");
+        rating3.setText(wines.get(2).getScore() + " / 100");
+    }
+
+    public void setImage(List<Wine> wines) {
+        List<ImageView> imageViews = Arrays.asList(imageView1, imageView2, imageView3);
+        for (int i=0; i < 3; i++) {
+            System.out.println(wines.get(i).getWineName());
+            String imagePath;
+            switch(wines.get(i).getColor()) {
+                case "Red":
+                    imagePath = "/images/redwine.jpeg";
+                    break;
+                case "White":
+                    imagePath = "/images/whitewine.jpeg";
+                    break;
+                case "Ros�":
+                    imagePath = "/images/rose.jpeg";
+                    break;
+                default:
+                    imagePath = "/images/defaultwine.jpeg";
+            }
+            Image image = new Image(getClass().getResourceAsStream(imagePath));
+            ImageView imageView = imageViews.get(i);
+            imageView.setImage(image);
+        }
     }
 
     @FXML
