@@ -152,7 +152,7 @@ public class HomePageController {
             case "White":
                 imagePath = "/images/whitewine.png";
                 break;
-            case "Rosé":
+            case "Rose":
                 imagePath = "/images/rose.png";
                 break;
             default:
