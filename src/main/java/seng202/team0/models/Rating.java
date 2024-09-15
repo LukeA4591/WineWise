@@ -8,6 +8,7 @@ public class Rating {
     List<String> tastingNotes = new ArrayList<>();
     String review;
     String name;
+    Wine wine;
     String address;
 
     /**
@@ -15,9 +16,18 @@ public class Rating {
      * @param rating
      * @param description
      */
-    public Rating(int rating, String description) {
+    public Rating(int rating, String description, Wine wine) {
         this.rating = rating;
         this.review = description;
+        this.wine = wine;
+    }
+
+    public Wine getWine() {
+        return wine;
+    }
+
+    public void setWine(Wine wine) {
+        this.wine = wine;
     }
 
     /**

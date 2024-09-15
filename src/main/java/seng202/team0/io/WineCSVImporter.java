@@ -3,9 +3,11 @@ package seng202.team0.io;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import seng202.team0.exceptions.DuplicateExc;
+import seng202.team0.models.Rating;
 import seng202.team0.models.Wine;
 import seng202.team0.models.Winery;
 import seng202.team0.repository.DatabaseManager;
+import seng202.team0.repository.ReviewDAO;
 import seng202.team0.repository.WineDAO;
 
 import java.io.File;
@@ -22,6 +24,7 @@ import java.util.List;
 public class WineCSVImporter implements Importable<Wine>{
 
     static WineDAO wineDAO;
+    static ReviewDAO reviewDAO;
     static DatabaseManager databaseManager;
 
 
@@ -75,9 +78,11 @@ public class WineCSVImporter implements Importable<Wine>{
 //        databaseManager = new DatabaseManager("jdbc:sqlite:./src/main/resources/sql/initialise_database.sql");
         databaseManager = DatabaseManager.getInstance();
         wineDAO = new WineDAO();
+        reviewDAO = new ReviewDAO();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DuplicateExc {
+        DatabaseManager.REMOVE_INSTANCE();
         Importable<Wine> importer = new WineCSVImporter();
         File file = new File("Decanter23NZ.csv");
         List<Wine> wines = importer.readFromFile(file);
@@ -104,6 +109,10 @@ public class WineCSVImporter implements Importable<Wine>{
 
         System.out.println("## ALl Wines in Database ##");
         System.out.println(wineDAO.getAll());
+
+        System.out.println("ADD REVIEW");
+        reviewDAO.add(new Rating(90, "Pre good", wineDAO.getAll().getFirst()));
+
 
         // Removes Database at end
         DatabaseManager.REMOVE_INSTANCE();

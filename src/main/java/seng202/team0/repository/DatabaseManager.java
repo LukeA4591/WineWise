@@ -99,7 +99,7 @@ public class DatabaseManager {
                 conn = DriverManager.getConnection(our_path);
                 stmt = conn.createStatement();
 
-                String sql = "DROP TABLE IF EXISTS wines";
+                String sql = "DROP TABLE *";
 
                 stmt.executeUpdate(sql);
 

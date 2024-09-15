@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS winerys (
 DROP TABLE IF EXISTS reviews;
 --SPLIT
 CREATE TABLE IF NOT EXISTS reviews (
-    reviewID integer autoincrement not null primary key,
+    reviewID integer not null primary key AUTOINCREMENT,
+    wine TEXT,
     rating integer,
     description TEXT);
---SPLIT
+

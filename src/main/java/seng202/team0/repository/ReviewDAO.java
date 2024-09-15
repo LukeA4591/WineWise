@@ -38,7 +38,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                reviews.add(new Rating(rs.getInt("rating"), rs.getString("review")));
+                reviews.add(new Rating(rs.getInt("rating"), rs.getString("review"), (Wine) rs.getObject("wine")));
             }
             return reviews;
         } catch (SQLException sqlException) {
@@ -56,11 +56,12 @@ public class ReviewDAO implements DAOInterface<Rating>{
      */
     @Override
     public int add(Rating toAdd) throws DuplicateExc {
-        String sql = "INSERT INTO review (rating, description) VALUES (?,?);";
+        String sql = "INSERT INTO reviews (rating, description, wine) VALUES (?,?,?);";
         try (Connection conn = databaseManager.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, toAdd.getRating());
             ps.setString(2, toAdd.getReview());
+            ps.setObject(3, toAdd.getWine()); // TODO added an object to database (risky)
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -80,7 +81,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
      * @param id
      */
     public void delete(int id) {
-        String sql = "DELETE FROM wines WHERE reviewID=?";
+        String sql = "DELETE FROM reviews WHERE reviewID=?";
         try (Connection conn = databaseManager.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
