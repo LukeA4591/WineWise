@@ -153,8 +153,6 @@ public class HomePageController {
             Scene modalScene = new Scene(root);
             Stage modalStage = new Stage();
             modalStage.setScene(modalScene);
-            modalStage.setWidth(600);
-            modalStage.setHeight(400);
             modalStage.setResizable(false);
             modalStage.setTitle("Wine Popup");
             modalStage.initModality(Modality.WINDOW_MODAL);

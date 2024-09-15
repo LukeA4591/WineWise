@@ -22,7 +22,8 @@ DROP TABLE IF EXISTS reviews;
 --SPLIT
 CREATE TABLE IF NOT EXISTS reviews (
     reviewID integer not null primary key AUTOINCREMENT,
-    wine TEXT,
+    wineName TEXT,
+    wineWinery TEXT,
+    wineVintage int,
     rating integer,
     description TEXT);
-

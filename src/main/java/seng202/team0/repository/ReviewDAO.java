@@ -38,7 +38,29 @@ public class ReviewDAO implements DAOInterface<Rating>{
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                reviews.add(new Rating(rs.getInt("rating"), rs.getString("review"), (Wine) rs.getObject("wine")));
+                reviews.add(new Rating(rs.getInt("rating"), rs.getString("description"), rs.getString("wineName"),
+                        rs.getString("wineWinery"), rs.getInt("wineVintage")));
+            }
+            return reviews;
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            return new ArrayList<>();
+        }
+
+    }
+
+    public List<Rating> getReviewsByWineId(Wine wine) {
+        List<Rating> reviews = new ArrayList<>();
+        String sql = "SELECT * FROM reviews WHERE wineName = ? AND wineWinery = ? AND wineVintage = ?";
+        try(Connection conn = databaseManager.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, wine.getWineName());
+            pstmt.setString(2, wine.getWineryString());
+            pstmt.setInt(3, wine.getVintage());
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                reviews.add(new Rating(rs.getInt("rating"), rs.getString("description"), rs.getString("wineName"),
+                            rs.getString("wineWinery"), rs.getInt("wineVintage")));
             }
             return reviews;
         } catch (SQLException sqlException) {
@@ -56,12 +78,14 @@ public class ReviewDAO implements DAOInterface<Rating>{
      */
     @Override
     public int add(Rating toAdd) throws DuplicateExc {
-        String sql = "INSERT INTO reviews (rating, description, wine) VALUES (?,?,?);";
+        String sql = "INSERT INTO reviews (wineName, wineWinery, wineVintage, rating, description) VALUES (?,?,?,?,?);";
         try (Connection conn = databaseManager.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, toAdd.getRating());
-            ps.setString(2, toAdd.getReview());
-            ps.setObject(3, toAdd.getWine()); // TODO added an object to database (risky)
+            ps.setString(1, toAdd.getWineName());
+            ps.setString(2, toAdd.getWinery());
+            ps.setInt(3, toAdd.getVintage());
+            ps.setInt(4, toAdd.getRating());
+            ps.setString(5, toAdd.getReview()); // TODO added an object to database (risky)
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
