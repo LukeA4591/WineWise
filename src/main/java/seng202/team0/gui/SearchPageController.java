@@ -5,6 +5,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import seng202.team0.models.Wine;
 import seng202.team0.repository.DatabaseManager;
 import seng202.team0.repository.WineDAO;
@@ -48,9 +49,11 @@ public class SearchPageController {
     }
 
     /**
-     * Initialize method for the fx elements of the page, sets up the filter menus with all the valid data
+     * Initialize method for the fx elements of the page, sets up the filter menus with all the valid data add a
+     * listener for all rows and provide more information if a wine is clicked
      * @author Oliver Barclay
      * @author Alex Wilson
+     * @author Luke Armstrong
      */
     @FXML
     private void initialize() {
@@ -100,6 +103,27 @@ public class SearchPageController {
             filters.put("vintage", "ALL");
             filters.put("region", "ALL");
         }
+        table.setRowFactory(tableview -> {
+            TableRow<Wine> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1) {
+                    Wine wineClicked = row.getItem();
+                    onWineClicked(wineClicked);
+                }
+            });
+            return row;
+        });
+    }
+
+    /**
+     * Called from the event listener when a wine is clicked to create wine popup
+     * @param wine
+     * @author Luke Armstrong
+     */
+    private void onWineClicked(Wine wine) {
+        HomePageController wineMethods = new HomePageController();
+        Image image = wineMethods.getImage(wine);
+        wineMethods.winePressed(wine, image, errorLabel);
     }
 
     /**

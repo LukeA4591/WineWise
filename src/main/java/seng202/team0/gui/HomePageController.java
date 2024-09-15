@@ -21,6 +21,13 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * Controller class for the home page of the application.
+ * Handles the display of top-rated wines and interacts with the user interface elements.
+ * Provides functionality to display detailed information about selected wines in a popup.
+ *
+ * @author Luke Armstrong
+ */
 public class HomePageController {
 
     @FXML
@@ -59,15 +66,17 @@ public class HomePageController {
     @FXML
     private Label wine3;
 
-
     private Stage stage;
 
     private WineDAO wineDAO;
+
     /**
-     * Init method for HomePageController
-     * @param stage stage from NavBarController
+     * Initializes the HomePageController.
+     * Sets the stage and loads the top-rated wines to be displayed.
+     *
+     * @param stage The main stage passed from NavBarController.
      */
-    public void init(Stage stage){
+    public void init(Stage stage) {
         this.stage = stage;
         wineDAO = new WineDAO();
         if (wineDAO.getAll().size() >= 3) {
@@ -81,80 +90,122 @@ public class HomePageController {
         }
     }
 
-    public void displayWines(List<Wine> wines){
+    /**
+     * Displays the names of the top-rated wines on the labels.
+     *
+     * @param wines A list of the top-rated wines.
+     */
+    public void displayWines(List<Wine> wines) {
         wine1.setText(wines.get(0).getWineName());
         wine2.setText(wines.get(1).getWineName());
         wine3.setText(wines.get(2).getWineName());
     }
 
-    public void displayWinery(List<Wine> wines){
+    /**
+     * Displays the wineries of the top-rated wines on the description labels.
+     *
+     * @param wines A list of the top-rated wines.
+     */
+    public void displayWinery(List<Wine> wines) {
         desc1.setText("Winery: " + wines.get(0).getWineryString());
         desc2.setText("Winery: " + wines.get(1).getWineryString());
         desc3.setText("Winery: " + wines.get(2).getWineryString());
     }
 
-    public void displayRatings(List<Wine> wines){
+    /**
+     * Displays the ratings of the top-rated wines on the rating labels.
+     *
+     * @param wines A list of the top-rated wines.
+     */
+    public void displayRatings(List<Wine> wines) {
         rating1.setText(wines.get(0).getScore() + " / 100");
         rating2.setText(wines.get(1).getScore() + " / 100");
         rating3.setText(wines.get(2).getScore() + " / 100");
     }
 
+    /**
+     * Sets the images of the top-rated wines based on their color.
+     *
+     * @param wines A list of the top-rated wines.
+     */
     public void setImage(List<Wine> wines) {
         List<ImageView> imageViews = Arrays.asList(imageView1, imageView2, imageView3);
-        for (int i=0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             Image image = getImage(wines.get(i));
             ImageView imageView = imageViews.get(i);
             imageView.setImage(image);
         }
     }
 
+    /**
+     * Retrieves the appropriate image based on the wine's color.
+     *
+     * @param wine The wine whose image is to be fetched.
+     * @return The image representing the wine.
+     */
     public Image getImage(Wine wine) {
         String imagePath;
-        switch(wine.getColor()) {
+        switch (wine.getColor()) {
             case "Red":
                 imagePath = "/images/redwine.png";
                 break;
             case "White":
                 imagePath = "/images/whitewine.png";
                 break;
-            case "Ros�":
+            case "Rosé":
                 imagePath = "/images/rose.png";
                 break;
             default:
                 imagePath = "/images/defaultwine.png";
         }
-        Image image = new Image(getClass().getResourceAsStream(imagePath));
-        return image;
+        return new Image(getClass().getResourceAsStream(imagePath));
     }
 
+    /**
+     * Event handler for pressing the first wine label.
+     * Fetches the first top-rated wine and displays its details in a popup.
+     */
     @FXML
     void wine1Pressed() {
         List<Wine> wines = wineDAO.getTopRated();
         Wine wine = wines.get(0);
         Image image = getImage(wine);
-        winePressed(wine, image);
+        winePressed(wine, image, rating1);
     }
 
+    /**
+     * Event handler for pressing the second wine label.
+     * Fetches the second top-rated wine and displays its details in a popup.
+     */
     @FXML
     void wine2Pressed() {
         List<Wine> wines = wineDAO.getTopRated();
         Wine wine = wines.get(1);
         Image image = getImage(wine);
-        winePressed(wine, image);
+        winePressed(wine, image, rating1);
     }
 
+    /**
+     * Event handler for pressing the third wine label.
+     * Fetches the third top-rated wine and displays its details in a popup.
+     */
     @FXML
     void wine3Pressed() {
         List<Wine> wines = wineDAO.getTopRated();
         Wine wine = wines.get(2);
         Image image = getImage(wine);
-        winePressed(wine, image);
+        winePressed(wine, image, rating1);
     }
 
-
-    void winePressed(Wine wine, Image image) {
+    /**
+     * Opens a detailed popup window displaying more information about the selected wine.
+     *
+     * @param wine  The wine whose details are to be displayed.
+     * @param image The image associated with the wine.
+     * @param label A label from the main scene to set the owner of the popup stage.
+     */
+    public void winePressed(Wine wine, Image image, Label label) {
         try {
-            // load a new fxml file
             FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/wine_popup.fxml"));
             BorderPane root = newStageLoader.load();
 
@@ -166,12 +217,10 @@ public class HomePageController {
             modalStage.setResizable(false);
             modalStage.setTitle("Wine Popup");
             modalStage.initModality(Modality.WINDOW_MODAL);
-            modalStage.initOwner(rating1.getScene().getWindow());
+            modalStage.initOwner(label.getScene().getWindow());
             modalStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
 }

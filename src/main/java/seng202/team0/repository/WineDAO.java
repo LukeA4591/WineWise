@@ -202,6 +202,11 @@ public class WineDAO implements DAOInterface<Wine> {
         }
     }
 
+    /**
+     * Get the three top rated wines do display on the home page of our application
+     * @return a list of the top 3 rated wines
+     * @author Luke Armstrong
+     */
     public  List<Wine> getTopRated() {
         List<Wine> topRated = new ArrayList<>();
         String sql = "SELECT * FROM wines ORDER BY score DESC LIMIT 3;";
