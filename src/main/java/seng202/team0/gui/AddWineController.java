@@ -1,11 +1,12 @@
 package seng202.team0.gui;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import seng202.team0.business.WineManager;
 import seng202.team0.models.Wine;
 import seng202.team0.services.WineEnvironment;
+
+import java.time.Year;
 
 
 public class AddWineController {
@@ -71,19 +72,34 @@ public class AddWineController {
                 return null;
             } else {
                 int wineVintageInt = Integer.parseInt(wineVintage.getText());
+                if (wineVintageInt < 0 || wineVintageInt > Year.now().getValue()) {
+                    saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
+                    saveNewWineMessage.setText("Vintage should be between 0 and the current year.");
+                    return null;
+                }
                 int wineScoreInt;
                 if (wineScore.getText().isEmpty()) {
-                    wineScoreInt = 0; // Maybe make it null
-                } else { // Add else if to check valid score
+                    wineScoreInt = 0;
+                } else {
                     wineScoreInt = Integer.parseInt(wineScore.getText());
+                    if (wineScoreInt < 0 || wineScoreInt > 100) {
+                        saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
+                        saveNewWineMessage.setText("Score should be between 0-100.");
+                        return null;
+                    }
                 }
                 String wineTypeString = ((RadioButton) wineTypeToggle.getSelectedToggle()).getText();
                 String wineRegionString = wineRegion.getText();
                 String wineDescriptionString = wineDescription.getText();
 
-                // Add save wine to database
+                if (wineWineryNameString.length() > 100 | wineNameString.length() > 100 |
+                        wineRegionString.length() > 100 | wineDescriptionString.length() > 1000) {
+                    saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
+                    saveNewWineMessage.setText("Text fields are too long.");
+                    return null;
+                }
 
-                saveNewWineMessage.setStyle("-fx-text-fill: #00FF00");
+                saveNewWineMessage.setStyle("-fx-text-fill: #008000");
                 saveNewWineMessage.setText("New wine saved.");
                 return new Wine(wineTypeString, wineNameString, wineWineryNameString, wineVintageInt, wineScoreInt,
                         wineRegionString, wineDescriptionString);
