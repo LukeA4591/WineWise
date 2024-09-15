@@ -18,3 +18,11 @@ CREATE TABLE IF NOT EXISTS winerys (
      Lat int,
      region TEXT not null);
 --SPLIT
+DROP TABLE IF EXISTS reviews;
+--SPLIT
+CREATE TABLE IF NOT EXISTS reviews (
+    reviewID integer not null primary key AUTOINCREMENT,
+    wine TEXT,
+    rating integer,
+    description TEXT);
+
