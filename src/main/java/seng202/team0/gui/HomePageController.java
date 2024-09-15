@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import seng202.team0.models.Wine;
 
 import java.awt.*;
@@ -156,6 +157,8 @@ public class HomePageController {
             modalStage.setHeight(400);
             modalStage.setResizable(false);
             modalStage.setTitle("Wine Popup");
+            modalStage.initModality(Modality.WINDOW_MODAL);
+            modalStage.initOwner(rating1.getScene().getWindow());
             modalStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
