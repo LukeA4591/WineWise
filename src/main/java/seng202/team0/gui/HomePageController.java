@@ -3,6 +3,7 @@ package seng202.team0.gui;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import seng202.team0.models.Wine;
 
 import java.awt.*;
@@ -144,7 +145,7 @@ public class HomePageController {
         try {
             // load a new fxml file
             FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/wine_popup.fxml"));
-            AnchorPane root = newStageLoader.load();
+            BorderPane root = newStageLoader.load();
 
             winePopupController controller = newStageLoader.getController();
             controller.init(wine);
