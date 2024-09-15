@@ -1,7 +1,9 @@
 package seng202.team0.gui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -29,16 +31,47 @@ public class AdminLoginPopupController {
     private TextField passwordInput;
 
     @FXML
+    private PasswordField passwordTextInput;
+
+    @FXML
+    private Button viewButton;
+
+    @FXML
     private Label adminLoginErrorLabel;
 
+    /**
+     * Empty constructor
+     */
     public AdminLoginPopupController() {}
+
+    /**
+     * Init method for admin login popup
+     * It is called from in the AdminScreenController
+     * Passes in the wine environment and gets the singleton instance of admin login service.
+     * Sets up a listener that listens for when the TextField is attached to the scene
+     * Then it can return a non-null scene.
+     */
 
     @FXML
     public void init(WineEnvironment winery) {
         this.winery = winery;
         this.adminLoginInstance = winery.getAdminLoginInstance();
+        // Bind textField with passwordField
+        passwordInput.textProperty().bindBidirectional(passwordTextInput.textProperty());
+        passwordInput.setVisible(false);
+        passwordInput.sceneProperty().addListener((observable, oldscene, newscene) -> {
+            if (newscene != null) {
+                newscene.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
+            }
+        });
     }
 
+
+    /**
+     * FXML on action method for when the login button is clicked.
+     * Returns error message if invalid credentials.
+     * If valid launches the admin screen.
+     */
     @FXML
     public void onLogin() {
         String inputtedUsername = usernameInput.getText();
@@ -52,6 +85,19 @@ public class AdminLoginPopupController {
             ((Stage) usernameInput.getScene().getWindow()).close();
             winery.getClearRunnable().run();
             winery.launchAdminScreen();
+        }
+    }
+
+    @FXML
+    public void onViewButtonClicked() {
+        if (passwordInput.isVisible()) {
+            passwordInput.setVisible(false); // hide password
+            passwordTextInput.setVisible(true);
+            viewButton.setText("View");
+        } else {
+            passwordInput.setVisible(true); // show password
+            passwordTextInput.setVisible(false);
+            viewButton.setText("Hide");
         }
     }
 

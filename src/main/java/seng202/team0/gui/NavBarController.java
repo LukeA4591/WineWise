@@ -44,7 +44,6 @@ public class NavBarController {
      */
     @FXML
     private void initialize() {
-
         homeButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
         Platform.runLater(() -> {
             Scene scene = mainWindow.getScene();

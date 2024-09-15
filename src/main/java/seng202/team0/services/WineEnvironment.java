@@ -55,7 +55,7 @@ public class WineEnvironment {
         this.addWineScreenLauncher = addWineScreenLauncher;
         this.addWineryScreenLauncher = addWineryScreenLauncher;
         this.clear = clear;
-        boolean isFirstRun = adminLoginInstance.createCredentialsFileIfNotExists();
+        boolean isFirstRun = adminLoginInstance.doesFileExist();
         if(!isFirstRun) {
             // launch create new account screen
             launchAdminSetupScreen();

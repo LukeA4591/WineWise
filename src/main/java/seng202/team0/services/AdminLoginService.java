@@ -107,15 +107,12 @@ public class AdminLoginService {
     }
 
     /**
-     * Manages the creation and retrieval of 'credentials.txt'.
      * Checks to see if the credentials.txt file has already been created
-     * If not calls the createCredentialsFile() method
      * @return A Boolean that WineEnvironment uses to launch different screens
      */
-    public boolean createCredentialsFileIfNotExists() {
+    public boolean doesFileExist() {
         File f = getCredentialsFile();
         if (!f.exists()) {
-            createCredentialsFile();
             return false;
         }
         return true;
