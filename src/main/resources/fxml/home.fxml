@@ -1,63 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.HomePageController">
    <children>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="48.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/base_wine.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="48.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/base_wine.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="48.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/base_wine.jpg" />
-         </image>
-      </ImageView>
       <Label layoutX="14.0" layoutY="14.0" text="Top Wines to Try">
          <font>
             <Font name="Liberation Sans Bold" size="26.0" />
          </font>
       </Label>
-      <Label layoutX="225.0" layoutY="70.0" text="rating of wine">
+      <Label fx:id="wine1" layoutX="225.0" layoutY="71.0" onMouseClicked="#wine1Pressed" text="Name:">
          <font>
             <Font name="Liberation Sans" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="225.0" layoutY="240.0" text="rating of wine">
+      <Label fx:id="wine2" layoutX="225.0" layoutY="240.0" onMouseClicked="#wine2Pressed" text="Name:">
          <font>
             <Font name="Liberation Sans" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="225.0" layoutY="410.0" text="rating of wine">
+      <Label fx:id="wine3" layoutX="225.0" layoutY="410.0" onMouseClicked="#wine3Pressed" text="Name:">
          <font>
             <Font name="Liberation Sans" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="225.0" layoutY="125.0" text="description of wine">
+      <Label fx:id="desc1" layoutX="225.0" layoutY="103.0" onMouseClicked="#wine1Pressed" text="description of wine">
          <font>
             <Font name="Liberation Sans" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="225.0" layoutY="295.0" text="description of wine">
+      <Label fx:id="desc2" layoutX="225.0" layoutY="273.0" onMouseClicked="#wine2Pressed" text="description of wine">
          <font>
             <Font name="Liberation Sans" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="225.0" layoutY="465.0" text="description of wine">
+      <Label fx:id="desc3" layoutX="225.0" layoutY="443.0" onMouseClicked="#wine3Pressed" text="description of wine">
          <font>
             <Font name="Liberation Sans" size="16.0" />
          </font>
       </Label>
+      <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="48.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="rating1" layoutX="225.0" layoutY="135.0" onMouseClicked="#wine1Pressed" text="Rating">
+         <font>
+            <Font name="Liberation Sans" size="16.0" />
+         </font></Label>
+      <Label fx:id="rating2" layoutX="225.0" layoutY="304.0" onMouseClicked="#wine2Pressed" text="Rating">
+         <font>
+            <Font name="Liberation Sans" size="16.0" />
+         </font></Label>
+      <Label fx:id="rating3" layoutX="225.0" layoutY="474.0" onMouseClicked="#wine3Pressed" text="Rating">
+         <font>
+            <Font name="Liberation Sans" size="16.0" />
+         </font></Label>
+      <ImageView fx:id="imageView1" fitHeight="150.0" fitWidth="150.0" layoutX="45.0" layoutY="60.0" onMouseClicked="#wine1Pressed" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imageView2" fitHeight="150.0" fitWidth="150.0" layoutX="45.0" layoutY="229.0" onMouseClicked="#wine2Pressed" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imageView3" fitHeight="150.0" fitWidth="150.0" layoutX="45.0" layoutY="399.0" onMouseClicked="#wine3Pressed" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

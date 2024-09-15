@@ -224,6 +224,8 @@ public class SearchPageController {
         table.setItems(FXCollections.observableArrayList(wines));
     }
 
+
+
     private List<Wine> getData() {
         return null;
     }

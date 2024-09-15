@@ -1,7 +1,10 @@
 package seng202.team0.gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -41,6 +44,15 @@ public class AdminSetupScreenController {
     @FXML
     private TextField createConfirmPasswordInputField;
 
+    @FXML
+    private PasswordField confirmPasswordField;
+
+    @FXML
+    private PasswordField createPasswordField;
+
+    @FXML
+    private Button viewButton;
+
     /**
      * The Label that displays any errors when create button is clicked
      * Initially the label is hidden
@@ -61,12 +73,19 @@ public class AdminSetupScreenController {
     }
 
     /**
+     * Initializes the controller and sets up bindings and links the stylesheet
      * Initialize method for admin setup screen.
      * Sets up a listener that listens for when the TextField is attached to the scene
      * Then it can return a non-null scene.
+     * @author Felix Blanchard, Luke Armstrong
      */
     @FXML
-    private void initialize() {
+    public void initialize() {
+        // Bind text properties after all FXML fields have been loaded
+        createPasswordInputField.textProperty().bindBidirectional(createPasswordField.textProperty());
+        createConfirmPasswordInputField.textProperty().bindBidirectional(confirmPasswordField.textProperty());
+        createPasswordInputField.setVisible(false);
+        createConfirmPasswordInputField.setVisible(false);
         createUsernameInputField.sceneProperty().addListener((observable, oldscene, newscene) -> {
             if (newscene != null) {
                 newscene.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
@@ -94,6 +113,24 @@ public class AdminSetupScreenController {
             winery.launchAdminScreen();
         }
     }
+
+    @FXML
+    public void onViewButtonClicked() {
+        if (createPasswordInputField.isVisible()) {
+            createPasswordInputField.setVisible(false); // hide password
+            createConfirmPasswordInputField.setVisible(false);
+            createPasswordField.setVisible(true);
+            confirmPasswordField.setVisible(true);
+            viewButton.setText("View");
+        } else {
+            createPasswordInputField.setVisible(true); // show password
+            createConfirmPasswordInputField.setVisible(true);
+            createPasswordField.setVisible(false);
+            confirmPasswordField.setVisible(false);
+            viewButton.setText("Hide");
+        }
+    }
+
 
     /**
      * Method to trigger login when the enter key is pressed
