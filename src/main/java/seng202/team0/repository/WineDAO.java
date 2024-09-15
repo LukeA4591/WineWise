@@ -162,7 +162,6 @@ public class WineDAO implements DAOInterface<Wine> {
             ps.setInt(5, toAdd.getScore());
             ps.setString(6, toAdd.getRegion());
             ps.setString(7, toAdd.getDescription());
-//            ps.setString(8, "userRatings go here"); // TODO Find a way to ps.setLIST???
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -174,6 +173,20 @@ public class WineDAO implements DAOInterface<Wine> {
         } catch (SQLException sqlException) {
             log.error(sqlException);
             return -1;
+        }
+    }
+
+    public void delete(String name, String winery, int vintage) {
+        String sql = "DELETE FROM wines WHERE (name=?, winery=?, vintage=?)";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, name);
+            ps.setString(2, winery);
+            ps.setInt(3, vintage);
+
+            ps.executeUpdate();
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
         }
     }
 

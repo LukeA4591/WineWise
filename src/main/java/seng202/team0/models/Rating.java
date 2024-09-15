@@ -4,18 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rating {
-    int numberStars;
+    int rating;
     List<String> tastingNotes = new ArrayList<>();
     String review;
     String name;
     String address;
 
     /**
-     * The Getter method for the number of stars within a rating
-     * @return numberStars
+     * Constructor for Ratings for SQL that only holds score + review
+     * @param rating
+     * @param description
      */
-    public int getNumberStars() {
-        return numberStars;
+    public Rating(int rating, String description) {
+        this.rating = rating;
+        this.review = description;
+    }
+
+    /**
+     * The Getter method for the rating within a rating
+     * @return rating
+     */
+    public int getRating() {
+        return rating;
     }
 
     /**
@@ -51,11 +61,11 @@ public class Rating {
     }
 
     /**
-     * The Setter method for the number of stars a user leaves within a rating
-     * @param numberStars
+     * The Setter method for the rating a user leaves within a rating
+     * @param rating
      */
-    public void setNumberStars(int numberStars) {
-        this.numberStars = numberStars;
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     /**
