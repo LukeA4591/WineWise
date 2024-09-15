@@ -10,12 +10,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seng202.team0.repository.DatabaseManager;
 import seng202.team0.services.WineEnvironment;
 
 import java.io.IOException;
 
 public class NavBarController {
 
+    DatabaseManager databaseManager;
     private WineEnvironment wineEnvironment;
     @FXML
     private BorderPane mainWindow;
@@ -44,6 +46,7 @@ public class NavBarController {
      */
     @FXML
     private void initialize() {
+        this.databaseManager = DatabaseManager.getInstance();
         homeButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
         Platform.runLater(() -> {
             Scene scene = mainWindow.getScene();

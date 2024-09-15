@@ -55,49 +55,51 @@ public class SearchPageController {
     @FXML
     private void initialize() {
         wines = wineDAO.getAll();
-        initTable(wines);
-        List<String> regions = wineDAO.getDistinct("region");
-        for (String region : regions) {
-            if (!Objects.equals(region, "Not Applicable")) {
+        if (wines.size() > 0) {
+            initTable(wines);
+            List<String> regions = wineDAO.getDistinct("region");
+            for (String region : regions) {
+                if (!Objects.equals(region, "Not Applicable")) {
+                    MenuItem menu = new MenuItem();
+                    menu.setText(region);
+                    menu.setOnAction(this::regionFilterClicked);
+                    regionMenuButton.getItems().add(menu);
+                }
+            }
+
+            List<String> wineries = wineDAO.getDistinct("winery");
+            for (String winery : wineries) {
                 MenuItem menu = new MenuItem();
-                menu.setText(region);
-                menu.setOnAction(this::regionFilterClicked);
-                regionMenuButton.getItems().add(menu);
+                menu.setText(winery);
+                menu.setOnAction(this::wineryFilterClicked);
+                wineryMenuButton.getItems().add(menu);
             }
-        }
 
-        List<String> wineries = wineDAO.getDistinct("winery");
-        for (String winery : wineries) {
-            MenuItem menu = new MenuItem();
-            menu.setText(winery);
-            menu.setOnAction(this::wineryFilterClicked);
-            wineryMenuButton.getItems().add(menu);
-        }
-
-        List<String> vintageStrings = wineDAO.getDistinct("vintage");
-        List<Integer> vintages = new ArrayList<>();
-        for (int i = 0; i < vintageStrings.size(); i++) {
-            try {
-                vintages.add(Integer.parseInt(vintageStrings.get(i)));
-            } catch (NumberFormatException ignored) {
+            List<String> vintageStrings = wineDAO.getDistinct("vintage");
+            List<Integer> vintages = new ArrayList<>();
+            for (int i = 0; i < vintageStrings.size(); i++) {
+                try {
+                    vintages.add(Integer.parseInt(vintageStrings.get(i)));
+                } catch (NumberFormatException ignored) {
+                }
             }
+
+            int i = min(vintages);
+            while (i < max(vintages)) {
+                MenuItem menu = new MenuItem();
+                menu.setText(String.valueOf(i));
+                menu.setOnAction(this::vintageFilterClicked);
+                yearMenuButton.getItems().add(menu);
+                i++;
+            }
+
+            scoreFilters.put("score", new ArrayList<>()); //will need to change when user scores come in
+
+            filters.put("type", "ALL");
+            filters.put("winery", "ALL");
+            filters.put("vintage", "ALL");
+            filters.put("region", "ALL");
         }
-
-        int i = min(vintages);
-        while (i < max(vintages)) {
-            MenuItem menu = new MenuItem();
-            menu.setText(String.valueOf(i));
-            menu.setOnAction(this::vintageFilterClicked);
-            yearMenuButton.getItems().add(menu);
-            i++;
-        }
-
-        scoreFilters.put("score", new ArrayList<>()); //will need to change when user scores come in
-
-        filters.put("type", "ALL");
-        filters.put("winery", "ALL");
-        filters.put("vintage", "ALL");
-        filters.put("region", "ALL");
     }
 
     /**

@@ -13,6 +13,7 @@ import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
+import seng202.team0.repository.DatabaseManager;
 import seng202.team0.repository.WineDAO;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -67,11 +68,15 @@ public class HomePageController {
     public void init(Stage stage){
         this.stage = stage;
         wineDAO = new WineDAO();
-        List<Wine> wines = wineDAO.getTopRated();
-        displayWines(wines);
-        displayWinery(wines);
-        displayRatings(wines);
-        setImage(wines);
+        if (wineDAO.getAll().size() >= 3) {
+            List<Wine> wines = wineDAO.getTopRated();
+            displayWines(wines);
+            displayWinery(wines);
+            displayRatings(wines);
+            setImage(wines);
+        } else {
+            System.out.println("NAY");
+        }
     }
 
     public void displayWines(List<Wine> wines){
