@@ -22,6 +22,7 @@ public class AdminScreenController {
     private ComboBox<String> dataTypeComboBox;
 
     private final WineEnvironment winery;
+    private final WineManager wineManager;
     private Stage stage; // Make final and add void init(Stage stage)
 
     // Could make it an init function with the stage.
@@ -31,6 +32,7 @@ public class AdminScreenController {
 
     public AdminScreenController(WineEnvironment winery) {
         this.winery = winery;
+        wineManager = new WineManager();
     }
 
     @FXML
@@ -61,7 +63,6 @@ public class AdminScreenController {
         }
         stage = (Stage) addWine.getScene().getWindow(); // Need to have scene variable, has to find scene through addWine button
         File file = fileChooser.showOpenDialog(stage);
-        WineManager wineManager = new WineManager();
         wineManager.addAllWinesFromFile(new WineCSVImporter(), file);
     }
 

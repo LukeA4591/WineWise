@@ -3,6 +3,8 @@ package seng202.team0.gui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import seng202.team0.business.WineManager;
+import seng202.team0.models.Wine;
 import seng202.team0.services.WineEnvironment;
 
 
@@ -31,9 +33,11 @@ public class AddWineController {
     ToggleGroup wineTypeToggle;
 
     private final WineEnvironment winery;
+    private final WineManager wineManager;
 
     public AddWineController(WineEnvironment winery) {
         this.winery = winery;
+        wineManager = new WineManager();
     }
 
     @FXML
@@ -43,24 +47,35 @@ public class AddWineController {
     }
 
     public void saveNewWine() {
+        Wine wine = validateWine();
+        if (wine != null) {
+            wineManager.addWine(wine);
+        }
+    }
+
+    private Wine validateWine() {
         try {
             String wineWineryNameString = wineWineryName.getText();
             String wineNameString = wineName.getText();
             if (wineWineryNameString.isEmpty()) {
                 saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
                 saveNewWineMessage.setText("Winery Name field is empty.");
+                return null;
             } else if (wineNameString.isEmpty()){
                 saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
                 saveNewWineMessage.setText("Wine Name field is empty.");
+                return null;
             } else if (wineVintage.getText().isEmpty()) {
                 saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
                 saveNewWineMessage.setText("Wine Vintage field is empty.");
+                return null;
             } else {
-                float wineVintageFloat = Float.parseFloat(wineVintage.getText());
+                int wineVintageInt = Integer.parseInt(wineVintage.getText());
+                int wineScoreInt;
                 if (wineScore.getText().isEmpty()) {
-                    int wineScoreInt = 0; // Maybe make it null
-                } else {
-                    int wineScoreInt = Integer.parseInt(wineScore.getText());
+                    wineScoreInt = 0; // Maybe make it null
+                } else { // Add else if to check valid score
+                    wineScoreInt = Integer.parseInt(wineScore.getText());
                 }
                 String wineTypeString = ((RadioButton) wineTypeToggle.getSelectedToggle()).getText();
                 String wineRegionString = wineRegion.getText();
@@ -70,10 +85,13 @@ public class AddWineController {
 
                 saveNewWineMessage.setStyle("-fx-text-fill: #00FF00");
                 saveNewWineMessage.setText("New wine saved.");
+                return new Wine(wineTypeString, wineNameString, wineWineryNameString, wineVintageInt, wineScoreInt,
+                        wineRegionString, wineDescriptionString);
             }
         } catch (NumberFormatException e) {
             saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
             saveNewWineMessage.setText("Wine Vintage and Score should be a number.");
+            return null;
         }
     }
 }

@@ -19,5 +19,5 @@ public class WineManager {
 
     public int addWine(Wine wine) { return wineDAO.add(wine); }
 
-    public List<Wine> getAllWines() { return wineDAO.getAll(); }
+    public List<Wine> getAll() { return wineDAO.getAll(); }
 }
