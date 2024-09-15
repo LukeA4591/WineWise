@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import seng202.team0.business.WineManager;
+import seng202.team0.io.WineCSVImporter;
 import seng202.team0.models.Wine;
 import seng202.team0.services.AdminLoginService;
 import seng202.team0.services.WineEnvironment;
@@ -59,6 +61,8 @@ public class AdminScreenController {
         }
         stage = (Stage) addWine.getScene().getWindow(); // Need to have scene variable, has to find scene through addWine button
         File file = fileChooser.showOpenDialog(stage);
+        WineManager wineManager = new WineManager();
+        wineManager.addAllWinesFromFile(new WineCSVImporter(), file);
     }
 
     /**
