@@ -2,6 +2,7 @@ package seng202.team0.gui;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -28,19 +29,22 @@ public class winePopupController {
     private Pane wineNavWindow;
 
     private Wine wine;
+
+    private Image image;
     @FXML
-    public void init(Wine wine) {
+    public void init(Wine wine, Image image) {
+        this.image = image;
         this.wine = wine;
         wineDetailsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
-        loadDetailsScreen(wine);
+        loadDetailsScreen(wine, image);
     }
 
-    private void loadDetailsScreen(Wine wine) {
+    private void loadDetailsScreen(Wine wine, Image image) {
         try {
             FXMLLoader detailsScreenLoader = new FXMLLoader(getClass().getResource("/fxml/wine_details_screen.fxml"));
             Pane detailsScreen = detailsScreenLoader.load();
             WineDetailsScreenController detailsScreenController = detailsScreenLoader.getController();
-            detailsScreenController.init(wine);
+            detailsScreenController.init(wine, image);
             wineNavWindow.getChildren().clear();
             wineNavWindow.getChildren().add(detailsScreen);
         } catch (IOException e) {
@@ -85,7 +89,7 @@ public class winePopupController {
 
     @FXML
     void detailsButtonPressed() {
-        loadDetailsScreen(wine);
+        loadDetailsScreen(wine, image);
         setAllButtonsGrey();
         wineDetailsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
