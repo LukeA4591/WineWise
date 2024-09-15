@@ -102,54 +102,64 @@ public class HomePageController {
     public void setImage(List<Wine> wines) {
         List<ImageView> imageViews = Arrays.asList(imageView1, imageView2, imageView3);
         for (int i=0; i < 3; i++) {
-            System.out.println(wines.get(i).getWineName());
-            String imagePath;
-            switch(wines.get(i).getColor()) {
-                case "Red":
-                    imagePath = "/images/redwine.jpeg";
-                    break;
-                case "White":
-                    imagePath = "/images/whitewine.jpeg";
-                    break;
-                case "Ros�":
-                    imagePath = "/images/rose.jpeg";
-                    break;
-                default:
-                    imagePath = "/images/defaultwine.jpeg";
-            }
-            Image image = new Image(getClass().getResourceAsStream(imagePath));
+            Image image = getImage(wines.get(i));
             ImageView imageView = imageViews.get(i);
             imageView.setImage(image);
         }
     }
 
+    public Image getImage(Wine wine) {
+        String imagePath;
+        switch(wine.getColor()) {
+            case "Red":
+                imagePath = "/images/redwine.png";
+                break;
+            case "White":
+                imagePath = "/images/whitewine.png";
+                break;
+            case "Ros�":
+                imagePath = "/images/rose.png";
+                break;
+            default:
+                imagePath = "/images/defaultwine.png";
+        }
+        Image image = new Image(getClass().getResourceAsStream(imagePath));
+        return image;
+    }
+
     @FXML
     void wine1Pressed() {
         List<Wine> wines = wineDAO.getTopRated();
-        winePressed(wines.get(0));
+        Wine wine = wines.get(0);
+        Image image = getImage(wine);
+        winePressed(wine, image);
     }
 
     @FXML
     void wine2Pressed() {
         List<Wine> wines = wineDAO.getTopRated();
-        winePressed(wines.get(1));
+        Wine wine = wines.get(1);
+        Image image = getImage(wine);
+        winePressed(wine, image);
     }
 
     @FXML
     void wine3Pressed() {
         List<Wine> wines = wineDAO.getTopRated();
-        winePressed(wines.get(2));
+        Wine wine = wines.get(2);
+        Image image = getImage(wine);
+        winePressed(wine, image);
     }
 
 
-    void winePressed(Wine wine) {
+    void winePressed(Wine wine, Image image) {
         try {
             // load a new fxml file
             FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/wine_popup.fxml"));
             BorderPane root = newStageLoader.load();
 
             winePopupController controller = newStageLoader.getController();
-            controller.init(wine);
+            controller.init(wine, image);
             Scene modalScene = new Scene(root);
             Stage modalStage = new Stage();
             modalStage.setScene(modalScene);
