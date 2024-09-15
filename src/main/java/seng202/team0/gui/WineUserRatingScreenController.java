@@ -52,8 +52,8 @@ public class WineUserRatingScreenController {
     @FXML
     private void saveReview() throws DuplicateExc {
         if (movedSlider) {
-            Rating rating = new Rating((int) ratingSlider.getValue(), reviewTextArea.getText(), wine); //will break with new rating system
-            reviewDAO.add(rating);
+            //Rating rating = new Rating((int) ratingSlider.getValue(), reviewTextArea.getText(), wine); //will break with new rating system
+            //reviewDAO.add(rating);
             savedLabel.setText("Saved!");
             savedLabel.setStyle("-fx-text-fill: indigo");
             resetReview();

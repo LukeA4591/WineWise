@@ -43,6 +43,12 @@ public class WineDetailsScreenController {
     public WineDetailsScreenController() {
     }
 
+    /**
+     * Provide all information about the wine to allow the user to read more about any specific wine
+     * @param wine
+     * @param image
+     * @author Luke Armstrong
+     */
     @FXML
     public void init(Wine wine, Image image) {
         this.wine = wine;
