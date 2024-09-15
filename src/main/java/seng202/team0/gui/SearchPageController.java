@@ -235,6 +235,7 @@ public class SearchPageController {
      */
     private void initTable(List<Wine> wines){
         table.getColumns().clear();
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         TableColumn<Wine, String> typeCol = new TableColumn<>("Type");
         typeCol.setCellValueFactory(new PropertyValueFactory<>("color"));
@@ -254,8 +255,8 @@ public class SearchPageController {
         TableColumn<Wine, String> regionCol = new TableColumn<>("Region");
         regionCol.setCellValueFactory(new PropertyValueFactory<>("region"));
 
-        TableColumn<Wine, String> descCol = new TableColumn<>("Desc.");
-        descCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        //TableColumn<Wine, String> descCol = new TableColumn<>("Desc.");
+        //descCol.setCellValueFactory(new PropertyValueFactory<>("description"));
 
         table.getColumns().add(typeCol);
         table.getColumns().add(nameCol);
@@ -263,7 +264,7 @@ public class SearchPageController {
         table.getColumns().add(vintageCol);
         table.getColumns().add(scoreCol);
         table.getColumns().add(regionCol);
-        table.getColumns().add(descCol);
+        //table.getColumns().add(descCol);
 
         table.setItems(FXCollections.observableArrayList(wines));
     }
