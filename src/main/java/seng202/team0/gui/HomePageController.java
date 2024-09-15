@@ -125,19 +125,19 @@ public class HomePageController {
 
     @FXML
     void wine1Pressed() {
-        List<Wine> wines = wineDAO.getAll();
+        List<Wine> wines = wineDAO.getTopRated();
         winePressed(wines.get(0));
     }
 
     @FXML
     void wine2Pressed() {
-        List<Wine> wines = wineDAO.getAll();
+        List<Wine> wines = wineDAO.getTopRated();
         winePressed(wines.get(1));
     }
 
     @FXML
     void wine3Pressed() {
-        List<Wine> wines = wineDAO.getAll();
+        List<Wine> wines = wineDAO.getTopRated();
         winePressed(wines.get(2));
     }
 
