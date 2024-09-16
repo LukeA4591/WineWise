@@ -236,7 +236,6 @@ public class SearchPageController {
      */
     private void initTable(List<Wine> wines){
         table.getColumns().clear();
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         TableColumn<Wine, String> typeCol = new TableColumn<>("Type");
         typeCol.setCellValueFactory(new PropertyValueFactory<>("color"));
