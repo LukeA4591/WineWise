@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import seng202.team0.models.Wine;
 import seng202.team0.repository.DatabaseManager;
 import seng202.team0.repository.WineDAO;
+import seng202.team0.services.WinePopupService;
 
 import java.util.*;
 
@@ -39,6 +40,7 @@ public class SearchPageController {
     private Map<String, List<String>> scoreFilters = new HashMap<>();
     static WineDAO wineDAO;
     static DatabaseManager databaseManager;
+    private WinePopupService wineMethods = new WinePopupService();
 
     /**
      * Constructor for search page controller
@@ -121,7 +123,6 @@ public class SearchPageController {
      * @author Luke Armstrong
      */
     private void onWineClicked(Wine wine) {
-        HomePageController wineMethods = new HomePageController();
         Image image = wineMethods.getImage(wine);
         wineMethods.winePressed(wine, image, errorLabel);
     }
