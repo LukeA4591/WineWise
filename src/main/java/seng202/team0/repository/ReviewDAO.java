@@ -38,8 +38,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                reviews.add(new Rating(rs.getInt("rating"), rs.getString("description"), rs.getString("wineName"),
-                        rs.getString("wineWinery"), rs.getInt("wineVintage")));
+                reviews.add(new Rating(rs.getInt("rating"), rs.getString("review"), (Wine) rs.getObject("wine")));
             }
             return reviews;
         } catch (SQLException sqlException) {
@@ -49,26 +48,25 @@ public class ReviewDAO implements DAOInterface<Rating>{
 
     }
 
-    public List<Rating> getReviewsByWineId(Wine wine) {
-        List<Rating> reviews = new ArrayList<>();
-        String sql = "SELECT * FROM reviews WHERE wineName = ? AND wineWinery = ? AND wineVintage = ? AND reported = false";
+    public int getWineID(Wine toSearch) {
+        int wineID;
+        String sql = "SELECT wineID " +
+                "FROM wines " +
+                "WHERE name = " + toSearch.getWineName() + " AND " +
+                "vintage = " + toSearch.getVintage() + " AND " +
+                "winery = " + toSearch.getWinery();
+
         try(Connection conn = databaseManager.connect();
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, wine.getWineName());
-            pstmt.setString(2, wine.getWineryString());
-            pstmt.setInt(3, wine.getVintage());
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                reviews.add(new Rating(rs.getInt("rating"), rs.getString("description"), rs.getString("wineName"),
-                            rs.getString("wineWinery"), rs.getInt("wineVintage")));
-            }
-            return reviews;
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)) {
+            wineID = rs.getInt(0); // TODO check if getInt works
+            return wineID;
         } catch (SQLException sqlException) {
             log.error(sqlException);
-            return new ArrayList<>();
+            return 0;
         }
-
     }
+
 
     /**
      * Adds a single review to the database
@@ -78,15 +76,13 @@ public class ReviewDAO implements DAOInterface<Rating>{
      */
     @Override
     public int add(Rating toAdd) throws DuplicateExc {
-        String sql = "INSERT INTO reviews (wineName, wineWinery, wineVintage, rating, description, reported) VALUES (?,?,?,?,?,?);";
+        String sql = "INSERT INTO reviews (rating, description, wine) VALUES (?,?,?);";
         try (Connection conn = databaseManager.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, toAdd.getWineName());
-            ps.setString(2, toAdd.getWinery());
-            ps.setInt(3, toAdd.getVintage());
-            ps.setInt(4, toAdd.getRating());
-            ps.setString(5, toAdd.getReview()); // TODO added an object to database (risky)
-            ps.setBoolean(6, false);
+            ps.setInt(1, toAdd.getRating());
+            ps.setString(2, toAdd.getReview());
+            ps.setInt(3, getWineID(toAdd.getWine()));
+
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             int insertId = -1;

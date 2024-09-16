@@ -48,6 +48,7 @@ public class FXWrapper {
             stage.setTitle("WineWise Nav Bar");
             stage.setWidth(900);
             stage.setHeight(624);
+            stage.setResizable(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -83,6 +84,8 @@ public class FXWrapper {
         try {
             FXMLLoader setupLoader = new FXMLLoader(getClass().getResource("/fxml/admin_screen.fxml"));
             setupLoader.setControllerFactory(param -> new AdminScreenController(wineEnvironment));
+            stage.setWidth(600);
+            stage.setHeight(400);
             Parent setupParent  = setupLoader.load();
             setupParent.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
             pane.getChildren().add(setupParent);
