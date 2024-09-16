@@ -20,6 +20,7 @@ import seng202.team0.repository.WineDAO;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import seng202.team0.services.WinePopupService;
 
 /**
  * Controller class for the home page of the application.
@@ -69,6 +70,8 @@ public class HomePageController {
     private Stage stage;
 
     private WineDAO wineDAO;
+
+    private WinePopupService wineService = new WinePopupService();
 
     /**
      * Initializes the HomePageController.
@@ -131,35 +134,13 @@ public class HomePageController {
     public void setImage(List<Wine> wines) {
         List<ImageView> imageViews = Arrays.asList(imageView1, imageView2, imageView3);
         for (int i = 0; i < 3; i++) {
-            Image image = getImage(wines.get(i));
+            Image image = wineService.getImage(wines.get(i));
             ImageView imageView = imageViews.get(i);
             imageView.setImage(image);
         }
     }
 
-    /**
-     * Retrieves the appropriate image based on the wine's color.
-     *
-     * @param wine The wine whose image is to be fetched.
-     * @return The image representing the wine.
-     */
-    public Image getImage(Wine wine) {
-        String imagePath;
-        switch (wine.getColor()) {
-            case "Red":
-                imagePath = "/images/redwine.png";
-                break;
-            case "White":
-                imagePath = "/images/whitewine.png";
-                break;
-            case "Rose":
-                imagePath = "/images/rose.png";
-                break;
-            default:
-                imagePath = "/images/defaultwine.png";
-        }
-        return new Image(getClass().getResourceAsStream(imagePath));
-    }
+
 
     /**
      * Event handler for pressing the first wine label.
@@ -168,9 +149,9 @@ public class HomePageController {
     @FXML
     void wine1Pressed() {
         List<Wine> wines = wineDAO.getTopRated();
-        Wine wine = wines.get(0);
-        Image image = getImage(wine);
-        winePressed(wine, image, rating1);
+        Wine wine = wines.getFirst();
+        Image image = wineService.getImage(wine);
+        wineService.winePressed(wine, image, rating1);
     }
 
     /**
@@ -181,8 +162,8 @@ public class HomePageController {
     void wine2Pressed() {
         List<Wine> wines = wineDAO.getTopRated();
         Wine wine = wines.get(1);
-        Image image = getImage(wine);
-        winePressed(wine, image, rating1);
+        Image image = wineService.getImage(wine);
+        wineService.winePressed(wine, image, rating1);
     }
 
     /**
@@ -193,34 +174,9 @@ public class HomePageController {
     void wine3Pressed() {
         List<Wine> wines = wineDAO.getTopRated();
         Wine wine = wines.get(2);
-        Image image = getImage(wine);
-        winePressed(wine, image, rating1);
+        Image image = wineService.getImage(wine);
+        wineService.winePressed(wine, image, rating1);
     }
 
-    /**
-     * Opens a detailed popup window displaying more information about the selected wine.
-     *
-     * @param wine  The wine whose details are to be displayed.
-     * @param image The image associated with the wine.
-     * @param label A label from the main scene to set the owner of the popup stage.
-     */
-    public void winePressed(Wine wine, Image image, Label label) {
-        try {
-            FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/wine_popup.fxml"));
-            BorderPane root = newStageLoader.load();
 
-            winePopupController controller = newStageLoader.getController();
-            controller.init(wine, image);
-            Scene modalScene = new Scene(root);
-            Stage modalStage = new Stage();
-            modalStage.setScene(modalScene);
-            modalStage.setResizable(false);
-            modalStage.setTitle("Wine Popup");
-            modalStage.initModality(Modality.WINDOW_MODAL);
-            modalStage.initOwner(label.getScene().getWindow());
-            modalStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
