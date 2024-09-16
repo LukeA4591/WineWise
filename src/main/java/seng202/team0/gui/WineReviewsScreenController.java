@@ -74,7 +74,7 @@ public class WineReviewsScreenController {
         wineNameLabel.setText(wineNameLabel.getText() + wine.getWineName());
         wineryLabel.setText(wineryLabel.getText() + wine.getWineryString());
         vintageLabel.setText(vintageLabel.getText() + wine.getVintage());
-        criticRatingLabel.setText(criticRatingLabel.getText() + wine.getScore());
+        criticRatingLabel.setText("Critic rating: " + wine.getScore() + " / 100");
 
         ObservableList<Rating> observableWineReviews = FXCollections.observableArrayList(wineReviews);
 
