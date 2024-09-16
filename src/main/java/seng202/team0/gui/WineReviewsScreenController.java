@@ -1,17 +1,15 @@
 package seng202.team0.gui;
 
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
+import org.apache.poi.ss.usermodel.Table;
 import seng202.team0.exceptions.DuplicateExc;
 import seng202.team0.models.Rating;
 import seng202.team0.models.Wine;
@@ -35,7 +33,7 @@ public class WineReviewsScreenController {
     private TableColumn<Rating, String> reviewColumn;
 
     @FXML
-    private TableColumn<Rating, CheckBox> reportColumn;
+    private TableColumn<Rating, Boolean> reportColumn;
 
     @FXML
     private Label wineNameLabel;
@@ -78,12 +76,24 @@ public class WineReviewsScreenController {
         vintageLabel.setText(vintageLabel.getText() + wine.getVintage());
         criticRatingLabel.setText(criticRatingLabel.getText() + wine.getScore());
 
-
         ObservableList<Rating> observableWineReviews = FXCollections.observableArrayList(wineReviews);
 
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
         reviewColumn.setCellValueFactory(new PropertyValueFactory<>("review"));
-        reportColumn.setCellValueFactory(new PropertyValueFactory<>("isReported"));
+//        reportColumn.setCellValueFactory(new PropertyValueFactory<>("isReported"));
+
+
+        reportColumn.setCellFactory(column -> new CheckBoxTableCell<>());
+        reportColumn.setCellValueFactory(cellData -> {
+            Rating cellValue = cellData.getValue();
+            BooleanProperty property = cellValue.getIsReported();
+
+            // Add listener to handler change
+            property.addListener((observable, oldValue, newValue) -> cellValue.setIsReported(newValue));
+
+            return property;
+        });
+
         ratingTable.setItems(observableWineReviews);
 
 
