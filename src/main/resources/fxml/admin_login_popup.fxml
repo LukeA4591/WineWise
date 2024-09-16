@@ -7,21 +7,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.AdminLoginPopupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.AdminLoginPopupController">
    <children>
-      <TextField fx:id="usernameInput" layoutX="314.0" layoutY="167.0" />
       <TextField fx:id="passwordInput" layoutX="314.0" layoutY="233.0" />
-      <Button layoutX="423.0" layoutY="311.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" />
+      <TextField fx:id="usernameInput" layoutX="314.0" layoutY="167.0" />
+      <PasswordField fx:id="passwordTextInput" layoutX="314.0" layoutY="233.0" />
+      <Button fx:id="viewButton" layoutX="498.0" layoutY="234.0" mnemonicParsing="false" onAction="#onViewButtonClicked" text="View" />
       <Button layoutX="314.0" layoutY="311.0" mnemonicParsing="false" onAction="#onLogin" text="Login" />
+      <Button layoutX="423.0" layoutY="311.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" />
       <Label layoutX="110.0" layoutY="171.0" text="Please enter your username" />
       <Label layoutX="110.0" layoutY="237.0" text="Please enter your password" />
-      <Label layoutX="216.0" layoutY="73.0" text="Admin Login">
+      <Label layoutX="202.0" layoutY="72.0" styleClass="title-label" text="Admin Login">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
       <Label fx:id="adminLoginErrorLabel" layoutX="165.0" layoutY="315.0" textFill="RED" />
-      <PasswordField fx:id="passwordTextInput" layoutX="314.0" layoutY="233.0" />
-      <Button fx:id="viewButton" layoutX="498.0" layoutY="234.0" mnemonicParsing="false" onAction="#onViewButtonClicked" text="View" />
    </children>
 </AnchorPane>

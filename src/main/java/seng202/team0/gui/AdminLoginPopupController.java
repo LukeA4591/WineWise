@@ -110,5 +110,4 @@ public class AdminLoginPopupController {
         ((Stage) usernameInput.getScene().getWindow()).close();
     }
 
-
 }

@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seng202.team0.business.WineManager;
@@ -20,6 +21,8 @@ public class AdminScreenController {
     Button addWine;
     @FXML
     private ComboBox<String> dataTypeComboBox;
+    @FXML
+    private Label errorLabel;
 
     private final WineEnvironment winery;
     private final WineManager wineManager;
@@ -44,6 +47,9 @@ public class AdminScreenController {
         } else if (dataType == "Winery") {
             winery.getClearRunnable().run();
             winery.launchAddWineryScreen();
+        } else {
+            errorLabel.setText("Please select data type");
+            errorLabel.setStyle("-fx-text-fill: red");
         }
     }
 

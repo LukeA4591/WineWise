@@ -111,14 +111,32 @@ public class SearchPageController {
         if ((Objects.equals(criticScoreMinText.getText(), "") && !(Objects.equals(criticScoreMaxText.getText(), ""))) || (!(Objects.equals(criticScoreMinText.getText(), "")) && Objects.equals(criticScoreMaxText.getText(), ""))) {
             errorLabel.setText("Please input both scores");
             errorLabel.setStyle("-fx-text-fill: red;");
+        } else if (!validScore(criticScoreMaxText.getText()) || !validScore(criticScoreMinText.getText())){
+            errorLabel.setText("Please enter integers");
+            errorLabel.setStyle("-fx-text-fill: red");
         } else if (!Objects.equals(criticScoreMaxText.getText(), "") && !Objects.equals(criticScoreMinText.getText(), "") && (Integer.parseInt(criticScoreMaxText.getText()) <= Integer.parseInt(criticScoreMinText.getText()))) {
-            errorLabel.setText("Please input a valid from and to score");
+            errorLabel.setText("Please have from <= to");
             errorLabel.setStyle("-fx-text-fill: red;");
         } else {
             scoreFilters.put("score", Arrays.asList(criticScoreMinText.getText(), criticScoreMaxText.getText()));
             wines = wineDAO.getFilteredWines(filters, scoreFilters);
             initTable(wines);
         }
+    }
+
+    /**
+     * Helper method to determine whether a string contains just numbers
+     * @param testString string to be tested
+     * @return true is only digits otherwise false
+     */
+    private boolean validScore(String testString) {
+        boolean valid = true;
+        for (int i = 0; i < testString.length(); i++) {
+            if (!Character.isDigit(testString.charAt(i))) {
+                valid = false;
+            }
+        }
+        return valid;
     }
 
     /**
