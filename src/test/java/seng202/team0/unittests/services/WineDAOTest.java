@@ -101,4 +101,18 @@ public class WineDAOTest {
         wineDao.add(new Wine("White", "Bland Blanc", "Fields of Grapes", 2021, 60, "Canterbury", "Bland and boring"));
         Assertions.assertEquals(5, wineDao.getAll().size());
     }
+
+    @Test
+    public void testDelete() throws DuplicateExc {
+        populateDatabase();
+        wineDao.delete("Rosy Rose", "Lakes Winery", 2020);
+        Assertions.assertEquals(3, wineDao.getAll().size());
+    }
+
+    @Test
+    public void testDeleteDoesNotExist() throws DuplicateExc {
+        populateDatabase();
+        wineDao.delete("WWWWWWW", "AAAAAAAAAAA", 0);
+        Assertions.assertEquals(4, wineDao.getAll().size());
+    }
 }
