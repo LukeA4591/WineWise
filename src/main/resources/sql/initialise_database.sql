@@ -26,5 +26,6 @@ CREATE TABLE IF NOT EXISTS reviews (
     wine integer,
     rating integer,
     description TEXT,
+    reported BOOLEAN,
     FOREIGN KEY (wine) REFERENCES wines);
 

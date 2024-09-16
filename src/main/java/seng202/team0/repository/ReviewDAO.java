@@ -48,7 +48,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
 
     }
 
-    public int getID(Wine toSearch) {
+    public int getWineID(Wine toSearch) {
         int wineID;
         String sql = "SELECT wineID " +
                 "FROM wines " +
@@ -81,7 +81,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, toAdd.getRating());
             ps.setString(2, toAdd.getReview());
-            ps.setInt(3, getID(toAdd.getWine()));
+            ps.setInt(3, getWineID(toAdd.getWine()));
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
