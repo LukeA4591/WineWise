@@ -22,14 +22,6 @@ public class Rating {
         this.wine = wine;
     }
 
-    /**
-     * Takes the wine object and searches the database for the wine that matches and returns that wine's ID
-     * @return wineID
-     */
-    public int getWineID() {
-
-    }
-
     public Wine getWine() {
         return wine;
     }

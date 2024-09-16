@@ -81,7 +81,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, toAdd.getRating());
             ps.setString(2, toAdd.getReview());
-            ps.setInt(3, toAdd.); // TODO added an object to database (risky)
+            ps.setInt(3, getID(toAdd.getWine()));
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
