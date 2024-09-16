@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS wines;
 --SPLIT
 CREATE TABLE IF NOT EXISTS wines (
+    wineID integer not null primary key AUTOINCREMENT,
     type TEXT,
     name TEXT not null,
     winery TEXT not null,
@@ -8,7 +9,7 @@ CREATE TABLE IF NOT EXISTS wines (
     score int,
     region TEXT,
     description TEXT,
-    primary key (name, winery, vintage));
+    UNIQUE (name, winery, vintage));
 --SPLIT
 DROP TABLE IF EXISTS winerys;
 --SPLIT
@@ -22,7 +23,8 @@ DROP TABLE IF EXISTS reviews;
 --SPLIT
 CREATE TABLE IF NOT EXISTS reviews (
     reviewID integer not null primary key AUTOINCREMENT,
-    wine TEXT,
+    wine integer,
     rating integer,
-    description TEXT);
+    description TEXT,
+    FOREIGN KEY (wine) REFERENCES wines);
 

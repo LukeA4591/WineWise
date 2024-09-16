@@ -48,6 +48,26 @@ public class ReviewDAO implements DAOInterface<Rating>{
 
     }
 
+    public int getID(Wine toSearch) {
+        int wineID;
+        String sql = "SELECT wineID " +
+                "FROM wines " +
+                "WHERE name = " + toSearch.getWineName() + " AND " +
+                "vintage = " + toSearch.getVintage() + " AND " +
+                "winery = " + toSearch.getWinery();
+
+        try(Connection conn = databaseManager.connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)) {
+            wineID = rs.getInt(0); // TODO check if getInt works
+            return wineID;
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            return 0;
+        }
+    }
+
+
     /**
      * Adds a single review to the database
      * @param toAdd object of type T to add
@@ -61,7 +81,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, toAdd.getRating());
             ps.setString(2, toAdd.getReview());
-            ps.setObject(3, toAdd.getWine()); // TODO added an object to database (risky)
+            ps.setInt(3, toAdd.); // TODO added an object to database (risky)
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
