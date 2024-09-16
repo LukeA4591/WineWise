@@ -8,8 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
-import org.apache.poi.ss.usermodel.Table;
 import seng202.team0.exceptions.DuplicateExc;
 import seng202.team0.models.Rating;
 import seng202.team0.models.Wine;
@@ -82,16 +80,40 @@ public class WineReviewsScreenController {
         reviewColumn.setCellValueFactory(new PropertyValueFactory<>("review"));
 //        reportColumn.setCellValueFactory(new PropertyValueFactory<>("isReported"));
 
-        reportColumn.setCellFactory(column -> new CheckBoxTableCell<>());
-        reportColumn.setCellValueFactory(cellData -> {
-            Rating cellValue = cellData.getValue();
-            BooleanProperty property = cellValue.getIsReported();
+//        reportColumn = new TableColumn<>("isReported");
+        reportColumn.setCellFactory(column -> new TableCell<Rating, Boolean>() {
+            private final CheckBox checkBox = new CheckBox();
 
-            // Add listener to handler change
-            property.addListener((observable, oldValue, newValue) -> cellValue.setIsReported(newValue));
-
-            return property;
+            @Override
+            protected void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    checkBox.setSelected(item != null && item);
+                    checkBox.setOnAction(event -> {
+                        System.out.println(getTableRow().getItem());
+                        getTableRow().getItem().setReported(checkBox.isSelected());
+                        System.out.println(getTableRow().getItem().getReported());
+                    });
+                    setGraphic(checkBox);
+                }
+            }
         });
+//        reportColumn.setCellFactory(CheckBoxTableCell.forTableColumn(reportColumn.getCellValueFactory()));
+//        reportColumn.setCellFactory(column -> new CheckBoxTableCell<>());
+//        reportColumn.setCellValueFactory(cellData -> {
+//            Rating cellValue = cellData.getValue();
+//            BooleanProperty property = cellValue.getIsReported();
+//
+//            // Add listener to handler change
+//            property.addListener((observable, oldValue, newValue) -> {
+//                System.out.println(newValue);
+//                cellValue.setIsReported(newValue);
+//                property.setValue(newValue);
+//            });
+//            return property;
+//        });
 
         ratingTable.setItems(observableWineReviews);
 

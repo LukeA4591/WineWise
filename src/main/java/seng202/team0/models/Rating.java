@@ -1,8 +1,5 @@
 package seng202.team0.models;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +14,7 @@ public class Rating {
     Wine wine;
     String address;
 
-    private BooleanProperty isReported;
+    Boolean reported;
 
     /**
      * Constructor for Ratings for SQL that only holds score + review
@@ -30,7 +27,7 @@ public class Rating {
         this.wineName = wineName;
         this.winery = winery;
         this.vintage = vintage;
-        this.isReported = new SimpleBooleanProperty(this, "isReported", false);
+        this.reported = false;
     }
 
     public Wine getWine() {
@@ -133,11 +130,11 @@ public class Rating {
         this.address = address;
     }
 
-    public BooleanProperty getIsReported() {
-        return isReported;
+    public Boolean getReported() {
+        return reported;
     }
 
-    public void setIsReported(boolean reported) {
-        isReported.setValue(reported);
+    public void setReported(Boolean reported) {
+        this.reported = reported;
     }
 }
