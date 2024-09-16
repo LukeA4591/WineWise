@@ -82,7 +82,6 @@ public class WineReviewsScreenController {
         reviewColumn.setCellValueFactory(new PropertyValueFactory<>("review"));
 //        reportColumn.setCellValueFactory(new PropertyValueFactory<>("isReported"));
 
-
         reportColumn.setCellFactory(column -> new CheckBoxTableCell<>());
         reportColumn.setCellValueFactory(cellData -> {
             Rating cellValue = cellData.getValue();

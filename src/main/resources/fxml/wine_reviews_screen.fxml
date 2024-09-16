@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.WineReviewsScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.WineReviewsScreenController">
    <children>
       <Label fx:id="wineNameLabel" layoutX="55.0" layoutY="9.0" prefHeight="16.0" prefWidth="489.0" text="Wine: " />
       <Label fx:id="wineryLabel" layoutX="56.0" layoutY="32.0" prefHeight="16.0" prefWidth="489.0" text="Winery: " />
@@ -13,9 +13,9 @@
       <Label fx:id="criticRatingLabel" layoutX="55.0" layoutY="76.0" prefHeight="16.0" prefWidth="489.0" text="Critic rating (/100): " />
       <TableView fx:id="ratingTable" layoutX="56.0" layoutY="109.0" prefHeight="258.0" prefWidth="489.0">
         <columns>
-          <TableColumn fx:id="ratingColumn" prefWidth="75.0" text="Rating" />
-          <TableColumn fx:id="reviewColumn" prefWidth="329.0" text="Review" />
-            <TableColumn fx:id="reportColumn" prefWidth="84.0" text="Report" />
+          <TableColumn fx:id="ratingColumn" prefWidth="51.20001220703125" text="Rating" />
+          <TableColumn fx:id="reviewColumn" prefWidth="384.0" text="Review" />
+            <TableColumn fx:id="reportColumn" prefWidth="53.60003662109375" text="Report" />
         </columns>
       </TableView>
    </children>
