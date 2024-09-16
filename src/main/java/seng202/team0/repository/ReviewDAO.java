@@ -116,7 +116,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
     }
 
     //TODO make reviewID be stored on rating model.
-    public void markAsReported() {
+    public void markAsReported(int id) {
         String sql = "UPDATE FROM reviews WHERE reviewID=?";
         try (Connection conn = databaseManager.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
