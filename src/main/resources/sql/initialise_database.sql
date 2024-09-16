@@ -26,4 +26,5 @@ CREATE TABLE IF NOT EXISTS reviews (
     wineWinery TEXT,
     wineVintage int,
     rating integer,
-    description TEXT);
+    description TEXT,
+    reported boolean);

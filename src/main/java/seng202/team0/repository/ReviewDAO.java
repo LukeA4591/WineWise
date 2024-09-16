@@ -51,7 +51,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
 
     public List<Rating> getReviewsByWineId(Wine wine) {
         List<Rating> reviews = new ArrayList<>();
-        String sql = "SELECT * FROM reviews WHERE wineName = ? AND wineWinery = ? AND wineVintage = ?";
+        String sql = "SELECT * FROM reviews WHERE wineName = ? AND wineWinery = ? AND wineVintage = ? AND reported = false";
         try(Connection conn = databaseManager.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, wine.getWineName());
@@ -78,7 +78,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
      */
     @Override
     public int add(Rating toAdd) throws DuplicateExc {
-        String sql = "INSERT INTO reviews (wineName, wineWinery, wineVintage, rating, description) VALUES (?,?,?,?,?);";
+        String sql = "INSERT INTO reviews (wineName, wineWinery, wineVintage, rating, description, reported) VALUES (?,?,?,?,?,?);";
         try (Connection conn = databaseManager.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, toAdd.getWineName());
@@ -86,7 +86,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
             ps.setInt(3, toAdd.getVintage());
             ps.setInt(4, toAdd.getRating());
             ps.setString(5, toAdd.getReview()); // TODO added an object to database (risky)
-
+            ps.setBoolean(6, false);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             int insertId = -1;
@@ -106,6 +106,18 @@ public class ReviewDAO implements DAOInterface<Rating>{
      */
     public void delete(int id) {
         String sql = "DELETE FROM reviews WHERE reviewID=?";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+        }
+    }
+
+    //TODO make reviewID be stored on rating model.
+    public void markAsReported() {
+        String sql = "UPDATE FROM reviews WHERE reviewID=?";
         try (Connection conn = databaseManager.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
