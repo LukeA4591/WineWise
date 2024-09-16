@@ -19,19 +19,9 @@ import java.net.URISyntaxException;
 public class AdminScreenController {
     @FXML
     Button addWine;
-    @FXML
-    private ComboBox<String> dataTypeComboBox;
-    @FXML
-    private Label errorLabel;
-
     private final WineEnvironment winery;
     private final WineManager wineManager;
-    private Stage stage; // Make final and add void init(Stage stage)
-
-    // Could make it an init function with the stage.
-    public void initialize() {
-        dataTypeComboBox.setItems(FXCollections.observableArrayList("Wine", "Winery"));
-    }
+    private Stage stage;
 
     public AdminScreenController(WineEnvironment winery) {
         this.winery = winery;
@@ -40,17 +30,8 @@ public class AdminScreenController {
 
     @FXML
     public void onAddWine(){
-        String dataType = getDataType();
-        if (dataType == "Wine") {
-            winery.getClearRunnable().run();
-            winery.launchAddWineScreen();
-        } else if (dataType == "Winery") {
-            winery.getClearRunnable().run();
-            winery.launchAddWineryScreen();
-        } else {
-            errorLabel.setText("Please select data type");
-            errorLabel.setStyle("-fx-text-fill: red");
-        }
+        winery.getClearRunnable().run();
+        winery.launchAddWineScreen();
     }
 
     /**
@@ -76,9 +57,6 @@ public class AdminScreenController {
      * Chooses data type selected in combo box
      * @return The string of the data type
      */
-    private String getDataType() {
-        return dataTypeComboBox.getValue();
-    }
 
     @FXML
     void adminLogout() {
