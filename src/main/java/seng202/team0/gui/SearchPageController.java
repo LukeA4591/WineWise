@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import org.apache.commons.lang3.ObjectUtils;
 import seng202.team0.models.Wine;
 import seng202.team0.repository.DatabaseManager;
 import seng202.team0.repository.WineDAO;
@@ -108,7 +109,7 @@ public class SearchPageController {
         table.setRowFactory(tableview -> {
             TableRow<Wine> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 1) {
+                if (event.getClickCount() == 1 && !row.isEmpty()) {
                     Wine wineClicked = row.getItem();
                     onWineClicked(wineClicked);
                 }
@@ -218,7 +219,6 @@ public class SearchPageController {
      */
     private void initTable(List<Wine> wines){
         table.getColumns().clear();
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         TableColumn<Wine, String> typeCol = new TableColumn<>("Type");
         typeCol.setCellValueFactory(new PropertyValueFactory<>("color"));
