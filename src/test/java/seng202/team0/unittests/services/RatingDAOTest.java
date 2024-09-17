@@ -59,4 +59,57 @@ public class RatingDAOTest {
         Assertions.assertEquals(2, ratings.size());
     }
 
+    @Test
+    public void testAddReview() throws DuplicateExc {
+        Rating newRating = new Rating(85, "Very good wine", testWine1);
+        int insertedId = reviewDao.add(newRating);
+        Assertions.assertTrue(insertedId > 0);
+
+        List<Rating> ratings = reviewDao.getAll();
+        Assertions.assertEquals(1, ratings.size());
+        Assertions.assertEquals(newRating.getRating(), ratings.get(0).getRating());
+    }
+
+    @Test
+    public void testDeleteReview() throws DuplicateExc {
+        populateDatabase();
+        List<Rating> ratings = reviewDao.getAll();
+        int reviewId = ratings.get(0).getReviewID();
+        reviewDao.delete(reviewId);
+        List<Rating> updatedRatings = reviewDao.getAll();
+        Assertions.assertEquals(2, updatedRatings.size());
+        Assertions.assertTrue(updatedRatings.stream().noneMatch(rating -> rating.getReviewID() == reviewId));
+    }
+
+    @Test
+    public void testMarkAsReported() throws DuplicateExc {
+        populateDatabase();
+        List<Rating> ratings = reviewDao.getAll();
+        int reviewId = ratings.get(0).getReviewID();
+        reviewDao.markAsReported(reviewId);
+        List<Rating> flaggedReviews = reviewDao.getFlaggedReviews();
+        Assertions.assertEquals(1, flaggedReviews.size());
+        Assertions.assertEquals(reviewId, flaggedReviews.get(0).getReviewID());
+    }
+
+    @Test
+    public void testMarkAsUnreported() throws DuplicateExc{
+        populateDatabase();
+        List<Rating> ratings = reviewDao.getAll();
+        int reviewId = ratings.get(0).getReviewID();
+        reviewDao.markAsReported(reviewId);
+        reviewDao.markAsUnreported(reviewId);
+        List<Rating> flaggedReviews = reviewDao.getFlaggedReviews();
+        Assertions.assertTrue(flaggedReviews.isEmpty());
+    }
+
+    @Test
+    public void testGetFlaggedReviews() throws DuplicateExc {
+        populateDatabase();
+        List<Rating> ratings = reviewDao.getAll();
+        int reviewId = ratings.get(0).getReviewID();
+        reviewDao.markAsReported(reviewId);
+        List<Rating> flaggedReviews = reviewDao.getFlaggedReviews();
+        Assertions.assertEquals(reviewId, flaggedReviews.get(0).getReviewID());
+    }
 }
