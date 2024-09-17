@@ -35,7 +35,7 @@ public class AdminStepDefs {
 
     @Before
     public void setup() {
-        this.wineEnvironment = new WineEnvironment(this::consumer1, this::consumer2, this::consumer3, this::consumer4, this::consumer5, this::clear);
+        this.wineEnvironment = new WineEnvironment(this::consumer1, this::consumer2, this::consumer3, this::clear);
         this.adminLoginService = AdminLoginService.getInstance();
         this.adminSetupScreenController = new AdminSetupScreenController(wineEnvironment);
         File file = adminLoginService.getCredentialsFile();

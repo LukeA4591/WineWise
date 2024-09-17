@@ -2,6 +2,7 @@ package seng202.team0.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import seng202.team0.business.WineManager;
 import seng202.team0.models.Wine;
 import seng202.team0.services.WineEnvironment;
@@ -32,25 +33,23 @@ public class AddWineController {
     RadioButton wineTypeRose;
     @FXML
     ToggleGroup wineTypeToggle;
+    private WineManager wineManager;
 
-    private final WineEnvironment winery;
-    private final WineManager wineManager;
-
-    public AddWineController(WineEnvironment winery) {
-        this.winery = winery;
-        wineManager = new WineManager();
+    private void goBackToAdmin() {
+        Stage stage = (Stage) wineWineryName.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
-    private void goBackToAdmin() {
-        winery.getClearRunnable().run();
-        winery.launchAdminScreen();
+    void initialize() {
+        wineManager = new WineManager();
     }
 
     public void saveNewWine() {
         Wine wine = validateWine();
         if (wine != null) {
             wineManager.addWine(wine);
+            goBackToAdmin();
         }
     }
 

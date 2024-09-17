@@ -20,16 +20,6 @@ public class WineEnvironment {
     private final Consumer<WineEnvironment> adminScreenLauncher;
 
     /**
-     * Consumer that is used to launch add wine screen.
-     */
-    private final Consumer<WineEnvironment> addWineScreenLauncher;
-
-    /**
-     * Consumer that is used to launch add winery screen.
-     */
-    private final Consumer<WineEnvironment> addWineryScreenLauncher;
-
-    /**
      * Runnable that clears the current page.
      */
     private final Runnable clear;
@@ -46,14 +36,11 @@ public class WineEnvironment {
      * @param clear Runnable to clear the page
      */
     public WineEnvironment(Consumer<WineEnvironment> navBarLauncher, Consumer<WineEnvironment> adminSetupScreenLauncher,
-                           Consumer<WineEnvironment> adminScreenLauncher, Consumer<WineEnvironment> addWineScreenLauncher,
-                           Consumer<WineEnvironment> addWineryScreenLauncher, Runnable clear) {
+                           Consumer<WineEnvironment> adminScreenLauncher, Runnable clear) {
         this.adminLoginInstance = AdminLoginService.getInstance();
         this.navBarLauncher = navBarLauncher;
         this.adminSetupScreenLauncher = adminSetupScreenLauncher;
         this.adminScreenLauncher = adminScreenLauncher;
-        this.addWineScreenLauncher = addWineScreenLauncher;
-        this.addWineryScreenLauncher = addWineryScreenLauncher;
         this.clear = clear;
         boolean isFirstRun = adminLoginInstance.doesFileExist();
         if(!isFirstRun) {
@@ -94,20 +81,6 @@ public class WineEnvironment {
      */
     public void launchAdminScreen() {
         adminScreenLauncher.accept(this);
-    }
-
-    /**
-     * Launches the add wine screen
-     */
-    public void launchAddWineScreen() {
-        addWineScreenLauncher.accept(this);
-    }
-
-    /**
-     * Launches the add winery screen
-     */
-    public void launchAddWineryScreen() {
-        addWineryScreenLauncher.accept(this);
     }
 
     /**
