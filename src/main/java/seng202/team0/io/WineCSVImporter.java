@@ -2,6 +2,8 @@ package seng202.team0.io;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import seng202.team0.models.Wine;
 
 import java.io.File;
@@ -14,6 +16,8 @@ import java.util.List;
  * Import wines from csv file
  */
 public class WineCSVImporter implements Importable<Wine>{
+
+    private static final Logger log = LogManager.getLogger(WineCSVImporter.class);
 
     /**
      * Read wines from csv file
@@ -34,7 +38,7 @@ public class WineCSVImporter implements Importable<Wine>{
                 }
             }
         } catch (IOException | CsvException e) {
-            System.out.println("An error occurred: " + e.getMessage());
+            log.error(e);
         }
         return wines;
     }
@@ -54,7 +58,7 @@ public class WineCSVImporter implements Importable<Wine>{
             String region = line[3];
             return new Wine(type, name, winery, vintage, score, region, description);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println("An error occurred: " + e.getMessage());
+            log.error(e);
         }
         return null;
     }

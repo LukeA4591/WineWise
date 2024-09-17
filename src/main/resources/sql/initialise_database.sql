@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS reviews;
 CREATE TABLE IF NOT EXISTS reviews (
     reviewID integer not null primary key AUTOINCREMENT,
     wine integer,
-    review integer,
+    rating integer,
     description TEXT,
     reported BOOLEAN default false,
     FOREIGN KEY (wine) REFERENCES wines);

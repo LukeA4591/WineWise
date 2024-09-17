@@ -23,14 +23,11 @@ public class DatabaseManager {
      */
     private DatabaseManager(String urlIn) {
         if (urlIn == null || urlIn.isEmpty()) {
-            System.out.println("GETTING DATABASE PATH");
             this.url = getDatabasePath();
         } else {
-            System.out.println("this.url = urlIN");
             this.url = urlIn;
         }
         if (!checkDatabaseExists(url)) {
-            System.out.println("######################### CREATING DB FIELD AND resetDB() #########################");
             createDatabaseFile(url);
             resetDB();
         }
