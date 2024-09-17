@@ -21,10 +21,13 @@ public class Rating {
      * @param rating
      * @param description
      */
-    public Rating(int rating, String description, Wine wine) {
+    public Rating(int rating, String description, String wineName, String winery, int vintage) {
         this.rating = rating;
         this.review = description;
-        this.wine = wine;
+        this.wineName = wineName;
+        this.winery = winery;
+        this.vintage = vintage;
+        this.reported = false;
     }
 
     public Wine getWine() {
