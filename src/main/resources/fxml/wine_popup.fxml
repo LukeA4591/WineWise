@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane prefHeight="424.0" prefWidth="600.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.winePopupController">
+<BorderPane prefHeight="424.0" prefWidth="600.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.WinePopupController">
    <center>
       <Pane fx:id="wineNavWindow" />
    </center>
@@ -14,7 +14,7 @@
          <children>
             <Button fx:id="wineDetailsButton" mnemonicParsing="false" onAction="#detailsButtonPressed" text="Details" />
             <Button fx:id="wineReviewsButton" layoutX="58.0" mnemonicParsing="false" onAction="#reviewsButtonPressed" text="Reviews" />
-            <Button fx:id="wineUserRatingButton" layoutX="126.0" mnemonicParsing="false" onAction="#ratingButtonPressed" text="Leave a rating" />
+            <Button fx:id="wineUserRatingButton" layoutX="126.0" mnemonicParsing="false" onAction="#ratingButtonPressed" text="Leave a review" />
          </children>
       </AnchorPane>
    </top>

@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import seng202.team0.gui.winePopupController;
+import seng202.team0.gui.WinePopupController;
 import seng202.team0.models.Wine;
 
 import java.io.IOException;
@@ -49,7 +49,7 @@ public class WinePopupService {
             FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/wine_popup.fxml"));
             BorderPane root = newStageLoader.load();
 
-            winePopupController controller = newStageLoader.getController();
+            WinePopupController controller = newStageLoader.getController();
             controller.init(wine, image);
             Scene modalScene = new Scene(root);
             Stage modalStage = new Stage();

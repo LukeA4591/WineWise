@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.team0.business.WineManager;
 import seng202.team0.exceptions.DuplicateExc;
-import seng202.team0.models.Rating;
+import seng202.team0.models.Review;
 import seng202.team0.models.Wine;
 import seng202.team0.repository.ReviewDAO;
 
@@ -19,16 +19,16 @@ public class WineReviewsScreenController {
     private Wine wine;
 
     @FXML
-    private TableView<Rating> ratingTable;
+    private TableView<Review> ratingTable;
 
     @FXML
-    private TableColumn<Rating, Integer> ratingColumn;
+    private TableColumn<Review, Integer> ratingColumn;
 
     @FXML
-    private TableColumn<Rating, String> reviewColumn;
+    private TableColumn<Review, String> reviewColumn;
 
     @FXML
-    private TableColumn<Rating, Boolean> reportColumn;
+    private TableColumn<Review, Boolean> reportColumn;
 
     @FXML
     private Label wineNameLabel;
@@ -60,18 +60,18 @@ public class WineReviewsScreenController {
      */
     @FXML
     public void displayAllReviews() {
-        int wineID = wineManager.getWineId(wine);
-        List<Rating> wineReviews = reviewDAO.getReviewsByWineId(wineID);
+        int wineID = wineManager.getWineID(wine);
+        List<Review> wineReviews = reviewDAO.getReviewsByWineId(wineID);
         wineNameLabel.setText(wineNameLabel.getText() + wine.getWineName());
         wineryLabel.setText(wineryLabel.getText() + wine.getWineryString());
         vintageLabel.setText(vintageLabel.getText() + wine.getVintage());
         criticRatingLabel.setText("Critic rating: " + wine.getScore() + " / 100");
 
-        ObservableList<Rating> observableWineReviews = FXCollections.observableArrayList(wineReviews);
+        ObservableList<Review> observableWineReviews = FXCollections.observableArrayList(wineReviews);
 
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
-        reviewColumn.setCellValueFactory(new PropertyValueFactory<>("review"));
-        reportColumn.setCellFactory(column -> new TableCell<Rating, Boolean>() {
+        reviewColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        reportColumn.setCellFactory(column -> new TableCell<Review, Boolean>() {
             private final CheckBox checkBox = new CheckBox();
 
             @Override

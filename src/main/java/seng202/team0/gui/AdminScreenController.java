@@ -13,9 +13,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seng202.team0.business.WineManager;
 import seng202.team0.io.WineCSVImporter;
-import seng202.team0.models.Rating;
+import seng202.team0.models.Review;
 import seng202.team0.repository.ReviewDAO;
-import seng202.team0.services.WineEnvironment;
+import seng202.team0.services.AppEnvironment;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,29 +29,29 @@ import java.util.List;
 public class AdminScreenController {
 
     @FXML
-    private TableView<Rating> ratingTable;
+    private TableView<Review> ratingTable;
     @FXML
-    private TableColumn<Rating, Integer> ratingColumn;
+    private TableColumn<Review, Integer> ratingColumn;
     @FXML
-    private TableColumn<Rating, String> reviewColumn;
+    private TableColumn<Review, String> reviewColumn;
     @FXML
-    private TableColumn<Rating, Boolean> flaggedColumn;
+    private TableColumn<Review, Boolean> flaggedColumn;
     @FXML
     Button addWine;
 
-    private final WineEnvironment winery;
+    private final AppEnvironment appEnvironment;
     private final WineManager wineManager;
     private Stage stage;
     private ReviewDAO reviewDAO;
-    private List<Rating> selectedReviews = new ArrayList<>();
+    private List<Review> selectedReviews = new ArrayList<>();
 
     /**
-     * Constructor for AdminScreenController. Sets the WineEnvironment, wineManager, and reviewDAO variables so the
+     * Constructor for AdminScreenController. Sets the AppEnvironment, wineManager, and reviewDAO variables so the
      * wines and reviews can be accessed and so the pages can be changed.
-     * @param winery The WineEnvironment to let us launch other pages.
+     * @param appEnvironment The AppEnvironment to let us launch other pages.
      */
-    public AdminScreenController(WineEnvironment winery) {
-        this.winery = winery;
+    public AdminScreenController(AppEnvironment appEnvironment) {
+        this.appEnvironment = appEnvironment;
         wineManager = new WineManager();
         reviewDAO = new ReviewDAO();
     }
@@ -72,13 +72,13 @@ public class AdminScreenController {
      */
     @FXML
     public void displayFlaggedReviews() {
-        List<Rating> flaggedReviews = reviewDAO.getFlaggedReviews();
+        List<Review> flaggedReviews = reviewDAO.getFlaggedReviews();
 
-        ObservableList<Rating> observableWineReviews = FXCollections.observableArrayList(flaggedReviews);
+        ObservableList<Review> observableWineReviews = FXCollections.observableArrayList(flaggedReviews);
 
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
-        reviewColumn.setCellValueFactory(new PropertyValueFactory<>("review"));
-        flaggedColumn.setCellFactory(column -> new TableCell<Rating, Boolean>() {
+        reviewColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        flaggedColumn.setCellFactory(column -> new TableCell<Review, Boolean>() {
             private final CheckBox checkBox = new CheckBox();
 
             @Override
@@ -204,7 +204,7 @@ public class AdminScreenController {
      */
     @FXML
     void adminLogout() {
-        winery.getClearRunnable().run();
-        winery.launchNavBar();
+        appEnvironment.getClearRunnable().run();
+        appEnvironment.launchNavBar();
     }
 }

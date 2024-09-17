@@ -61,7 +61,7 @@ public class AddWineController {
     public void saveNewWine() {
         Wine wine = validateWine();
         if (wine != null) {
-            wineManager.addWine(wine);
+            wineManager.add(wine);
             goBackToAdmin();
         }
     }

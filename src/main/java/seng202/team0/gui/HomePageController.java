@@ -1,5 +1,6 @@
 package seng202.team0.gui;
 
+import seng202.team0.business.WineManager;
 import seng202.team0.models.Wine;
 
 import java.util.Arrays;
@@ -46,7 +47,7 @@ public class HomePageController {
     private Label wine3;
 
     private Stage stage;
-    private WineDAO wineDAO;
+    private WineManager wineManager;
     private WinePopupService wineService = new WinePopupService();
 
     /**
@@ -56,9 +57,9 @@ public class HomePageController {
      */
     public void init(Stage stage) {
         this.stage = stage;
-        wineDAO = new WineDAO();
-        if (wineDAO.getAll().size() >= 3) {
-            List<Wine> wines = wineDAO.getTopRated();
+        wineManager = new WineManager();
+        if (wineManager.getAll().size() >= 3) {
+            List<Wine> wines = wineManager.getTopRated();
             displayWines(wines);
             displayWinery(wines);
             displayRatings(wines);
@@ -118,7 +119,7 @@ public class HomePageController {
      */
     @FXML
     void wine1Pressed() {
-        List<Wine> wines = wineDAO.getTopRated();
+        List<Wine> wines = wineManager.getTopRated();
         Wine wine = wines.getFirst();
         Image image = wineService.getImage(wine);
         wineService.winePressed(wine, image, rating1);
@@ -130,7 +131,7 @@ public class HomePageController {
      */
     @FXML
     void wine2Pressed() {
-        List<Wine> wines = wineDAO.getTopRated();
+        List<Wine> wines = wineManager.getTopRated();
         Wine wine = wines.get(1);
         Image image = wineService.getImage(wine);
         wineService.winePressed(wine, image, rating1);
@@ -142,7 +143,7 @@ public class HomePageController {
      */
     @FXML
     void wine3Pressed() {
-        List<Wine> wines = wineDAO.getTopRated();
+        List<Wine> wines = wineManager.getTopRated();
         Wine wine = wines.get(2);
         Image image = wineService.getImage(wine);
         wineService.winePressed(wine, image, rating1);

@@ -6,7 +6,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import seng202.team0.services.AdminLoginService;
-import seng202.team0.services.WineEnvironment;
+import seng202.team0.services.AppEnvironment;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 
@@ -30,17 +30,17 @@ public class AdminSetupScreenController {
     @FXML
     private Label errorLabel;
 
-    private final WineEnvironment winery;
+    private final AppEnvironment appEnvironment;
     private final AdminLoginService adminLoginInstance;
 
 
     /**
-     * Constructor for admin setup screen controller. Sets the WineEnvironment and adminLoginInstance.
-     * @param winery WineEnvironment keeps track of the state of the program
+     * Constructor for admin setup screen controller. Sets the AppEnvironment and adminLoginInstance.
+     * @param appEnvironment AppEnvironment keeps track of the state of the program
      */
-    public AdminSetupScreenController(WineEnvironment winery) {
-        this.winery = winery;
-        this.adminLoginInstance = winery.getAdminLoginInstance();
+    public AdminSetupScreenController(AppEnvironment appEnvironment) {
+        this.appEnvironment = appEnvironment;
+        this.adminLoginInstance = appEnvironment.getAdminLoginInstance();
     }
 
     /**
@@ -78,8 +78,8 @@ public class AdminSetupScreenController {
         } else {
             adminLoginInstance.createCredentialsFile();
             adminLoginInstance.createNewUser(inputtedUsername, inputtedPassword);
-            winery.getClearRunnable().run();
-            winery.launchAdminScreen();
+            appEnvironment.getClearRunnable().run();
+            appEnvironment.launchAdminScreen();
         }
     }
 

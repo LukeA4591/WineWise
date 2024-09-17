@@ -10,8 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import seng202.team0.repository.DatabaseManager;
-import seng202.team0.services.WineEnvironment;
+import seng202.team0.services.AppEnvironment;
 
 import java.io.IOException;
 
@@ -20,8 +19,7 @@ import java.io.IOException;
  */
 public class NavBarController {
 
-    DatabaseManager databaseManager;
-    private WineEnvironment wineEnvironment;
+    private AppEnvironment appEnvironment;
     @FXML
     private BorderPane mainWindow;
     private Stage stage;
@@ -47,7 +45,6 @@ public class NavBarController {
      */
     @FXML
     private void initialize() {
-        this.databaseManager = DatabaseManager.getInstance();
         homeButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
         Platform.runLater(() -> {
             Scene scene = mainWindow.getScene();
@@ -162,7 +159,7 @@ public class NavBarController {
             AnchorPane root = newStageLoader.load();
 
             AdminLoginPopupController controller = newStageLoader.getController();
-            controller.init(wineEnvironment);
+            controller.init(appEnvironment);
             Scene modalScene = new Scene(root);
             Stage modalStage = new Stage();
             modalStage.setScene(modalScene);
@@ -192,11 +189,11 @@ public class NavBarController {
     }
 
     /**
-     * The Setter method for the wineEnvironment
-     * @param wineEnvironment wine environment
+     * The Setter method for the appEnvironment
+     * @param appEnvironment wine environment
      */
-    public void setWineEnvironment(WineEnvironment wineEnvironment) {
-        this.wineEnvironment = wineEnvironment;
+    public void setWineEnvironment(AppEnvironment appEnvironment) {
+        this.appEnvironment = appEnvironment;
     }
 
     /**

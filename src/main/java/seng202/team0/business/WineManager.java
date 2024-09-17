@@ -6,6 +6,7 @@ import seng202.team0.repository.WineDAO;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Handles all actions related to wines. It acts as a request system for users to access the data in the database.
@@ -36,7 +37,7 @@ public class WineManager {
      * @param wine Wine to be added
      * @return Int to see if the wine was added to database (-1 is fail, else pass)
      * **/
-    public int addWine(Wine wine) { return wineDAO.add(wine); }
+    public int add(Wine wine) { return wineDAO.add(wine); }
 
     /**
      * Gets all wines from the DAO.
@@ -53,5 +54,16 @@ public class WineManager {
      * **/
     public void delete(String name, String winery, int vintage) { wineDAO.delete(name, winery, vintage); }
 
-    public int getWineId(Wine wine) { return wineDAO.getWineID(wine); }
+    public int getWineID(Wine wine) { return wineDAO.getWineID(wine); }
+
+    public List<Wine> getFilteredWines(Map<String, String> filters, Map<String, List<String>> scoreFilters) { return wineDAO.getFilteredWines(filters, scoreFilters); }
+
+    public List<String> getDistinct(String column) { return wineDAO.getDistinct(column); }
+
+    public void addBatch(List<Wine> wines) { wineDAO.addBatch(wines); }
+
+    public List<Wine> getTopRated() { return wineDAO.getTopRated(); }
+
+    public Wine getWineFromID(int wineID) { return wineDAO.getWineFromID(wineID); }
+
 }
