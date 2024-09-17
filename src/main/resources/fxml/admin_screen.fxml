@@ -36,11 +36,11 @@
             <Font name="System Bold Italic" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="327.0" layoutY="517.0" mnemonicParsing="false" onAction="#deleteFlaggedReviews" text="Delete review">
+      <Button layoutX="438.0" layoutY="517.0" mnemonicParsing="false" onAction="#deleteFlaggedReviews" text="Delete review">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="686.0" layoutY="517.0" mnemonicParsing="false" onAction="#unflagFlaggedReviews" text="Unflag review">
+      <Button layoutX="582.0" layoutY="517.0" mnemonicParsing="false" onAction="#unflagFlaggedReviews" text="Unflag review">
          <font>
             <Font size="15.0" />
          </font></Button>
@@ -48,12 +48,17 @@
          <font>
             <Font size="15.0" />
          </font></Button>
-      <TableView fx:id="ratingTable" layoutX="327.0" layoutY="183.0" prefHeight="258.0" prefWidth="489.0">
+      <TableView fx:id="ratingTable" layoutX="327.0" layoutY="183.0" prefHeight="281.0" prefWidth="489.0">
          <columns>
             <TableColumn fx:id="ratingColumn" prefWidth="65.0" text="Rating" />
             <TableColumn fx:id="reviewColumn" prefWidth="360.0" text="Review" />
             <TableColumn fx:id="flaggedColumn" prefWidth="65.0" text="Select" />
          </columns>
       </TableView>
+      <Label layoutX="325.0" layoutY="481.0" text="Tick the checkboxes in the select column then click one of these buttons:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
