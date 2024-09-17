@@ -86,11 +86,13 @@ public class AdminSetupScreenController {
         createConfirmPasswordInputField.textProperty().bindBidirectional(confirmPasswordField.textProperty());
         createPasswordInputField.setVisible(false);
         createConfirmPasswordInputField.setVisible(false);
-        createUsernameInputField.sceneProperty().addListener((observable, oldscene, newscene) -> {
-            if (newscene != null) {
-                newscene.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
-            }
-        });
+
+        // Temp remove as styling is done on fxml
+//        createUsernameInputField.sceneProperty().addListener((observable, oldscene, newscene) -> {
+//            if (newscene != null) {
+//                newscene.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
+//            }
+//        });
     }
 
 
