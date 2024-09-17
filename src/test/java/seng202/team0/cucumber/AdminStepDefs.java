@@ -29,8 +29,7 @@ public class AdminStepDefs {
     void consumer1(WineEnvironment wineEnvironment){}
     void consumer2(WineEnvironment wineEnvironment){}
     void consumer3(WineEnvironment wineEnvironment){}
-    void consumer4(WineEnvironment wineEnvironment){}
-    void consumer5(WineEnvironment wineEnvironment){}
+
     void clear(){}
 
     @Before
@@ -63,7 +62,7 @@ public class AdminStepDefs {
         Assertions.assertEquals(true, adminLoginService.doesFileExist());
     }
 
-    @And("The username and password match")
+    @And("The username matches")
     public void usernameAndPasswordMatch() throws IOException {
         String jarStr = adminLoginService.getJarFilePath();
         jarStr += "/credentials.txt";
@@ -71,18 +70,9 @@ public class AdminStepDefs {
 
         BufferedReader br = new BufferedReader(new FileReader(file));
         String enteredUsername = br.readLine();
-        String hashedPassword = br.readLine();
         Assertions.assertEquals(this.username, enteredUsername);
-//        Assertions.assertEquals("##Hashed##" + this.password, hashedPassword);
-
     }
 
-    @Given("An admin registers with username {string}, incorrect password {string}, and confirm password {string}")
-    public void incorrectCredentials(String username, String password, String confirmPassword) {
-        this.username = username;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
-    }
 
     @When("The admin creates an invalid account")
     public void adminCreatesInvalidAccount() {
