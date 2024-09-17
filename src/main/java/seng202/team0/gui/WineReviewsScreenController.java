@@ -102,21 +102,6 @@ public class WineReviewsScreenController {
                 }
             }
         });
-//        reportColumn.setCellFactory(CheckBoxTableCell.forTableColumn(reportColumn.getCellValueFactory()));
-//        reportColumn.setCellFactory(column -> new CheckBoxTableCell<>());
-//        reportColumn.setCellValueFactory(cellData -> {
-//            Rating cellValue = cellData.getValue();
-//            BooleanProperty property = cellValue.getIsReported();
-//
-//            // Add listener to handler change
-//            property.addListener((observable, oldValue, newValue) -> {
-//                System.out.println(newValue);
-//                cellValue.setIsReported(newValue);
-//                property.setValue(newValue);
-//            });
-//            return property;
-//        });
-
         ratingTable.setItems(observableWineReviews);
 
 

@@ -2,20 +2,22 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.AdminScreenController">
    <children>
-      <Button fx:id="logoutButton" layoutX="748.0" layoutY="25.0" mnemonicParsing="false" onAction="#adminLogout" text="Logout">
+      <Button fx:id="logoutButton" layoutX="738.0" layoutY="24.0" mnemonicParsing="false" onAction="#adminLogout" text="Logout">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="80.0" layoutY="200.0" mnemonicParsing="false" onAction="#addDataSet" text="Add a dataset">
+      <Button layoutX="81.0" layoutY="239.0" mnemonicParsing="false" onAction="#addDataSet" text="Add a dataset">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="81.0" layoutY="380.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="171.0" text="View table (delete)">
+      <Button layoutX="84.0" layoutY="370.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="171.0" text="View table (delete)">
          <font>
             <Font size="15.0" />
          </font></Button>
@@ -24,7 +26,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="382.0" layoutY="110.0" text="Flagged Reviews">
+      <Label layoutX="327.0" layoutY="110.0" text="Flagged Reviews">
          <font>
             <Font size="18.0" />
          </font>
@@ -34,17 +36,24 @@
             <Font name="System Bold Italic" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="382.0" layoutY="517.0" mnemonicParsing="false" text="Delete review">
+      <Button layoutX="327.0" layoutY="517.0" mnemonicParsing="false" text="Delete review">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="638.0" layoutY="517.0" mnemonicParsing="false" text="Unflag review">
+      <Button layoutX="686.0" layoutY="517.0" mnemonicParsing="false" text="Unflag review">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button fx:id="addWine" layoutX="81.0" layoutY="290.0" mnemonicParsing="false" onAction="#onAddWine" text="Add data">
+      <Button fx:id="addWine" layoutX="81.0" layoutY="305.0" mnemonicParsing="false" onAction="#onAddWine" text="Add data">
          <font>
             <Font size="15.0" />
          </font></Button>
+      <TableView fx:id="ratingTable" layoutX="327.0" layoutY="183.0" prefHeight="258.0" prefWidth="489.0">
+         <columns>
+            <TableColumn fx:id="ratingColumn" prefWidth="65.0" text="Rating" />
+            <TableColumn fx:id="reviewColumn" prefWidth="348.0" text="Review" />
+            <TableColumn fx:id="flaggedColumn" prefWidth="77.0" text="Flagged" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>

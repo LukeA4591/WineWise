@@ -162,5 +162,21 @@ public class ReviewDAO implements DAOInterface<Rating>{
         }
     }
 
+    public List<Rating> getFlaggedReviews() {
+        List<Rating> flaggedReviews = new ArrayList<>();
+        String sql = "SELECT * FROM reviews WHERE reported = true";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                flaggedReviews.add(new Rating(rs.getInt("reviewID"), rs.getInt("rating"), rs.getString("description"), getWineFromID(rs.getInt("wine"))));
+            }
+            return flaggedReviews;
+
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            return null;
+        }
+    }
 
 }
