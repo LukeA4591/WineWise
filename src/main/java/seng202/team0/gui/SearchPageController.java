@@ -5,9 +5,12 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import org.apache.commons.lang3.ObjectUtils;
 import seng202.team0.models.Wine;
 import seng202.team0.repository.DatabaseManager;
 import seng202.team0.repository.WineDAO;
+import seng202.team0.services.WinePopupService;
 
 import java.util.*;
 
@@ -38,6 +41,7 @@ public class SearchPageController {
     private Map<String, List<String>> scoreFilters = new HashMap<>();
     static WineDAO wineDAO;
     static DatabaseManager databaseManager;
+    private WinePopupService wineMethods = new WinePopupService();
 
     /**
      * Constructor for search page controller
@@ -48,15 +52,33 @@ public class SearchPageController {
     }
 
     /**
-     * Initialize method for the fx elements of the page, sets up the filter menus with all the valid data
+     * Initialize method for the fx elements of the page, sets up the filter menus with all the valid data add a
+     * listener for all rows and provide more information if a wine is clicked
      * @author Oliver Barclay
      * @author Alex Wilson
+     * @author Luke Armstrong
      */
     @FXML
     private void initialize() {
         wines = wineDAO.getAll();
-        if (wines.size() > 0) {
+        if (!wines.isEmpty()) {
             initTable(wines);
+
+            MenuItem allRegion = new MenuItem();
+            allRegion.setOnAction(this::regionFilterClicked);
+            allRegion.setText("ALL");
+            regionMenuButton.getItems().add(allRegion);
+
+            MenuItem allWinery = new MenuItem();
+            allWinery.setOnAction(this::wineryFilterClicked);
+            allWinery.setText("ALL");
+            wineryMenuButton.getItems().add(allWinery);
+
+            MenuItem allYear = new MenuItem();
+            allYear.setOnAction(this::vintageFilterClicked);
+            allYear.setText("ALL");
+            yearMenuButton.getItems().add(allYear);
+
             List<String> regions = wineDAO.getDistinct("region");
             for (String region : regions) {
                 if (!Objects.equals(region, "Not Applicable")) {
@@ -75,22 +97,13 @@ public class SearchPageController {
                 wineryMenuButton.getItems().add(menu);
             }
 
-            List<String> vintageStrings = wineDAO.getDistinct("vintage");
-            List<Integer> vintages = new ArrayList<>();
-            for (int i = 0; i < vintageStrings.size(); i++) {
-                try {
-                    vintages.add(Integer.parseInt(vintageStrings.get(i)));
-                } catch (NumberFormatException ignored) {
-                }
-            }
-
-            int i = min(vintages);
-            while (i < max(vintages)) {
+            List<String> vintages = wineDAO.getDistinct("vintage");
+            Collections.sort(vintages, (s1, s2) -> Integer.compare(Integer.parseInt(s1), Integer.parseInt(s2)));
+            for (String vintage : vintages) {
                 MenuItem menu = new MenuItem();
-                menu.setText(String.valueOf(i));
+                menu.setText(vintage);
                 menu.setOnAction(this::vintageFilterClicked);
                 yearMenuButton.getItems().add(menu);
-                i++;
             }
 
             scoreFilters.put("score", new ArrayList<>()); //will need to change when user scores come in
@@ -100,6 +113,26 @@ public class SearchPageController {
             filters.put("vintage", "ALL");
             filters.put("region", "ALL");
         }
+        table.setRowFactory(tableview -> {
+            TableRow<Wine> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1 && !row.isEmpty()) {
+                    Wine wineClicked = row.getItem();
+                    onWineClicked(wineClicked);
+                }
+            });
+            return row;
+        });
+    }
+
+    /**
+     * Called from the event listener when a wine is clicked to create wine popup
+     * @param wine
+     * @author Luke Armstrong
+     */
+    private void onWineClicked(Wine wine) {
+        Image image = wineMethods.getImage(wine);
+        wineMethods.winePressed(wine, image, errorLabel);
     }
 
     /**
@@ -230,8 +263,8 @@ public class SearchPageController {
         TableColumn<Wine, String> regionCol = new TableColumn<>("Region");
         regionCol.setCellValueFactory(new PropertyValueFactory<>("region"));
 
-        TableColumn<Wine, String> descCol = new TableColumn<>("Desc.");
-        descCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        //TableColumn<Wine, String> descCol = new TableColumn<>("Desc.");
+        //descCol.setCellValueFactory(new PropertyValueFactory<>("description"));
 
         table.getColumns().add(typeCol);
         table.getColumns().add(nameCol);
@@ -239,7 +272,7 @@ public class SearchPageController {
         table.getColumns().add(vintageCol);
         table.getColumns().add(scoreCol);
         table.getColumns().add(regionCol);
-        table.getColumns().add(descCol);
+        //table.getColumns().add(descCol);
 
         table.setItems(FXCollections.observableArrayList(wines));
     }

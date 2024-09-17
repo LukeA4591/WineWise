@@ -38,7 +38,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                reviews.add(new Rating(rs.getInt("rating"), rs.getString("description"), getWineFromID(rs.getInt("wine"))));
+                reviews.add(new Rating(rs.getInt("reviewID"), rs.getInt("rating"), rs.getString("description"), getWineFromID(rs.getInt("wine"))));
             }
             return reviews;
         } catch (SQLException sqlException) {
@@ -69,18 +69,36 @@ public class ReviewDAO implements DAOInterface<Rating>{
         }
     }
 
+    public List<Rating> getReviewsByWineId(int wineID) {
+        List<Rating> reviews = new ArrayList<>();
+        String sql = "SELECT * from reviews WHERE wine=? AND reported = false";
+        try(Connection conn = databaseManager.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, wineID);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                reviews.add(new Rating(rs.getInt("reviewID"), rs.getInt("rating"), rs.getString("description"), getWineFromID(rs.getInt("wine"))));
+            }
+            return reviews;
+
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            return null;
+        }
+    }
+
+
     public int getWineID(Wine toSearch) {
         int wineID;
-        String sql = "SELECT wineID " +
-                "FROM wines " +
-                "WHERE name = " + toSearch.getWineName() + " AND " +
-                "vintage = " + toSearch.getVintage() + " AND " +
-                "winery = " + toSearch.getWinery();
-
+        String sql = "SELECT wineID FROM wines WHERE name=? AND vintage=? AND winery=?";
         try(Connection conn = databaseManager.connect();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
-            wineID = rs.getInt(0); // TODO check if getInt works
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, toSearch.getWineName());
+            ps.setInt(2, toSearch.getVintage());
+            ps.setString(3, toSearch.getWineryString());
+            ResultSet rs = ps.executeQuery();
+            System.out.println(rs);
+            wineID = rs.getInt("wineID");
             return wineID;
         } catch (SQLException sqlException) {
             log.error(sqlException);
@@ -123,6 +141,18 @@ public class ReviewDAO implements DAOInterface<Rating>{
      */
     public void delete(int id) {
         String sql = "DELETE FROM reviews WHERE reviewID=?";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+        }
+    }
+
+    //TODO make reviewID be stored on rating model.
+    public void markAsReported(int id) {
+        String sql = "UPDATE reviews SET reported=true WHERE reviewID=?";
         try (Connection conn = databaseManager.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);

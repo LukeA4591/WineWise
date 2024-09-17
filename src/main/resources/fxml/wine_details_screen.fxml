@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.WineDetailsScreenController">
+   <children>
+      <Label layoutX="25.0" layoutY="25.0" text="Wine Name: ">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label layoutX="25.0" layoutY="205.0" text="Winery: ">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label layoutX="25.0" layoutY="265.0" text="Region: ">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label layoutX="25.0" layoutY="145.0" text="Rating: ">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label layoutX="25.0" layoutY="85.0" text="Description: ">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <ImageView fx:id="wineImage" fitHeight="150.0" fitWidth="200.0" layoutX="373.0" layoutY="191.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="wineDesc" layoutX="25.0" layoutY="110.0" />
+      <Label fx:id="rating" layoutX="25.0" layoutY="170.0" />
+      <Label fx:id="wineName" layoutX="25.0" layoutY="50.0" />
+      <Label fx:id="winery" layoutX="25.0" layoutY="230.0" />
+      <Label fx:id="wineRegion" layoutX="25.0" layoutY="290.0" />
+      <Label layoutX="400.0" layoutY="25.0" text="Year:">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="wineYear" layoutX="400.0" layoutY="50.0" />
+   </children>
+</AnchorPane>

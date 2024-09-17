@@ -1,44 +1,122 @@
 package seng202.team0.gui;
 
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import seng202.team0.exceptions.DuplicateExc;
 import seng202.team0.models.Rating;
 import seng202.team0.models.Wine;
 import javafx.scene.control.Label;
 import javafx.fxml.FXML;
 
+import java.io.IOException;
 import java.util.List;
 
 public class winePopupController {
 
     @FXML
-    private Label wineName;
+    private Button wineDetailsButton;
 
     @FXML
-    private Label winery;
+    private Button wineReviewsButton;
 
     @FXML
-    private Label wineDesc;
-
-    String colour;
-    String wineName1;
-    int score;
-    int vintage;
-    String region;
-    String wineryString;
-    String description;
-    List<Rating> userRatings;
+    private Button wineUserRatingButton;
 
     @FXML
-    public void init(Wine wine) {
-        colour = wine.getColor();
-        wineName1 = wine.getWineName();
-        score = wine.getScore();
-        vintage = wine.getVintage();
-        region = wine.getRegion();
-        wineryString = wine.getWineryString();
-        description = wine.getDescription();
-        userRatings = wine.getUserRatings();
-        wineName.setText(wineName1);
-        winery.setText(wineryString);
-        wineDesc.setText(description);
+    private Pane wineNavWindow;
+
+    private Wine wine;
+
+    private Image image;
+    @FXML
+    public void init(Wine wine, Image image) {
+        this.image = image;
+        this.wine = wine;
+        Platform.runLater(() -> {
+            Scene scene = wineNavWindow.getScene();
+            if (scene != null) {
+                scene.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
+            }
+        });
+        wineDetailsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+        loadDetailsScreen(wine, image);
     }
+
+    private void loadDetailsScreen(Wine wine, Image image) {
+        try {
+            FXMLLoader detailsScreenLoader = new FXMLLoader(getClass().getResource("/fxml/wine_details_screen.fxml"));
+            Pane detailsScreen = detailsScreenLoader.load();
+            WineDetailsScreenController detailsScreenController = detailsScreenLoader.getController();
+            detailsScreenController.init(wine, image);
+            wineNavWindow.getChildren().clear();
+            wineNavWindow.getChildren().add(detailsScreen);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadReviewsScreen(Wine wine) {
+        try {
+            FXMLLoader reviewsScreenLoader = new FXMLLoader(getClass().getResource("/fxml/wine_reviews_screen.fxml"));
+            Pane reviewsScreen = reviewsScreenLoader.load();
+            WineReviewsScreenController reviewsScreenController = reviewsScreenLoader.getController();
+            reviewsScreenController.init(wine);
+            wineNavWindow.getChildren().clear();
+            wineNavWindow.getChildren().add(reviewsScreen);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (DuplicateExc e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void loadUserRatingScreen(Wine wine) {
+        try {
+            FXMLLoader userRatingScreenLoader = new FXMLLoader(getClass().getResource("/fxml/wine_user_rating_screen.fxml"));
+            Pane userRatingScreen = userRatingScreenLoader.load();
+            WineUserRatingScreenController userRatingScreenController = userRatingScreenLoader.getController();
+            userRatingScreenController.init(wine);
+            wineNavWindow.getChildren().clear();
+            wineNavWindow.getChildren().add(userRatingScreen);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Helper function to set all the buttons grey
+     */
+    private void setAllButtonsGrey() {
+        wineDetailsButton.setStyle("");
+        wineReviewsButton.setStyle("");
+        wineUserRatingButton.setStyle("");
+    }
+
+    @FXML
+    void detailsButtonPressed() {
+        loadDetailsScreen(wine, image);
+        setAllButtonsGrey();
+        wineDetailsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+    }
+
+    @FXML
+    void reviewsButtonPressed() {
+        loadReviewsScreen(wine);
+        setAllButtonsGrey();
+        wineReviewsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+    }
+
+    @FXML
+    void ratingButtonPressed() {
+        loadUserRatingScreen(wine);
+        setAllButtonsGrey();
+        wineUserRatingButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+    }
+
 }
