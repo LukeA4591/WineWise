@@ -189,7 +189,7 @@ public class AdminScreenController {
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         try {
-            fileChooser.setInitialDirectory(new File(MainController.class.getProtectionDomain().getCodeSource()
+            fileChooser.setInitialDirectory(new File(MainWindow.class.getProtectionDomain().getCodeSource()
                     .getLocation().toURI()).getParentFile());
         } catch (URISyntaxException e) {
             e.printStackTrace();
