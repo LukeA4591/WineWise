@@ -4,12 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rating {
+    int reviewID;
     int rating;
     List<String> tastingNotes = new ArrayList<>();
     String review;
+    String wineName;
+    String winery;
+    int vintage;
     String name;
     Wine wine;
     String address;
+
+    Boolean reported;
 
     /**
      * Constructor for Ratings for SQL that only holds score + review
@@ -20,6 +26,15 @@ public class Rating {
         this.rating = rating;
         this.review = description;
         this.wine = wine;
+        this.reported = false;
+    }
+
+    public Rating(int reviewID, int rating, String description, Wine wine) {
+        this.reviewID = reviewID;
+        this.rating = rating;
+        this.review = description;
+        this.wine = wine;
+        this.reported = false;
     }
 
     public Wine getWine() {
@@ -70,6 +85,18 @@ public class Rating {
         return address;
     }
 
+    public String getWineName() {
+        return wineName;
+    }
+
+    public String getWinery() {
+        return winery;
+    }
+
+    public int getVintage() {
+        return vintage;
+    }
+
     /**
      * The Setter method for the rating a user leaves within a rating
      * @param rating
@@ -108,5 +135,18 @@ public class Rating {
      */
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Boolean getReported() {
+        return reported;
+    }
+
+    public void setReported(Boolean reported) {
+        this.reported = reported;
+    }
+
+    public int getReviewID()
+    {
+        return reviewID;
     }
 }

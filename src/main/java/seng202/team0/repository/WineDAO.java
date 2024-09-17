@@ -202,6 +202,11 @@ public class WineDAO implements DAOInterface<Wine> {
         }
     }
 
+    /**
+     * Get the three top rated wines do display on the home page of our application
+     * @return a list of the top 3 rated wines
+     * @author Luke Armstrong
+     */
     public  List<Wine> getTopRated() {
         List<Wine> topRated = new ArrayList<>();
         String sql = "SELECT * FROM wines ORDER BY score DESC LIMIT 3;";
@@ -217,6 +222,22 @@ public class WineDAO implements DAOInterface<Wine> {
         } catch (SQLException sqlException) {
             log.error(sqlException);
             return new ArrayList<>();
+        }
+    }
+
+    public Wine getOne(String name, int vintage, String winery) {
+        String sql = "SELECT * FROM wines WHERE name=? AND vintage=? AND winery=?";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, name);
+            ps.setInt(2, vintage);
+            ps.setString(3, winery);
+            ResultSet rs = ps.executeQuery();
+            Wine result = new Wine(rs.getString("type"), rs.getString("name"), rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"), rs.getString("region"), rs.getString("description"));
+            return result;
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            return null;
         }
     }
 
