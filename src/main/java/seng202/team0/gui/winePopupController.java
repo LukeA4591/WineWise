@@ -5,18 +5,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import seng202.team0.exceptions.DuplicateExc;
-import seng202.team0.models.Rating;
 import seng202.team0.models.Wine;
-import javafx.scene.control.Label;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
-import java.util.List;
 
+/**
+ * Controller for the wine_popup.fxml class, a border pane which loads further wine details
+ */
 public class winePopupController {
 
     @FXML
@@ -34,6 +32,12 @@ public class winePopupController {
     private Wine wine;
 
     private Image image;
+
+    /**
+     * Init method for the wine popup navbar
+     * @param wine wine which details are being presented
+     * @param image image depending on the colour of the wine
+     */
     @FXML
     public void init(Wine wine, Image image) {
         this.image = image;
@@ -45,10 +49,13 @@ public class winePopupController {
             }
         });
         wineDetailsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
-        loadDetailsScreen(wine, image);
+        loadDetailsScreen();
     }
 
-    private void loadDetailsScreen(Wine wine, Image image) {
+    /**
+     * Method to load the details screen into the pane
+     */
+    private void loadDetailsScreen() {
         try {
             FXMLLoader detailsScreenLoader = new FXMLLoader(getClass().getResource("/fxml/wine_details_screen.fxml"));
             Pane detailsScreen = detailsScreenLoader.load();
@@ -61,7 +68,10 @@ public class winePopupController {
         }
     }
 
-    private void loadReviewsScreen(Wine wine) {
+    /**
+     * Method to load the reviews screen into the pane
+     */
+    private void loadReviewsScreen() {
         try {
             FXMLLoader reviewsScreenLoader = new FXMLLoader(getClass().getResource("/fxml/wine_reviews_screen.fxml"));
             Pane reviewsScreen = reviewsScreenLoader.load();
@@ -76,7 +86,10 @@ public class winePopupController {
         }
     }
 
-    private void loadUserRatingScreen(Wine wine) {
+    /**
+     * Method to load the screen for the user to leave a review into the pane
+     */
+    private void loadUserRatingScreen() {
         try {
             FXMLLoader userRatingScreenLoader = new FXMLLoader(getClass().getResource("/fxml/wine_user_rating_screen.fxml"));
             Pane userRatingScreen = userRatingScreenLoader.load();
@@ -98,23 +111,32 @@ public class winePopupController {
         wineUserRatingButton.setStyle("");
     }
 
+    /**
+     * OnAction method for clicking the details button
+     */
     @FXML
     void detailsButtonPressed() {
-        loadDetailsScreen(wine, image);
+        loadDetailsScreen();
         setAllButtonsGrey();
         wineDetailsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
+    /**
+     * OnAction method for clicking the reviews button
+     */
     @FXML
     void reviewsButtonPressed() {
-        loadReviewsScreen(wine);
+        loadReviewsScreen();
         setAllButtonsGrey();
         wineReviewsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
+    /**
+     * OnAction method for clicking the ratings button
+     */
     @FXML
     void ratingButtonPressed() {
-        loadUserRatingScreen(wine);
+        loadUserRatingScreen();
         setAllButtonsGrey();
         wineUserRatingButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }

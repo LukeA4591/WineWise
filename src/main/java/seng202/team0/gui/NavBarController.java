@@ -15,14 +15,15 @@ import seng202.team0.services.WineEnvironment;
 
 import java.io.IOException;
 
+/**
+ * Controller class for the nav_bar.fxml file, launches a border pane to load other panes inside
+ */
 public class NavBarController {
 
     DatabaseManager databaseManager;
     private WineEnvironment wineEnvironment;
     @FXML
     private BorderPane mainWindow;
-    @FXML
-    private AnchorPane navWindow;
     private Stage stage;
     @FXML
     private Button homeButton;
@@ -54,15 +55,14 @@ public class NavBarController {
                 scene.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
             }
         });
-        loadHomePage(stage);
+        loadHomePage();
 
     }
 
     /**
      * Loads the home page into the border pane
-     * @param stage stage
      */
-    private void loadHomePage(Stage stage) {
+    private void loadHomePage() {
         try {
             FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
             Parent mainParent = homePageLoader.load();
@@ -76,13 +76,11 @@ public class NavBarController {
 
     /**
      * Loads the search page into the border pane
-     * @param stage stage
      */
-    private void loadSearchPage(Stage stage) {
+    private void loadSearchPage() {
         try {
             FXMLLoader searchPageLoader = new FXMLLoader(getClass().getResource("/fxml/search_screen.fxml"));
             Parent searchParent = searchPageLoader.load();
-            SearchPageController searchPageController = searchPageLoader.getController();
             mainWindow.setCenter(searchParent);
         } catch (IOException e) {
             e.printStackTrace();
@@ -91,9 +89,8 @@ public class NavBarController {
 
     /**
      * Loads the graphs page into the border pane
-     * @param stage
      */
-    private void loadGraphsPage(Stage stage) {
+    private void loadGraphsPage() {
         try {
             FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("/fxml/graphs_page.fxml"));
             Parent graphsParent = homePageLoader.load();
@@ -107,54 +104,56 @@ public class NavBarController {
 
     /**
      * Loads the maps page into the border pane
-     * @param stage
      */
-    private void loadMapsPage(Stage stage) {
-        loadHomePage(this.stage);
+    private void loadMapsPage() {
+        loadHomePage();
         setAllButtonsGrey();
         mapsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
     /**
-     * On Action method for the Home button
+     * OnAction method for the Home button
      */
     @FXML
     void homePressed() {
-        loadHomePage(this.stage);
+        loadHomePage();
         setAllButtonsGrey();
         homeButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
     /**
-     * On Action method for the Search button
+     * OnAction method for the Search button
      */
     @FXML
     void searchPressed() {
-        loadSearchPage(this.stage);
+        loadSearchPage();
         setAllButtonsGrey();
         searchButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
     /**
-     * On Action method for the Graphs button
+     * OnAction method for the Graphs button
      */
     @FXML
     void graphsPressed() {
-        loadGraphsPage(this.stage);
+        loadGraphsPage();
         setAllButtonsGrey();
         graphsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
     /**
-     * On Action method for the Maps button
+     * OnAction method for the Maps button
      */
     @FXML
     void mapsPressed() {
-        loadMapsPage(this.stage);
+        loadMapsPage();
         setAllButtonsGrey();
         mapsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
+    /**
+     * OnAction method for the login button, initializes the login page
+     */
     @FXML
     void loginPressed() {
         try {

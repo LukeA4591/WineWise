@@ -52,4 +52,6 @@ public class WineManager {
      * @return List of wines from the SQL database
      * **/
     public void delete(String name, String winery, int vintage) { wineDAO.delete(name, winery, vintage); }
+
+    public int getWineId(Wine wine) { return wineDAO.getWineID(wine); }
 }

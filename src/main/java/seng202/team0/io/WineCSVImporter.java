@@ -2,31 +2,18 @@ package seng202.team0.io;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
-import seng202.team0.exceptions.DuplicateExc;
-import seng202.team0.models.Rating;
 import seng202.team0.models.Wine;
-import seng202.team0.models.Winery;
-import seng202.team0.repository.DatabaseManager;
-import seng202.team0.repository.ReviewDAO;
-import seng202.team0.repository.WineDAO;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Import wines from csv file
- * @author Ryan Hamilton
  */
 public class WineCSVImporter implements Importable<Wine>{
-
-    static WineDAO wineDAO;
-    static ReviewDAO reviewDAO;
-    static DatabaseManager databaseManager;
-
 
     /**
      * Read wines from csv file

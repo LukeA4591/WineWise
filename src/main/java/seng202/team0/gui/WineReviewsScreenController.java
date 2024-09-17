@@ -1,13 +1,11 @@
 package seng202.team0.gui;
 
-import javafx.beans.property.BooleanProperty;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import seng202.team0.business.WineManager;
 import seng202.team0.exceptions.DuplicateExc;
 import seng202.team0.models.Rating;
 import seng202.team0.models.Wine;
@@ -18,7 +16,6 @@ import java.util.List;
 public class WineReviewsScreenController {
 
     private ReviewDAO reviewDAO;
-
     private Wine wine;
 
     @FXML
@@ -44,10 +41,13 @@ public class WineReviewsScreenController {
 
     @FXML
     private Label criticRatingLabel;
+    private WineManager wineManager = new WineManager();
 
-    public WineReviewsScreenController() {
-    }
-
+    /**
+     * Init method for wine reviews screen
+     * @param wine wine which the screen is displaying
+     * @throws DuplicateExc
+     */
     @FXML
     public void init(Wine wine) throws DuplicateExc {
         this.wine = wine;
@@ -55,9 +55,12 @@ public class WineReviewsScreenController {
         displayAllReviews();
     }
 
+    /**
+     * Method to display all reviews in the review table
+     */
     @FXML
     public void displayAllReviews() {
-        int wineID = reviewDAO.getWineID(wine);
+        int wineID = wineManager.getWineId(wine);
         List<Rating> wineReviews = reviewDAO.getReviewsByWineId(wineID);
         wineNameLabel.setText(wineNameLabel.getText() + wine.getWineName());
         wineryLabel.setText(wineryLabel.getText() + wine.getWineryString());
@@ -92,7 +95,6 @@ public class WineReviewsScreenController {
             }
         });
         ratingTable.setItems(observableWineReviews);
-
 
     }
 

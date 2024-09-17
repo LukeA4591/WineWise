@@ -1,5 +1,8 @@
 package seng202.team0.models;
 
+/**
+ * Winery model
+ */
 public class Winery {
     String name;
     float latitude;

@@ -35,10 +35,6 @@ public class WineUserRatingScreenController {
     private ReviewDAO reviewDAO = new ReviewDAO();
     private boolean movedSlider = false;
 
-
-    public WineUserRatingScreenController() {
-    }
-
     /**
      * Init method for the user rating screen
      * @param wine
@@ -52,6 +48,10 @@ public class WineUserRatingScreenController {
         criticRatingLabel.setText("Critic rating: " + wine.getScore() + " / 100");
     }
 
+    /**
+     * OnAction method for the user to save their review, adds review to database
+     * @throws DuplicateExc if review already exists
+     */
     @FXML
     private void saveReview() throws DuplicateExc {
         if (movedSlider) {
@@ -66,12 +66,18 @@ public class WineUserRatingScreenController {
         }
     }
 
+    /**
+     * Resets the text box and the slider
+     */
     @FXML
     private void resetReview() {
         ratingSlider.setValue(0);
         reviewTextArea.setText("");
     }
 
+    /**
+     * Method to make sure user has moved the slider before saving their review
+     */
     @FXML
     private void sliderMoved() {
         movedSlider = true;

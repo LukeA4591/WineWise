@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seng202.team0.business.WineManager;
 import seng202.team0.exceptions.DuplicateExc;
 import seng202.team0.models.Rating;
 import seng202.team0.models.Wine;
@@ -54,7 +55,7 @@ public class RatingDAOTest {
     @Test
     public void testGetRatingsFromWine() throws DuplicateExc {
         populateDatabase();
-        List<Rating> ratings = reviewDao.getReviewsByWineId(reviewDao.getWineID(testWine1));
+        List<Rating> ratings = reviewDao.getReviewsByWineId(wineDAO.getWineID(testWine1));
         Assertions.assertEquals(2, ratings.size());
     }
 

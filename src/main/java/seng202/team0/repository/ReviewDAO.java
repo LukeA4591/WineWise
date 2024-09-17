@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import seng202.team0.exceptions.DuplicateExc;
 import seng202.team0.models.Rating;
-import seng202.team0.models.Wine;
 
 import java.sql.*;
 import java.sql.Connection;
@@ -13,17 +12,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ReviewDAO class, interacts with the database to query reviews
+ */
 public class ReviewDAO implements DAOInterface<Rating>{
-
     private static final Logger log = LogManager.getLogger(WineDAO.class);
     private final DatabaseManager databaseManager;
-
+    private final WineDAO wineDao;
 
     /**
-     * Creates a new UserDAO object and gets a reference to the database singleton
+     * Gets a reference to the database singleton
      */
     public ReviewDAO(){
         databaseManager = DatabaseManager.getInstance();
+        wineDao = new WineDAO();
     }
 
     /**
@@ -38,7 +40,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                reviews.add(new Rating(rs.getInt("reviewID"), rs.getInt("rating"), rs.getString("description"), getWineFromID(rs.getInt("wine"))));
+                reviews.add(new Rating(rs.getInt("reviewID"), rs.getInt("rating"), rs.getString("description"), wineDao.getWineFromID(rs.getInt("wine"))));
             }
             return reviews;
         } catch (SQLException sqlException) {
@@ -48,28 +50,11 @@ public class ReviewDAO implements DAOInterface<Rating>{
 
     }
 
-    public Wine getWineFromID(int wineID) {
-        String sql = "SELECT * from wines WHERE wineID=?";
-        try(Connection conn = databaseManager.connect();
-            PreparedStatement ps = conn.prepareStatement(sql)){
-            ps.setInt(1, wineID);
-            ResultSet rs = ps.executeQuery();
-            Wine result = new Wine(
-                    rs.getString("type"),
-                    rs.getString("name"),
-                    rs.getString("winery"),
-                    rs.getInt("vintage"),
-                    rs.getInt("score"),
-                    rs.getString("region"),
-                    rs.getString("description"));
-
-            return result;
-        } catch (SQLException sqlException) {
-            log.error(sqlException);
-            return null;
-        }
-    }
-
+    /**
+     * Gets the all the reviews on a single wine
+     * @param wineID ID of wine
+     * @return list of all reviews
+     */
     public List<Rating> getReviewsByWineId(int wineID) {
         List<Rating> reviews = new ArrayList<>();
         String sql = "SELECT * from reviews WHERE wine=? AND reported = false";
@@ -78,31 +63,13 @@ public class ReviewDAO implements DAOInterface<Rating>{
             pstmt.setInt(1, wineID);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                reviews.add(new Rating(rs.getInt("reviewID"), rs.getInt("rating"), rs.getString("description"), getWineFromID(rs.getInt("wine"))));
+                reviews.add(new Rating(rs.getInt("reviewID"), rs.getInt("rating"), rs.getString("description"), wineDao.getWineFromID(rs.getInt("wine"))));
             }
             return reviews;
 
         } catch (SQLException sqlException) {
             log.error(sqlException);
             return null;
-        }
-    }
-
-
-    public int getWineID(Wine toSearch) {
-        int wineID;
-        String sql = "SELECT wineID FROM wines WHERE name=? AND vintage=? AND winery=?";
-        try(Connection conn = databaseManager.connect();
-            PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, toSearch.getWineName());
-            ps.setInt(2, toSearch.getVintage());
-            ps.setString(3, toSearch.getWineryString());
-            ResultSet rs = ps.executeQuery();
-            wineID = rs.getInt("wineID");
-            return wineID;
-        } catch (SQLException sqlException) {
-            log.error(sqlException);
-            return 0;
         }
     }
 
@@ -120,7 +87,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, toAdd.getRating());
             ps.setString(2, toAdd.getReview());
-            ps.setInt(3, getWineID(toAdd.getWine()));
+            ps.setInt(3, wineDao.getWineID(toAdd.getWine()));
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -150,7 +117,10 @@ public class ReviewDAO implements DAOInterface<Rating>{
         }
     }
 
-    //TODO make reviewID be stored on rating model.
+    /**
+     * Marks a review as reported
+     * @param id ID of review
+     */
     public void markAsReported(int id) {
         String sql = "UPDATE reviews SET reported=true WHERE reviewID=?";
         try (Connection conn = databaseManager.connect();
@@ -162,6 +132,10 @@ public class ReviewDAO implements DAOInterface<Rating>{
         }
     }
 
+    /**
+     * Marks a review as unreported
+     * @param id ID of review
+     */
     public void markAsUnreported(int id) {
         String sql = "UPDATE reviews SET reported=false WHERE reviewID=?";
         try (Connection conn = databaseManager.connect();
@@ -173,6 +147,10 @@ public class ReviewDAO implements DAOInterface<Rating>{
         }
     }
 
+    /**
+     * Gets all flagged reviews from the database
+     * @return list of flagged reviews
+     */
     public List<Rating> getFlaggedReviews() {
         List<Rating> flaggedReviews = new ArrayList<>();
         String sql = "SELECT * FROM reviews WHERE reported = true";
@@ -180,7 +158,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                flaggedReviews.add(new Rating(rs.getInt("reviewID"), rs.getInt("rating"), rs.getString("description"), getWineFromID(rs.getInt("wine"))));
+                flaggedReviews.add(new Rating(rs.getInt("reviewID"), rs.getInt("rating"), rs.getString("description"), wineDao.getWineFromID(rs.getInt("wine"))));
             }
             return flaggedReviews;
 

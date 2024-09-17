@@ -4,18 +4,14 @@ import seng202.team0.exceptions.DuplicateExc;
 
 import java.util.List;
 
+/**
+ * Interface for DAOs
+ */
 public interface DAOInterface<T> {
 
     /**
-     * Interface for Database Access Objects (DAOs) that provides common functionality for database access
-     *
-     * @author Morgan English
-     */
-
-    /**
-     * Gets all of T from the database
-     *
-     * @return List of all objects type T from the database
+     * Gets all of T items from the database
+     * @return List of all objects of type T from the database
      */
     List<T> getAll();
 

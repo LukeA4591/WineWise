@@ -1,14 +1,14 @@
 package seng202.team0.models;
 
-import org.apache.commons.lang3.ObjectUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Wine model, used to represent an instance of a wine
+ */
 public class Wine {
     String colour;
     String wineName;
-//    String award;
     int score;
     int vintage;
     String region;
