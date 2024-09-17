@@ -97,7 +97,6 @@ public class ReviewDAO implements DAOInterface<Rating>{
             ps.setInt(2, toSearch.getVintage());
             ps.setString(3, toSearch.getWineryString());
             ResultSet rs = ps.executeQuery();
-            System.out.println(rs);
             wineID = rs.getInt("wineID");
             return wineID;
         } catch (SQLException sqlException) {

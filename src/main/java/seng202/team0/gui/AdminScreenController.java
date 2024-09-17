@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdminScreenController {
@@ -47,6 +48,8 @@ public class AdminScreenController {
 
     private ReviewDAO reviewDAO;
 
+    private List<Rating> selectedReviews = new ArrayList<>();
+
     public AdminScreenController(WineEnvironment winery) {
         this.winery = winery;
         wineManager = new WineManager();
@@ -61,6 +64,7 @@ public class AdminScreenController {
     @FXML
     public void displayFlaggedReviews() {
         List<Rating> flaggedReviews = reviewDAO.getFlaggedReviews();
+
         ObservableList<Rating> observableWineReviews = FXCollections.observableArrayList(flaggedReviews);
 
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
@@ -76,16 +80,34 @@ public class AdminScreenController {
                 } else {
                     checkBox.setSelected(item != null && item);
                     checkBox.setOnAction(event -> {
-                        System.out.println(getTableRow().getItem());
-                        getTableRow().getItem().setReported(checkBox.isSelected());
-//                        reviewDAO.markAsReported(getTableRow().getItem().getReviewID());
+                        boolean isSelected = checkBox.isSelected();
+                        if (isSelected && !selectedReviews.contains(getTableRow().getItem())) {
+                            selectedReviews.add(getTableRow().getItem());
+                        } else if (selectedReviews.contains((getTableRow().getItem()))) {
+                            selectedReviews.remove(getTableRow().getItem());
+                        }
                     });
                     setGraphic(checkBox);
                 }
             }
         });
         ratingTable.setItems(observableWineReviews);
+    }
 
+    @FXML
+    public void deleteFlaggedReviews() {
+        for (int i = 0; i < selectedReviews.size(); i++) {
+            reviewDAO.delete(selectedReviews.get(i).getReviewID());
+        }
+        displayFlaggedReviews();
+    }
+
+    @FXML
+    public void unflagFlaggedReviews() {
+        for (int i = 0; i < selectedReviews.size(); i++) {
+            reviewDAO.markAsUnreported(selectedReviews.get(i).getReviewID());
+        }
+        displayFlaggedReviews();
 
     }
 
@@ -124,15 +146,10 @@ public class AdminScreenController {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        stage = (Stage) addWine.getScene().getWindow(); // Need to have scene variable, has to find scene through addWine button
+        stage = (Stage) addWine.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
         wineManager.addAllWinesFromFile(new WineCSVImporter(), file);
     }
-
-    /**
-     * Chooses data type selected in combo box
-     * @return The string of the data type
-     */
 
     @FXML
     void adminLogout() {
