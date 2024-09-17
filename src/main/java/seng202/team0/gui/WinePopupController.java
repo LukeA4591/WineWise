@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * Controller for the wine_popup.fxml class, a border pane which loads further wine details
  */
-public class winePopupController {
+public class WinePopupController {
 
     @FXML
     private Button wineDetailsButton;
