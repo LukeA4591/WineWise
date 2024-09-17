@@ -132,6 +132,27 @@ public class AdminScreenController {
         }
     }
 
+    @FXML
+    public void onViewWines() {
+        try {
+            FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_view_wines.fxml"));
+            AnchorPane root = newStageLoader.load();
+            Scene modalScene = new Scene(root);
+            Stage modalStage = new Stage();
+            modalStage.setScene(modalScene);
+            modalStage.setWidth(900);
+            modalStage.setHeight(624);
+            modalStage.setResizable(false);
+            modalStage.setTitle("View Wines");
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            Stage primaryStage = (Stage) addWine.getScene().getWindow();
+            modalStage.initOwner(primaryStage);
+            modalStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Allows csv file to be chosen when the add dataset button is pressed.
      */

@@ -20,4 +20,6 @@ public class WineManager {
     public int addWine(Wine wine) { return wineDAO.add(wine); }
 
     public List<Wine> getAll() { return wineDAO.getAll(); }
+
+    public void delete(String name, String winery, int vintage) { wineDAO.delete(name, winery, vintage); }
 }
