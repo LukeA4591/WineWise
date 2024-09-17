@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seng202.team0.business.WineManager;
 import seng202.team0.io.WineCSVImporter;
@@ -16,6 +17,7 @@ import seng202.team0.models.Wine;
 import seng202.team0.services.AdminLoginService;
 import seng202.team0.services.WineEnvironment;
 
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -33,12 +35,10 @@ public class AdminScreenController {
     }
 
     @FXML
-    public void onAddWine(){
+    public void onAddWine() {
         try {
             FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/add_wine.fxml"));
             AnchorPane root = newStageLoader.load();
-
-            AddWineController controller = newStageLoader.getController();
             Scene modalScene = new Scene(root);
             Stage modalStage = new Stage();
             modalStage.setScene(modalScene);
@@ -46,6 +46,9 @@ public class AdminScreenController {
             modalStage.setHeight(500);
             modalStage.setResizable(false);
             modalStage.setTitle("Wine Popup");
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            Stage primaryStage = (Stage) addWine.getScene().getWindow();
+            modalStage.initOwner(primaryStage);
             modalStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
