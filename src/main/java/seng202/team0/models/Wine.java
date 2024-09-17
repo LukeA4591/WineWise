@@ -199,14 +199,6 @@ public class Wine {
     }
 
     /**
-     * The Setter method for the award that the wine won
-     * @param award award given to the wine
-     */
-//    public void setAward(String award) {
-//        this.award = award;
-//    }
-
-    /**
      * The Setter method for the score that the wine received
      * @param score score given to the wine
      */
