@@ -93,10 +93,13 @@ public class WineReviewsScreenController {
                 } else {
                     checkBox.setSelected(item != null && item);
                     checkBox.setOnAction(event -> {
-                        System.out.println(getTableRow().getItem());
+                        boolean isSelected = checkBox.isSelected();
                         getTableRow().getItem().setReported(checkBox.isSelected());
-                        System.out.println(getTableRow().getItem().getReported());
-                        reviewDAO.markAsReported(getTableRow().getItem().getReviewID());
+                        if (isSelected) {
+                            reviewDAO.markAsReported(getTableRow().getItem().getReviewID());
+                        } else {
+                            reviewDAO.markAsUnreported(getTableRow().getItem().getReviewID());
+                        }
                     });
                     setGraphic(checkBox);
                 }

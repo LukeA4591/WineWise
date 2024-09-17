@@ -162,6 +162,17 @@ public class ReviewDAO implements DAOInterface<Rating>{
         }
     }
 
+    public void markAsUnreported(int id) {
+        String sql = "UPDATE reviews SET reported=false WHERE reviewID=?";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+        }
+    }
+
     public List<Rating> getFlaggedReviews() {
         List<Rating> flaggedReviews = new ArrayList<>();
         String sql = "SELECT * FROM reviews WHERE reported = true";
