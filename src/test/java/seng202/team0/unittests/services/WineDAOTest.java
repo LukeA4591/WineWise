@@ -43,7 +43,7 @@ public class WineDAOTest {
      * Populates the test database with wines
      */
     private void populateDatabase() throws DuplicateExc {
-        wineDao.add(new Wine("Red", "Plume Pinot Noir", "Lake Chalice", 2019, 80, "Marlborough", "A yummy wine"));
+        wineDao.add(new Wine("Red", "Plume Pinot Noir", "Lake Chalice", 2019, 80, "Marlborough", "High quality wine with woody notes"));
         wineDao.add(new Wine("White", "Plume Sav", "Lake Chalice", 2019, 85, "Marlborough", "So tasty"));
         wineDao.add(new Wine("Rose", "Rosy Rose", "Lakes Winery", 2020, 90, "Otago", "Very rosy"));
         wineDao.add(new Wine("White", "Bland Blanc", "Fields of Grapes", 2021, 50, "Canterbury", "Bland and boring"));

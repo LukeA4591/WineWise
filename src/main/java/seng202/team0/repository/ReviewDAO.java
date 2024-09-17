@@ -38,7 +38,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                reviews.add(new Rating(rs.getInt("rating"), rs.getString("review"), (Wine) rs.getObject("wine")));
+                reviews.add(new Rating(rs.getInt("rating"), rs.getString("description"), getWineFromID(rs.getInt("wine"))));
             }
             return reviews;
         } catch (SQLException sqlException) {
@@ -46,6 +46,27 @@ public class ReviewDAO implements DAOInterface<Rating>{
             return new ArrayList<>();
         }
 
+    }
+
+    public Wine getWineFromID(int wineID) {
+        String sql = "SELECT * from wines WHERE wineID=?";
+        try(Connection conn = databaseManager.connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)) {
+            Wine result = new Wine(
+                    rs.getString("type"),
+                    rs.getString("name"),
+                    rs.getString("winery"),
+                    rs.getInt("vintage"),
+                    rs.getInt("score"),
+                    rs.getString("region"),
+                    rs.getString("description"));
+
+            return result;
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            return null;
+        }
     }
 
     public int getWineID(Wine toSearch) {
