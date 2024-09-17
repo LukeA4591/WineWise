@@ -11,65 +11,75 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seng202.team0.business.ReviewManager;
 import seng202.team0.business.WineManager;
 import seng202.team0.io.WineCSVImporter;
-import seng202.team0.models.Rating;
-import seng202.team0.models.Wine;
+import seng202.team0.models.Review;
 import seng202.team0.repository.ReviewDAO;
-import seng202.team0.services.AdminLoginService;
-import seng202.team0.services.WineEnvironment;
+import seng202.team0.services.AppEnvironment;
 
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller class for the admin_screen.fxml page.
+ */
 public class AdminScreenController {
 
     @FXML
-    private TableView<Rating> ratingTable;
-
+    private TableView<Review> ratingTable;
     @FXML
-    private TableColumn<Rating, Integer> ratingColumn;
-
+    private TableColumn<Review, Integer> ratingColumn;
     @FXML
-    private TableColumn<Rating, String> reviewColumn;
-
+    private TableColumn<Review, String> reviewColumn;
     @FXML
-    private TableColumn<Rating, Boolean> flaggedColumn;
-
+    private TableColumn<Review, Boolean> flaggedColumn;
     @FXML
     Button addWine;
-    private final WineEnvironment winery;
+
+    private final AppEnvironment appEnvironment;
     private final WineManager wineManager;
     private Stage stage;
+    private ReviewManager reviewManager;
+    private List<Review> selectedReviews = new ArrayList<>();
 
-    private ReviewDAO reviewDAO;
-
-    private List<Rating> selectedReviews = new ArrayList<>();
-
-    public AdminScreenController(WineEnvironment winery) {
-        this.winery = winery;
+    /**
+     * Constructor for AdminScreenController. Sets the AppEnvironment, wineManager, and reviewDAO variables so the
+     * wines and reviews can be accessed and so the pages can be changed.
+     * @param appEnvironment The AppEnvironment to let us launch other pages.
+     */
+    public AdminScreenController(AppEnvironment appEnvironment) {
+        this.appEnvironment = appEnvironment;
         wineManager = new WineManager();
-        reviewDAO = new ReviewDAO();
+        reviewManager = new ReviewManager();
     }
 
+    /**
+     * Initializes the controller by calling the displayFlaggedReviews method which sets a list of all the flagged
+     * reviews.
+     */
     @FXML
     public void initialize() {
         displayFlaggedReviews();
     }
 
+    /**
+     * Gets all the flagged reviews by calling the ReviewManager which will get the data from the DAO. It will then
+     * fill the table up with all the flagged reviews with a tick box to the right of each one so the users can select
+     * reviews to be unflagged or deleted.
+     */
     @FXML
     public void displayFlaggedReviews() {
-        List<Rating> flaggedReviews = reviewDAO.getFlaggedReviews();
+        List<Review> flaggedReviews = reviewManager.getFlaggedReviews();
 
-        ObservableList<Rating> observableWineReviews = FXCollections.observableArrayList(flaggedReviews);
+        ObservableList<Review> observableWineReviews = FXCollections.observableArrayList(flaggedReviews);
 
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
-        reviewColumn.setCellValueFactory(new PropertyValueFactory<>("review"));
-        flaggedColumn.setCellFactory(column -> new TableCell<Rating, Boolean>() {
+        reviewColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        flaggedColumn.setCellFactory(column -> new TableCell<Review, Boolean>() {
             private final CheckBox checkBox = new CheckBox();
 
             @Override
@@ -94,23 +104,35 @@ public class AdminScreenController {
         ratingTable.setItems(observableWineReviews);
     }
 
+    /**
+     * When delete reviews is pressed, it checks all the flagged reviews that have been selected and will then call the
+     * ReviewManager to delete the entries.
+     */
     @FXML
     public void deleteFlaggedReviews() {
         for (int i = 0; i < selectedReviews.size(); i++) {
-            reviewDAO.delete(selectedReviews.get(i).getReviewID());
+            reviewManager.delete(selectedReviews.get(i).getReviewID());
         }
         displayFlaggedReviews();
     }
 
+    /**
+     * When delete reviews is pressed, it checks all the flagged reviews that have been selected and will then call the
+     * ReviewManager to unflag the entries.
+     */
     @FXML
     public void unflagFlaggedReviews() {
         for (int i = 0; i < selectedReviews.size(); i++) {
-            reviewDAO.markAsUnreported(selectedReviews.get(i).getReviewID());
+            reviewManager.markAsUnreported(selectedReviews.get(i).getReviewID());
         }
         displayFlaggedReviews();
 
     }
 
+    /**
+     * When the add wine button is pressed, it will open up the add_wine.fxml page as a pop-up. The pop-up will
+     * restrict the user from doing any other actions on the admin page until they have closed the pop-up.
+     */
     @FXML
     public void onAddWine() {
         try {
@@ -132,6 +154,10 @@ public class AdminScreenController {
         }
     }
 
+    /**
+     * When the view wines button is pressed, it will open up the admin_view_wines.fxml page as a pop-up. The pop-up
+     * will restrict the user from doing any other actions on the admin page until they have closed the pop-up.
+     */
     @FXML
     public void onViewWines() {
         try {
@@ -154,7 +180,9 @@ public class AdminScreenController {
     }
 
     /**
-     * Allows csv file to be chosen when the add dataset button is pressed.
+     * Allows a csv file to be chosen from the file manager when the add dataset button is pressed. It will then send
+     * this file to the wineManager along with the WineCSVImporter so that the file can be processed into individual
+     * wines.
      */
     @FXML
     private void addDataSet() {
@@ -162,7 +190,7 @@ public class AdminScreenController {
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         try {
-            fileChooser.setInitialDirectory(new File(MainController.class.getProtectionDomain().getCodeSource()
+            fileChooser.setInitialDirectory(new File(MainWindow.class.getProtectionDomain().getCodeSource()
                     .getLocation().toURI()).getParentFile());
         } catch (URISyntaxException e) {
             e.printStackTrace();
@@ -172,9 +200,12 @@ public class AdminScreenController {
         wineManager.addAllWinesFromFile(new WineCSVImporter(), file);
     }
 
+    /**
+     * When the logout button is pressed, the admin is logged out and taken back to the normal user homepage.
+     */
     @FXML
     void adminLogout() {
-        winery.getClearRunnable().run();
-        winery.launchNavBar();
+        appEnvironment.getClearRunnable().run();
+        appEnvironment.launchNavBar();
     }
 }

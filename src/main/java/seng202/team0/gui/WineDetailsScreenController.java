@@ -3,12 +3,12 @@ package seng202.team0.gui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import seng202.team0.models.Rating;
 import seng202.team0.models.Wine;
 import javafx.scene.image.Image;
 
-import java.util.List;
-
+/**
+ * Controller for the wine_details_screen.fxml file, shows further details of a wine
+ */
 public class WineDetailsScreenController {
 
     @FXML
@@ -37,17 +37,12 @@ public class WineDetailsScreenController {
     String region;
     String wineryString;
     String description;
-
     Wine wine;
-
-    public WineDetailsScreenController() {
-    }
 
     /**
      * Provide all information about the wine to allow the user to read more about any specific wine
-     * @param wine
-     * @param image
-     * @author Luke Armstrong
+     * @param wine wine which is being displayed
+     * @param image image of wine depending on class
      */
     @FXML
     public void init(Wine wine, Image image) {

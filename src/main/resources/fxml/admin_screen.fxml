@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.AdminScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.AdminScreenController">
    <children>
       <Button fx:id="logoutButton" layoutX="738.0" layoutY="24.0" mnemonicParsing="false" onAction="#adminLogout" text="Logout">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="81.0" layoutY="239.0" mnemonicParsing="false" onAction="#addDataSet" text="Add a dataset">
+      <Button layoutX="81.0" layoutY="220.0" mnemonicParsing="false" onAction="#addDataSet" text="Add a dataset">
          <font>
             <Font size="15.0" />
          </font></Button>
@@ -41,14 +44,14 @@
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button fx:id="addWine" layoutX="81.0" layoutY="305.0" mnemonicParsing="false" onAction="#onAddWine" text="Add data">
+      <Button fx:id="addWine" layoutX="81.0" layoutY="300.0" mnemonicParsing="false" onAction="#onAddWine" text="Add data">
          <font>
             <Font size="15.0" />
          </font></Button>
       <TableView fx:id="ratingTable" layoutX="327.0" layoutY="183.0" prefHeight="281.0" prefWidth="489.0">
          <columns>
             <TableColumn fx:id="ratingColumn" prefWidth="65.0" text="Rating" />
-            <TableColumn fx:id="reviewColumn" prefWidth="360.0" text="Review" />
+            <TableColumn fx:id="reviewColumn" prefWidth="360.0" text="Description" />
             <TableColumn fx:id="flaggedColumn" prefWidth="65.0" text="Select" />
          </columns>
       </TableView>

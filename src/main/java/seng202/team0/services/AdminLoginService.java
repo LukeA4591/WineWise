@@ -108,7 +108,7 @@ public class AdminLoginService {
 
     /**
      * Checks to see if the credentials.txt file has already been created
-     * @return A Boolean that WineEnvironment uses to launch different screens
+     * @return A Boolean that AppEnvironment uses to launch different screens
      */
     public boolean doesFileExist() {
         File f = getCredentialsFile();

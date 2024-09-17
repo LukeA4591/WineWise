@@ -1,104 +1,64 @@
 package seng202.team0.gui;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import seng202.team0.services.AdminLoginService;
-import seng202.team0.services.WineEnvironment;
+import seng202.team0.services.AppEnvironment;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 
-
+/**
+ * Controller class for the setup_admin.fxml page.
+ */
 public class AdminSetupScreenController {
 
-    /**
-     * The WineEnvironment which keeps track of the state of the program
-     */
-    private final WineEnvironment winery;
-
-    /**
-     * The singleton instance of AdminLoginService
-     */
-    private final AdminLoginService adminLoginInstance;
-
-    /**
-     * The Textfield that gets the users username
-     */
     @FXML
     private TextField createUsernameInputField;
-
-    /**
-     * The Textfield that gets the users password
-     */
     @FXML
     private TextField createPasswordInputField;
-
-    /**
-     * The Textfield that gets the users password confirmation
-     */
     @FXML
     private TextField createConfirmPasswordInputField;
-
     @FXML
     private PasswordField confirmPasswordField;
-
     @FXML
     private PasswordField createPasswordField;
-
     @FXML
     private Button viewButton;
-
-    /**
-     * The Label that displays any errors when create button is clicked
-     * Initially the label is hidden
-     */
     @FXML
     private Label errorLabel;
 
-    @FXML
-    private AnchorPane mainWindow;
+    private final AppEnvironment appEnvironment;
+    private final AdminLoginService adminLoginInstance;
+
 
     /**
-     * Constructor for admin setup screen controller
-     * @param winery WineEnvironment keeps track of the state of the program
+     * Constructor for admin setup screen controller. Sets the AppEnvironment and adminLoginInstance.
+     * @param appEnvironment AppEnvironment keeps track of the state of the program
      */
-    public AdminSetupScreenController(WineEnvironment winery) {
-        this.winery = winery;
-        this.adminLoginInstance = winery.getAdminLoginInstance();
+    public AdminSetupScreenController(AppEnvironment appEnvironment) {
+        this.appEnvironment = appEnvironment;
+        this.adminLoginInstance = appEnvironment.getAdminLoginInstance();
     }
 
     /**
-     * Initializes the controller and sets up bindings and links the stylesheet
-     * Initialize method for admin setup screen.
-     * Sets up a listener that listens for when the TextField is attached to the scene
-     * Then it can return a non-null scene.
-     * @author Felix Blanchard, Luke Armstrong
+     * Initializes the controller and method for admin setup screen. Allows passwords to be switched between invisible
+     * and visible mode.
      */
     @FXML
     public void initialize() {
-        // Bind text properties after all FXML fields have been loaded
         createPasswordInputField.textProperty().bindBidirectional(createPasswordField.textProperty());
         createConfirmPasswordInputField.textProperty().bindBidirectional(confirmPasswordField.textProperty());
         createPasswordInputField.setVisible(false);
         createConfirmPasswordInputField.setVisible(false);
-
-        // Temp remove as styling is done on fxml
-//        createUsernameInputField.sceneProperty().addListener((observable, oldscene, newscene) -> {
-//            if (newscene != null) {
-//                newscene.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
-//            }
-//        });
     }
 
-
-
     /**
-     * A button clicked OnAction method that creates an account and launches admin screen
+     * When the create account button is pressed, if the password is validated, the method creates a new account by
+     * calling adminLoginInstance to set up the hashed password and storage of user details and then launches the admin
+     * screen.
      */
     @FXML
     public void createAccountLaunchAdminScreen() {
@@ -111,11 +71,14 @@ public class AdminSetupScreenController {
         } else {
             adminLoginInstance.createCredentialsFile();
             adminLoginInstance.createNewUser(inputtedUsername, inputtedPassword);
-            winery.getClearRunnable().run();
-            winery.launchAdminScreen();
+            appEnvironment.getClearRunnable().run();
+            appEnvironment.launchAdminScreen();
         }
     }
 
+    /**
+     * When the view/hide password button is pressed, the password is then set to visible/invisible.
+     */
     @FXML
     public void onViewButtonClicked() {
         if (createPasswordInputField.isVisible()) {
@@ -132,7 +95,6 @@ public class AdminSetupScreenController {
             viewButton.setText("Hide");
         }
     }
-
 
     /**
      * Method to trigger login when the enter key is pressed

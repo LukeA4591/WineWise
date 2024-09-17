@@ -9,6 +9,9 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
 
+/**
+ * DatabaseManager class which manages the state of the database
+ */
 public class DatabaseManager {
     private static DatabaseManager instance = null;
     private static final Logger log = LogManager.getLogger(DatabaseManager.class);
@@ -17,29 +20,24 @@ public class DatabaseManager {
     /**
      * Private constructor for singleton purposes
      * Creates database if it does not already exist in specified location
-     * <p>
      */
     private DatabaseManager(String urlIn) {
         if (urlIn == null || urlIn.isEmpty()) {
-            System.out.println("GETTING DATABASE PATH");
             this.url = getDatabasePath();
         } else {
-            System.out.println("this.url = urlIN");
             this.url = urlIn;
         }
         if (!checkDatabaseExists(url)) {
-            System.out.println("######################### CREATING DB FIELD AND resetDB() #########################");
             createDatabaseFile(url);
             resetDB();
         }
     }
 
     /**
-     * WARNING Allows for setting specific database url (currently only needed for test databases, but may be useful
-     * in future) USE WITH CAUTION. This does not override the current singleton instance so must be the first call.
+     * Initializer for created an instance of the database with a specified url
      *
-     * @param url string url of database to load (this needs to be full url e.g. "jdbc:sqlite:./src/...")
-     * @return current singleton instance
+     * @param url string url of database to load
+     * @return singleton instance
      * @throws DuplicateExc if there is already a singleton instance
      */
     public static DatabaseManager initialiseInstanceWithUrl(String url) throws DuplicateExc {
@@ -52,8 +50,7 @@ public class DatabaseManager {
     }
 
     /**
-     * Singleton method to get current Instance if exists otherwise create it
-     *
+     * Singleton method, returns current instance of the database, creates it if not
      * @return the single instance DatabaseSingleton
      */
     public static DatabaseManager getInstance() {
@@ -65,15 +62,14 @@ public class DatabaseManager {
     }
 
     /**
-     * WARNING Sets the current singleton instance to null
+     * Sets the current singleton instance to null
      */
     public static void REMOVE_INSTANCE() {
         instance = null;
     }
 
     /**
-     * Connect to the database
-     *
+     * Method to connect to the database
      * @return database connection
      */
     public Connection connect() {
@@ -84,46 +80,6 @@ public class DatabaseManager {
             log.error(e);
         }
         return conn;
-    }
-
-    public void drop_it() {
-        String our_path = instance.getDatabasePath();
-        Connection conn = null;
-        Statement stmt = null;
-
-        if (this.url == null) {
-            System.out.println("URL IS NULL");
-        } else {
-            System.out.println(this.url);
-            try {
-                conn = DriverManager.getConnection(our_path);
-                stmt = conn.createStatement();
-
-                String sql = "DROP TABLE *";
-
-                stmt.executeUpdate(sql);
-
-                System.out.println("Table wines dropped");
-
-//                stmt = conn.createStatement();
-//                String sqlCommand = "DROP TABLE wines;";
-//                stmt.executeUpdate(sqlCommand);
-//                stmt.close();
-//                conn.commit();
-//                conn.close();
-            } catch (SQLException e) {
-                System.err.println("SQL error occurred.");
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (stmt != null) stmt.close();
-                    if (conn != null) conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
     }
 
     /**
@@ -140,7 +96,6 @@ public class DatabaseManager {
 
     /**
      * Gets path to the database relative to the jar file
-     *
      * @return jdbc encoded url location of database
      */
     private String getDatabasePath() {
@@ -150,13 +105,8 @@ public class DatabaseManager {
         return "jdbc:sqlite:" + jarDir.getParentFile() + "/database.db";
     }
 
-    public boolean getReturnIfExists() {
-        return checkDatabaseExists(getDatabasePath());
-    }
-
     /**
      * Check that a database exists in the expected location
-     *
      * @param url expected location to check for database
      * @return True if database exists else false
      */
@@ -167,7 +117,6 @@ public class DatabaseManager {
 
     /**
      * Creates a database file at the location specified by the url
-     *
      * @param url url to creat database at
      */
     private void createDatabaseFile(String url) {
@@ -185,9 +134,6 @@ public class DatabaseManager {
 
     /**
      * Reads and executes all statements within the sql file provided
-     * Note that each statement must be separated by '--SPLIT' this is not a desired limitation but allows for a much
-     * wider range of statement types.
-     *
      * @param sqlFile input stream of file containing sql statements for execution (separated by --SPLIT)
      */
     private void executeSQLScript(InputStream sqlFile) {

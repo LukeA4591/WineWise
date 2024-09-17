@@ -3,17 +3,17 @@ package seng202.team0.repository;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import seng202.team0.exceptions.DuplicateExc;
 import seng202.team0.models.Wine;
-import seng202.team0.models.Winery;
 
-import javax.xml.namespace.QName;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * WineDAO class, interacts with the database to query wines
+ */
 public class WineDAO implements DAOInterface<Wine> {
     private static final Logger log = LogManager.getLogger(WineDAO.class);
     private final DatabaseManager databaseManager;
@@ -56,8 +56,8 @@ public class WineDAO implements DAOInterface<Wine> {
     /**
      * Gets a list of wines depending on filters
      * @param filters map of filters
+     * @param scoreFilters map of score filters
      * @return a list of the wines
-     * @author Alex Wilson
      */
     public List<Wine> getFilteredWines(Map<String, String> filters, Map<String, List<String>> scoreFilters) {
         List<Wine> wines = new ArrayList<>();
@@ -89,7 +89,6 @@ public class WineDAO implements DAOInterface<Wine> {
         for (Map.Entry<String, List<String>> filter : scoreFilters.entrySet()) {
             if (!Objects.equals(filter.getValue().get(0), "")) {
                 criticScoreIncluded = true;
-                //this will change with user reviews
                 sqlScores.append(" AND score <= ? ");
                 sqlScores.append(" AND score >= ? ");
             }
@@ -130,7 +129,6 @@ public class WineDAO implements DAOInterface<Wine> {
      * Method for getting all the distinct values of a column from the wine table
      * @param column column which all the distinct values are needed
      * @return list of the distinct values
-     * @author Alex Wilson
      */
     public List<String> getDistinct(String column) {
         List<String> result = new ArrayList<>();
@@ -150,10 +148,8 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Adds single wine to database
-     * @param toAdd object of type T to add
-     * @return int
-     * @throws DuplicateExc
-     * @author Oliver Barclay
+     * @param toAdd object of type Wine to add
+     * @return int -1 if unsuccessful, otherwise the insertId
      */
     @Override
     public int add(Wine toAdd) {
@@ -181,6 +177,12 @@ public class WineDAO implements DAOInterface<Wine> {
         }
     }
 
+    /**
+     * Delete method to remove a wine from the database
+     * @param name name of the wine
+     * @param winery winery the wine is from
+     * @param vintage vintage of the wine
+     */
     public void delete(String name, String winery, int vintage) {
         String sql = "DELETE FROM wines WHERE name=? AND winery=? AND vintage=?;";
         try (Connection conn = databaseManager.connect();
@@ -196,6 +198,10 @@ public class WineDAO implements DAOInterface<Wine> {
     }
 
 
+    /**
+     * Adds a batch of wines to the database
+     * @param wines list of wines to be added
+     */
     public void addBatch (List <Wine> wines) {
         for (Wine wine : wines) {
             add(wine);
@@ -203,9 +209,8 @@ public class WineDAO implements DAOInterface<Wine> {
     }
 
     /**
-     * Get the three top rated wines do display on the home page of our application
+     * Get the three top-rated wines do display on the home page of our application
      * @return a list of the top 3 rated wines
-     * @author Luke Armstrong
      */
     public  List<Wine> getTopRated() {
         List<Wine> topRated = new ArrayList<>();
@@ -225,15 +230,26 @@ public class WineDAO implements DAOInterface<Wine> {
         }
     }
 
-    public Wine getOne(String name, int vintage, String winery) {
-        String sql = "SELECT * FROM wines WHERE name=? AND vintage=? AND winery=?";
-        try (Connection conn = databaseManager.connect();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, name);
-            ps.setInt(2, vintage);
-            ps.setString(3, winery);
+    /**
+     * Gets an instance of a wine from the database based on the wine ID
+     * @param wineID ID of the wine
+     * @return wine which matches ID
+     */
+    public Wine getWineFromID(int wineID) {
+        String sql = "SELECT * from wines WHERE wineID=?";
+        try(Connection conn = databaseManager.connect();
+            PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, wineID);
             ResultSet rs = ps.executeQuery();
-            Wine result = new Wine(rs.getString("type"), rs.getString("name"), rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"), rs.getString("region"), rs.getString("description"));
+            Wine result = new Wine(
+                    rs.getString("type"),
+                    rs.getString("name"),
+                    rs.getString("winery"),
+                    rs.getInt("vintage"),
+                    rs.getInt("score"),
+                    rs.getString("region"),
+                    rs.getString("description"));
+
             return result;
         } catch (SQLException sqlException) {
             log.error(sqlException);
@@ -241,4 +257,25 @@ public class WineDAO implements DAOInterface<Wine> {
         }
     }
 
+    /**
+     * Gets an ID of a wine
+     * @param toSearch wine being queried
+     * @return ID of wine
+     */
+    public int getWineID(Wine toSearch) {
+        int wineID;
+        String sql = "SELECT wineID FROM wines WHERE name=? AND vintage=? AND winery=?";
+        try(Connection conn = databaseManager.connect();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, toSearch.getWineName());
+            ps.setInt(2, toSearch.getVintage());
+            ps.setString(3, toSearch.getWineryString());
+            ResultSet rs = ps.executeQuery();
+            wineID = rs.getInt("wineID");
+            return wineID;
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            return 0;
+        }
+    }
 }

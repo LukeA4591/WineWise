@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import org.apache.commons.lang3.ObjectUtils;
+import seng202.team0.business.WineManager;
 import seng202.team0.models.Wine;
 import seng202.team0.repository.DatabaseManager;
 import seng202.team0.repository.WineDAO;
@@ -14,10 +14,9 @@ import seng202.team0.services.WinePopupService;
 
 import java.util.*;
 
-import static java.util.Collections.max;
-import static java.util.Collections.min;
-
-
+/**
+ * Controller for the search_screen.fxml file, displays all wine in a table and allows the user to filter
+ */
 public class SearchPageController {
 
     @FXML
@@ -39,28 +38,23 @@ public class SearchPageController {
     private List<Wine> wines;
     private Map<String, String> filters = new HashMap<>();
     private Map<String, List<String>> scoreFilters = new HashMap<>();
-    static WineDAO wineDAO;
-    static DatabaseManager databaseManager;
+    private WineManager wineManager;
     private WinePopupService wineMethods = new WinePopupService();
 
     /**
      * Constructor for search page controller
      */
     public SearchPageController() {
-        databaseManager = DatabaseManager.getInstance();
-        wineDAO = new WineDAO();
+        wineManager = new WineManager();
     }
 
     /**
      * Initialize method for the fx elements of the page, sets up the filter menus with all the valid data add a
      * listener for all rows and provide more information if a wine is clicked
-     * @author Oliver Barclay
-     * @author Alex Wilson
-     * @author Luke Armstrong
      */
     @FXML
     private void initialize() {
-        wines = wineDAO.getAll();
+        wines = wineManager.getAll();
         if (!wines.isEmpty()) {
             initTable(wines);
 
@@ -79,7 +73,7 @@ public class SearchPageController {
             allYear.setText("ALL");
             yearMenuButton.getItems().add(allYear);
 
-            List<String> regions = wineDAO.getDistinct("region");
+            List<String> regions = wineManager.getDistinct("region");
             for (String region : regions) {
                 if (!Objects.equals(region, "Not Applicable")) {
                     MenuItem menu = new MenuItem();
@@ -89,7 +83,7 @@ public class SearchPageController {
                 }
             }
 
-            List<String> wineries = wineDAO.getDistinct("winery");
+            List<String> wineries = wineManager.getDistinct("winery");
             for (String winery : wineries) {
                 MenuItem menu = new MenuItem();
                 menu.setText(winery);
@@ -97,8 +91,8 @@ public class SearchPageController {
                 wineryMenuButton.getItems().add(menu);
             }
 
-            List<String> vintages = wineDAO.getDistinct("vintage");
-            Collections.sort(vintages, (s1, s2) -> Integer.compare(Integer.parseInt(s1), Integer.parseInt(s2)));
+            List<String> vintages = wineManager.getDistinct("vintage");
+            vintages.sort((s1, s2) -> Integer.compare(Integer.parseInt(s1), Integer.parseInt(s2)));
             for (String vintage : vintages) {
                 MenuItem menu = new MenuItem();
                 menu.setText(vintage);
@@ -106,7 +100,7 @@ public class SearchPageController {
                 yearMenuButton.getItems().add(menu);
             }
 
-            scoreFilters.put("score", new ArrayList<>()); //will need to change when user scores come in
+            scoreFilters.put("score", new ArrayList<>());
 
             filters.put("type", "ALL");
             filters.put("winery", "ALL");
@@ -127,8 +121,7 @@ public class SearchPageController {
 
     /**
      * Called from the event listener when a wine is clicked to create wine popup
-     * @param wine
-     * @author Luke Armstrong
+     * @param wine wine clicked on
      */
     private void onWineClicked(Wine wine) {
         Image image = wineMethods.getImage(wine);
@@ -137,7 +130,6 @@ public class SearchPageController {
 
     /**
      * On Action method for the filter button, initializes the table depending on the filters
-     * @Author Alex Wilson
      */
     @FXML
     private void filterClick(){
@@ -152,7 +144,7 @@ public class SearchPageController {
             errorLabel.setStyle("-fx-text-fill: red;");
         } else {
             scoreFilters.put("score", Arrays.asList(criticScoreMinText.getText(), criticScoreMaxText.getText()));
-            wines = wineDAO.getFilteredWines(filters, scoreFilters);
+            wines = wineManager.getFilteredWines(filters, scoreFilters);
             initTable(wines);
         }
     }
@@ -175,7 +167,6 @@ public class SearchPageController {
     /**
      * On Action method for the category filter
      * @param event MenuItem clicked
-     * @author Alex Wilson
      */
     @FXML
     private void categoryFilterClicked(Event event) {
@@ -187,7 +178,6 @@ public class SearchPageController {
     /**
      * On Action method for the region filter
      * @param event MenuItem clicked
-     * @author Alex Wilson
      */
     @FXML
     private void regionFilterClicked(Event event) {
@@ -199,7 +189,6 @@ public class SearchPageController {
     /**
      * On Action method for the vintage filter
      * @param event MenuItem clicked
-     * @author Alex Wilson
      */
     @FXML
     private void vintageFilterClicked(Event event) {
@@ -211,7 +200,6 @@ public class SearchPageController {
     /**
      * On Action method for the winery filter
      * @param event MenuItem clicked
-     * @author Alex Wilson
      */
     @FXML
     private void wineryFilterClicked(Event event) {
@@ -222,7 +210,6 @@ public class SearchPageController {
 
     /**
      * On Action method for the reset button, sets everything back to the original state
-     * @author Alex Wilson
      */
     @FXML
     private void resetClicked() {
@@ -233,14 +220,13 @@ public class SearchPageController {
         wineryMenuButton.setText("Winery: ALL");
         criticScoreMinText.setText("");
         criticScoreMaxText.setText("");
-        wines = wineDAO.getAll();
+        wines = wineManager.getAll();
         initTable(wines);
     }
 
     /**
      * Method to initialize the table from a list of wines
      * @param wines list of wines to load into the table
-     * @author Oliver Barclay
      */
     private void initTable(List<Wine> wines){
         table.getColumns().clear();
@@ -263,24 +249,14 @@ public class SearchPageController {
         TableColumn<Wine, String> regionCol = new TableColumn<>("Region");
         regionCol.setCellValueFactory(new PropertyValueFactory<>("region"));
 
-        //TableColumn<Wine, String> descCol = new TableColumn<>("Desc.");
-        //descCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-
         table.getColumns().add(typeCol);
         table.getColumns().add(nameCol);
         table.getColumns().add(wineryCol);
         table.getColumns().add(vintageCol);
         table.getColumns().add(scoreCol);
         table.getColumns().add(regionCol);
-        //table.getColumns().add(descCol);
 
         table.setItems(FXCollections.observableArrayList(wines));
-    }
-
-
-
-    private List<Wine> getData() {
-        return null;
     }
 
 }

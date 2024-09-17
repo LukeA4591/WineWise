@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seng202.team0.exceptions.DuplicateExc;
-import seng202.team0.models.Rating;
+import seng202.team0.models.Review;
 import seng202.team0.models.Wine;
 import seng202.team0.repository.ReviewDAO;
 import seng202.team0.repository.DatabaseManager;
@@ -13,7 +13,7 @@ import seng202.team0.repository.WineDAO;
 
 import java.util.List;
 
-public class RatingDAOTest {
+public class ReviewDAOTest {
     private static ReviewDAO reviewDao;
     private static WineDAO wineDAO;
     private static DatabaseManager databaseManager;
@@ -39,23 +39,23 @@ public class RatingDAOTest {
      * Populates the test database with ratings
      */
     private void populateDatabase() throws DuplicateExc {
-        reviewDao.add(new Rating(60, "I thought it was really good, I liked the color", testWine1));
-        reviewDao.add(new Rating(90, "This blew my socks off", testWine1));
-        reviewDao.add(new Rating(30, "Actually horrendous", testWine2));
+        reviewDao.add(new Review(60, "I thought it was really good, I liked the color", testWine1));
+        reviewDao.add(new Review(90, "This blew my socks off", testWine1));
+        reviewDao.add(new Review(30, "Actually horrendous", testWine2));
     }
 
     @Test
     public void testGetAll() throws DuplicateExc {
         populateDatabase();
-        List<Rating> ratings = reviewDao.getAll();
-        Assertions.assertEquals(3, ratings.size());
+        List<Review> reviews = reviewDao.getAll();
+        Assertions.assertEquals(3, reviews.size());
     }
 
     @Test
     public void testGetRatingsFromWine() throws DuplicateExc {
         populateDatabase();
-        List<Rating> ratings = reviewDao.getReviewsByWineId(reviewDao.getWineID(testWine1));
-        Assertions.assertEquals(2, ratings.size());
+        List<Review> reviews = reviewDao.getReviewsByWineId(wineDAO.getWineID(testWine1));
+        Assertions.assertEquals(2, reviews.size());
     }
 
 }

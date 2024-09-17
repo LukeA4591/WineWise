@@ -7,37 +7,34 @@ import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
 import org.junit.jupiter.api.Assertions;
 import seng202.team0.services.AdminLoginService;
-import seng202.team0.services.WineEnvironment;
+import seng202.team0.services.AppEnvironment;
 import seng202.team0.gui.AdminSetupScreenController;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.logging.FileHandler;
 
 
 public class AdminStepDefs {
     private String username;
     private String password;
     private String confirmPassword;
-    private WineEnvironment wineEnvironment;
+    private AppEnvironment appEnvironment;
     private AdminLoginService adminLoginService;
     private AdminSetupScreenController adminSetupScreenController;
     private boolean loggedIn = false;
 
-    void consumer1(WineEnvironment wineEnvironment){}
-    void consumer2(WineEnvironment wineEnvironment){}
-    void consumer3(WineEnvironment wineEnvironment){}
-    void consumer4(WineEnvironment wineEnvironment){}
-    void consumer5(WineEnvironment wineEnvironment){}
+    void consumer1(AppEnvironment appEnvironment){}
+    void consumer2(AppEnvironment appEnvironment){}
+    void consumer3(AppEnvironment appEnvironment){}
     void clear(){}
 
     @Before
     public void setup() {
-        this.wineEnvironment = new WineEnvironment(this::consumer1, this::consumer2, this::consumer3, this::clear);
+        this.appEnvironment = new AppEnvironment(this::consumer1, this::consumer2, this::consumer3, this::clear);
         this.adminLoginService = AdminLoginService.getInstance();
-        this.adminSetupScreenController = new AdminSetupScreenController(wineEnvironment);
+        this.adminSetupScreenController = new AdminSetupScreenController(appEnvironment);
         File file = adminLoginService.getCredentialsFile();
         if (file.exists()) {
             file.delete();
@@ -63,7 +60,7 @@ public class AdminStepDefs {
         Assertions.assertEquals(true, adminLoginService.doesFileExist());
     }
 
-    @And("The username and password match")
+    @And("The username matches")
     public void usernameAndPasswordMatch() throws IOException {
         String jarStr = adminLoginService.getJarFilePath();
         jarStr += "/credentials.txt";
@@ -71,18 +68,9 @@ public class AdminStepDefs {
 
         BufferedReader br = new BufferedReader(new FileReader(file));
         String enteredUsername = br.readLine();
-        String hashedPassword = br.readLine();
         Assertions.assertEquals(this.username, enteredUsername);
-//        Assertions.assertEquals("##Hashed##" + this.password, hashedPassword);
-
     }
 
-    @Given("An admin registers with username {string}, incorrect password {string}, and confirm password {string}")
-    public void incorrectCredentials(String username, String password, String confirmPassword) {
-        this.username = username;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
-    }
 
     @When("The admin creates an invalid account")
     public void adminCreatesInvalidAccount() {

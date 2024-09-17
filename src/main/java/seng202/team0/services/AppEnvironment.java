@@ -2,22 +2,22 @@ package seng202.team0.services;
 
 import java.util.function.Consumer;
 
-public class WineEnvironment {
+public class AppEnvironment {
 
     /**
      * Consumer that is used to launch nav bar
      */
-    private final Consumer<WineEnvironment> navBarLauncher;
+    private final Consumer<AppEnvironment> navBarLauncher;
 
     /**
      * Consumer that is used to launch admin setup screen.
      */
-    private final Consumer<WineEnvironment> adminSetupScreenLauncher;
+    private final Consumer<AppEnvironment> adminSetupScreenLauncher;
 
     /**
      * Consumer that is used to launch admin screen.
      */
-    private final Consumer<WineEnvironment> adminScreenLauncher;
+    private final Consumer<AppEnvironment> adminScreenLauncher;
 
     /**
      * Runnable that clears the current page.
@@ -29,14 +29,14 @@ public class WineEnvironment {
     private final AdminLoginService adminLoginInstance;
 
     /**
-     * WineEnvironment keeps track of the state of the program
+     * AppEnvironment keeps track of the state of the program
      * @param navBarLauncher Launches the nav bar
      * @param adminSetupScreenLauncher Launches the admin setup screen
      * @param adminScreenLauncher Launches the admin screen
      * @param clear Runnable to clear the page
      */
-    public WineEnvironment(Consumer<WineEnvironment> navBarLauncher, Consumer<WineEnvironment> adminSetupScreenLauncher,
-                           Consumer<WineEnvironment> adminScreenLauncher, Runnable clear) {
+    public AppEnvironment(Consumer<AppEnvironment> navBarLauncher, Consumer<AppEnvironment> adminSetupScreenLauncher,
+                          Consumer<AppEnvironment> adminScreenLauncher, Runnable clear) {
         this.adminLoginInstance = AdminLoginService.getInstance();
         this.navBarLauncher = navBarLauncher;
         this.adminSetupScreenLauncher = adminSetupScreenLauncher;
