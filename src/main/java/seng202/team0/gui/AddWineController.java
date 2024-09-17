@@ -5,12 +5,14 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import seng202.team0.business.WineManager;
 import seng202.team0.models.Wine;
-import seng202.team0.services.WineEnvironment;
 
 import java.time.Year;
 
-
+/**
+ * Controller class for the add_wine.fxml page.
+ */
 public class AddWineController {
+
     @FXML
     TextField wineWineryName;
     @FXML
@@ -33,18 +35,29 @@ public class AddWineController {
     RadioButton wineTypeRose;
     @FXML
     ToggleGroup wineTypeToggle;
+
     private WineManager wineManager;
 
+    /**
+     * Method for going back to admin when the go back button is pressed.
+     * **/
     private void goBackToAdmin() {
         Stage stage = (Stage) wineWineryName.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Creates an instance of wineManager when the controller is initialised.
+     * **/
     @FXML
     void initialize() {
         wineManager = new WineManager();
     }
 
+    /**
+     * Sends the new wine to the wineManager when the save wine button is pressed if all the wine values filled in the
+     * text fields were all valid.
+     */
     public void saveNewWine() {
         Wine wine = validateWine();
         if (wine != null) {
@@ -53,6 +66,12 @@ public class AddWineController {
         }
     }
 
+    /**
+     * Checks to see if the text fields were all filled with valid inputs. If at least one of the text fields were not
+     * filled in correctly, it will set an error message with a description of the error. If all the fields were
+     * correct, it will tell the user that the wine has been saved.
+     * @return Wine if the text fields were all valid, null if at least one of them failed
+     */
     private Wine validateWine() {
         try {
             String wineWineryNameString = wineWineryName.getText();

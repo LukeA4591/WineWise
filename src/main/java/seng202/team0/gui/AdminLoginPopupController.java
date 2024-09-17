@@ -4,54 +4,37 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import seng202.team0.services.AdminLoginService;
 import seng202.team0.services.WineEnvironment;
 
 import javafx.scene.control.TextField;
 
+/**
+ * Controller class for the admin_login_popup.fxml page.
+ */
 public class AdminLoginPopupController {
-
-    /**
-     * The WineEnvironment which keeps track of the state of the program
-     */
-    private WineEnvironment winery;
-
-    /**
-     * The singleton instance of AdminLoginService
-     */
-    private AdminLoginService adminLoginInstance;
 
     @FXML
     private TextField usernameInput;
-
     @FXML
     private TextField passwordInput;
-
     @FXML
     private PasswordField passwordTextInput;
-
     @FXML
     private Button viewButton;
-
     @FXML
     private Label adminLoginErrorLabel;
 
-    /**
-     * Empty constructor
-     */
-    public AdminLoginPopupController() {}
+    private WineEnvironment winery;
+    private AdminLoginService adminLoginInstance;
 
     /**
-     * Init method for admin login popup
-     * It is called from in the AdminScreenController
-     * Passes in the wine environment and gets the singleton instance of admin login service.
-     * Sets up a listener that listens for when the TextField is attached to the scene
-     * Then it can return a non-null scene.
+     * Init method for admin login popup. It is called from in the AdminScreenController. Passes in the wine
+     * environment and gets the singleton instance of admin login service. Sets up a listener that listens for when the
+     * TextField is attached to the scene.
+     * @param winery The WineEnvironment to let us launch other pages.
      */
-
     @FXML
     public void init(WineEnvironment winery) {
         this.winery = winery;
@@ -66,11 +49,9 @@ public class AdminLoginPopupController {
         });
     }
 
-
     /**
-     * FXML on action method for when the login button is clicked.
-     * Returns error message if invalid credentials.
-     * If valid launches the admin screen.
+     * FXML on action method for when the login button is clicked. Prints an error message if there are invalid
+     * credentials. If valid, the admin screen is launched.
      */
     @FXML
     public void onLogin() {
@@ -88,6 +69,10 @@ public class AdminLoginPopupController {
         }
     }
 
+    /**
+     * When the button is pressed, if the passwords are set to invisible (dots), the passwords will become visible
+     * (characters) and vice versa.
+     */
     @FXML
     public void onViewButtonClicked() {
         if (passwordInput.isVisible()) {
@@ -102,8 +87,7 @@ public class AdminLoginPopupController {
     }
 
     /**
-     * Closes the popup on click
-     * Uses usernameInput to get the window
+     * Closes the popup on click and uses usernameInput to get the window it needs to close.
      */
     @FXML
     public void onCancel() {

@@ -3,43 +3,38 @@ package seng202.team0.gui;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seng202.team0.services.WineEnvironment;
 
 import java.io.IOException;
 
+/**
+ * The class allows pages to be launched when the current page is switched to another page.
+ */
 public class FXWrapper {
-    /**
-     * Pane for the application to be run on.
-     */
+
     @FXML
     private Pane pane;
-    /**
-     * Primary stage for the application.
-     */
+
     private Stage stage;
 
     /**
      * Initializes the FXWrapper with the primary stage of the application.
-     *
-     * @param stage the primary stage of the application.
+     * @param stage The primary stage of the application.
      */
     public void init(final Stage stage) {
         this.stage = stage;
         new WineEnvironment(this::launchNavBar, this::launchAdminSetupScreen, this::launchAdminScreen, this::clearPane);
     }
 
-
     /**
-     * Launches the NavBar Screen
-     * @param wineEnvironment the environment which manages the state of the application
+     * Launches the navigation bar screen which will contain the navigation bar for the user side of the application.
+     * @param wineEnvironment The environment which manages the state of the application.
      */
     public void launchNavBar(final WineEnvironment wineEnvironment) {
         try {
             FXMLLoader navBarLoader = new FXMLLoader(getClass().getResource("/fxml/nav_bar.fxml"));
-            //navBarLoader.setControllerFactory(param -> new NavBarController(wineEnvironment, stage));
             Parent setupParent  = navBarLoader.load();
             NavBarController navBarController = navBarLoader.getController();
             navBarController.setWineEnvironment(wineEnvironment);
@@ -55,8 +50,8 @@ public class FXWrapper {
     }
 
     /**
-     * Launches the Admin setup screen
-     * @param wineEnvironment the environment which manages the state of the application
+     * Launches the admin setup screen which is used to set up the admin details when a user first logs in.
+     * @param wineEnvironment The environment which manages the state of the application.
      */
     public void launchAdminSetupScreen(final WineEnvironment wineEnvironment) {
         try {
@@ -64,9 +59,7 @@ public class FXWrapper {
             setupLoader.setControllerFactory(param -> new AdminSetupScreenController(wineEnvironment));
             Parent setupParent  = setupLoader.load();
             pane.getChildren().add(setupParent);
-
             setupParent.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
-
             stage.setTitle("Admin Setup Screen");
             stage.setWidth(600);
             stage.setHeight(400);
@@ -77,8 +70,9 @@ public class FXWrapper {
     }
 
     /**
-     * Launches the admin setup screen
-     * @param wineEnvironment the environment which manages the state of the application
+     * Launches the admin screen which is the home page for the admin. It is used to add and modify data such as
+     * reviews and wines.
+     * @param wineEnvironment The environment which manages the state of the application.
      */
     public void launchAdminScreen(final WineEnvironment wineEnvironment) {
         try {
@@ -96,7 +90,7 @@ public class FXWrapper {
     }
 
     /**
-     * Clears Page
+     * Clears the current page.
      */
     public void clearPane(){
         pane.getChildren().removeAll(pane.getChildren());
