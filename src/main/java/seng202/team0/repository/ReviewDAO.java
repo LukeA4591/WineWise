@@ -90,15 +90,13 @@ public class ReviewDAO implements DAOInterface<Rating>{
 
     public int getWineID(Wine toSearch) {
         int wineID;
-        String sql = "SELECT wineID " +
-                "FROM wines " +
-                "WHERE name = " + toSearch.getWineName() + " AND " +
-                "vintage = " + toSearch.getVintage() + " AND " +
-                "winery = " + toSearch.getWinery();
-
+        String sql = "SELECT wineID FROM wines WHERE name=? AND vintage=? AND winery=?";
         try(Connection conn = databaseManager.connect();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, toSearch.getWineName());
+            ps.setInt(2, toSearch.getVintage());
+            ps.setString(3, toSearch.getWineryString());
+            ResultSet rs = ps.executeQuery(sql);
             wineID = rs.getInt(0); // TODO check if getInt works
             return wineID;
         } catch (SQLException sqlException) {

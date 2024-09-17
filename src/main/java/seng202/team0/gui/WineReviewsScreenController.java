@@ -69,6 +69,7 @@ public class WineReviewsScreenController {
     @FXML
     public void displayAllReviews() {
         List<Rating> wineReviews = reviewDAO.getReviewsByWineId(reviewDAO.getWineID(wine));
+        System.out.println(reviewDAO.getWineID(wine));
         System.out.println(wineReviews);
         wineNameLabel.setText(wineNameLabel.getText() + wine.getWineName());
         wineryLabel.setText(wineryLabel.getText() + wine.getWineryString());
