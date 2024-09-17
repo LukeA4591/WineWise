@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
+import seng202.team0.business.ReviewManager;
 import seng202.team0.exceptions.DuplicateExc;
 import seng202.team0.models.Review;
 import seng202.team0.models.Wine;
@@ -26,7 +27,7 @@ public class WineUserRatingScreenController {
     private TextArea reviewTextArea;
     @FXML
     private Label savedLabel;
-    private ReviewDAO reviewDAO = new ReviewDAO();
+    private ReviewManager reviewManager;
     private boolean movedSlider = false;
 
     /**
@@ -36,6 +37,7 @@ public class WineUserRatingScreenController {
     @FXML
     public void init(Wine wine) {
         this.wine = wine;
+        reviewManager = new ReviewManager();
         wineNameLabel.setText(wineNameLabel.getText() + wine.getWineName());
         wineryLabel.setText(wineryLabel.getText() + wine.getWineryString());
         vintageLabel.setText(vintageLabel.getText() + wine.getVintage());
@@ -50,7 +52,7 @@ public class WineUserRatingScreenController {
     private void saveReview() throws DuplicateExc {
         if (movedSlider) {
             Review review = new Review((int) ratingSlider.getValue(), reviewTextArea.getText(), wine);
-            reviewDAO.add(review);
+            reviewManager.add(review);
             savedLabel.setText("Saved!");
             savedLabel.setStyle("-fx-text-fill: indigo");
             resetReview();

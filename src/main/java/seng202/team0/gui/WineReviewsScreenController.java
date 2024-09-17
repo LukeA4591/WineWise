@@ -5,17 +5,17 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import seng202.team0.business.ReviewManager;
 import seng202.team0.business.WineManager;
 import seng202.team0.exceptions.DuplicateExc;
 import seng202.team0.models.Review;
 import seng202.team0.models.Wine;
-import seng202.team0.repository.ReviewDAO;
 
 import java.util.List;
 
 public class WineReviewsScreenController {
 
-    private ReviewDAO reviewDAO;
+    private ReviewManager reviewManager;
     private Wine wine;
 
     @FXML
@@ -51,7 +51,7 @@ public class WineReviewsScreenController {
     @FXML
     public void init(Wine wine) throws DuplicateExc {
         this.wine = wine;
-        reviewDAO = new ReviewDAO();
+        reviewManager = new ReviewManager();
         displayAllReviews();
     }
 
@@ -61,7 +61,7 @@ public class WineReviewsScreenController {
     @FXML
     public void displayAllReviews() {
         int wineID = wineManager.getWineID(wine);
-        List<Review> wineReviews = reviewDAO.getReviewsByWineId(wineID);
+        List<Review> wineReviews = reviewManager.getReviewsByWineId(wineID);
         wineNameLabel.setText(wineNameLabel.getText() + wine.getWineName());
         wineryLabel.setText(wineryLabel.getText() + wine.getWineryString());
         vintageLabel.setText(vintageLabel.getText() + wine.getVintage());
@@ -85,9 +85,9 @@ public class WineReviewsScreenController {
                         boolean isSelected = checkBox.isSelected();
                         getTableRow().getItem().setReported(checkBox.isSelected());
                         if (isSelected) {
-                            reviewDAO.markAsReported(getTableRow().getItem().getReviewID());
+                            reviewManager.markAsReported(getTableRow().getItem().getReviewID());
                         } else {
-                            reviewDAO.markAsUnreported(getTableRow().getItem().getReviewID());
+                            reviewManager.markAsUnreported(getTableRow().getItem().getReviewID());
                         }
                     });
                     setGraphic(checkBox);

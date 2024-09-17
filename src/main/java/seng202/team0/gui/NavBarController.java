@@ -28,10 +28,6 @@ public class NavBarController {
     @FXML
     private Button searchButton;
     @FXML
-    private Button graphsButton;
-    @FXML
-    private Button mapsButton;
-    @FXML
     private Button adminButton;
 
     /**
@@ -85,30 +81,6 @@ public class NavBarController {
     }
 
     /**
-     * Loads the graphs page into the border pane
-     */
-    private void loadGraphsPage() {
-        try {
-            FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("/fxml/graphs_page.fxml"));
-            Parent graphsParent = homePageLoader.load();
-            GraphsPageController graphsPageController = homePageLoader.getController();
-            graphsPageController.init(stage);
-            mainWindow.setCenter(graphsParent);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Loads the maps page into the border pane
-     */
-    private void loadMapsPage() {
-        loadHomePage();
-        setAllButtonsGrey();
-        mapsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
-    }
-
-    /**
      * OnAction method for the Home button
      */
     @FXML
@@ -126,26 +98,6 @@ public class NavBarController {
         loadSearchPage();
         setAllButtonsGrey();
         searchButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
-    }
-
-    /**
-     * OnAction method for the Graphs button
-     */
-    @FXML
-    void graphsPressed() {
-        loadGraphsPage();
-        setAllButtonsGrey();
-        graphsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
-    }
-
-    /**
-     * OnAction method for the Maps button
-     */
-    @FXML
-    void mapsPressed() {
-        loadMapsPage();
-        setAllButtonsGrey();
-        mapsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
     /**
@@ -184,8 +136,6 @@ public class NavBarController {
     private void setAllButtonsGrey() {
         homeButton.setStyle("");
         searchButton.setStyle("");
-        graphsButton.setStyle("");
-        mapsButton.setStyle("");
     }
 
     /**

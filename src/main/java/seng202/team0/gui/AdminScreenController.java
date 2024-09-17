@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seng202.team0.business.ReviewManager;
 import seng202.team0.business.WineManager;
 import seng202.team0.io.WineCSVImporter;
 import seng202.team0.models.Review;
@@ -42,7 +43,7 @@ public class AdminScreenController {
     private final AppEnvironment appEnvironment;
     private final WineManager wineManager;
     private Stage stage;
-    private ReviewDAO reviewDAO;
+    private ReviewManager reviewManager;
     private List<Review> selectedReviews = new ArrayList<>();
 
     /**
@@ -53,7 +54,7 @@ public class AdminScreenController {
     public AdminScreenController(AppEnvironment appEnvironment) {
         this.appEnvironment = appEnvironment;
         wineManager = new WineManager();
-        reviewDAO = new ReviewDAO();
+        reviewManager = new ReviewManager();
     }
 
     /**
@@ -72,7 +73,7 @@ public class AdminScreenController {
      */
     @FXML
     public void displayFlaggedReviews() {
-        List<Review> flaggedReviews = reviewDAO.getFlaggedReviews();
+        List<Review> flaggedReviews = reviewManager.getFlaggedReviews();
 
         ObservableList<Review> observableWineReviews = FXCollections.observableArrayList(flaggedReviews);
 
@@ -110,7 +111,7 @@ public class AdminScreenController {
     @FXML
     public void deleteFlaggedReviews() {
         for (int i = 0; i < selectedReviews.size(); i++) {
-            reviewDAO.delete(selectedReviews.get(i).getReviewID());
+            reviewManager.delete(selectedReviews.get(i).getReviewID());
         }
         displayFlaggedReviews();
     }
@@ -122,7 +123,7 @@ public class AdminScreenController {
     @FXML
     public void unflagFlaggedReviews() {
         for (int i = 0; i < selectedReviews.size(); i++) {
-            reviewDAO.markAsUnreported(selectedReviews.get(i).getReviewID());
+            reviewManager.markAsUnreported(selectedReviews.get(i).getReviewID());
         }
         displayFlaggedReviews();
 
