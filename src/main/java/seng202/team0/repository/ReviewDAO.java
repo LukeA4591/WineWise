@@ -98,7 +98,6 @@ public class ReviewDAO implements DAOInterface<Rating>{
             ps.setInt(2, toSearch.getVintage());
             ps.setString(3, toSearch.getWineryString());
             ResultSet rs = ps.executeQuery();
-            System.out.println(rs);
             wineID = rs.getInt("wineID");
             return wineID;
         } catch (SQLException sqlException) {
@@ -163,5 +162,32 @@ public class ReviewDAO implements DAOInterface<Rating>{
         }
     }
 
+    public void markAsUnreported(int id) {
+        String sql = "UPDATE reviews SET reported=false WHERE reviewID=?";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+        }
+    }
+
+    public List<Rating> getFlaggedReviews() {
+        List<Rating> flaggedReviews = new ArrayList<>();
+        String sql = "SELECT * FROM reviews WHERE reported = true";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                flaggedReviews.add(new Rating(rs.getInt("reviewID"), rs.getInt("rating"), rs.getString("description"), getWineFromID(rs.getInt("wine"))));
+            }
+            return flaggedReviews;
+
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            return null;
+        }
+    }
 
 }

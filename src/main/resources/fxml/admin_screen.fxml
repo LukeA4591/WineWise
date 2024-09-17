@@ -6,11 +6,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.AdminScreenController">
    <children>
-      <Button fx:id="logoutButton" layoutX="748.0" layoutY="25.0" mnemonicParsing="false" onAction="#adminLogout" text="Logout">
+      <Button fx:id="logoutButton" layoutX="738.0" layoutY="24.0" mnemonicParsing="false" onAction="#adminLogout" text="Logout">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="80.0" layoutY="200.0" mnemonicParsing="false" onAction="#addDataSet" text="Add a dataset">
+      <Button layoutX="81.0" layoutY="239.0" mnemonicParsing="false" onAction="#addDataSet" text="Add a dataset">
          <font>
             <Font size="15.0" />
          </font></Button>
@@ -23,7 +23,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="382.0" layoutY="110.0" text="Flagged Reviews">
+      <Label layoutX="327.0" layoutY="110.0" text="Flagged Reviews">
          <font>
             <Font size="18.0" />
          </font>
@@ -33,17 +33,29 @@
             <Font name="System Bold Italic" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="382.0" layoutY="517.0" mnemonicParsing="false" text="Delete review">
+      <Button layoutX="438.0" layoutY="517.0" mnemonicParsing="false" onAction="#deleteFlaggedReviews" text="Delete review">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="638.0" layoutY="517.0" mnemonicParsing="false" text="Unflag review">
+      <Button layoutX="582.0" layoutY="517.0" mnemonicParsing="false" onAction="#unflagFlaggedReviews" text="Unflag review">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button fx:id="addWine" layoutX="81.0" layoutY="290.0" mnemonicParsing="false" onAction="#onAddWine" text="Add data">
+      <Button fx:id="addWine" layoutX="81.0" layoutY="305.0" mnemonicParsing="false" onAction="#onAddWine" text="Add data">
          <font>
             <Font size="15.0" />
          </font></Button>
+      <TableView fx:id="ratingTable" layoutX="327.0" layoutY="183.0" prefHeight="281.0" prefWidth="489.0">
+         <columns>
+            <TableColumn fx:id="ratingColumn" prefWidth="65.0" text="Rating" />
+            <TableColumn fx:id="reviewColumn" prefWidth="360.0" text="Review" />
+            <TableColumn fx:id="flaggedColumn" prefWidth="65.0" text="Select" />
+         </columns>
+      </TableView>
+      <Label layoutX="325.0" layoutY="481.0" text="Tick the checkboxes in the select column then click one of these buttons:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -52,20 +52,9 @@ public class WineReviewsScreenController {
     public void init(Wine wine) throws DuplicateExc {
         this.wine = wine;
         reviewDAO = new ReviewDAO();
-
-//        Rating rating = new Rating(75, "PRETTY darn good", wine.getWineName(), wine.getWineryString(), wine.getVintage());
-//        Rating rating2 = new Rating(25, "shit", wine.getWineName(), wine.getWineryString(), wine.getVintage());
-//        Rating rating3 = new Rating(75, "yeah it was alright.", wine.getWineName(), wine.getWineryString(), wine.getVintage());
-//
-//        reviewDAO.add(rating);
-//        reviewDAO.add(rating2);
-//        reviewDAO.add(rating3);
-
         displayAllReviews();
     }
 
-
-    //TODO make it so that checkboxes are inside the table and they correspond to the isReported value.
     @FXML
     public void displayAllReviews() {
         int wineID = reviewDAO.getWineID(wine);
@@ -79,9 +68,6 @@ public class WineReviewsScreenController {
 
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
         reviewColumn.setCellValueFactory(new PropertyValueFactory<>("review"));
-//        reportColumn.setCellValueFactory(new PropertyValueFactory<>("isReported"));
-
-//        reportColumn = new TableColumn<>("isReported");
         reportColumn.setCellFactory(column -> new TableCell<Rating, Boolean>() {
             private final CheckBox checkBox = new CheckBox();
 
@@ -93,30 +79,18 @@ public class WineReviewsScreenController {
                 } else {
                     checkBox.setSelected(item != null && item);
                     checkBox.setOnAction(event -> {
-                        System.out.println(getTableRow().getItem());
+                        boolean isSelected = checkBox.isSelected();
                         getTableRow().getItem().setReported(checkBox.isSelected());
-                        System.out.println(getTableRow().getItem().getReported());
-                        reviewDAO.markAsReported(getTableRow().getItem().getReviewID());
+                        if (isSelected) {
+                            reviewDAO.markAsReported(getTableRow().getItem().getReviewID());
+                        } else {
+                            reviewDAO.markAsUnreported(getTableRow().getItem().getReviewID());
+                        }
                     });
                     setGraphic(checkBox);
                 }
             }
         });
-//        reportColumn.setCellFactory(CheckBoxTableCell.forTableColumn(reportColumn.getCellValueFactory()));
-//        reportColumn.setCellFactory(column -> new CheckBoxTableCell<>());
-//        reportColumn.setCellValueFactory(cellData -> {
-//            Rating cellValue = cellData.getValue();
-//            BooleanProperty property = cellValue.getIsReported();
-//
-//            // Add listener to handler change
-//            property.addListener((observable, oldValue, newValue) -> {
-//                System.out.println(newValue);
-//                cellValue.setIsReported(newValue);
-//                property.setValue(newValue);
-//            });
-//            return property;
-//        });
-
         ratingTable.setItems(observableWineReviews);
 
 
