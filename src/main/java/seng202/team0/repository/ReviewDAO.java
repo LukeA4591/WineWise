@@ -38,7 +38,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                reviews.add(new Rating(rs.getInt("rating"), rs.getString("description"), getWineFromID(rs.getInt("wine"))));
+                reviews.add(new Rating(rs.getInt("reviewID"), rs.getInt("rating"), rs.getString("description"), getWineFromID(rs.getInt("wine"))));
             }
             return reviews;
         } catch (SQLException sqlException) {
@@ -77,7 +77,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
             pstmt.setInt(1, wineID);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                reviews.add(new Rating(rs.getInt("rating"), rs.getString("description"), getWineFromID(rs.getInt("wine"))));
+                reviews.add(new Rating(rs.getInt("reviewID"), rs.getInt("rating"), rs.getString("description"), getWineFromID(rs.getInt("wine"))));
             }
             return reviews;
 
@@ -96,8 +96,9 @@ public class ReviewDAO implements DAOInterface<Rating>{
             ps.setString(1, toSearch.getWineName());
             ps.setInt(2, toSearch.getVintage());
             ps.setString(3, toSearch.getWineryString());
-            ResultSet rs = ps.executeQuery(sql);
-            wineID = rs.getInt(0); // TODO check if getInt works
+            ResultSet rs = ps.executeQuery();
+            System.out.println(rs);
+            wineID = rs.getInt("wineID");
             return wineID;
         } catch (SQLException sqlException) {
             log.error(sqlException);
@@ -151,7 +152,7 @@ public class ReviewDAO implements DAOInterface<Rating>{
 
     //TODO make reviewID be stored on rating model.
     public void markAsReported(int id) {
-        String sql = "UPDATE FROM reviews WHERE reviewID=?";
+        String sql = "UPDATE reviews SET reported=true WHERE reviewID=?";
         try (Connection conn = databaseManager.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);

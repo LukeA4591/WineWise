@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rating {
+    int reviewID;
     int rating;
     List<String> tastingNotes = new ArrayList<>();
     String review;
@@ -22,6 +23,14 @@ public class Rating {
      * @param description
      */
     public Rating(int rating, String description, Wine wine) {
+        this.rating = rating;
+        this.review = description;
+        this.wine = wine;
+        this.reported = false;
+    }
+
+    public Rating(int reviewID, int rating, String description, Wine wine) {
+        this.reviewID = reviewID;
         this.rating = rating;
         this.review = description;
         this.wine = wine;
@@ -134,5 +143,10 @@ public class Rating {
 
     public void setReported(Boolean reported) {
         this.reported = reported;
+    }
+
+    public int getReviewID()
+    {
+        return reviewID;
     }
 }
