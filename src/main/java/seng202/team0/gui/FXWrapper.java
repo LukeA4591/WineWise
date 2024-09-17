@@ -28,7 +28,7 @@ public class FXWrapper {
      */
     public void init(final Stage stage) {
         this.stage = stage;
-        new WineEnvironment(this::launchNavBar, this::launchAdminSetupScreen, this::launchAdminScreen, this::launchAddWineScreen, this::clearPane);
+        new WineEnvironment(this::launchNavBar, this::launchAdminSetupScreen, this::launchAdminScreen, this::clearPane);
     }
 
 
@@ -90,18 +90,6 @@ public class FXWrapper {
             setupParent.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
             pane.getChildren().add(setupParent);
             stage.setTitle("Admin Screen");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void launchAddWineScreen(final WineEnvironment wineEnvironment) {
-        try {
-            FXMLLoader setupLoader = new FXMLLoader(getClass().getResource("/fxml/add_wine.fxml"));
-            setupLoader.setControllerFactory(param -> new AddWineController(wineEnvironment));
-            Parent setupParent  = setupLoader.load();
-            pane.getChildren().add(setupParent);
-            stage.setTitle("Add Wine Screen");
         } catch (IOException e) {
             e.printStackTrace();
         }

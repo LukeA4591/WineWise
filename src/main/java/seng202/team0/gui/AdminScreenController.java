@@ -2,9 +2,12 @@ package seng202.team0.gui;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seng202.team0.business.WineManager;
@@ -14,6 +17,7 @@ import seng202.team0.services.AdminLoginService;
 import seng202.team0.services.WineEnvironment;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class AdminScreenController {
@@ -30,8 +34,22 @@ public class AdminScreenController {
 
     @FXML
     public void onAddWine(){
-        winery.getClearRunnable().run();
-        winery.launchAddWineScreen();
+        try {
+            FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/add_wine.fxml"));
+            AnchorPane root = newStageLoader.load();
+
+            AddWineController controller = newStageLoader.getController();
+            Scene modalScene = new Scene(root);
+            Stage modalStage = new Stage();
+            modalStage.setScene(modalScene);
+            modalStage.setWidth(600);
+            modalStage.setHeight(500);
+            modalStage.setResizable(false);
+            modalStage.setTitle("Wine Popup");
+            modalStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
