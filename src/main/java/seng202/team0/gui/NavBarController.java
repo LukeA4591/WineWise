@@ -19,7 +19,6 @@ import java.io.IOException;
  */
 public class NavBarController {
 
-    private AppEnvironment appEnvironment;
     @FXML
     private BorderPane mainWindow;
     private Stage stage;
@@ -29,6 +28,8 @@ public class NavBarController {
     private Button searchButton;
     @FXML
     private Button adminButton;
+
+    private AppEnvironment appEnvironment;
 
     /**
      * NavBarController initializer, needs to be empty for FXML

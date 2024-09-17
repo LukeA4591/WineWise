@@ -13,24 +13,19 @@ public class WineDetailsScreenController {
 
     @FXML
     private Label wineYear;
-
     @FXML
     private Label wineRegion;
-
     @FXML
     private Label rating;
-
     @FXML
     private ImageView wineImage;
-
     @FXML
     private Label wineName;
-
     @FXML
     private Label winery;
-
     @FXML
     private Label wineDesc;
+
     String wineName1;
     int score;
     int vintage;

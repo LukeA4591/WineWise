@@ -19,18 +19,14 @@ public class WinePopupController {
 
     @FXML
     private Button wineDetailsButton;
-
     @FXML
     private Button wineReviewsButton;
-
     @FXML
     private Button wineUserRatingButton;
-
     @FXML
     private Pane wineNavWindow;
 
     private Wine wine;
-
     private Image image;
 
     /**

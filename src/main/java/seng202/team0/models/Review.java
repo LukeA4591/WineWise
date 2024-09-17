@@ -1,6 +1,7 @@
 package seng202.team0.models;
 
 public class Review {
+
     int reviewID;
     int rating;
     String description;

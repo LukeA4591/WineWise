@@ -12,7 +12,7 @@ import seng202.team0.models.Wine;
 import seng202.team0.repository.ReviewDAO;
 
 public class WineUserRatingScreenController {
-    Wine wine;
+
     @FXML
     private Label wineNameLabel;
     @FXML
@@ -27,6 +27,8 @@ public class WineUserRatingScreenController {
     private TextArea reviewTextArea;
     @FXML
     private Label savedLabel;
+
+    Wine wine;
     private ReviewManager reviewManager;
     private boolean movedSlider = false;
 
