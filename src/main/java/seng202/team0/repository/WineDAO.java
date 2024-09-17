@@ -182,7 +182,7 @@ public class WineDAO implements DAOInterface<Wine> {
     }
 
     public void delete(String name, String winery, int vintage) {
-        String sql = "DELETE FROM wines WHERE (name=?, winery=?, vintage=?)";
+        String sql = "DELETE FROM wines WHERE name=? AND winery=? AND vintage=?;";
         try (Connection conn = databaseManager.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, name);
