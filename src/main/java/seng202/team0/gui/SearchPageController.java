@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import seng202.team0.business.WineManager;
 import seng202.team0.models.Wine;
 import seng202.team0.repository.DatabaseManager;
 import seng202.team0.repository.WineDAO;
@@ -37,16 +38,14 @@ public class SearchPageController {
     private List<Wine> wines;
     private Map<String, String> filters = new HashMap<>();
     private Map<String, List<String>> scoreFilters = new HashMap<>();
-    static WineDAO wineDAO;
-    static DatabaseManager databaseManager;
+    private WineManager wineManager;
     private WinePopupService wineMethods = new WinePopupService();
 
     /**
      * Constructor for search page controller
      */
     public SearchPageController() {
-        databaseManager = DatabaseManager.getInstance();
-        wineDAO = new WineDAO();
+        wineManager = new WineManager();
     }
 
     /**
@@ -55,7 +54,7 @@ public class SearchPageController {
      */
     @FXML
     private void initialize() {
-        wines = wineDAO.getAll();
+        wines = wineManager.getAll();
         if (!wines.isEmpty()) {
             initTable(wines);
 
@@ -74,7 +73,7 @@ public class SearchPageController {
             allYear.setText("ALL");
             yearMenuButton.getItems().add(allYear);
 
-            List<String> regions = wineDAO.getDistinct("region");
+            List<String> regions = wineManager.getDistinct("region");
             for (String region : regions) {
                 if (!Objects.equals(region, "Not Applicable")) {
                     MenuItem menu = new MenuItem();
@@ -84,7 +83,7 @@ public class SearchPageController {
                 }
             }
 
-            List<String> wineries = wineDAO.getDistinct("winery");
+            List<String> wineries = wineManager.getDistinct("winery");
             for (String winery : wineries) {
                 MenuItem menu = new MenuItem();
                 menu.setText(winery);
@@ -92,7 +91,7 @@ public class SearchPageController {
                 wineryMenuButton.getItems().add(menu);
             }
 
-            List<String> vintages = wineDAO.getDistinct("vintage");
+            List<String> vintages = wineManager.getDistinct("vintage");
             vintages.sort((s1, s2) -> Integer.compare(Integer.parseInt(s1), Integer.parseInt(s2)));
             for (String vintage : vintages) {
                 MenuItem menu = new MenuItem();
@@ -145,7 +144,7 @@ public class SearchPageController {
             errorLabel.setStyle("-fx-text-fill: red;");
         } else {
             scoreFilters.put("score", Arrays.asList(criticScoreMinText.getText(), criticScoreMaxText.getText()));
-            wines = wineDAO.getFilteredWines(filters, scoreFilters);
+            wines = wineManager.getFilteredWines(filters, scoreFilters);
             initTable(wines);
         }
     }
@@ -221,7 +220,7 @@ public class SearchPageController {
         wineryMenuButton.setText("Winery: ALL");
         criticScoreMinText.setText("");
         criticScoreMaxText.setText("");
-        wines = wineDAO.getAll();
+        wines = wineManager.getAll();
         initTable(wines);
     }
 

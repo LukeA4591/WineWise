@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 import seng202.team0.services.AdminLoginService;
-import seng202.team0.services.WineEnvironment;
+import seng202.team0.services.AppEnvironment;
 
 import javafx.scene.control.TextField;
 
@@ -26,19 +26,19 @@ public class AdminLoginPopupController {
     @FXML
     private Label adminLoginErrorLabel;
 
-    private WineEnvironment winery;
+    private AppEnvironment appEnvironment;
     private AdminLoginService adminLoginInstance;
 
     /**
      * Init method for admin login popup. It is called from in the AdminScreenController. Passes in the wine
      * environment and gets the singleton instance of admin login service. Sets up a listener that listens for when the
      * TextField is attached to the scene.
-     * @param winery The WineEnvironment to let us launch other pages.
+     * @param appEnvironment The AppEnvironment to let us launch other pages.
      */
     @FXML
-    public void init(WineEnvironment winery) {
-        this.winery = winery;
-        this.adminLoginInstance = winery.getAdminLoginInstance();
+    public void init(AppEnvironment appEnvironment) {
+        this.appEnvironment = appEnvironment;
+        this.adminLoginInstance = appEnvironment.getAdminLoginInstance();
         // Bind textField with passwordField
         passwordInput.textProperty().bindBidirectional(passwordTextInput.textProperty());
         passwordInput.setVisible(false);
@@ -64,8 +64,8 @@ public class AdminLoginPopupController {
             // go to admin screen
             // close controller
             ((Stage) usernameInput.getScene().getWindow()).close();
-            winery.getClearRunnable().run();
-            winery.launchAdminScreen();
+            appEnvironment.getClearRunnable().run();
+            appEnvironment.launchAdminScreen();
         }
     }
 

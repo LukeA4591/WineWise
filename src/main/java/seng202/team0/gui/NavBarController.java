@@ -10,8 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import seng202.team0.repository.DatabaseManager;
-import seng202.team0.services.WineEnvironment;
+import seng202.team0.services.AppEnvironment;
 
 import java.io.IOException;
 
@@ -20,8 +19,7 @@ import java.io.IOException;
  */
 public class NavBarController {
 
-    DatabaseManager databaseManager;
-    private WineEnvironment wineEnvironment;
+    private AppEnvironment appEnvironment;
     @FXML
     private BorderPane mainWindow;
     private Stage stage;
@@ -29,10 +27,6 @@ public class NavBarController {
     private Button homeButton;
     @FXML
     private Button searchButton;
-    @FXML
-    private Button graphsButton;
-    @FXML
-    private Button mapsButton;
     @FXML
     private Button adminButton;
 
@@ -47,7 +41,6 @@ public class NavBarController {
      */
     @FXML
     private void initialize() {
-        this.databaseManager = DatabaseManager.getInstance();
         homeButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
         Platform.runLater(() -> {
             Scene scene = mainWindow.getScene();
@@ -88,30 +81,6 @@ public class NavBarController {
     }
 
     /**
-     * Loads the graphs page into the border pane
-     */
-    private void loadGraphsPage() {
-        try {
-            FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("/fxml/graphs_page.fxml"));
-            Parent graphsParent = homePageLoader.load();
-            GraphsPageController graphsPageController = homePageLoader.getController();
-            graphsPageController.init(stage);
-            mainWindow.setCenter(graphsParent);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Loads the maps page into the border pane
-     */
-    private void loadMapsPage() {
-        loadHomePage();
-        setAllButtonsGrey();
-        mapsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
-    }
-
-    /**
      * OnAction method for the Home button
      */
     @FXML
@@ -132,26 +101,6 @@ public class NavBarController {
     }
 
     /**
-     * OnAction method for the Graphs button
-     */
-    @FXML
-    void graphsPressed() {
-        loadGraphsPage();
-        setAllButtonsGrey();
-        graphsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
-    }
-
-    /**
-     * OnAction method for the Maps button
-     */
-    @FXML
-    void mapsPressed() {
-        loadMapsPage();
-        setAllButtonsGrey();
-        mapsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
-    }
-
-    /**
      * OnAction method for the login button, initializes the login page
      */
     @FXML
@@ -162,7 +111,7 @@ public class NavBarController {
             AnchorPane root = newStageLoader.load();
 
             AdminLoginPopupController controller = newStageLoader.getController();
-            controller.init(wineEnvironment);
+            controller.init(appEnvironment);
             Scene modalScene = new Scene(root);
             Stage modalStage = new Stage();
             modalStage.setScene(modalScene);
@@ -187,16 +136,14 @@ public class NavBarController {
     private void setAllButtonsGrey() {
         homeButton.setStyle("");
         searchButton.setStyle("");
-        graphsButton.setStyle("");
-        mapsButton.setStyle("");
     }
 
     /**
-     * The Setter method for the wineEnvironment
-     * @param wineEnvironment wine environment
+     * The Setter method for the appEnvironment
+     * @param appEnvironment wine environment
      */
-    public void setWineEnvironment(WineEnvironment wineEnvironment) {
-        this.wineEnvironment = wineEnvironment;
+    public void setWineEnvironment(AppEnvironment appEnvironment) {
+        this.appEnvironment = appEnvironment;
     }
 
     /**
