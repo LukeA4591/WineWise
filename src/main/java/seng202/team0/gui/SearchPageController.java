@@ -142,6 +142,7 @@ public class SearchPageController {
             errorLabel.setText("Please have from <= to");
             errorLabel.setStyle("-fx-text-fill: red;");
         } else {
+            errorLabel.setText("");
             scoreFilters.put("score", Arrays.asList(criticScoreMinText.getText(), criticScoreMaxText.getText()));
             wines = wineManager.getFilteredWines(filters, scoreFilters);
             initTable(wines);
