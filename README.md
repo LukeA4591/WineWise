@@ -57,3 +57,9 @@ This project comes with some basic examples of the following (including dependen
 ## Credits
 - Wine Image used on Homepage and Wine Popup is taken from Shutterstock.com and Luke edited its colouring in Gimp.
 - This image will need to be changed before final submission as it is not creative commons.
+
+## Note
+- We have included the `Decanter23NZ.csv` file in this submission as it is an example of how a winery / liquor store would store their data.
+- This file can be used to demo WineWise
+- Currently, WineWise is not equipped to deal with larger CSV files so please dont use larger files.
+- This is being addressed in deliverable 3's submission.
