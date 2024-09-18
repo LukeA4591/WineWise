@@ -14,7 +14,9 @@ import java.security.spec.KeySpec;
 import java.util.Base64;
 import java.util.Scanner;
 
-
+/**
+ * Service that allows passwords to be hashed and for admins to have their details stored in a file
+ */
 public class AdminLoginService {
 
     /**
@@ -166,6 +168,8 @@ public class AdminLoginService {
      * The keyLength is in bits hence the 'HASH_LENGTH * 8'.
      * @param password The plaintext password to be hashed.
      * @param salt The salt used to make hash more secure.
+     * @throws InvalidKeySpecException Throws exception if the key specification is not valid.
+     * @throws NoSuchAlgorithmException Throws exception if the algorithm is not available.
      * @return The hashed password.
      */
     public String hashPasswordWithSalt(String password, byte[] salt) throws InvalidKeySpecException, NoSuchAlgorithmException {
@@ -181,7 +185,7 @@ public class AdminLoginService {
     /**
      * Gets the salted from stored hashed password.
      * Separates it out using arraycopy().
-     * @param storedHash Base64-encoded string containing the salt & hash.
+     * @param storedHash Base64-encoded string containing the salt and hash.
      * @return the salt.
      */
     public byte[] getSalt(String storedHash) {
@@ -243,7 +247,9 @@ public class AdminLoginService {
 
     /**
      * Validate username entered by user.
-     * @return True if equal, elsewise false.
+     * @param storedUsername String of the username stored.
+     * @param inputtedUsername String of the username inputted by the user.
+     * @return True if equal, otherwise false.
      */
     public boolean validateUsername(String storedUsername, String inputtedUsername) {
         return storedUsername.equals(inputtedUsername);
@@ -251,7 +257,9 @@ public class AdminLoginService {
 
     /**
      * Validate password entered by user.
-     * @return True if equal, elsewise false.
+     * @param storedHashedPassword String of the stored hashed password.
+     * @param hashedInputtedPassword String of the hashed password inputted by the user.
+     * @return True if equal, otherwise false.
      */
     public boolean validatePassword(String storedHashedPassword, String hashedInputtedPassword) {
         return storedHashedPassword.equals(hashedInputtedPassword);

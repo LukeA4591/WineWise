@@ -5,10 +5,9 @@ package seng202.team0.exceptions;
  */
 public class DuplicateExc  extends Exception{
     /**
-     * just sends the message to super
-     * @param msg
+     * Sends the message to superclass.
+     * @param msg Exception message.
      */
     public DuplicateExc(String msg) {
         super(msg);
-    }
-}
+    }}

@@ -34,7 +34,7 @@ public class WineUserRatingScreenController {
 
     /**
      * Init method for the user rating screen
-     * @param wine
+     * @param wine Wine that is selected.
      */
     @FXML
     public void init(Wine wine) {

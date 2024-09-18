@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Interface for reading objects from file
+ * @param <T> Object type
  */
 public interface Importable<T> {
     /**

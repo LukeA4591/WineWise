@@ -1,7 +1,7 @@
 package seng202.team0.models;
 
 /**
- * Wine model, used to represent an instance of a wine
+ * Wine model, used to represent an instance of a wine.
  */
 public class Wine {
     String colour;

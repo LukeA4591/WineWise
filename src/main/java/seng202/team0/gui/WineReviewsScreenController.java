@@ -39,7 +39,7 @@ public class WineReviewsScreenController {
     /**
      * Init method for wine reviews screen
      * @param wine wine which the screen is displaying
-     * @throws DuplicateExc
+     * @throws DuplicateExc Throw exception if a duplicate is created.
      */
     @FXML
     public void init(Wine wine) throws DuplicateExc {

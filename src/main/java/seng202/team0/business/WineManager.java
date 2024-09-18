@@ -50,7 +50,6 @@ public class WineManager {
      * @param name Name of the wine to be deleted
      * @param winery Winery of the wine to be deleted
      * @param vintage Vintage of the wine to be deleted.
-     * @return List of wines from the SQL database
      * **/
     public void delete(String name, String winery, int vintage) { wineDAO.delete(name, winery, vintage); }
 

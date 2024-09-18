@@ -1,5 +1,8 @@
 package seng202.team0.models;
 
+/**
+ * Review model, used to represent an instance of a review.
+ */
 public class Review {
 
     int reviewID;
