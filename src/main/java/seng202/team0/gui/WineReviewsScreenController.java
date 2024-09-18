@@ -15,38 +15,31 @@ import java.util.List;
 
 public class WineReviewsScreenController {
 
-    private ReviewManager reviewManager;
-    private Wine wine;
-
     @FXML
     private TableView<Review> ratingTable;
-
     @FXML
     private TableColumn<Review, Integer> ratingColumn;
-
     @FXML
     private TableColumn<Review, String> reviewColumn;
-
     @FXML
     private TableColumn<Review, Boolean> reportColumn;
-
     @FXML
     private Label wineNameLabel;
-
     @FXML
     private Label wineryLabel;
-
     @FXML
     private Label vintageLabel;
-
     @FXML
     private Label criticRatingLabel;
+
     private WineManager wineManager = new WineManager();
+    private ReviewManager reviewManager;
+    private Wine wine;
 
     /**
      * Init method for wine reviews screen
      * @param wine wine which the screen is displaying
-     * @throws DuplicateExc
+     * @throws DuplicateExc Throw exception if a duplicate is created.
      */
     @FXML
     public void init(Wine wine) throws DuplicateExc {

@@ -18,7 +18,7 @@ public class WineManager {
     private final WineDAO wineDAO;
 
     /**
-     * Creates a new WineManager object. The WineDAO will be set and will allow the user to do all wine-based actions.
+     * Creates a new WineManager object with its initialized WineDAO.
      * **/
     public WineManager() { wineDAO = new WineDAO(); }
 
@@ -27,7 +27,7 @@ public class WineManager {
      * @param importer Importer object (e.g. CSV importer)
      * @param file File with the same type as the importer
      * **/
-    public void addAllWinesFromFile(Importable<Wine> importer, File file) {
+    public void addBatch(Importable<Wine> importer, File file) {
         List<Wine> wines = importer.readFromFile(file);
         wineDAO.addBatch(wines);
     }
@@ -40,8 +40,8 @@ public class WineManager {
     public int add(Wine wine) { return wineDAO.add(wine); }
 
     /**
-     * Gets all wines from the DAO.
-     * @return List of wines from the SQL database
+     * Gets all the wines in the database.
+     * @return List of wines
      * **/
     public List<Wine> getAll() { return wineDAO.getAll(); }
 
@@ -50,20 +50,38 @@ public class WineManager {
      * @param name Name of the wine to be deleted
      * @param winery Winery of the wine to be deleted
      * @param vintage Vintage of the wine to be deleted.
-     * @return List of wines from the SQL database
      * **/
     public void delete(String name, String winery, int vintage) { wineDAO.delete(name, winery, vintage); }
 
+    /**
+     * Gets the ID of a wine based on its vintage, name, and wineryName which is stored in the wine object.
+     * @param wine The wine object that will have its ID returned
+     * @return The ID of the wine
+     */
     public int getWineID(Wine wine) { return wineDAO.getWineID(wine); }
 
+    /**
+     * Gets textual and score filters from the search page and sends it to the DAO where it will receive a list of the
+     * filtered wines.
+     * @param filters A map of all the textual filters. Each filter (vintage, winery, etc.) will be mapped to the
+     *                filter that the user selects for it.
+     * @param scoreFilters A map of the score filter. The list in the map will contain the lower and upper bounds of
+     *                     the score.
+     * @return A list of wines based on the filters.
+     */
     public List<Wine> getFilteredWines(Map<String, String> filters, Map<String, List<String>> scoreFilters) { return wineDAO.getFilteredWines(filters, scoreFilters); }
 
+    /**
+     * Gets all the distinct strings or values in a column in the wine database.
+     * @param column The name of the column.
+     * @return A list of all the distinct items.
+     */
     public List<String> getDistinct(String column) { return wineDAO.getDistinct(column); }
 
-    public void addBatch(List<Wine> wines) { wineDAO.addBatch(wines); }
-
+    /**
+     * Gets a list of the top 3 rated wines in the wine database.
+     * @return A list of the top wines.
+     */
     public List<Wine> getTopRated() { return wineDAO.getTopRated(); }
-
-    public Wine getWineFromID(int wineID) { return wineDAO.getWineFromID(wineID); }
 
 }

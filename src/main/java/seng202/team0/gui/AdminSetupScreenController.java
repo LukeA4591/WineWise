@@ -106,8 +106,4 @@ public class AdminSetupScreenController {
             createAccountLaunchAdminScreen();
         }
     }
-
-
-
-
 }

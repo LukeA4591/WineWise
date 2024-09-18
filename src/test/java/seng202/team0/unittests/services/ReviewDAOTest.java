@@ -36,7 +36,7 @@ public class ReviewDAOTest {
     }
 
     /**
-     * Populates the test database with ratings
+     * Populates the test database with reviews
      */
     private void populateDatabase() throws DuplicateExc {
         reviewDao.add(new Review(60, "I thought it was really good, I liked the color", testWine1));
@@ -52,10 +52,63 @@ public class ReviewDAOTest {
     }
 
     @Test
-    public void testGetRatingsFromWine() throws DuplicateExc {
+    public void testGetReviewsFromWine() throws DuplicateExc {
         populateDatabase();
         List<Review> reviews = reviewDao.getReviewsByWineId(wineDAO.getWineID(testWine1));
         Assertions.assertEquals(2, reviews.size());
     }
 
+    @Test
+    public void testAddReview() throws DuplicateExc {
+        Review newReview = new Review(85, "Very good wine", testWine1);
+        int insertedId = reviewDao.add(newReview);
+        Assertions.assertTrue(insertedId > 0);
+
+        List<Review> reviews = reviewDao.getAll();
+        Assertions.assertEquals(1, reviews.size());
+        Assertions.assertEquals(newReview.getRating(), reviews.get(0).getRating());
+    }
+
+    @Test
+    public void testDeleteReview() throws DuplicateExc {
+        populateDatabase();
+        List<Review> reviews = reviewDao.getAll();
+        int reviewId = reviews.get(0).getReviewID();
+        reviewDao.delete(reviewId);
+        List<Review> updatedReviews = reviewDao.getAll();
+        Assertions.assertEquals(2, updatedReviews.size());
+        Assertions.assertTrue(updatedReviews.stream().noneMatch(review -> review.getReviewID() == reviewId));
+    }
+
+    @Test
+    public void testMarkAsReported() throws DuplicateExc {
+        populateDatabase();
+        List<Review> reviews = reviewDao.getAll();
+        int reviewId = reviews.get(0).getReviewID();
+        reviewDao.markAsReported(reviewId);
+        List<Review> flaggedReviews = reviewDao.getFlaggedReviews();
+        Assertions.assertEquals(1, flaggedReviews.size());
+        Assertions.assertEquals(reviewId, flaggedReviews.get(0).getReviewID());
+    }
+
+    @Test
+    public void testMarkAsUnreported() throws DuplicateExc{
+        populateDatabase();
+        List<Review> reviews = reviewDao.getAll();
+        int reviewId = reviews.get(0).getReviewID();
+        reviewDao.markAsReported(reviewId);
+        reviewDao.markAsUnreported(reviewId);
+        List<Review> flaggedReviews = reviewDao.getFlaggedReviews();
+        Assertions.assertTrue(flaggedReviews.isEmpty());
+    }
+
+    @Test
+    public void testGetFlaggedReviews() throws DuplicateExc {
+        populateDatabase();
+        List<Review> reviews = reviewDao.getAll();
+        int reviewId = reviews.get(0).getReviewID();
+        reviewDao.markAsReported(reviewId);
+        List<Review> flaggedReviews = reviewDao.getFlaggedReviews();
+        Assertions.assertEquals(reviewId, flaggedReviews.get(0).getReviewID());
+    }
 }

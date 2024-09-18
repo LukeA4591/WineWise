@@ -16,6 +16,7 @@ import java.util.List;
  * ReviewDAO class, interacts with the database to query reviews
  */
 public class ReviewDAO implements DAOInterface<Review>{
+
     private static final Logger log = LogManager.getLogger(WineDAO.class);
     private final DatabaseManager databaseManager;
     private final WineDAO wineDao;
@@ -73,12 +74,11 @@ public class ReviewDAO implements DAOInterface<Review>{
         }
     }
 
-
     /**
      * Adds a single review to the database
      * @param toAdd object of type T to add
-     * @return
-     * @throws DuplicateExc
+     * @return int -1 if unsuccessful, otherwise the insertId
+     * @throws DuplicateExc Throws error if there is a duplicate entry.
      */
     @Override
     public int add(Review toAdd) throws DuplicateExc {
@@ -104,7 +104,7 @@ public class ReviewDAO implements DAOInterface<Review>{
 
     /**
      * Deletes a single review from the database with the id given
-     * @param id
+     * @param id The ID of the review that will be deleted.
      */
     public void delete(int id) {
         String sql = "DELETE FROM reviews WHERE reviewID=?";
@@ -133,8 +133,8 @@ public class ReviewDAO implements DAOInterface<Review>{
     }
 
     /**
-     * Marks a review as unreported
-     * @param id ID of review
+     * Marks a review as unreported.
+     * @param id ID of the review.
      */
     public void markAsUnreported(int id) {
         String sql = "UPDATE reviews SET reported=false WHERE reviewID=?";
@@ -148,8 +148,8 @@ public class ReviewDAO implements DAOInterface<Review>{
     }
 
     /**
-     * Gets all flagged reviews from the database
-     * @return list of flagged reviews
+     * Gets all flagged reviews from the database.
+     * @return List of flagged reviews.
      */
     public List<Review> getFlaggedReviews() {
         List<Review> flaggedReviews = new ArrayList<>();
@@ -167,5 +167,4 @@ public class ReviewDAO implements DAOInterface<Review>{
             return null;
         }
     }
-
 }

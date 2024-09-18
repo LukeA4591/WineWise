@@ -8,8 +8,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import seng202.team0.business.WineManager;
 import seng202.team0.models.Wine;
-import seng202.team0.repository.DatabaseManager;
-import seng202.team0.repository.WineDAO;
 import seng202.team0.services.WinePopupService;
 
 import java.util.*;
@@ -35,6 +33,7 @@ public class SearchPageController {
     private TextField criticScoreMaxText;
     @FXML
     private Label errorLabel;
+
     private List<Wine> wines;
     private Map<String, String> filters = new HashMap<>();
     private Map<String, List<String>> scoreFilters = new HashMap<>();

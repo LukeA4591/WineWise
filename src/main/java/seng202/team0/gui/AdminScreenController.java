@@ -15,7 +15,6 @@ import seng202.team0.business.ReviewManager;
 import seng202.team0.business.WineManager;
 import seng202.team0.io.WineCSVImporter;
 import seng202.team0.models.Review;
-import seng202.team0.repository.ReviewDAO;
 import seng202.team0.services.AppEnvironment;
 
 import java.io.File;
@@ -42,9 +41,8 @@ public class AdminScreenController {
 
     private final AppEnvironment appEnvironment;
     private final WineManager wineManager;
-    private Stage stage;
-    private ReviewManager reviewManager;
-    private List<Review> selectedReviews = new ArrayList<>();
+    private final ReviewManager reviewManager;
+    private final List<Review> selectedReviews = new ArrayList<>();
 
     /**
      * Constructor for AdminScreenController. Sets the AppEnvironment, wineManager, and reviewDAO variables so the
@@ -195,9 +193,9 @@ public class AdminScreenController {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        stage = (Stage) addWine.getScene().getWindow();
+        Stage stage = (Stage) addWine.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
-        wineManager.addAllWinesFromFile(new WineCSVImporter(), file);
+        wineManager.addBatch(new WineCSVImporter(), file);
     }
 
     /**

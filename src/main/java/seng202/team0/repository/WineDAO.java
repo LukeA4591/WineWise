@@ -1,6 +1,5 @@
 package seng202.team0.repository;
 
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import seng202.team0.models.Wine;
@@ -15,8 +14,10 @@ import java.util.Objects;
  * WineDAO class, interacts with the database to query wines
  */
 public class WineDAO implements DAOInterface<Wine> {
+
     private static final Logger log = LogManager.getLogger(WineDAO.class);
     private final DatabaseManager databaseManager;
+
     /**
      * Creates a new UserDAO object and gets a reference to the database singleton
      */
@@ -27,7 +28,6 @@ public class WineDAO implements DAOInterface<Wine> {
     /**
      * Gets all wines in database
      * @return a list of all wines
-     * @author Oliver Barclay
      */
     @Override
     public List<Wine> getAll() {
