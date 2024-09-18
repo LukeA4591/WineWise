@@ -115,4 +115,14 @@ public class WineDAOTest {
         wineDao.delete("WWWWWWW", "AAAAAAAAAAA", 0);
         Assertions.assertEquals(4, wineDao.getAll().size());
     }
+
+    @Test
+    public void testGetTopRated() throws DuplicateExc {
+        populateDatabase();
+        List<Wine> wines = wineDao.getTopRated();
+        Assertions.assertEquals(3, wines.size());
+        Assertions.assertEquals(wines.get(0).getWineName(), "Rosy Rose");
+        Assertions.assertEquals(wines.get(1).getWineName(), "Plume Sav");
+        Assertions.assertEquals(wines.get(2).getWineName(), "Plume Pinot Noir");
+    }
 }
