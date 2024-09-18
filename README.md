@@ -1,5 +1,5 @@
 # WineWise APP Overview
-Winewise is a kiosk-based offline app designed to simplify wine discovery and reviewing. It allowes its users to browse and filter wines that are provided by a winery or liqour store. The kiosk owners are able to manage user's reviews and import their own wines in the form of CSV files. WineWise is powered by Java and JavaFX, and it uses a local SQLite databse for offline functionality.
+WineWise is a kiosk-based offline app designed to simplify wine discovery and reviewing. It allows its users to browse and filter wines that are provided by a winery or liquor store. The kiosk owners are able to manage user's reviews and import their own wines in the form of CSV files. WineWise is powered by Java and JavaFX, and it uses a local SQLite database for offline functionality.
 
 ## Key Features
 For Kiosk Admins:
@@ -7,11 +7,11 @@ For Kiosk Admins:
 - Adding wines (manually or imported CSV Files)
 - Deleting wines
 - Bulk viewing wines
-- Viewing all reported reviews with options to unflag (unreport) or delete them
+- Viewing all reported reviews with options to un-flag (un-report) or delete them
 
 For Kiosk Users:
 - Browsing and filtering provided wines
-- More indepth views of wine details
+- More in-depth views of wine details
 - Leaving reviews for wines
 - Viewing all reviews for a wine
 - Reporting invalid reviews
