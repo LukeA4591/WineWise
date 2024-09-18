@@ -55,8 +55,9 @@ public class DatabaseManager {
      */
     public static DatabaseManager getInstance() {
         if (instance == null)
-            instance = new DatabaseManager("jdbc:sqlite:./src/main/resources/database.db");
-//            instance = new DatabaseManager(null);
+            // Uncomment this line to use in IntelliJ
+//            instance = new DatabaseManager("jdbc:sqlite:./src/main/resources/database.db");
+            instance = new DatabaseManager(null);
 
         return instance;
     }
