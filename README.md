@@ -53,3 +53,7 @@ This project comes with some basic examples of the following (including dependen
 - Delete the `database.db'` file
 - Rerun the command: `java -jar WineWise-1/0-SNAPSHOT.jar` in the terminal.
 -**** In order to create a new account without losing data you can just delete `credentials.txt` and rerun the jar.
+
+## Credits
+- Wine Image used on Homepage and Wine Popup is taken from Shutterstock.com and Luke edited its colouring in Gimp.
+- This image will need to be changed before final submission as it is not creative commons.
