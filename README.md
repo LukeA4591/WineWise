@@ -1,10 +1,10 @@
-# SENG202 Template Project Overview
+# WineWise Overview
 Welcome to the template project for SENG202-2024 which you will transform into your own.
 This README file includes some useful information to help you get started.
 However, we expect that this README becomes your own
 
 ## Authors
-- SENG202 Teaching team
+- SENG202 Group 7 (Luke Armstrong, Oliver Barclay, Felix Blanchard, Ryan Hamilton, Alex Wilson)
 
 ## Prerequisites
 - JDK >= 21 [click here to get the latest stable OpenJDK release (as of writing this README)](https://jdk.java.net/18/)
