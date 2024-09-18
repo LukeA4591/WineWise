@@ -11,14 +11,6 @@ CREATE TABLE IF NOT EXISTS wines (
     description TEXT,
     UNIQUE (name, winery, vintage));
 --SPLIT
-DROP TABLE IF EXISTS winerys;
---SPLIT
-CREATE TABLE IF NOT EXISTS winerys (
-     name TEXT not null primary key,
-     Lon int,
-     Lat int,
-     region TEXT not null);
---SPLIT
 DROP TABLE IF EXISTS reviews;
 --SPLIT
 CREATE TABLE IF NOT EXISTS reviews (
