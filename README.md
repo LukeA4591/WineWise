@@ -1,51 +1,55 @@
-# WineWise Overview
-Welcome to the template project for SENG202-2024 which you will transform into your own.
-This README file includes some useful information to help you get started.
-However, we expect that this README becomes your own
+# WineWise APP Overview
+Winewise is a kiosk-based offline app designed to simplify wine discovery and reviewing. It allowes its users to browse and filter wines that are provided by a winery or liqour store. The kiosk owners are able to manage user's reviews and import their own wines in the form of CSV files. WineWise is powered by Java and JavaFX, and it uses a local SQLite databse for offline functionality.
+
+## Key Features
+For Kiosk Admins:
+- Create a secure account
+- Adding wines (manually or imported CSV Files)
+- Deleting wines
+- Bulk viewing wines
+- Viewing all reported reviews with options to unflag (unreport) or delete them
+
+For Kiosk Users:
+- Browsing and filtering provided wines
+- More indepth views of wine details
+- Leaving reviews for wines
+- Viewing all reviews for a wine
+- Reporting invalid reviews
+
+## Upcoming Features
+- Recommend top wines taking user reviews into account
+- Vineyard map
+- Ability to change credentials after initial setup
+- Graphing of wineries wines.
+- Wines are loaded and displayed in smaller groups (faster response times).
 
 ## Authors
 - SENG202 Group 7 (Luke Armstrong, Oliver Barclay, Felix Blanchard, Ryan Hamilton, Alex Wilson)
 
 ## Prerequisites
-- JDK >= 21 [click here to get the latest stable OpenJDK release (as of writing this README)](https://jdk.java.net/18/)
+- JDK >= 21 [click here to get the latest stable OpenJDK release (as of writing this README)](https://jdk.java.net/18/) The JDK contains the Java Cryptography Architecture which is needed for PBEKeySpec for password hashing.
 - Gradle [Download](https://gradle.org/releases/) and [Install](https://gradle.org/install/)
 
-
-## What's Included
+## Dependencies
 This project comes with some basic examples of the following (including dependencies in the build.gradle file):
 - JavaFX
 - Logging (with Log4J)
-- Junit 5
-- Mockito (mocking unit tests)
+- Junit 5 (testing logic / service classes)
 - Cucumber (for acceptance testing)
-
-We have also included a basic setup of the Gradle project and Tasks required for the course including:
-- Required dependencies for the functionality above
-- Build plugins:
-    - JavaFX Gradle plugin for working with (and packaging) JavaFX applications easily
-
-You are expected to understand the content provided and build your application on top of it. If there is anything you
-would like more information about please reach out to the tutors.
-
-## Importing Project (Using IntelliJ)
-IntelliJ has built-in support for Gradle. To import your project:
-
-- Launch IntelliJ and choose `Open` from the start up window.
-- Select the project and click open
-- At this point in the bottom right notifications you may be prompted to 'load gradle scripts', If so, click load
-
-**Note:** *If you run into dependency issues when running the app or the Gradle pop up doesn't appear then open the Gradle sidebar and click the Refresh icon.*
-
-# TODO
-
-## Rename Project
-- Open `build.gradle` and change all references to `team0` with your team number eg. `team13`
-- Rename the directory `src/main/java/seng202/team0` to your team number eg. `src/main/java/seng202/team13`
+- OpenCSV (for CSVImporter)
 
 ## Build Project 
-1. Open a command line interface inside the project directory and run `./gradlew run` to build a .jar file. The file is located at target/wino-1.0-SNAPSHOT.jar
+- Open a command line interface inside the project directory (folder team-7) and run `./gradlew jar` to build a .jar file. 
+- The file is located at `build/libs/WineWise-1/0-SNAPSHOT.jar`
 
-## Run App
-- If you haven't already, Build the project.
-- Open a command line interface inside the project directory and run `cd target` to change into the target directory.
-- Run the command `java -jar wino-1.0-SNAPSHOT.jar` to open the application.
+## Run App (First time)
+- If the jar is not provided, build the project (see above). 
+- Open a command line interface and navigate to the directory containing `WineWise-1/0-SNAPSHOT.jar`
+- Run the command `java -jar WineWise-1/0-SNAPSHOT.jar` to open the application.
+
+## Reset App
+- If WineWise has already been run once - and therefore the credentials have been set, and database created - then to hard reset the app these steps will need to be taken:
+- Delete the `credentials.txt` file
+- Delete the `database.db'` file
+- Rerun the command: `java -jar WineWise-1/0-SNAPSHOT.jar` in the terminal.
+-**** In order to create a new account without losing data you can just delete `credentials.txt` and rerun the jar.
