@@ -2,12 +2,10 @@ package seng202.team0.services;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.Buffer;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
@@ -274,21 +272,15 @@ public class AdminLoginService {
      */
     public String changePassword(String currentPassword, String newPassword, String confirmNewPassword) {
         try {
-            System.out.println("reach");
             File f = getCredentialsFile();
             Scanner readLine = new Scanner(f);
-            System.out.println("reach");
-            readLine.nextLine(); //skip the username
+            String storedUsername = readLine.nextLine();
             String storedHash = readLine.nextLine();
-            System.out.println("reach");
             readLine.close();
-            byte[] salt = getSalt(storedHash);
-            System.out.println("reach");
-            String hashedInputtedPassword = hashPasswordWithSalt(currentPassword, salt);
-            System.out.println("reach");
 
-            System.out.println(storedHash);
-            System.out.println(hashedInputtedPassword);
+            byte[] salt = getSalt(storedHash);
+            String hashedInputtedPassword = hashPasswordWithSalt(currentPassword, salt);
+
             if (!validatePassword(storedHash, hashedInputtedPassword)) {
                 return "Current password is incorrect";
             }
@@ -297,15 +289,39 @@ public class AdminLoginService {
                 return validationError;
             }
 
+            String hashedPassword = hashPasswordWithSalt(newPassword, createSalt());
+            boolean updatedCredentials = writeUpdatedCredentials(storedUsername, hashedPassword);
+            if (!updatedCredentials) {
+                return "Password change failed.";
+            }
+
         } catch (FileNotFoundException | InvalidKeySpecException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
 
-        //check newPassword >= 8 chars
-        //check both fields are not empty
-        //check newPassword = confirmNewPassword
-        //write to file line 2 newPassword hashed.
-
-        return "passwords good";
+        return "Password successfully changed";
     }
+
+    private boolean writeUpdatedCredentials(String storedUsername, String hashedPassword) {
+        File credentialsFile = getCredentialsFile();
+        File tempNewCredentialsFile = new File(credentialsFile.getParent(), "credentials_temp.txt");
+
+        try (BufferedWriter writeCredentialsToTempFile = new BufferedWriter(new FileWriter((tempNewCredentialsFile)))) {
+            writeCredentialsToTempFile.write(storedUsername);
+            writeCredentialsToTempFile.newLine();
+            writeCredentialsToTempFile.write(hashedPassword);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (!credentialsFile.delete()) {
+            tempNewCredentialsFile.delete();
+            return false;
+        } else {
+            tempNewCredentialsFile.renameTo(credentialsFile);
+            return true;
+        }
+
+    }
+
 }
