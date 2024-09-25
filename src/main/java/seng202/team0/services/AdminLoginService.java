@@ -264,4 +264,8 @@ public class AdminLoginService {
     public boolean validatePassword(String storedHashedPassword, String hashedInputtedPassword) {
         return storedHashedPassword.equals(hashedInputtedPassword);
     }
+
+    public String changePassword(String currentPassword, String newPassword) {
+        return "";
+    }
 }
