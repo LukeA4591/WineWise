@@ -265,7 +265,34 @@ public class AdminLoginService {
         return storedHashedPassword.equals(hashedInputtedPassword);
     }
 
-    public String changePassword(String currentPassword, String newPassword) {
+    /**
+     * //TODO skips the username using read line.
+     * @param currentPassword
+     * @param newPassword
+     * @param confirmNewPassword
+     * @return
+     */
+    public String changePassword(String currentPassword, String newPassword, String confirmNewPassword) {
+        try {
+            File f = getCredentialsFile();
+            Scanner readLine = new Scanner(f);
+            readLine.nextLine(); //skip the username
+            String storedHash = readLine.nextLine();
+            readLine.close();
+            byte[] salt = getSalt(storedHash);
+            String hashedInputtedPassword = hashPasswordWithSalt(currentPassword, salt);
+            if (!validatePassword(storedHash, hashedInputtedPassword)) {
+                return "Current password is incorrect";
+            }
+        } catch (FileNotFoundException | InvalidKeySpecException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        //check newPassword >= 8 chars
+        //check both fields are not empty
+        //check newPassword = confirmNewPassword
+        //write to file line 2 newPassword hashed.
+
         return "";
     }
 }

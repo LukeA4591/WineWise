@@ -7,6 +7,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import seng202.team0.services.AdminLoginService;
 import seng202.team0.services.AppEnvironment;
 
 public class ChangePasswordPopupController {
@@ -24,9 +25,12 @@ public class ChangePasswordPopupController {
 
     private AppEnvironment appEnvironment;
 
+    private AdminLoginService adminLoginService;
+
     @FXML
     public void init(AppEnvironment appEnvironment) {
         this.appEnvironment = appEnvironment;
+        adminLoginService = appEnvironment.getAdminLoginInstance();
         currentPasswordInputField.textProperty().bindBidirectional(currentPasswordField.textProperty());
         newPasswordInputField.textProperty().bindBidirectional(newPasswordField.textProperty());
         confirmNewPasswordInputField.textProperty().bindBidirectional(confirmNewPasswordField.textProperty());
@@ -37,8 +41,14 @@ public class ChangePasswordPopupController {
         viewButton.setText("View");
     }
 
-
-
+    public void changePassword() {
+        String errorMessage = adminLoginService.changePassword(currentPasswordInputField.getText(), newPasswordInputField.getText(), confirmNewPasswordInputField.getText());
+        if (!errorMessage.isEmpty()) {
+            errorLabel.setText(errorMessage);
+        } else {
+            errorLabel.setText(errorMessage);
+        }
+    }
 
     /**
      * When the button is pressed, if the passwords are set to invisible (dots), the passwords will become visible
@@ -61,10 +71,14 @@ public class ChangePasswordPopupController {
         }
     }
 
+    /**
+     * Method to trigger login when the enter key is pressed
+     * @param event keyboard event
+     */
     @FXML
     private void enterKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            // change password
+            changePassword();
         }
     }
 

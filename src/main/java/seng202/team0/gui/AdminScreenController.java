@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -16,7 +15,6 @@ import seng202.team0.business.ReviewManager;
 import seng202.team0.business.WineManager;
 import seng202.team0.io.WineCSVImporter;
 import seng202.team0.models.Review;
-import seng202.team0.services.AdminLoginService;
 import seng202.team0.services.AppEnvironment;
 
 import java.io.File;
@@ -46,7 +44,6 @@ public class AdminScreenController {
     private final ReviewManager reviewManager;
     private final List<Review> selectedReviews = new ArrayList<>();
 
-    private final AdminLoginService adminLoginService;
 
     /**
      * Constructor for AdminScreenController. Sets the AppEnvironment, wineManager, and reviewDAO variables so the
@@ -55,7 +52,6 @@ public class AdminScreenController {
      */
     public AdminScreenController(AppEnvironment appEnvironment) {
         this.appEnvironment = appEnvironment;
-        adminLoginService = appEnvironment.getAdminLoginInstance();
         wineManager = new WineManager();
         reviewManager = new ReviewManager();
     }
