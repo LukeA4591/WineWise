@@ -274,16 +274,29 @@ public class AdminLoginService {
      */
     public String changePassword(String currentPassword, String newPassword, String confirmNewPassword) {
         try {
+            System.out.println("reach");
             File f = getCredentialsFile();
             Scanner readLine = new Scanner(f);
+            System.out.println("reach");
             readLine.nextLine(); //skip the username
             String storedHash = readLine.nextLine();
+            System.out.println("reach");
             readLine.close();
             byte[] salt = getSalt(storedHash);
+            System.out.println("reach");
             String hashedInputtedPassword = hashPasswordWithSalt(currentPassword, salt);
+            System.out.println("reach");
+
+            System.out.println(storedHash);
+            System.out.println(hashedInputtedPassword);
             if (!validatePassword(storedHash, hashedInputtedPassword)) {
                 return "Current password is incorrect";
             }
+            String validationError = checkPasswordConfirmation(newPassword, confirmNewPassword);
+            if (!validationError.isEmpty()) {
+                return validationError;
+            }
+
         } catch (FileNotFoundException | InvalidKeySpecException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -293,6 +306,6 @@ public class AdminLoginService {
         //check newPassword = confirmNewPassword
         //write to file line 2 newPassword hashed.
 
-        return "";
+        return "passwords good";
     }
 }

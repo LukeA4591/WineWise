@@ -42,10 +42,12 @@ public class ChangePasswordPopupController {
     }
 
     public void changePassword() {
-        String errorMessage = adminLoginService.changePassword(currentPasswordInputField.getText(), newPasswordInputField.getText(), confirmNewPasswordInputField.getText());
+        String currentPassword = currentPasswordInputField.getText();
+        String newPassword = newPasswordInputField.getText();
+        String confirmPassword = confirmNewPasswordInputField.getText();
+        String errorMessage = adminLoginService.changePassword(currentPassword, newPassword, confirmPassword);
+        System.out.println(errorMessage);
         if (!errorMessage.isEmpty()) {
-            errorLabel.setText(errorMessage);
-        } else {
             errorLabel.setText(errorMessage);
         }
     }
@@ -69,6 +71,11 @@ public class ChangePasswordPopupController {
             confirmNewPasswordField.setVisible(false);
             viewButton.setText("Hide");
         }
+    }
+
+    @FXML
+    public void changeAdminPassword() {
+        changePassword();
     }
 
     /**
