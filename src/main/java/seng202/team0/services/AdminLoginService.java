@@ -299,7 +299,7 @@ public class AdminLoginService {
             e.printStackTrace();
         }
 
-        return "Password successfully changed";
+        return "";
     }
 
     private boolean writeUpdatedCredentials(String storedUsername, String hashedPassword) {

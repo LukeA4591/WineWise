@@ -7,6 +7,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 import seng202.team0.services.AdminLoginService;
 import seng202.team0.services.AppEnvironment;
 
@@ -46,9 +47,16 @@ public class ChangePasswordPopupController {
         String newPassword = newPasswordInputField.getText();
         String confirmPassword = confirmNewPasswordInputField.getText();
         String errorMessage = adminLoginService.changePassword(currentPassword, newPassword, confirmPassword);
-        System.out.println(errorMessage);
         if (!errorMessage.isEmpty()) {
             errorLabel.setText(errorMessage);
+            errorLabel.setTextFill(Color.RED);
+
+        } else {
+            errorLabel.setText("Password successfully changed");
+            errorLabel.setTextFill(Color.GREEN);
+            currentPasswordInputField.clear();
+            newPasswordInputField.clear();
+            confirmNewPasswordInputField.clear();
         }
     }
 
