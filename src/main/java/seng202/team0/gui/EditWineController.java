@@ -1,17 +1,17 @@
 package seng202.team0.gui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import seng202.team0.business.WineManager;
 import seng202.team0.models.Wine;
 
 import java.time.Year;
+import java.util.Collections;
 
-/**
- * Controller class for the add_wine.fxml page.
- */
-public class AddWineController {
+public class EditWineController {
 
     @FXML
     TextField wineWineryName;
@@ -36,42 +36,38 @@ public class AddWineController {
     @FXML
     ToggleGroup wineTypeToggle;
     private WineManager wineManager;
+    private Wine wine;
 
-    /**
-     * Method for going back to admin when the go back button is pressed.
-     * **/
-    private void goBackToAdmin() {
-        Stage stage = (Stage) wineWineryName.getScene().getWindow();
-        stage.close();
+    public EditWineController(Wine wine) {
+        this.wine = wine;
     }
 
-    /**
-     * Creates an instance of wineManager when the controller is initialised.
-     * **/
     @FXML
-    void initialize() {
-        wineManager = new WineManager();
-    }
-
-    /**
-     * Sends the new wine to the wineManager when the save wine button is pressed if all the wine values filled in the
-     * text fields were all valid.
-     */
-    public void saveNewWine() {
-        Wine wine = validateWine();
-        if (wine != null) {
-            wineManager.add(wine);
-            goBackToAdmin();
+    public void initialize() {
+        wineWineryName.setText(wine.getWineryString());
+        wineName.setText(wine.getWineName());
+        wineVintage.setText(Integer.toString(wine.getVintage()));
+        wineScore.setText(Integer.toString(wine.getScore()));
+        wineRegion.setText(wine.getRegion());
+        wineDescription.setText(wine.getDescription());
+        if (wine.getColor().equals("Red")) {
+            wineTypeRed.setSelected(true);
+        } else if (wine.getColor().equals("White")) {
+            wineTypeWhite.setSelected(true);
+        } else {
+            wineTypeWhite.setSelected(true);
         }
     }
 
-    /**
-     * Checks to see if the text fields were all filled with valid inputs. If at least one of the text fields were not
-     * filled in correctly, it will set an error message with a description of the error. If all the fields were
-     * correct, it will tell the user that the wine has been saved.
-     * @return Wine if the text fields were all valid, null if at least one of them failed
-     */
-    private Wine validateWine() {
+    public void saveWine() {
+        Wine wine = validateWine();
+        if (wine != null) {
+            wineManager.add(wine);
+            //goBackToAdmin();
+        }
+    }
+
+    private Wine validateWine() { //TODO move this into some sort of service? duplicate from AddWineController
         try {
             String wineWineryNameString = wineWineryName.getText();
             String wineNameString = wineName.getText();

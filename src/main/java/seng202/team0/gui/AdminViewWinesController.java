@@ -2,15 +2,22 @@ package seng202.team0.gui;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import seng202.team0.business.WineManager;
 import seng202.team0.models.Wine;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -86,5 +93,37 @@ public class AdminViewWinesController {
                 }
             }
         });
+
+        wineTable.setRowFactory(tableview -> {
+            TableRow<Wine> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && !row.isEmpty()) {
+                    Wine wineClicked = row.getItem();
+                    onWineClicked(wineClicked);
+                }
+            });
+            return row;
+        });
+    }
+
+    public void onWineClicked(Wine wineClicked) {
+        try {
+            FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/edit_wine.fxml"));
+            newStageLoader.setControllerFactory(param -> new EditWineController(wineClicked));
+            AnchorPane root = newStageLoader.load();
+            Scene modalScene = new Scene(root);
+            Stage modalStage = new Stage();
+            modalStage.setScene(modalScene);
+            modalStage.setWidth(600);
+            modalStage.setHeight(500);
+            modalStage.setResizable(false);
+            modalStage.setTitle("Edit Wine");
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            Stage primaryStage = (Stage) wineTable.getScene().getWindow();
+            modalStage.initOwner(primaryStage);
+            modalStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
