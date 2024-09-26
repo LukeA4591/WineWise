@@ -49,6 +49,7 @@ public class AdminViewWinesController {
      * wineManager.
      */
     private void initTables() {
+        wines = wineManager.getAll();
         wineTable.getColumns().clear();
 
         TableColumn<Wine, String> typeCol = new TableColumn<>("Type");
@@ -122,6 +123,7 @@ public class AdminViewWinesController {
             Stage primaryStage = (Stage) wineTable.getScene().getWindow();
             modalStage.initOwner(primaryStage);
             modalStage.showAndWait();
+            initTables();
         } catch (IOException e) {
             e.printStackTrace();
         }

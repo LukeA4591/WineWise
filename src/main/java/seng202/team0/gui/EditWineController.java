@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 import seng202.team0.business.WineManager;
 import seng202.team0.models.Wine;
 
@@ -36,38 +37,42 @@ public class EditWineController {
     @FXML
     ToggleGroup wineTypeToggle;
     private WineManager wineManager;
-    private Wine wine;
+    private Wine origionalWine;
 
     public EditWineController(Wine wine) {
-        this.wine = wine;
+        this.origionalWine = wine;
+        this.wineManager = new WineManager();
     }
 
     @FXML
     public void initialize() {
-        wineWineryName.setText(wine.getWineryString());
-        wineName.setText(wine.getWineName());
-        wineVintage.setText(Integer.toString(wine.getVintage()));
-        wineScore.setText(Integer.toString(wine.getScore()));
-        wineRegion.setText(wine.getRegion());
-        wineDescription.setText(wine.getDescription());
-        if (wine.getColor().equals("Red")) {
+        wineWineryName.setText(origionalWine.getWineryString());
+        wineName.setText(origionalWine.getWineName());
+        wineVintage.setText(Integer.toString(origionalWine.getVintage()));
+        wineScore.setText(Integer.toString(origionalWine.getScore()));
+        wineRegion.setText(origionalWine.getRegion());
+        wineDescription.setText(origionalWine.getDescription());
+        if (origionalWine.getColor().equals("Red")) {
             wineTypeRed.setSelected(true);
-        } else if (wine.getColor().equals("White")) {
+        } else if (origionalWine.getColor().equals("White")) {
             wineTypeWhite.setSelected(true);
         } else {
             wineTypeWhite.setSelected(true);
         }
     }
 
+    @FXML
     public void saveWine() {
         Wine wine = validateWine();
         if (wine != null) {
-            wineManager.add(wine);
-            //goBackToAdmin();
+            int id = wineManager.getWineID(this.origionalWine);
+            wineManager.updateWine(wine, id);
+            Stage stage = (Stage) wineWineryName.getScene().getWindow();
+            stage.close();
         }
     }
 
-    private Wine validateWine() { //TODO move this into some sort of service? duplicate from AddWineController
+    private Wine validateWine() {
         try {
             String wineWineryNameString = wineWineryName.getText();
             String wineNameString = wineName.getText();
@@ -112,17 +117,17 @@ public class EditWineController {
                     return null;
                 }
 
-                saveNewWineMessage.setStyle("-fx-text-fill: #008000");
-                saveNewWineMessage.setText("New wine saved.");
-                wineWineryName.setText("");
-                wineName.setText("");
-                wineVintage.setText("");
-                wineScore.setText("");
-                wineTypeToggle.selectToggle(wineTypeWhite);
-                wineRegion.setText("");
-                wineDescription.setText("");
-                return new Wine(wineTypeString, wineNameString, wineWineryNameString, wineVintageInt, wineScoreInt,
+                Wine wine = new Wine(wineTypeString, wineNameString, wineWineryNameString, wineVintageInt, wineScoreInt,
                         wineRegionString, wineDescriptionString);
+                int id1 = wineManager.getWineID(this.origionalWine);
+                int id2 = wineManager.getWineID(wine);
+                if (id2 != 0 && id2 != id1) {
+                    saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
+                    saveNewWineMessage.setText("This wine already exists.");
+                    return null;
+                } else {
+                    return wine;
+                }
             }
         } catch (NumberFormatException e) {
             saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");

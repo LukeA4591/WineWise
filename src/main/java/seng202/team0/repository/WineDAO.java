@@ -278,4 +278,22 @@ public class WineDAO implements DAOInterface<Wine> {
             return 0;
         }
     }
+
+    public void updateWine(Wine toUpdate, int id) {
+        String sql = "UPDATE wines SET type=?, name=?, winery=?, vintage=?, score=?, region=?, description=? WHERE wineID=?";
+        try(Connection conn = databaseManager.connect();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, toUpdate.getColor());
+            ps.setString(2, toUpdate.getWineName());
+            ps.setString(3, toUpdate.getWineryString());
+            ps.setInt(4, toUpdate.getVintage());
+            ps.setInt(5, toUpdate.getScore());
+            ps.setString(6, toUpdate.getRegion());
+            ps.setString(7, toUpdate.getDescription());
+            ps.setInt(8, id);
+            ps.executeUpdate();
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+        }
+    }
 }

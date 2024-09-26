@@ -84,4 +84,11 @@ public class WineManager {
      */
     public List<Wine> getTopRated() { return wineDAO.getTopRated(); }
 
+    /**
+     * Updates the wine at the specified ID to have the new details
+     * @param toUpdate new wine details
+     * @param id id of wine needing updating
+     */
+    public void updateWine(Wine toUpdate, int id) { wineDAO.updateWine(toUpdate, id); }
+
 }
