@@ -65,8 +65,6 @@ public class EditWineController {
     public void saveWine() {
         Wine wine = validateWine();
         if (wine != null) {
-            int id = wineManager.getWineID(this.origionalWine);
-            wineManager.updateWine(wine, id);
             Stage stage = (Stage) wineWineryName.getScene().getWindow();
             stage.close();
         }
@@ -119,9 +117,8 @@ public class EditWineController {
 
                 Wine wine = new Wine(wineTypeString, wineNameString, wineWineryNameString, wineVintageInt, wineScoreInt,
                         wineRegionString, wineDescriptionString);
-                int id1 = wineManager.getWineID(this.origionalWine);
-                int id2 = wineManager.getWineID(wine);
-                if (id2 != 0 && id2 != id1) {
+                boolean successfulUpdate = wineManager.updateWine(wine, this.origionalWine);
+                if (!successfulUpdate) {
                     saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
                     saveNewWineMessage.setText("This wine already exists.");
                     return null;
