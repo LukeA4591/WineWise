@@ -203,8 +203,31 @@ public class WineDAO implements DAOInterface<Wine> {
      * @param wines list of wines to be added
      */
     public void addBatch (List <Wine> wines) {
-        for (Wine wine : wines) {
-            add(wine);
+//        for (Wine wine : wines) {
+//            add(wine);
+//        }
+        String sql = "INSERT OR IGNORE INTO wines (type, name, winery, vintage, score, region, description) VALUES (?,?,?,?,?,?,?);";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            for (Wine toAdd : wines) {
+                ps.setString(1, toAdd.getColor());
+                ps.setString(2, toAdd.getWineName());
+                ps.setString(3, toAdd.getWineryString());
+                ps.setInt(4, toAdd.getVintage());
+                ps.setInt(5, toAdd.getScore());
+                ps.setString(6, toAdd.getRegion());
+                ps.setString(7, toAdd.getDescription());
+                ps.addBatch();
+            }
+
+            ps.executeBatch();
+            ResultSet rs = ps.getGeneratedKeys();
+            while (rs.next()){
+                log.info(rs.getLong(1));
+            }
+            conn.commit();
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
         }
     }
 
