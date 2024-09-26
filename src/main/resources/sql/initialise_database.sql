@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS wineries;
 --SPLIT
 CREATE TABLE IF NOT EXISTS wineries (
-    wineryName integer not null primary key,
+    wineryName TEXT not null primary key,
     longitude REAL,
     latitude REAL);
 --SPLIT
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS wines (
     score int,
     region TEXT,
     description TEXT,
-    FOREIGN KEY (winery) REFERENCES wineries,
+    FOREIGN KEY (winery) REFERENCES wineries(wineryName),
     UNIQUE (name, winery, vintage));
 --SPLIT
 DROP TABLE IF EXISTS reviews;
@@ -27,5 +27,5 @@ CREATE TABLE IF NOT EXISTS reviews (
     rating integer,
     description TEXT,
     reported BOOLEAN default false,
-    FOREIGN KEY (wine) REFERENCES wines);
+    FOREIGN KEY (wine) REFERENCES wines(wineID));
 

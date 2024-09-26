@@ -5,10 +5,7 @@ import org.apache.logging.log4j.Logger;
 import seng202.team0.models.Wine;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * WineDAO class, interacts with the database to query wines
@@ -199,10 +196,15 @@ public class WineDAO implements DAOInterface<Wine> {
 
 
     /**
+     * /TODO fix addBatch to add wines all at once.
      * Adds a batch of wines to the database
      * @param wines list of wines to be added
      */
     public void addBatch (List <Wine> wines) {
+        Set<String> wineryNames = new HashSet<>();
+        for (Wine wine : wines) {
+            wineryNames.add(wine.getWineryString());
+        }
         for (Wine wine : wines) {
             add(wine);
         }
