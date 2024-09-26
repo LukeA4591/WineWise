@@ -66,6 +66,13 @@ public class AdminLoginServiceTest {
         assertTrue(testAdminLoginService.doesFileExist());
     }
 
+    /**
+     * Tests that if username fields are left blank, the expected error message is returned.
+     */
+    @Test
+    public void testBlankUsernameConfirmation() {
+        assertEquals("Please enter a username", testAdminLoginService.checkUsernameConfirmation(""));
+    }
 
     /**
      * Tests that if various fields are left blank, the expected error message is returned.

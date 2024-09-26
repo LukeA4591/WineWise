@@ -150,6 +150,18 @@ public class AdminLoginService {
     }
 
     /**
+     * Checks user input for username creation
+     * @param username The username to check.
+     * @return A message indicating if the username is empty, or an empty string if the username is valid.
+     */
+    public String checkUsernameConfirmation(String username) {
+        if (username.isEmpty()) {
+            return "Please enter a username";
+        }
+        return "";
+    }
+
+    /**
      * Creates a random salt for password hashing.
      * Uses secure random.
      * @return The salt.
