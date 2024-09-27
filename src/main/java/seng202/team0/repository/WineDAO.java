@@ -124,7 +124,7 @@ public class WineDAO implements DAOInterface<Wine> {
         }
 
     }
-
+    // TODO ADD SQL INJECTTION PROTECTION TO + column + EXAMPLES
     /**
      * Method for getting all the distinct values of a column from the wine table
      * @param column column which all the distinct values are needed
