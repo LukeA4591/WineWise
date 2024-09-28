@@ -5,10 +5,7 @@ import org.apache.logging.log4j.Logger;
 import seng202.team0.models.Wine;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * WineDAO class, interacts with the database to query wines
@@ -126,23 +123,28 @@ public class WineDAO implements DAOInterface<Wine> {
     }
 
     /**
-     * Method for getting all the distinct values of a column from the wine table
+     * Method for getting all the distinct values of a column from the wine table + SQL INJECTION Protection with hecking val column (WILL NEED TO CHANGE IF CHANGE WINE table)
      * @param column column which all the distinct values are needed
      * @return list of the distinct values
      */
     public List<String> getDistinct(String column) {
-        List<String> result = new ArrayList<>();
-        String sql = "SELECT DISTINCT " + column + " FROM wines";
-        try(Connection conn = databaseManager.connect();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                result.add(rs.getString(column));
+        List<String> validCols = List.of("wineID", "type", "name", "winery", "vintage", "score", "region", "description");
+        if (validCols.contains(column)) {
+            List<String> result = new ArrayList<>();
+            String sql = "SELECT DISTINCT " + column + " FROM wines";
+            try(Connection conn = databaseManager.connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+                while (rs.next()) {
+                    result.add(rs.getString(column));
+                }
+                return result;
+            } catch (SQLException sqlException) {
+                log.error(sqlException);
+                return new ArrayList<>();
             }
-            return result;
-        } catch (SQLException sqlException) {
-            log.error(sqlException);
-            return new ArrayList<>();
+        } else {
+            throw new IllegalArgumentException("Column " + column + " is not a valid column name");
         }
     }
 
