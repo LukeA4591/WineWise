@@ -87,8 +87,15 @@ public class WineManager {
     /**
      * Updates the wine at the specified ID to have the new details
      * @param toUpdate new wine details
-     * @param id id of wine needing updating
+     * @param wineId
      */
-    public void updateWine(Wine toUpdate, int id) { wineDAO.updateWine(toUpdate, id); }
+    public void updateWine(Wine toUpdate, int wineId) { wineDAO.updateWine(toUpdate, wineId); }
+
+    /**
+     * Creates a wine object using the attributes from the wineId's tuple.
+     * @param wineID id of wine in the wines table.
+     * @return Wine object containing attributes from the wineID tuple in the wines table.
+     */
+    public Wine getWineFromID(int wineID) { return wineDAO.getWineFromID(wineID); }
 
 }
