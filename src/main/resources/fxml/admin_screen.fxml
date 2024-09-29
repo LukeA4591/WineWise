@@ -17,7 +17,7 @@
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="81.0" layoutY="380.0" mnemonicParsing="false" onAction="#onViewWines" prefHeight="29.0" prefWidth="171.0" text="View table (delete)">
+      <Button layoutX="81.0" layoutY="380.0" mnemonicParsing="false" onAction="#onViewWines" prefHeight="29.0" prefWidth="215.0" text="View table (edit &amp; delete)">
          <font>
             <Font size="15.0" />
          </font></Button>
