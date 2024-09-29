@@ -85,11 +85,12 @@ public class WineManager {
     public List<Wine> getTopRated() { return wineDAO.getTopRated(); }
 
     /**
-     * Updates the wine at the specified ID to have the new details
+     * Updates the wine and checks if it can be updated, returns true if successfully updated
      * @param toUpdate new wine details
-     * @param wineId
+     * @param oldWine old wine details
+     * @return success of update
      */
-    public void updateWine(Wine toUpdate, int wineId) { wineDAO.updateWine(toUpdate, wineId); }
+    public boolean updateWine(Wine toUpdate, Wine oldWine) { return wineDAO.updateWine(toUpdate, oldWine); }
 
     /**
      * Creates a wine object using the attributes from the wineId's tuple.

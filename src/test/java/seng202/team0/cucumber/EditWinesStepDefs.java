@@ -8,7 +8,6 @@ import seng202.team0.business.WineManager;
 import seng202.team0.io.Importable;
 import seng202.team0.io.WineCSVImporter;
 import seng202.team0.models.Wine;
-import seng202.team0.repository.WineDAO;
 
 import java.io.File;
 import java.net.URL;
@@ -69,7 +68,7 @@ public class EditWinesStepDefs {
     @And("The admin clicks Save Wine")
     public void saveWineDetails() {
         // Simulating the admin clicking the 'save wine' button on the edit wines popup.
-        wineManager.updateWine(updatedWine, wineID);
+        wineManager.updateWine(updatedWine, selectedWine);
     }
 
     @Then("The wine should be updated in both the WineWise system and the wines database table")
