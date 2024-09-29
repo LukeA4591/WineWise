@@ -65,16 +65,38 @@ public class EditWinesStepDefs {
             selectedWine.getDescription());
     }
 
+    @And("The admin does not edit any of the wines details.")
+    public void uneditedWineDetails() {
+        updatedWine = new Wine(selectedWine.getColor(),
+                selectedWine.getWineName(),
+                selectedWine.getWineryString(),
+                selectedWine.getVintage(),
+                selectedWine.getScore(),
+                selectedWine.getRegion(),
+                selectedWine.getDescription());
+    }
+
     @And("The admin clicks Save Wine")
     public void saveWineDetails() {
         // Simulating the admin clicking the 'save wine' button on the edit wines popup.
-        wineManager.updateWine(updatedWine, selectedWine);
+        // This simulates the EditWineController's check to see if the updated score is in valid ranges.
+        if (updatedWine.getScore() <= 100 & updatedWine.getScore() >= 0) {
+            wineManager.updateWine(updatedWine, selectedWine);
+        }
     }
 
     @Then("The wine should be updated in both the WineWise system and the wines database table")
-    public void updateTable() {
+    public void assertWineUpdated() {
         Wine wineFromDatabase = wineManager.getWineFromID(wineID);
         assertEquals(updatedWine.getScore(), wineFromDatabase.getScore(), "Score does not match in the database.");
+        assertEquals(updatedWine.getRegion(), wineFromDatabase.getRegion(), "Region does not match in the database.");
+    }
+
+    @Then("The wine is not updated in the WineWise system or the wines database table")
+    public void assertWineNotUpdated() {
+        Wine wineFromDatabase = wineManager.getWineFromID(wineID);
+        assertNotEquals(updatedWine.getScore(), wineFromDatabase.getScore(), "Score should not have been updated in the database.");
+        assertEquals(selectedWine.getRegion(), wineFromDatabase.getRegion(), "Score does not match in the database.");
         assertEquals(updatedWine.getRegion(), wineFromDatabase.getRegion(), "Region does not match in the database.");
     }
 }
