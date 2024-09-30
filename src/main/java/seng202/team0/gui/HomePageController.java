@@ -55,7 +55,6 @@ public class HomePageController {
      * @param stage The main stage passed from NavBarController.
      */
     public void init(Stage stage) {
-        this.stage = stage;
         wineManager = new WineManager();
         if (wineManager.getAll().size() >= 3) {
             List<Wine> wines = wineManager.getTopRated();
