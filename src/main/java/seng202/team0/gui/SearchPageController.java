@@ -109,7 +109,7 @@ public class SearchPageController {
         table.setRowFactory(tableview -> {
             TableRow<Wine> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 1 && !row.isEmpty()) {
+                if (event.getClickCount() == 2 && !row.isEmpty()) {
                     Wine wineClicked = row.getItem();
                     onWineClicked(wineClicked);
                 }
