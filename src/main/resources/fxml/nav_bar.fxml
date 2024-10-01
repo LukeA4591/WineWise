@@ -12,6 +12,7 @@
             <Button fx:id="homeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#homePressed" text="Home" />
             <Button fx:id="searchButton" layoutX="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#searchPressed" text="Search" />
             <Button fx:id="adminButton" layoutX="852.0" mnemonicParsing="false" onAction="#loginPressed" text="Login" />
+            <Button fx:id="helpButton" layoutX="808.0" mnemonicParsing="false" onAction="#helpPressed" text="Help" />
          </children>
       </AnchorPane>
    </top>
