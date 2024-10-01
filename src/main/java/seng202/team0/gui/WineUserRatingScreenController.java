@@ -34,7 +34,7 @@ public class WineUserRatingScreenController {
     Wine wine;
     private ReviewManager reviewManager;
     private boolean movedSlider = false;
-    private final int MAX_CHARACTERS = 60;
+    private final int MAX_CHARACTERS = 500;
 
     /**
      * Init method for the user rating screen
@@ -85,6 +85,7 @@ public class WineUserRatingScreenController {
     private void resetReview() {
         ratingSlider.setValue(0);
         reviewTextArea.setText("");
+        characterLimitLabel.setText("Characters Remaining: " + MAX_CHARACTERS);
     }
 
     /**

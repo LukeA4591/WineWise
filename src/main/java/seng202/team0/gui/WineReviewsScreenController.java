@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import seng202.team0.business.ReviewManager;
 import seng202.team0.business.WineManager;
 import seng202.team0.exceptions.DuplicateExc;
@@ -32,7 +33,9 @@ public class WineReviewsScreenController {
     @FXML
     private Label criticRatingLabel;
     @FXML
-    private Label selectedReviewLabel;
+    private Text selectedReviewText;
+    @FXML
+    private ScrollPane selectedReviewScrollPane;
 
     private WineManager wineManager = new WineManager();
     private ReviewManager reviewManager;
@@ -48,6 +51,9 @@ public class WineReviewsScreenController {
         this.wine = wine;
         reviewManager = new ReviewManager();
         displayAllReviews();
+        selectedReviewText.wrappingWidthProperty().bind(selectedReviewScrollPane.widthProperty().subtract(20));
+        selectedReviewScrollPane.setPannable(true);
+        selectedReviewScrollPane.setContent(selectedReviewText);
     }
 
     /**
@@ -95,9 +101,9 @@ public class WineReviewsScreenController {
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
-                    setText(null); // Clear the cell if it's empty
+                    setText(null);
                 } else {
-                    setText(item); // Display full text; JavaFX will handle truncation if needed
+                    setText(item);
                 }
             }
 
@@ -105,7 +111,8 @@ public class WineReviewsScreenController {
                 this.setOnMouseClicked(event -> {
                     if (!isEmpty()) {
                         String fullText = getItem();
-                        selectedReviewLabel.setText(fullText); // Show full text on label when clicked
+                        selectedReviewText.setText(fullText);
+                        selectedReviewScrollPane.setContent(selectedReviewText);
                     }
                 });
             }
