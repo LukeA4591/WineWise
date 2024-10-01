@@ -5,7 +5,7 @@ public class Winery {
     private Float longitude;
     private Float latitude;
 
-    public Winery(String wineryName, float longitude, float latitude) {
+    public Winery(String wineryName, Float longitude, Float latitude) {
         this.wineryName = wineryName;
         this.longitude = longitude;
         this.latitude = latitude;

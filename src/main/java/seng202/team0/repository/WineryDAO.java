@@ -2,8 +2,6 @@ package seng202.team0.repository;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import seng202.team0.exceptions.DuplicateExc;
-import seng202.team0.models.Wine;
 import seng202.team0.models.Winery;
 
 import java.util.*;
@@ -21,10 +19,24 @@ public class WineryDAO implements DAOInterface<Winery> {
         databaseManager = DatabaseManager.getInstance();
     }
 
-    //TODO implement these methods:
+    //TODO test this method:
     @Override
     public List<Winery> getAll() {
-        return null;
+        List<Winery> wineries = new ArrayList<>();
+        String sql = "SELECT * FROM wineries;";
+        try (Connection conn = databaseManager.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Float longitude = rs.getObject("longitude") != null ? rs.getFloat("longitude"): null;
+                Float latitude = rs.getObject("latitude") != null ? rs.getFloat("latitude"): null;
+                wineries.add(new Winery(rs.getString("wineryName"), longitude, latitude));
+            }
+            return wineries;
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            return new ArrayList<>();
+        }
     }
 
     @Override
