@@ -40,18 +40,18 @@ This project comes with some basic examples of the following (including dependen
 
 ## Build Project 
 - Open a command line interface inside the project directory (folder team-7) and run `./gradlew jar` to build a .jar file. 
-- The file is located at `build/libs/WineWise-1/0-SNAPSHOT.jar`
+- The file is located at `build/libs/WineWise-1.0-SNAPSHOT.jar`
 
 ## Run App (First time)
 - If the jar is not provided, build the project (see above). 
-- Open a command line interface and navigate to the directory containing `WineWise-1/0-SNAPSHOT.jar`
-- Run the command `java -jar WineWise-1/0-SNAPSHOT.jar` to open the application.
+- Open a command line interface and navigate to the directory containing `WineWise-1.0-SNAPSHOT.jar`
+- Run the command `java -jar WineWise-1.0-SNAPSHOT.jar` to open the application.
 
 ## Reset App
 - If WineWise has already been run once - and therefore the credentials have been set, and database created - then to hard reset the app these steps will need to be taken:
 - Delete the `credentials.txt` file
 - Delete the `database.db'` file
-- Rerun the command: `java -jar WineWise-1/0-SNAPSHOT.jar` in the terminal.
+- Rerun the command: `java -jar WineWise-1.0-SNAPSHOT.jar` in the terminal.
 -**** In order to create a new account without losing data you can just delete `credentials.txt` and rerun the jar.
 
 ## Credits
