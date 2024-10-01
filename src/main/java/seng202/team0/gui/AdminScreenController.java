@@ -44,6 +44,7 @@ public class AdminScreenController {
     private final ReviewManager reviewManager;
     private final List<Review> selectedReviews = new ArrayList<>();
 
+
     /**
      * Constructor for AdminScreenController. Sets the AppEnvironment, wineManager, and reviewDAO variables so the
      * wines and reviews can be accessed and so the pages can be changed.
@@ -196,6 +197,28 @@ public class AdminScreenController {
         Stage stage = (Stage) addWine.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
         wineManager.addBatch(new WineCSVImporter(), file);
+    }
+
+    @FXML
+    void adminChangePassword() {
+        System.out.println("Button clicked");
+        try {
+            FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_change_password_popup.fxml"));
+            AnchorPane root = newStageLoader.load();
+
+            ChangePasswordPopupController controller = newStageLoader.getController();
+            controller.init(appEnvironment);
+            Scene modalScene = new Scene(root);
+            Stage modalStage = new Stage();
+            modalStage.setScene(modalScene);
+            modalStage.setResizable(false);
+            modalStage.setTitle("Change Password Popup");
+            modalStage.initModality(Modality.WINDOW_MODAL);
+            modalStage.initOwner(addWine.getScene().getWindow());
+            modalStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

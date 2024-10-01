@@ -2,10 +2,7 @@ package seng202.team0.unittests.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import seng202.team0.services.AdminLoginService;
 
 import java.io.File;
@@ -193,6 +190,49 @@ public class AdminLoginServiceTest {
         assertTrue(testAdminLoginService.getLoginStatus());
         testAdminLoginService.setLoggedIn(false);
         assertEquals("", testAdminLoginService.login("username", "password"));
+        assertTrue(testAdminLoginService.getLoginStatus());
+    }
+
+    @Test
+    public void testUpdateCredentialsMatchingPasswords() {
+        testAdminLoginService.createNewUser("username", "password");
+        String errorString = testAdminLoginService.changePassword("password", "newpassword", "newpassword");
+        assertEquals("", errorString);
+
+        testAdminLoginService.setLoggedIn(false);
+        testAdminLoginService.login("username", "newpassword");
+        assertTrue(testAdminLoginService.getLoginStatus());
+
+        testAdminLoginService.setLoggedIn(false);
+        testAdminLoginService.login("username", "password");
+        assertFalse(testAdminLoginService.getLoginStatus());
+    }
+
+    @Test
+    public void testUpdateCredentialsDifferentPasswords() {
+        testAdminLoginService.createNewUser("username", "password");
+        String errorString = testAdminLoginService.changePassword("password", "newpassword1", "newpassword2");
+        assertEquals("The two passwords do not match", errorString);
+
+        testAdminLoginService.setLoggedIn(false);
+        testAdminLoginService.login("username", "newpassword");
+        assertFalse(testAdminLoginService.getLoginStatus());
+
+        testAdminLoginService.login("username", "password");
+        assertTrue(testAdminLoginService.getLoginStatus());
+    }
+
+    @Test
+    public void testUpdateCredentialsWrongCurrentPassword() {
+        testAdminLoginService.createNewUser("username", "password");
+        String errorString = testAdminLoginService.changePassword("wrongpassword", "newpassword", "newpassword");
+        assertEquals("Current password is incorrect", errorString);
+
+        testAdminLoginService.setLoggedIn(false);
+        testAdminLoginService.login("username", "newpassword");
+        assertFalse(testAdminLoginService.getLoginStatus());
+
+        testAdminLoginService.login("username", "password");
         assertTrue(testAdminLoginService.getLoginStatus());
     }
 

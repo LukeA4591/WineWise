@@ -2,12 +2,10 @@ package seng202.team0.services;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.Buffer;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
@@ -276,4 +274,66 @@ public class AdminLoginService {
     public boolean validatePassword(String storedHashedPassword, String hashedInputtedPassword) {
         return storedHashedPassword.equals(hashedInputtedPassword);
     }
+
+    /**
+     * //TODO skips the username using read line.
+     * @param currentPassword
+     * @param newPassword
+     * @param confirmNewPassword
+     * @return
+     */
+    public String changePassword(String currentPassword, String newPassword, String confirmNewPassword) {
+        try {
+            File f = getCredentialsFile();
+            Scanner readLine = new Scanner(f);
+            String storedUsername = readLine.nextLine();
+            String storedHash = readLine.nextLine();
+            readLine.close();
+
+            byte[] salt = getSalt(storedHash);
+            String hashedInputtedPassword = hashPasswordWithSalt(currentPassword, salt);
+
+            if (!validatePassword(storedHash, hashedInputtedPassword)) {
+                return "Current password is incorrect";
+            }
+            String validationError = checkPasswordConfirmation(newPassword, confirmNewPassword);
+            if (!validationError.isEmpty()) {
+                return validationError;
+            }
+
+            String hashedPassword = hashPasswordWithSalt(newPassword, createSalt());
+            boolean updatedCredentials = writeUpdatedCredentials(storedUsername, hashedPassword);
+            if (!updatedCredentials) {
+                return "Password change failed.";
+            }
+
+        } catch (FileNotFoundException | InvalidKeySpecException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+
+    private boolean writeUpdatedCredentials(String storedUsername, String hashedPassword) {
+        File credentialsFile = getCredentialsFile();
+        File tempNewCredentialsFile = new File(credentialsFile.getParent(), "credentials_temp.txt");
+
+        try (BufferedWriter writeCredentialsToTempFile = new BufferedWriter(new FileWriter((tempNewCredentialsFile)))) {
+            writeCredentialsToTempFile.write(storedUsername);
+            writeCredentialsToTempFile.newLine();
+            writeCredentialsToTempFile.write(hashedPassword);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (!credentialsFile.delete()) {
+            tempNewCredentialsFile.delete();
+            return false;
+        } else {
+            tempNewCredentialsFile.renameTo(credentialsFile);
+            return true;
+        }
+
+    }
+
 }
