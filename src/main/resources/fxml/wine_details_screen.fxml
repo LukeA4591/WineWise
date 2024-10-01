@@ -56,7 +56,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Pane fx:id="recommendWine1" prefHeight="200.0" prefWidth="200.0">
+                  <Pane fx:id="recommendWine1" onMouseClicked="#recWine1Pressed" prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <ImageView fx:id="recommendImage1" fitHeight="60.0" fitWidth="60.0" layoutX="36.0" pickOnBounds="true" preserveRatio="true" />
                         <Label fx:id="recommendLabel1" layoutX="23.0" layoutY="46.0" prefHeight="40.0" prefWidth="60.0" text="Label" wrapText="true">
@@ -66,7 +66,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane fx:id="recommendWine2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                  <Pane fx:id="recommendWine2" onMouseClicked="#recWine2Pressed" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
                         <ImageView fx:id="recommendImage2" fitHeight="60.0" fitWidth="60.0" layoutX="50.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" />
                         <Label fx:id="recommendLabel2" layoutX="27.0" layoutY="46.0" prefHeight="40.0" prefWidth="60.0" text="Label" wrapText="true">
@@ -76,7 +76,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane fx:id="recommendWine3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+                  <Pane fx:id="recommendWine3" onMouseClicked="#recWine3Pressed" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
                         <ImageView fx:id="recommendImage3" fitHeight="60.0" fitWidth="60.0" layoutX="23.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true" />
                         <Label fx:id="recommendLabel3" layoutX="17.0" layoutY="46.0" prefHeight="40.0" prefWidth="60.0" text="Label" wrapText="true">

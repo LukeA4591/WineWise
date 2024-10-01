@@ -59,6 +59,8 @@ public class WineDetailsScreenController {
     Label[] RecommendedLabelList;
 
 
+    List<Wine> wineList;
+
     String wineName1;
     int score;
     int vintage;
@@ -111,8 +113,7 @@ public class WineDetailsScreenController {
     }
 
     private void showSimilarWines() {
-        List<Wine> wineList = wineManager.getTheSimilarWines(this.wine);
-
+        wineList = wineManager.getTheSimilarWines(this.wine);
 
         for (int i = 0; i < wineList.size(); i++) {
             if (wineList.get(i) != null) {
@@ -124,4 +125,16 @@ public class WineDetailsScreenController {
         }
     }
 
+    @FXML
+    void recWine1Pressed() {
+        winePopupService.winePressed(wineList.getFirst(), RecommendedImageList[0].getImage(), rating);
+    }
+    @FXML
+    void recWine2Pressed() {
+        winePopupService.winePressed(wineList.get(1), RecommendedImageList[1].getImage(), rating);
+    }
+    @FXML
+    void recWine3Pressed() {
+        winePopupService.winePressed(wineList.get(2), RecommendedImageList[2].getImage(), rating);
+    }
 }

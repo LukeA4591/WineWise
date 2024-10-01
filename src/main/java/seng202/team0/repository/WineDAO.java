@@ -17,7 +17,6 @@ public class WineDAO implements DAOInterface<Wine> {
     private static final Logger log = LogManager.getLogger(WineDAO.class);
     private final DatabaseManager databaseManager;
 
-    Random rand = new Random();
 
     /**
      * Creates a new UserDAO object and gets a reference to the database singleton
