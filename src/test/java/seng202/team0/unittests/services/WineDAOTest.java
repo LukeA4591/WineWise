@@ -135,10 +135,20 @@ public class WineDAOTest {
     }
 
     @Test
-    public void testGetSimilarWines() throws DuplicateExc {
+    public void testGetSimilarWinesCorrectly() throws DuplicateExc {
         populateDatabase();
-        Wine NewWine = new Wine("Red", "Test Plume Pinot Noir", "Lake Chalice", 2019, 60, "Marlborough", "High quality wine with woody notes");
+        Wine NewWine = new Wine("White", "Test Defo Not Plume Pinot Noir", "Lake Chalice", 2019, 2, "Marlborough", "High quality wine with woody notes");
         List<Wine> wines = wineDao.getSimilarWines(NewWine);
-        Assertions.assertEquals();
+        Assertions.assertEquals("Bland Blanc", wines.get(0).getWineName()); // NOT Plume Sav as For loop to check similarities check 3 - > 1 so 1 has to change, AKA Plume Sav -> Bland Blanc
+        Assertions.assertEquals("Plume Pinot Noir", wines.get(1).getWineName());
+        Assertions.assertEquals("Plume Sav", wines.get(2).getWineName());
+    }
+
+    @Test
+    public void testRandomOtherWines() throws DuplicateExc {
+        populateDatabase();
+        Wine NewWine = new Wine("Red", "Plume Pinot Noir", "Lake Chalice", 2019, 80, "Marlborough", "High quality wine with woody notes");
+        Wine RandomWine = wineDao.getRandomOtherWine(NewWine);
+        Assertions.assertNotEquals("Plume Pinot Noir", RandomWine.getWineName());
     }
 }

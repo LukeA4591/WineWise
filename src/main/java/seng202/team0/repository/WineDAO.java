@@ -532,7 +532,7 @@ public class WineDAO implements DAOInterface<Wine> {
 
             }
 
-            if (NewWine == null) {
+            if (checkSameWine(NewWine, givenWine)) {
                 return getRandomOtherWine(givenWine);
             }
 
@@ -547,7 +547,7 @@ public class WineDAO implements DAOInterface<Wine> {
      * @param givenWine
      * @return
      */
-    private Wine getRandomOtherWine(Wine givenWine) {
+    public Wine getRandomOtherWine(Wine givenWine) {
         List<Wine> RandomWines = getAll();
         Collections.shuffle(RandomWines);
         for (int i = 0; i < RandomWines.size(); i++) {
