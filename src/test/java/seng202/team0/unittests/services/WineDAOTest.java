@@ -125,4 +125,20 @@ public class WineDAOTest {
         Assertions.assertEquals(wines.get(1).getWineName(), "Plume Sav");
         Assertions.assertEquals(wines.get(2).getWineName(), "Plume Pinot Noir");
     }
+
+    @Test
+    public void testGetSimilarWinesSize() throws DuplicateExc {
+        populateDatabase();
+        Wine NewWine = new Wine("Red", "Test Plume Pinot Noir", "Lake Chalice", 2019, 60, "Marlborough", "High quality wine with woody notes");
+        List<Wine> wines = wineDao.getSimilarWines(NewWine);
+        Assertions.assertEquals(3, wines.size());
+    }
+
+    @Test
+    public void testGetSimilarWines() throws DuplicateExc {
+        populateDatabase();
+        Wine NewWine = new Wine("Red", "Test Plume Pinot Noir", "Lake Chalice", 2019, 60, "Marlborough", "High quality wine with woody notes");
+        List<Wine> wines = wineDao.getSimilarWines(NewWine);
+        Assertions.assertEquals();
+    }
 }
