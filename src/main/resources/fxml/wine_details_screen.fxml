@@ -44,6 +44,11 @@
          </font>
       </Label>
       <Label fx:id="wineYear" layoutX="400.0" layoutY="50.0" />
+      <Label layoutX="240.0" layoutY="363.0" prefHeight="40.0" prefWidth="300.0" text="Also Check Out These Wines..." textAlignment="CENTER">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font>
+      </Label>
       <HBox layoutX="190.0" layoutY="284.0" prefHeight="100.0" prefWidth="400.0">
          <children>
             <GridPane prefHeight="100.0" prefWidth="392.0">
@@ -59,7 +64,7 @@
                   <Pane fx:id="recommendWine1" onMouseClicked="#recWine1Pressed" prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <ImageView fx:id="recommendImage1" fitHeight="60.0" fitWidth="60.0" layoutX="36.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="recommendLabel1" layoutX="23.0" layoutY="46.0" prefHeight="40.0" prefWidth="60.0" text="Label" wrapText="true">
+                        <Label fx:id="recommendLabel1" layoutX="23.0" layoutY="46.0" prefHeight="40.0" prefWidth="90.0" text="Label" wrapText="true">
                            <font>
                               <Font size="11.0" />
                            </font>
@@ -69,7 +74,7 @@
                   <Pane fx:id="recommendWine2" onMouseClicked="#recWine2Pressed" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
                         <ImageView fx:id="recommendImage2" fitHeight="60.0" fitWidth="60.0" layoutX="50.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="recommendLabel2" layoutX="27.0" layoutY="46.0" prefHeight="40.0" prefWidth="60.0" text="Label" wrapText="true">
+                        <Label fx:id="recommendLabel2" layoutX="27.0" layoutY="46.0" prefHeight="40.0" prefWidth="90.0" text="Label" wrapText="true">
                            <font>
                               <Font size="11.0" />
                            </font>
@@ -79,7 +84,7 @@
                   <Pane fx:id="recommendWine3" onMouseClicked="#recWine3Pressed" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
                         <ImageView fx:id="recommendImage3" fitHeight="60.0" fitWidth="60.0" layoutX="23.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="recommendLabel3" layoutX="17.0" layoutY="46.0" prefHeight="40.0" prefWidth="60.0" text="Label" wrapText="true">
+                        <Label fx:id="recommendLabel3" layoutX="17.0" layoutY="46.0" prefHeight="40.0" prefWidth="90.0" text="Label" wrapText="true">
                            <font>
                               <Font size="11.0" />
                            </font>
