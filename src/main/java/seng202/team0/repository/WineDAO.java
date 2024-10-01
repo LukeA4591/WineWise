@@ -202,6 +202,7 @@ public class WineDAO implements DAOInterface<Wine> {
     /**
      * /TODO fix addBatch to add wines all at once.
      * /TODO check that duplicate EXc matters
+     * /TODO move winery duplicate checker to Winery DAO
      * Adds a batch of wines to the database
      * @param wines list of wines to be added
      */
