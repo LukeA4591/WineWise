@@ -7,6 +7,8 @@ import seng202.team0.models.Wine;
 import java.sql.*;
 import java.util.*;
 
+import java.util.Random;
+
 /**
  * WineDAO class, interacts with the database to query wines
  */
@@ -14,6 +16,8 @@ public class WineDAO implements DAOInterface<Wine> {
 
     private static final Logger log = LogManager.getLogger(WineDAO.class);
     private final DatabaseManager databaseManager;
+
+    Random rand = new Random();
 
     /**
      * Creates a new UserDAO object and gets a reference to the database singleton
@@ -334,6 +338,8 @@ public class WineDAO implements DAOInterface<Wine> {
         }
     }
 
+
+
     /**
      * Returns a List of the top 3 wines with the 1st being same colour, 2nd being same winery, 3rd being same year
      * @param wine
@@ -346,7 +352,79 @@ public class WineDAO implements DAOInterface<Wine> {
         similarWines.add(getSimilarWinery(wine));
         similarWines.add(getSimilarVintage(wine));
 
+        for (int i = 0; i < similarWines.size(); i++) {
+            if (checkSameWine(similarWines.get(i), similarWines.get((i + 1) % similarWines.size()))) {
+                List<Wine> the_list = new ArrayList<Wine>();
+                the_list.add(wine);
+                the_list.add(similarWines.get((i + 1) % similarWines.size()));
+                the_list.add(similarWines.get((i + 2) % similarWines.size()));
+
+
+                similarWines.set(i, reselectWine(i, the_list));
+            }
+        }
+
+
         return similarWines;
+    }
+
+    /**
+     * Reselects a wine from the database in the same "category" (top type/winery/vintage) that is different from all current wines given
+     * this is to ensure all recommended wines are different.
+     * Note: first value in the list of wine to not be the same is always the original one we want to reference for which catagory
+     * @param category
+     * @param alreadyUsedWine
+     */
+    private Wine reselectWine(int category, List<Wine> alreadyUsedWine) {
+        Wine NewWine;
+        String sql = null;
+        switch (category) {
+            case 0:
+                // New Colour/Type
+                sql = "SELECT * FROM wines WHERE type=? ORDER BY score DESC LIMIT 5";
+                break;
+            case 1:
+                // New Winery
+                sql = "SELECT * FROM wines WHERE winery=? ORDER BY score DESC LIMIT 5";
+                break;
+            case 2:
+                // New Vintage
+                sql = "SELECT * FROM wines WHERE vintage=? ORDER BY score DESC LIMIT 5";
+                break;
+        }
+        try(Connection conn = databaseManager.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            switch (category) {
+                case 0:
+                    pstmt.setString(1, alreadyUsedWine.get(0).getColor());
+                    break;
+                case 1:
+                    pstmt.setString(1, alreadyUsedWine.get(0).getWineryString());
+                    break;
+                case 2:
+                    pstmt.setInt(1, alreadyUsedWine.get(0).getVintage());
+            }
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                NewWine = new Wine(rs.getString("type"), rs.getString("name"),
+                        rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"),
+                        rs.getString("region"), rs.getString("description"));
+
+                if (checkSameWine(NewWine, alreadyUsedWine.get(0)) ||
+                    checkSameWine(NewWine, alreadyUsedWine.get(1)) ||
+                    checkSameWine(NewWine, alreadyUsedWine.get(2))) {
+                    continue;
+                } else {
+                    return NewWine;
+                }
+            }
+
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+        }
+        return null;
     }
 
     /**
