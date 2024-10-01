@@ -333,4 +333,152 @@ public class WineDAO implements DAOInterface<Wine> {
             return false;
         }
     }
+
+    /**
+     * Returns a List of the top 3 wines with the 1st being same colour, 2nd being same winery, 3rd being same year
+     * @param wine
+     * @return
+     */
+    public List<Wine> getSimilarWines(Wine wine) {
+        List<Wine> similarWines = new ArrayList<>();
+
+        similarWines.add(getSimilarColour(wine));
+        similarWines.add(getSimilarWinery(wine));
+        similarWines.add(getSimilarVintage(wine));
+
+        return similarWines;
+    }
+
+    /**
+     * Function to check if 2 given wines are the same by their unique values
+     * @param wine1
+     * @param wine2
+     * @return true if they are the same wine
+     */
+    public boolean checkSameWine(Wine wine1, Wine wine2) {
+        if (Objects.equals(wine1.getWineName(), wine2.getWineName()) && Objects.equals(wine1.getColor(), wine2.getColor()) &&  wine1.getVintage() == wine2.getVintage()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Used by getSimilarWines() - Returns the top-rated wine of the same colour BUT if same wine return next highest
+     * @param givenWine
+     * @return top wine of same colour
+     */
+    public Wine getSimilarColour(Wine givenWine) {
+        Wine NewWine = null;
+        String sql = "SELECT * FROM wines WHERE type=? ORDER BY score DESC LIMIT 2";
+        try(Connection conn = databaseManager.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, givenWine.getColor());
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                NewWine = new Wine(rs.getString("type"), rs.getString("name"),
+                        rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"),
+                        rs.getString("region"), rs.getString("description"));
+
+                if (checkSameWine(NewWine, givenWine)) {
+                    continue;
+                } else {
+                    return NewWine;
+                }
+            }
+
+            if (NewWine == null) {
+                return getRandomOtherWine(givenWine);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    /**
+     * Used by getSimilarWines() - Returns the top-rated wine from the same Winery BUT if same wine return next highest
+     * @param givenWine
+     * @return top-rated wine from the same Winery
+     */
+    public Wine getSimilarWinery(Wine givenWine) {
+        Wine NewWine = null;
+        String sql = "SELECT * FROM wines WHERE winery=? ORDER BY score DESC LIMIT 2";
+        try(Connection conn = databaseManager.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, givenWine.getWineryString());
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                NewWine = new Wine(rs.getString("type"), rs.getString("name"),
+                        rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"),
+                        rs.getString("region"), rs.getString("description"));
+                if (checkSameWine(NewWine, givenWine)) {
+                    continue;
+                } else {
+                    return NewWine;
+                }
+            }
+
+            if (NewWine == null) {
+                return getRandomOtherWine(givenWine);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    /**
+     * Used by getSimilarWines() - Returns the top-rated wine from the same Year BUT if same wine return next highest
+     * @param givenWine
+     * @return top-rated wine from the same Year
+     */
+    public Wine getSimilarVintage(Wine givenWine) {
+        Wine NewWine = null;
+        String sql = "SELECT * FROM wines WHERE vintage=? ORDER BY score DESC LIMIT 2";
+        try(Connection conn = databaseManager.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, givenWine.getVintage());
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                NewWine = new Wine(rs.getString("type"), rs.getString("name"),
+                        rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"),
+                        rs.getString("region"), rs.getString("description"));
+                if (checkSameWine(NewWine, givenWine)) {
+                    continue;
+                } else {
+                    return NewWine;
+                }
+
+            }
+
+            if (NewWine == null) {
+                return getRandomOtherWine(givenWine);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    /**
+     * returns a Wine that is anything but the given wine
+     * @param givenWine
+     * @return
+     */
+    private Wine getRandomOtherWine(Wine givenWine) {
+        List<Wine> RandomWines = getAll();
+        Collections.shuffle(RandomWines);
+        for (int i = 0; i < RandomWines.size(); i++) {
+            if (checkSameWine(RandomWines.get(i), givenWine)) {
+                continue;
+            }else {
+                return RandomWines.get(i);
+            }
+        }
+        return givenWine;
+    }
 }

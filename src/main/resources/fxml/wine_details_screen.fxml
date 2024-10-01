@@ -3,6 +3,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.WineDetailsScreenController">
@@ -27,7 +32,7 @@
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <ImageView fx:id="wineImage" fitHeight="150.0" fitWidth="200.0" layoutX="373.0" layoutY="191.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="wineImage" fitHeight="150.0" fitWidth="200.0" layoutX="364.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="wineDesc" layoutX="25.0" layoutY="110.0" />
       <Label fx:id="rating" layoutX="25.0" layoutY="170.0" />
       <Label fx:id="wineName" layoutX="25.0" layoutY="50.0" />
@@ -39,5 +44,51 @@
          </font>
       </Label>
       <Label fx:id="wineYear" layoutX="400.0" layoutY="50.0" />
+      <HBox layoutX="190.0" layoutY="284.0" prefHeight="100.0" prefWidth="400.0">
+         <children>
+            <GridPane prefHeight="100.0" prefWidth="392.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.0" minWidth="10.0" prefWidth="108.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="70.0" prefWidth="120.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Pane fx:id="recommendWine1" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="recommendImage1" fitHeight="60.0" fitWidth="60.0" layoutX="36.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="recommendLabel1" layoutX="23.0" layoutY="46.0" prefHeight="40.0" prefWidth="60.0" text="Label" wrapText="true">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="recommendWine2" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <children>
+                        <ImageView fx:id="recommendImage2" fitHeight="60.0" fitWidth="60.0" layoutX="50.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="recommendLabel2" layoutX="27.0" layoutY="46.0" prefHeight="40.0" prefWidth="60.0" text="Label" wrapText="true">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="recommendWine3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+                     <children>
+                        <ImageView fx:id="recommendImage3" fitHeight="60.0" fitWidth="60.0" layoutX="23.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="recommendLabel3" layoutX="17.0" layoutY="46.0" prefHeight="40.0" prefWidth="60.0" text="Label" wrapText="true">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </GridPane>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
