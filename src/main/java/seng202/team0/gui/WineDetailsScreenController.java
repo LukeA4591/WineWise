@@ -113,7 +113,6 @@ public class WineDetailsScreenController {
     private void showSimilarWines() {
         List<Wine> wineList = wineManager.getTheSimilarWines(this.wine);
 
-        System.out.println(RecommendedImageList);
 
         for (int i = 0; i < wineList.size(); i++) {
             if (wineList.get(i) != null) {

@@ -399,6 +399,7 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Used by getSimilarWines() - Returns the top-rated wine from the same Winery BUT if same wine return next highest
+     * Checks if NewWine being set to itself escapes while loop (case where only 1 wine from winery), returns random wine
      * @param givenWine
      * @return top-rated wine from the same Winery
      */
@@ -420,7 +421,7 @@ public class WineDAO implements DAOInterface<Wine> {
                 }
             }
 
-            if (NewWine == null) {
+            if (checkSameWine(NewWine, givenWine)) {
                 return getRandomOtherWine(givenWine);
             }
 
