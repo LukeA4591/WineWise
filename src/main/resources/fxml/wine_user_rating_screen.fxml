@@ -15,19 +15,19 @@
          </font>
       </Label>
       <Slider fx:id="ratingSlider" blockIncrement="5.0" layoutX="54.0" layoutY="162.0" majorTickUnit="5.0" minorTickCount="0" onMouseClicked="#sliderMoved" prefHeight="16.0" prefWidth="497.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-      <Label layoutX="126.0" layoutY="232.0" text="Leave a Review:">
+      <Label layoutX="237.0" layoutY="215.0" text="Leave a Review:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextArea fx:id="reviewTextArea" layoutX="31.0" layoutY="260.0" onKeyTyped="#checkCharacterLimit" prefHeight="68.0" prefWidth="322.0" wrapText="true" />
-      <Button fx:id="saveReviewButton" layoutX="424.0" layoutY="304.0" mnemonicParsing="false" onAction="#saveReview" text="Save Review" />
+      <TextArea fx:id="reviewTextArea" layoutX="54.0" layoutY="254.0" onKeyTyped="#checkCharacterLimit" prefHeight="68.0" prefWidth="497.0" wrapText="true" />
+      <Button fx:id="saveReviewButton" layoutX="318.0" layoutY="354.0" mnemonicParsing="false" onAction="#saveReview" text="Save Review" />
       <Label fx:id="savedLabel" layoutX="424.0" layoutY="366.0" prefHeight="16.0" prefWidth="132.0" />
-      <Button fx:id="resetReviewButton" layoutX="424.0" layoutY="260.0" mnemonicParsing="false" onAction="#resetReview" text="Reset Review" />
+      <Button fx:id="resetReviewButton" layoutX="186.0" layoutY="354.0" mnemonicParsing="false" onAction="#resetReview" text="Reset Review" />
       <Label fx:id="wineNameLabel" layoutX="55.0" layoutY="9.0" prefHeight="16.0" prefWidth="489.0" text="Wine: " />
       <Label fx:id="wineryLabel" layoutX="56.0" layoutY="32.0" prefHeight="16.0" prefWidth="489.0" text="Winery: " />
       <Label fx:id="vintageLabel" layoutX="56.0" layoutY="55.0" prefHeight="16.0" prefWidth="489.0" text="Vintage: " />
       <Label fx:id="criticRatingLabel" layoutX="55.0" layoutY="76.0" prefHeight="16.0" prefWidth="489.0" text="Critic review (/100): " />
-      <Label fx:id="characterLimitLabel" layoutX="192.0" layoutY="334.0" text="Chararcters Remaining:" />
+      <Label fx:id="characterLimitLabel" layoutX="378.0" layoutY="328.0" text="Chararcters Remaining:" />
    </children>
 </AnchorPane>
