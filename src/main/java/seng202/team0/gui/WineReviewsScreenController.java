@@ -31,6 +31,8 @@ public class WineReviewsScreenController {
     private Label vintageLabel;
     @FXML
     private Label criticRatingLabel;
+    @FXML
+    private Label selectedReviewLabel;
 
     private WineManager wineManager = new WineManager();
     private ReviewManager reviewManager;
@@ -87,6 +89,28 @@ public class WineReviewsScreenController {
                 }
             }
         });
+
+        reviewColumn.setCellFactory(column -> new TableCell<Review, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null); // Clear the cell if it's empty
+                } else {
+                    setText(item); // Display full text; JavaFX will handle truncation if needed
+                }
+            }
+
+            {
+                this.setOnMouseClicked(event -> {
+                    if (!isEmpty()) {
+                        String fullText = getItem();
+                        selectedReviewLabel.setText(fullText); // Show full text on label when clicked
+                    }
+                });
+            }
+        });
+
         ratingTable.setItems(observableWineReviews);
 
     }
