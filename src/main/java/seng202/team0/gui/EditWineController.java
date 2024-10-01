@@ -1,17 +1,18 @@
 package seng202.team0.gui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import seng202.team0.business.WineManager;
 import seng202.team0.models.Wine;
 
 import java.time.Year;
+import java.util.Collections;
 
-/**
- * Controller class for the add_wine.fxml page.
- */
-public class AddWineController {
+public class EditWineController {
 
     @FXML
     TextField wineWineryName;
@@ -36,41 +37,39 @@ public class AddWineController {
     @FXML
     ToggleGroup wineTypeToggle;
     private WineManager wineManager;
+    private Wine origionalWine;
 
-    /**
-     * Method for going back to admin when the go back button is pressed.
-     * **/
-    private void goBackToAdmin() {
-        Stage stage = (Stage) wineWineryName.getScene().getWindow();
-        stage.close();
+    public EditWineController(Wine wine) {
+        this.origionalWine = wine;
+        this.wineManager = new WineManager();
     }
 
-    /**
-     * Creates an instance of wineManager when the controller is initialised.
-     * **/
     @FXML
-    void initialize() {
-        wineManager = new WineManager();
-    }
-
-    /**
-     * Sends the new wine to the wineManager when the save wine button is pressed if all the wine values filled in the
-     * text fields were all valid.
-     */
-    public void saveNewWine() {
-        Wine wine = validateWine();
-        if (wine != null) {
-            wineManager.add(wine);
-            goBackToAdmin();
+    public void initialize() {
+        wineWineryName.setText(origionalWine.getWineryString());
+        wineName.setText(origionalWine.getWineName());
+        wineVintage.setText(Integer.toString(origionalWine.getVintage()));
+        wineScore.setText(Integer.toString(origionalWine.getScore()));
+        wineRegion.setText(origionalWine.getRegion());
+        wineDescription.setText(origionalWine.getDescription());
+        if (origionalWine.getColor().equals("Red")) {
+            wineTypeRed.setSelected(true);
+        } else if (origionalWine.getColor().equals("White")) {
+            wineTypeWhite.setSelected(true);
+        } else {
+            wineTypeWhite.setSelected(true);
         }
     }
 
-    /**
-     * Checks to see if the text fields were all filled with valid inputs. If at least one of the text fields were not
-     * filled in correctly, it will set an error message with a description of the error. If all the fields were
-     * correct, it will tell the user that the wine has been saved.
-     * @return Wine if the text fields were all valid, null if at least one of them failed
-     */
+    @FXML
+    public void saveWine() {
+        Wine wine = validateWine();
+        if (wine != null) {
+            Stage stage = (Stage) wineWineryName.getScene().getWindow();
+            stage.close();
+        }
+    }
+
     private Wine validateWine() {
         try {
             String wineWineryNameString = wineWineryName.getText();
@@ -116,17 +115,16 @@ public class AddWineController {
                     return null;
                 }
 
-                saveNewWineMessage.setStyle("-fx-text-fill: #008000");
-                saveNewWineMessage.setText("New wine saved.");
-                wineWineryName.setText("");
-                wineName.setText("");
-                wineVintage.setText("");
-                wineScore.setText("");
-                wineTypeToggle.selectToggle(wineTypeWhite);
-                wineRegion.setText("");
-                wineDescription.setText("");
-                return new Wine(wineTypeString, wineNameString, wineWineryNameString, wineVintageInt, wineScoreInt,
+                Wine wine = new Wine(wineTypeString, wineNameString, wineWineryNameString, wineVintageInt, wineScoreInt,
                         wineRegionString, wineDescriptionString);
+                boolean successfulUpdate = wineManager.updateWine(wine, this.origionalWine);
+                if (!successfulUpdate) {
+                    saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
+                    saveNewWineMessage.setText("This wine already exists.");
+                    return null;
+                } else {
+                    return wine;
+                }
             }
         } catch (NumberFormatException e) {
             saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");

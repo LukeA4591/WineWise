@@ -5,10 +5,7 @@ import org.apache.logging.log4j.Logger;
 import seng202.team0.models.Wine;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * WineDAO class, interacts with the database to query wines
@@ -126,23 +123,28 @@ public class WineDAO implements DAOInterface<Wine> {
     }
     // TODO ADD SQL INJECTTION PROTECTION TO + column + EXAMPLES
     /**
-     * Method for getting all the distinct values of a column from the wine table
+     * Method for getting all the distinct values of a column from the wine table + SQL INJECTION Protection with hecking val column (WILL NEED TO CHANGE IF CHANGE WINE table)
      * @param column column which all the distinct values are needed
      * @return list of the distinct values
      */
     public List<String> getDistinct(String column) {
-        List<String> result = new ArrayList<>();
-        String sql = "SELECT DISTINCT " + column + " FROM wines";
-        try(Connection conn = databaseManager.connect();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                result.add(rs.getString(column));
+        List<String> validCols = List.of("wineID", "type", "name", "winery", "vintage", "score", "region", "description");
+        if (validCols.contains(column)) {
+            List<String> result = new ArrayList<>();
+            String sql = "SELECT DISTINCT " + column + " FROM wines";
+            try(Connection conn = databaseManager.connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+                while (rs.next()) {
+                    result.add(rs.getString(column));
+                }
+                return result;
+            } catch (SQLException sqlException) {
+                log.error(sqlException);
+                return new ArrayList<>();
             }
-            return result;
-        } catch (SQLException sqlException) {
-            log.error(sqlException);
-            return new ArrayList<>();
+        } else {
+            throw new IllegalArgumentException("Column " + column + " is not a valid column name");
         }
     }
 
@@ -203,8 +205,31 @@ public class WineDAO implements DAOInterface<Wine> {
      * @param wines list of wines to be added
      */
     public void addBatch (List <Wine> wines) {
-        for (Wine wine : wines) {
-            add(wine);
+//        for (Wine wine : wines) {
+//            add(wine);
+//        }
+        String sql = "INSERT OR IGNORE INTO wines (type, name, winery, vintage, score, region, description) VALUES (?,?,?,?,?,?,?);";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            for (Wine toAdd : wines) {
+                ps.setString(1, toAdd.getColor());
+                ps.setString(2, toAdd.getWineName());
+                ps.setString(3, toAdd.getWineryString());
+                ps.setInt(4, toAdd.getVintage());
+                ps.setInt(5, toAdd.getScore());
+                ps.setString(6, toAdd.getRegion());
+                ps.setString(7, toAdd.getDescription());
+                ps.addBatch();
+            }
+
+            ps.executeBatch();
+            ResultSet rs = ps.getGeneratedKeys();
+            while (rs.next()){
+                log.info(rs.getLong(1));
+            }
+            conn.commit();
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
         }
     }
 
@@ -276,6 +301,37 @@ public class WineDAO implements DAOInterface<Wine> {
         } catch (SQLException sqlException) {
             log.error(sqlException);
             return 0;
+        }
+    }
+
+    /**
+     * Updates the wine and checks if it can be updated, returns true if successfully updated
+     * @param toUpdate new wine details
+     * @param oldWine old wine details
+     * @return success of update
+     */
+    public boolean updateWine(Wine toUpdate, Wine oldWine) {
+        int id1 = getWineID(oldWine);
+        int id2 = getWineID(toUpdate);
+        if (id2 != 0 && id2 != id1) {
+            return false;
+        }
+        String sql = "UPDATE wines SET type=?, name=?, winery=?, vintage=?, score=?, region=?, description=? WHERE wineID=?";
+        try(Connection conn = databaseManager.connect();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, toUpdate.getColor());
+            ps.setString(2, toUpdate.getWineName());
+            ps.setString(3, toUpdate.getWineryString());
+            ps.setInt(4, toUpdate.getVintage());
+            ps.setInt(5, toUpdate.getScore());
+            ps.setString(6, toUpdate.getRegion());
+            ps.setString(7, toUpdate.getDescription());
+            ps.setInt(8, id1);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            return false;
         }
     }
 }
