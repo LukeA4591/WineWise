@@ -53,6 +53,7 @@ public class SearchPageController {
      */
     @FXML
     private void initialize() {
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         wines = wineManager.getAll();
         if (!wines.isEmpty()) {
             initTable(wines);
