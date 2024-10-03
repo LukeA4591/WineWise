@@ -92,7 +92,7 @@ public class SearchPageController {
             }
 
             List<String> vintages = wineManager.getDistinct("vintage");
-            vintages.sort((s1, s2) -> Integer.compare(Integer.parseInt(s1), Integer.parseInt(s2)));
+            vintages.sort(Comparator.comparingInt(Integer::parseInt));
             for (String vintage : vintages) {
                 MenuItem menu = new MenuItem();
                 menu.setText(vintage);

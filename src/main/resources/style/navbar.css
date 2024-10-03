@@ -4,6 +4,15 @@
     -fx-text-fill: #000000;
 }
 
+.table-view:focused, .text-area:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.table-view {
+    -fx-background-color: #e0e0e0;
+}
+
 .button {
     -fx-background-color: #aeaeae;
     -fx-text-fill: black;
@@ -49,17 +58,12 @@
     -fx-border-radius: 5;
 }
 
-.menu-item:hover {
+.menu-item:hover, .menu-item:focused {
     -fx-background-color: #9b59b6;
-    -fx-text-fill: #ffffff;
 }
 
 .menu-button:hover {
     -fx-background-color: #9b59b6;
-}
-
-.menu-button .label:hover {
-    -fx-text-fill: #FFFFFF;
 }
 
 .title-label {
@@ -69,12 +73,16 @@
     -fx-font-family: "Liberation Sans";
 }
 
-.table-row-cell:selected {
-    -fx-background-color: #4B0082;
+.text-field {
+    -fx-background-color: #efefef;
 }
 
-.text-field, .text-area {
+.text-area .content, .text-area {
     -fx-background-color: #efefef;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #9b59b6;
 }
 
 .table-row-cell:odd {
@@ -82,7 +90,7 @@
 }
 
 .table-row-cell:even {
-    -fx-background-color: #e0e0e0; /* Color for even rows */
+    -fx-background-color: #e0e0e0;
 }
 
 .table-view .table-cell {
@@ -92,5 +100,3 @@
 .table-view .column-header {
     -fx-background-color: #aeaeae;
 }
-
-
