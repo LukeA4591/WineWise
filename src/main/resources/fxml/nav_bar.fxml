@@ -9,9 +9,9 @@
    <top>
       <AnchorPane fx:id="navWindow" prefHeight="24.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="homeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#homePressed" text="Home" />
-            <Button fx:id="searchButton" layoutX="67.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#searchPressed" text="Search" />
-            <Button fx:id="adminButton" layoutX="835.0" mnemonicParsing="false" onAction="#loginPressed" text="Login" />
+            <Button fx:id="homeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#homePressed" styleClass="tab-button" text="Home" />
+            <Button fx:id="searchButton" layoutX="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#searchPressed" styleClass="tab-button" text="Search" />
+            <Button fx:id="adminButton" layoutX="825.0" mnemonicParsing="false" onAction="#loginPressed" styleClass="tab-button" text="Login" />
          </children>
       </AnchorPane>
    </top>
