@@ -15,37 +15,37 @@
             <Font name="Liberation Sans Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="71.0" layoutY="65.0" text="Winery:">
+      <Label layoutX="71.0" layoutY="65.0" styleClass="colon-label" text="Winery:">
          <font>
             <Font name="Liberation Sans Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="71.0" layoutY="110.0" text="Name:">
+      <Label layoutX="71.0" layoutY="110.0" styleClass="colon-label" text="Name:">
          <font>
             <Font name="Liberation Sans Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="71.0" layoutY="155.0" text="Vintage:">
+      <Label layoutX="71.0" layoutY="155.0" styleClass="colon-label" text="Vintage:">
          <font>
             <Font name="Liberation Sans Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="304.0" layoutY="155.0" text="Score:">
+      <Label layoutX="304.0" layoutY="155.0" styleClass="colon-label" text="Score:">
          <font>
             <Font name="Liberation Sans Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="71.0" layoutY="200.0" text="Type:">
+      <Label layoutX="71.0" layoutY="200.0" styleClass="colon-label" text="Type:">
          <font>
             <Font name="Liberation Sans Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="71.0" layoutY="245.0" text="Region:">
+      <Label layoutX="71.0" layoutY="245.0" styleClass="colon-label" text="Region:">
          <font>
             <Font name="Liberation Sans Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="71.0" layoutY="290.0" text="Description:">
+      <Label layoutX="71.0" layoutY="290.0" styleClass="colon-label" text="Description:">
          <font>
             <Font name="Liberation Sans Bold" size="13.0" />
          </font>

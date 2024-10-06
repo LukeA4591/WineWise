@@ -54,6 +54,10 @@
     -fx-text-fill: #ffffff;
 }
 
+.filter-text-field {
+    -fx-background-color: #aeaeae;
+}
+
 .button, .menu-button {
     -fx-background-radius: 8;
     -fx-border-radius: 8;
@@ -114,8 +118,19 @@
     -fx-font-size: 18px;
 }
 
+.colon-label, .radio-button {
+    -fx-text-fill: #000000;
+    -fx-font-family: "Liberation Sans";
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
 .text-field {
     -fx-background-color: #efefef;
+}
+
+.filter-text-field {
+    -fx-background-color: #aeaeae;
 }
 
 .text-area .content, .text-area {

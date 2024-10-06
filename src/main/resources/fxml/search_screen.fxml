@@ -104,7 +104,7 @@
                               </MenuButton>
                            </children>
                         </HBox>
-                        <Label prefHeight="19.0" prefWidth="188.0" text="Category of Wine">
+                        <Label prefHeight="19.0" prefWidth="188.0" styleClass="subheader-label" text="Category of Wine">
                            <font>
                               <Font name="Liberation Sans Bold" size="16.0" />
                            </font>
@@ -136,7 +136,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <Label prefHeight="19.0" prefWidth="73.0" text="Scores">
+                        <Label prefHeight="19.0" prefWidth="73.0" styleClass="subheader-label" text="Scores">
                            <font>
                               <Font name="Liberation Sans Bold" size="16.0" />
                            </font>
@@ -144,7 +144,7 @@
                               <Insets left="5.0" />
                            </padding>
                         </Label>
-                        <Label prefHeight="19.0" prefWidth="84.0" text="Critic Score" GridPane.rowIndex="1">
+                        <Label prefHeight="19.0" prefWidth="84.0" styleClass="colon-label" text="Critic Score" GridPane.rowIndex="1">
                            <font>
                               <Font name="Liberation Sans Bold" size="13.0" />
                            </font>
@@ -155,7 +155,7 @@
                               <Insets bottom="30.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label prefHeight="19.0" prefWidth="49.0" text="From:" GridPane.rowIndex="1">
+                        <Label prefHeight="19.0" prefWidth="49.0" styleClass="colon-label" text="From:" GridPane.rowIndex="1">
                            <font>
                               <Font name="Liberation Sans Bold" size="13.0" />
                            </font>
@@ -166,12 +166,12 @@
                               <Insets top="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField fx:id="criticScoreMinText" maxWidth="35.0" prefWidth="35.0" GridPane.rowIndex="1">
+                        <TextField fx:id="criticScoreMinText" maxWidth="35.0" prefWidth="35.0" styleClass="filter-text-field" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="45.0" top="10.0" />
                            </GridPane.margin>
                         </TextField>
-                        <Label prefHeight="19.0" prefWidth="35.0" text="To:" GridPane.rowIndex="1">
+                        <Label prefHeight="19.0" prefWidth="35.0" styleClass="colon-label" text="To:" GridPane.rowIndex="1">
                            <font>
                               <Font name="Liberation Sans Bold" size="13.0" />
                            </font>
@@ -182,7 +182,7 @@
                               <Insets left="81.0" top="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField fx:id="criticScoreMaxText" maxWidth="35.0" GridPane.rowIndex="1">
+                        <TextField fx:id="criticScoreMaxText" maxWidth="35.0" styleClass="filter-text-field" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="111.0" top="10.0" />
                            </GridPane.margin>
@@ -201,7 +201,7 @@
                         <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label prefHeight="19.0" prefWidth="73.0" text="Wine">
+                        <Label prefHeight="19.0" prefWidth="73.0" styleClass="subheader-label" text="Wine">
                            <font>
                               <Font name="Liberation Sans Bold" size="16.0" />
                            </font>
@@ -230,7 +230,7 @@
                         <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label prefHeight="19.0" prefWidth="73.0" text="Winery">
+                        <Label prefHeight="19.0" prefWidth="73.0" styleClass="subheader-label" text="Winery">
                            <font>
                               <Font name="Liberation Sans Bold" size="16.0" />
                            </font>

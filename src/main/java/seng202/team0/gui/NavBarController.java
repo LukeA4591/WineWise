@@ -139,7 +139,7 @@ public class NavBarController {
             Stage modalStage = new Stage();
             modalStage.setScene(modalScene);
             modalStage.setWidth(600);
-            modalStage.setHeight(400);
+            modalStage.setHeight(420);
             modalStage.setResizable(false);
             modalStage.setTitle("Admin Login Popup");
             // If we want the modal to not block the other window we can change modality to Modality.NONE

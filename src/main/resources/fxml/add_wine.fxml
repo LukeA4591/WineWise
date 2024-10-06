@@ -15,37 +15,37 @@
                 <Font name="Liberation Sans Bold" size="16.0" />
             </font>
         </Label>
-        <Label layoutX="71.0" layoutY="65.0" text="Winery:">
+        <Label layoutX="71.0" layoutY="65.0" styleClass="colon-label" text="Winery:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <Label layoutX="71.0" layoutY="110.0" text="Name:">
+        <Label layoutX="71.0" layoutY="110.0" styleClass="colon-label" text="Name:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <Label layoutX="71.0" layoutY="155.0" text="Vintage:">
+        <Label layoutX="71.0" layoutY="155.0" styleClass="colon-label" text="Vintage:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <Label layoutX="304.0" layoutY="155.0" text="Score:">
+        <Label layoutX="304.0" layoutY="155.0" styleClass="colon-label" text="Score:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <Label layoutX="71.0" layoutY="200.0" text="Type:">
+        <Label layoutX="71.0" layoutY="200.0" styleClass="colon-label" text="Type:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <Label layoutX="71.0" layoutY="245.0" text="Region:">
+        <Label layoutX="71.0" layoutY="245.0" styleClass="colon-label" text="Region:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <Label layoutX="71.0" layoutY="290.0" text="Description:">
+        <Label layoutX="71.0" layoutY="290.0" styleClass="colon-label" text="Description:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
@@ -67,7 +67,7 @@
         <RadioButton fx:id="wineTypeRose" layoutX="344.0" layoutY="200.0" mnemonicParsing="false" text="Rose" toggleGroup="$wineTypeToggle" />
         <TextField fx:id="wineRegion" layoutX="160.0" layoutY="239.0" prefHeight="24.0" prefWidth="320.0" />
         <TextField fx:id="wineDescription" alignment="TOP_LEFT" layoutX="160.0" layoutY="286.0" prefHeight="60.0" prefWidth="320.0" />
-        <Button layoutX="235.0" layoutY="413.0" mnemonicParsing="false" onAction="#saveNewWine" text="Save New Wine">
+        <Button layoutX="225.0" layoutY="381.0" mnemonicParsing="false" onAction="#saveNewWine" text="Save New Wine">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
