@@ -27,4 +27,6 @@ public class WineryManager {
     public Set<String> getExistingWineryNames() {
         return wineryDAO.getExistingWineryNames();
     }
+
+    public void delete(String name) { wineryDAO.delete(name); }
 }

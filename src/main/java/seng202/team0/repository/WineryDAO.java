@@ -99,5 +99,14 @@ public class WineryDAO implements DAOInterface<Winery> {
         }
     }
 
-
+    public void delete(String name) {
+        String sql = "DELETE FROM wineries WHERE name=?;";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, name);
+            ps.executeUpdate();
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+        }
+    }
 }
