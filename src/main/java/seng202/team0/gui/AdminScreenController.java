@@ -257,22 +257,22 @@ public class AdminScreenController {
                 appEnvironment.showLoadingScreen();
             });
 
-                //add batch on background thread.
-                Thread addBatchThread = new Thread(() -> {
+            //add batch on background thread.
+            Thread addBatchThread = new Thread(() -> {
 
-                    //testing loading screen
-                    try {
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+                //testing loading screen
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
 
-                    wineManager.addBatch(new WineCSVImporter(), file);
+                wineManager.addBatch(new WineCSVImporter(), file);
 
-                    Platform.runLater(() -> appEnvironment.hideLoadingScreen());
-                });
+                Platform.runLater(() -> appEnvironment.hideLoadingScreen());
+            });
 
-                addBatchThread.start();
+            addBatchThread.start();
         }
 
     }

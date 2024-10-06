@@ -1,14 +1,18 @@
 package seng202.team0.gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import seng202.team0.services.AdminLoginService;
 import seng202.team0.services.AppEnvironment;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+
+import java.io.File;
 
 /**
  * Controller class for the setup_admin.fxml page.
@@ -59,6 +63,7 @@ public class AdminSetupScreenController {
      * When the create account button is pressed, if the password is validated, the method creates a new account by
      * calling adminLoginInstance to set up the hashed password and storage of user details and then launches the admin
      * screen.
+     * The loading screen is shown whilst waiting for the app to create the new user and switch screens.
      */
     @FXML
     public void createAccountLaunchAdminScreen() {
@@ -73,13 +78,36 @@ public class AdminSetupScreenController {
             if (!errorMessage.isEmpty()) {
                 errorLabel.setText(errorMessage);
             } else {
-                adminLoginInstance.createCredentialsFile();
-                adminLoginInstance.createNewUser(inputtedUsername, inputtedPassword);
-                appEnvironment.getClearRunnable().run();
-                appEnvironment.launchAdminScreen();
+                Stage stage = (Stage) viewButton.getScene().getWindow();
+                //show loading screen on JAVAFX thread
+                Platform.runLater(() -> {
+                    appEnvironment.setLoadingScreenOwner(stage);
+                    appEnvironment.showLoadingScreen();
+                });
+
+                //Create account on background thread.
+                Thread createAccountThread = new Thread(() -> {
+                    adminLoginInstance.createCredentialsFile();
+                    adminLoginInstance.createNewUser(inputtedUsername, inputtedPassword);
+
+                    //testing account creation.
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    Platform.runLater(() -> {
+                        appEnvironment.getClearRunnable().run();
+                        appEnvironment.launchAdminScreen();
+                        appEnvironment.hideLoadingScreen();
+                    });
+                });
+                createAccountThread.start();
             }
         }
     }
+
 
     /**
      * When the view/hide password button is pressed, the password is then set to visible/invisible.
