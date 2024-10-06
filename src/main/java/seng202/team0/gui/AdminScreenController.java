@@ -258,11 +258,14 @@ public class AdminScreenController {
 
                 //add batch on background thread.
                 Thread addBatchThread = new Thread(() -> {
+
+                    //testing loading screen
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(10000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
+
                     wineManager.addBatch(new WineCSVImporter(), file);
 
                     Platform.runLater(() -> loadingScreenService.hideLoadingScreen());

@@ -16,16 +16,18 @@ public class LoadingScreenService {
     public LoadingScreenService(Stage ownerStage) {
         this.loadingStage = new Stage();
         this.loadingStage.initOwner(ownerStage);
-//        this.loadingStage.initModality(Modality.APPLICATION_MODAL); //block using application TODO might cause threading issues
+        this.loadingStage.initModality(Modality.APPLICATION_MODAL); //block using application TODO might cause threading issues
         this.loadingStage.initStyle(StageStyle.UNDECORATED); //remove "x" button
         this.loadingStage.setResizable(false);
-        //loadingStage.showAndWait();
+        this.loadingStage.setX(ownerStage.getX());
+        this.loadingStage.setY(ownerStage.getY());
     }
     public void showLoadingScreen() {
         try {
             FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/loading_screen.fxml"));
             AnchorPane loadingScreen = newStageLoader.load();
             Scene loadingScene = new Scene(loadingScreen);
+
             loadingStage.setScene(loadingScene);
             loadingStage.show();
             System.out.println("showing loading screen");
