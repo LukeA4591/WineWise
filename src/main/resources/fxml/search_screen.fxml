@@ -304,7 +304,7 @@
             </GridPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <TextField fx:id="searchText" layoutX="14.0" layoutY="18.0" prefHeight="46.0" prefWidth="594.0" promptText="Search" stylesheets="@../style/navbar.css" />
+                  <TextField fx:id="searchText" layoutX="14.0" layoutY="26.0" prefHeight="34.0" prefWidth="594.0" promptText="Search" stylesheets="@../style/navbar.css" />
                   <Button layoutX="622.0" layoutY="24.0" maxWidth="90.0" mnemonicParsing="false" onAction="#searchPressed" prefHeight="16.0" prefWidth="50.0" text="Search" />
                </children>
             </AnchorPane>

@@ -245,21 +245,33 @@ public class SearchPageController {
 
         TableColumn<Wine, String> typeCol = new TableColumn<>("Type");
         typeCol.setCellValueFactory(new PropertyValueFactory<>("color"));
+        typeCol.setMinWidth(60);
+        typeCol.setMaxWidth(60);
 
         TableColumn<Wine, String> nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("wineName"));
+        nameCol.setMinWidth(250);
+        nameCol.setMaxWidth(250);
 
         TableColumn<Wine, String> wineryCol = new TableColumn<>("Winery");
         wineryCol.setCellValueFactory(new PropertyValueFactory<>("wineryString"));
+        wineryCol.setMinWidth(150);
+        wineryCol.setMaxWidth(150);
 
         TableColumn<Wine, Integer> vintageCol = new TableColumn<>("Vintage");
         vintageCol.setCellValueFactory(new PropertyValueFactory<>("vintage"));
+        vintageCol.setMinWidth(100);
+        vintageCol.setMaxWidth(100);
 
         TableColumn<Wine, Integer> scoreCol = new TableColumn<>("Score");
         scoreCol.setCellValueFactory(new PropertyValueFactory<>("score"));
+        scoreCol.setMinWidth(50);
+        scoreCol.setMaxWidth(50);
 
         TableColumn<Wine, String> regionCol = new TableColumn<>("Region");
         regionCol.setCellValueFactory(new PropertyValueFactory<>("region"));
+        regionCol.setMaxWidth(100);
+        regionCol.setMinWidth(100);
 
         table.getColumns().add(typeCol);
         table.getColumns().add(nameCol);
