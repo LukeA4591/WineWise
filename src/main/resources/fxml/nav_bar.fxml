@@ -5,14 +5,13 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.NavBarController">
+<BorderPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="900.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.NavBarController">
    <top>
       <AnchorPane fx:id="navWindow" prefHeight="24.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="homeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#homePressed" text="Home" />
-            <Button fx:id="searchButton" layoutX="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#searchPressed" text="Search" />
-            <Button fx:id="adminButton" layoutX="852.0" mnemonicParsing="false" onAction="#loginPressed" text="Login" />
-            <Button fx:id="helpButton" layoutX="808.0" mnemonicParsing="false" onAction="#helpPressed" text="Help" />
+            <Button fx:id="homeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#homePressed" styleClass="tab-button" text="Home" />
+            <Button fx:id="searchButton" layoutX="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#searchPressed" styleClass="tab-button" text="Search" />
+            <Button fx:id="adminButton" layoutX="825.0" mnemonicParsing="false" onAction="#loginPressed" styleClass="tab-button" text="Login" />
          </children>
       </AnchorPane>
    </top>

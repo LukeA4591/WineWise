@@ -33,6 +33,7 @@
 -->
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
@@ -47,7 +48,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="376.0" minWidth="600.0" prefHeight="575.0" prefWidth="895.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.SearchPageController">
+<VBox minHeight="376.0" minWidth="600.0" prefHeight="575.0" prefWidth="900.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.SearchPageController">
   <children>
       <GridPane prefHeight="575.0" prefWidth="900.0">
         <columnConstraints>
@@ -58,7 +59,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane gridLinesVisible="true" prefWidth="222.0">
+            <GridPane prefWidth="222.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
@@ -81,7 +82,7 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="30.0" prefWidth="154.0" GridPane.rowIndex="1">
                            <children>
-                              <MenuButton fx:id="categoryMenuButton" mnemonicParsing="false" prefHeight="30.0" text="Category: ALL">
+                              <MenuButton fx:id="categoryMenuButton" mnemonicParsing="false" prefHeight="29.0" prefWidth="141.0" text="Category: ALL">
                                  <items>
                                     <MenuItem fx:id="allCategory" mnemonicParsing="false" onAction="#categoryFilterClicked" text="ALL" />
                                     <MenuItem fx:id="whiteCategory" mnemonicParsing="false" onAction="#categoryFilterClicked" text="White" />
@@ -201,7 +202,7 @@
                         </Label>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <children>
-                              <MenuButton fx:id="yearMenuButton" mnemonicParsing="false" prefHeight="30.0" text="Year: ALL">
+                              <MenuButton fx:id="yearMenuButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="141.0" text="Year: ALL">
                                  <font>
                                     <Font name="Liberation Sans" size="13.0" />
                                  </font>
@@ -264,25 +265,31 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#resetClicked" text="Reset">
+                                    <Button mnemonicParsing="false" onAction="#resetClicked" styleClass="small-button" text="Reset">
                                        <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                          <Insets bottom="5.0" left="5.0" right="5.0" />
                                        </padding>
                                        <font>
-                                          <Font name="Liberation Sans Bold" size="13.0" />
+                                          <Font name="Liberation Sans" size="13.0" />
                                        </font>
+                                       <VBox.margin>
+                                          <Insets top="-10.0" />
+                                       </VBox.margin>
                                     </Button>
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#filterClick" text="Filter">
+                                    <Button mnemonicParsing="false" onAction="#filterClick" styleClass="small-button" text="Filter">
                                        <font>
                                           <Font name="Liberation Sans Bold" size="13.0" />
                                        </font>
                                        <padding>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
+                                       <VBox.margin>
+                                          <Insets top="-10.0" />
+                                       </VBox.margin>
                                     </Button>
                                  </children>
                               </VBox>
@@ -297,7 +304,10 @@
             </GridPane>
             <ScrollPane GridPane.columnIndex="1">
                <content>
-                  <TableView fx:id="table" prefHeight="550.0" prefWidth="720.0" />
+                  <TableView fx:id="table" prefHeight="550.0" prefWidth="720.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></TableView>
                </content>
             </ScrollPane>
          </children>
