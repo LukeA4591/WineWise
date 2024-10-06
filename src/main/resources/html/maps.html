@@ -26,6 +26,12 @@
     let markers = [];
     var javaScriptBridge; // must be declared as var (will not be correctly assigned in java with let keyword)
 
+    let wineIcon = L.icon({
+        iconUrl: 'img/wine.png',
+        iconSize: [24, 24],
+        iconAnchor: [12, 0],
+    })
+
     /**
      * This object can be returned to our java code, where we can call the functions we define inside of it
      */
@@ -56,7 +62,7 @@
      * @param lng longitude to place marker at
      */
     function addMarker(title, lat, lng) {
-        let m = new L.Marker([lat, lng], {icon: saleIcon})
+        let m = new L.Marker([lat, lng], {icon: wineIcon})
         m.bindPopup(title).openPopup()
         markers.push(m)
     }

@@ -278,6 +278,8 @@ public class AdminScreenController {
         try {
             FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_map_page.fxml"));
             AnchorPane root = newStageLoader.load();
+            AdminMapPageController controller = newStageLoader.getController();
+            controller.init(appEnvironment);
             Scene modalScene = new Scene(root);
             Stage modalStage = new Stage();
             modalStage.setScene(modalScene);
