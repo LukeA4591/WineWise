@@ -100,4 +100,11 @@ public class WineManager {
      */
     public Wine getWineFromID(int wineID) { return wineDAO.getWineFromID(wineID); }
 
+    /**
+     * Gets a list of 3 top wines similar to the given wine in 1.colour 2.winery 3.vintage
+     * @param wine
+     * @return
+     */
+    public List<Wine> getTheSimilarWines(Wine wine) {return wineDAO.getSimilarWines(wine); }
+
 }
