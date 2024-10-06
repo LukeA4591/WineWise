@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import seng202.team0.business.WineryManager;
 import seng202.team0.io.SetWineryInterface;
 import seng202.team0.models.Winery;
 import seng202.team0.repository.WineryDAO;
@@ -21,14 +22,14 @@ public class SetWineryController {
     private Button confirmButton;
     @FXML
     private Label selectedWineryLabel;
-    private WineryDAO wineryDAO;
+    private WineryManager wineryManager;
     float lat;
     float lon;
     SetWineryInterface setWineryInterface;
     String selectedWinery = null;
 
     public void init(SetWineryInterface setWineryInterface, float lat, float lon) {
-        wineryDAO = new WineryDAO();
+        wineryManager = new WineryManager();
         this.setWineryInterface = setWineryInterface;
         this.lat = lat;
         this.lon = lon;
@@ -43,7 +44,7 @@ public class SetWineryController {
     }
 
     void displayWines() {
-        List<Winery> wineries = wineryDAO.getAllWithNullLocation();
+        List<Winery> wineries = wineryManager.getAllWithNullLocation();
         ObservableList<String> wineryNames = FXCollections.observableArrayList();
         for (Winery winery : wineries) {
             wineryNames.add(winery.getWineryName());
@@ -56,8 +57,8 @@ public class SetWineryController {
         if (selectedWinery == null) {
             selectedWineryLabel.setText("Please select a Winery to add");
         } else {
-            wineryDAO.updateLocationByWineryName(selectedWinery, lat, lon);
-            setWineryInterface.operation(wineryDAO.getWineryByName(selectedWinery));
+            wineryManager.updateLocationByWineryName(selectedWinery, lat, lon);
+            setWineryInterface.operation(wineryManager.getWineryByName(selectedWinery));
             Stage stage = (Stage) selectedWineryLabel.getScene().getWindow();
             stage.close();
         }

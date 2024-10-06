@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import netscape.javascript.JSObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import seng202.team0.business.WineryManager;
 import seng202.team0.models.Wine;
 import seng202.team0.models.Winery;
 import seng202.team0.repository.WineryDAO;
@@ -23,11 +24,11 @@ public class MapPageController {
     private WebView webView;
     private WebEngine webEngine;
     private JSObject javaScriptConnector;
-    private WineryDAO wineryDAO;
+    private WineryManager wineryManager;
 
     void init() {
         initMap();
-        wineryDAO = new WineryDAO();
+        wineryManager = new WineryManager();
     }
 
     private void initMap() {
@@ -45,7 +46,7 @@ public class MapPageController {
     }
 
     private void addWineryMarkers() {
-        List<Winery> wineries = wineryDAO.getAllWithValidLocation();
+        List<Winery> wineries = wineryManager.getAllWithValidLocation();
         for (Winery winery : wineries) {
             javaScriptConnector.call("addMarker", winery.getWineryName(), winery.getLatitude(), winery.getLongitude());
         }

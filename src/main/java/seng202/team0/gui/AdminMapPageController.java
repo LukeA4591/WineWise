@@ -14,6 +14,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
+import seng202.team0.business.WineryManager;
 import seng202.team0.models.Winery;
 import seng202.team0.repository.WineryDAO;
 import seng202.team0.services.AppEnvironment;
@@ -28,7 +29,7 @@ public class AdminMapPageController {
     private WebView webView;
     private WebEngine webEngine;
     private JSObject javaScriptConnector;
-    private WineryDAO wineryDAO;
+    private WineryManager wineryManager;
     private JavaScriptBridge javaScriptBridge;
     @FXML
     private Button backButton;
@@ -37,7 +38,7 @@ public class AdminMapPageController {
 
     void init(AppEnvironment appEnvironment, Stage stage) {
         this.appEnvironment = appEnvironment;
-        wineryDAO = new WineryDAO();
+        wineryManager = new WineryManager();
         setWineryList();
         initMap();
         javaScriptBridge = new JavaScriptBridge(this::addWineryMarker, this::getWineryFromClick, stage);
@@ -50,7 +51,7 @@ public class AdminMapPageController {
     }
 
     void setWineryList() {
-        List<Winery> wineries = wineryDAO.getAllWithNullLocation();
+        List<Winery> wineries = wineryManager.getAllWithNullLocation();
         ObservableList<String> wineryNames = FXCollections.observableArrayList();
         for (Winery winery : wineries) {
             wineryNames.add(winery.getWineryName());
@@ -75,7 +76,7 @@ public class AdminMapPageController {
     }
 
     private void addWineryMarkers() {
-        List<Winery> wineries = wineryDAO.getAllWithValidLocation();
+        List<Winery> wineries = wineryManager.getAllWithValidLocation();
         for (Winery winery : wineries) {
             addWineryMarker(winery);
         }
