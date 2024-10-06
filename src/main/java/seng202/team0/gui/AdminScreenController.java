@@ -19,7 +19,6 @@ import seng202.team0.business.WineManager;
 import seng202.team0.io.WineCSVImporter;
 import seng202.team0.models.Review;
 import seng202.team0.services.AppEnvironment;
-import seng202.team0.services.LoadingScreenService;
 
 import java.io.File;
 import java.io.IOException;
@@ -253,8 +252,10 @@ public class AdminScreenController {
 
         if (file != null && file.exists()) {
             //show loading screen on JAVAFX thread
-            LoadingScreenService loadingScreenService = new LoadingScreenService(stage);
-            Platform.runLater(() -> loadingScreenService.showLoadingScreen());
+            Platform.runLater(() -> {
+                appEnvironment.setLoadingScreenOwner(stage);
+                appEnvironment.showLoadingScreen();
+            });
 
                 //add batch on background thread.
                 Thread addBatchThread = new Thread(() -> {
@@ -268,7 +269,7 @@ public class AdminScreenController {
 
                     wineManager.addBatch(new WineCSVImporter(), file);
 
-                    Platform.runLater(() -> loadingScreenService.hideLoadingScreen());
+                    Platform.runLater(() -> appEnvironment.hideLoadingScreen());
                 });
 
                 addBatchThread.start();
