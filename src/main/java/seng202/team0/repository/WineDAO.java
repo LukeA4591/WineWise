@@ -2,7 +2,9 @@ package seng202.team0.repository;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import seng202.team0.exceptions.DuplicateExc;
 import seng202.team0.models.Wine;
+import seng202.team0.models.Winery;
 
 import java.sql.*;
 import java.util.*;
@@ -17,6 +19,7 @@ public class WineDAO implements DAOInterface<Wine> {
     private static final Logger log = LogManager.getLogger(WineDAO.class);
     private final DatabaseManager databaseManager;
 
+    private WineryDAO wineryDAO = new WineryDAO();
 
     /**
      * Creates a new UserDAO object and gets a reference to the database singleton
@@ -207,6 +210,21 @@ public class WineDAO implements DAOInterface<Wine> {
      * @param wines list of wines to be added
      */
     public void addBatch (List <Wine> wines) {
+        Set<Winery> uniqueWineries = new HashSet<>();
+        for (Wine wine : wines) {
+            Winery winery = new Winery(wine.getWineryString());
+            uniqueWineries.add(winery);
+        }
+        Set<String> existingWineries = wineryDAO.getExistingWineryNames();
+        Set<Winery> newWineries = new HashSet<>();
+        for (Winery winery : uniqueWineries) {
+            if (!existingWineries.contains(winery.getWineryName())) {
+                newWineries.add(winery);
+                existingWineries.add(winery.getWineryName());
+            }
+        }
+
+        wineryDAO.addBatch(newWineries);
 //        for (Wine wine : wines) {
 //            add(wine);
 //        }

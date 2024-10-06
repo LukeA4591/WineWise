@@ -1,5 +1,6 @@
 package seng202.team0.business;
 
+import seng202.team0.exceptions.DuplicateExc;
 import seng202.team0.io.Importable;
 import seng202.team0.models.Wine;
 import seng202.team0.repository.WineDAO;
