@@ -90,13 +90,6 @@ public class AdminSetupScreenController {
                     adminLoginInstance.createCredentialsFile();
                     adminLoginInstance.createNewUser(inputtedUsername, inputtedPassword);
 
-                    //testing account creation.
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-
                     Platform.runLater(() -> {
                         appEnvironment.getClearRunnable().run();
                         appEnvironment.launchAdminScreen();
