@@ -53,6 +53,7 @@ public class SearchPageController {
      */
     @FXML
     private void initialize() {
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         wines = wineManager.getAll();
         if (!wines.isEmpty()) {
             initTable(wines);
@@ -91,7 +92,7 @@ public class SearchPageController {
             }
 
             List<String> vintages = wineManager.getDistinct("vintage");
-            vintages.sort((s1, s2) -> Integer.compare(Integer.parseInt(s1), Integer.parseInt(s2)));
+            vintages.sort(Comparator.comparingInt(Integer::parseInt));
             for (String vintage : vintages) {
                 MenuItem menu = new MenuItem();
                 menu.setText(vintage);
@@ -109,7 +110,7 @@ public class SearchPageController {
         table.setRowFactory(tableview -> {
             TableRow<Wine> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 1 && !row.isEmpty()) {
+                if (event.getClickCount() == 2 && !row.isEmpty()) {
                     Wine wineClicked = row.getItem();
                     onWineClicked(wineClicked);
                 }

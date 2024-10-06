@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextFormatter;
 import seng202.team0.business.ReviewManager;
 import seng202.team0.exceptions.DuplicateExc;
 import seng202.team0.models.Review;
@@ -27,10 +28,13 @@ public class WineUserRatingScreenController {
     private TextArea reviewTextArea;
     @FXML
     private Label savedLabel;
+    @FXML
+    private Label characterLimitLabel;
 
     Wine wine;
     private ReviewManager reviewManager;
     private boolean movedSlider = false;
+    private final int MAX_CHARACTERS = 500;
 
     /**
      * Init method for the user rating screen
@@ -44,6 +48,16 @@ public class WineUserRatingScreenController {
         wineryLabel.setText(wineryLabel.getText() + wine.getWineryString());
         vintageLabel.setText(vintageLabel.getText() + wine.getVintage());
         criticRatingLabel.setText("Critic rating: " + wine.getScore() + " / 100");
+        characterLimitLabel.setText("Characters Remaining: " + MAX_CHARACTERS);
+
+        TextFormatter<String> textFormatter = new TextFormatter<>(text -> {
+            if (text.getControlNewText().length() > MAX_CHARACTERS) {
+                return null;
+            }
+            return text;
+        });
+
+        reviewTextArea.setTextFormatter(textFormatter);
     }
 
     /**
@@ -71,6 +85,7 @@ public class WineUserRatingScreenController {
     private void resetReview() {
         ratingSlider.setValue(0);
         reviewTextArea.setText("");
+        characterLimitLabel.setText("Characters Remaining: " + MAX_CHARACTERS);
     }
 
     /**
@@ -79,6 +94,12 @@ public class WineUserRatingScreenController {
     @FXML
     private void sliderMoved() {
         movedSlider = true;
+    }
+
+    @FXML
+    private void checkCharacterLimit() {
+        int textLength = reviewTextArea.getLength();
+        characterLimitLabel.setText("Characters Remaining: " + (MAX_CHARACTERS - textLength));
     }
 
 

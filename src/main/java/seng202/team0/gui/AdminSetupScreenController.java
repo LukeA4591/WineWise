@@ -65,14 +65,19 @@ public class AdminSetupScreenController {
         String inputtedUsername = createUsernameInputField.getText();
         String inputtedPassword = createPasswordInputField.getText();
         String confirmPassword = createConfirmPasswordInputField.getText();
-        String errorMessage = adminLoginInstance.checkPasswordConfirmation(inputtedPassword, confirmPassword);
+        String errorMessage = adminLoginInstance.checkUsernameConfirmation(inputtedUsername);
         if (!errorMessage.isEmpty()) {
             errorLabel.setText(errorMessage);
         } else {
-            adminLoginInstance.createCredentialsFile();
-            adminLoginInstance.createNewUser(inputtedUsername, inputtedPassword);
-            appEnvironment.getClearRunnable().run();
-            appEnvironment.launchAdminScreen();
+            errorMessage = adminLoginInstance.checkPasswordConfirmation(inputtedPassword, confirmPassword);
+            if (!errorMessage.isEmpty()) {
+                errorLabel.setText(errorMessage);
+            } else {
+                adminLoginInstance.createCredentialsFile();
+                adminLoginInstance.createNewUser(inputtedUsername, inputtedPassword);
+                appEnvironment.getClearRunnable().run();
+                appEnvironment.launchAdminScreen();
+            }
         }
     }
 

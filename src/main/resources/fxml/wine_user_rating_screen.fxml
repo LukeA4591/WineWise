@@ -7,26 +7,27 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.WineUserRatingScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.WineUserRatingScreenController">
    <children>
-      <Label layoutX="237.0" layoutY="96.0" text="Leave a Rating:">
+      <Label layoutX="239.0" layoutY="124.0" text="Leave a Rating:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Slider fx:id="ratingSlider" blockIncrement="5.0" layoutX="52.0" layoutY="128.0" majorTickUnit="5.0" minorTickCount="0" onMouseClicked="#sliderMoved" prefHeight="16.0" prefWidth="497.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-      <Label layoutX="234.0" layoutY="190.0" text="Leave a Review:">
+      <Slider fx:id="ratingSlider" blockIncrement="5.0" layoutX="54.0" layoutY="162.0" majorTickUnit="5.0" minorTickCount="0" onMouseClicked="#sliderMoved" prefHeight="16.0" prefWidth="497.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+      <Label layoutX="237.0" layoutY="215.0" text="Leave a Review:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextArea fx:id="reviewTextArea" layoutX="31.0" layoutY="216.0" prefHeight="122.0" prefWidth="540.0" wrapText="true" />
-      <Button fx:id="saveReviewButton" layoutX="297.0" layoutY="362.0" mnemonicParsing="false" onAction="#saveReview" text="Save Review" />
+      <TextArea fx:id="reviewTextArea" layoutX="31.0" layoutY="260.0" onKeyTyped="#checkCharacterLimit" prefHeight="68.0" prefWidth="322.0" wrapText="true" />
+      <Button fx:id="saveReviewButton" layoutX="424.0" layoutY="311.0" mnemonicParsing="false" onAction="#saveReview" text="Save Review" />
       <Label fx:id="savedLabel" layoutX="424.0" layoutY="366.0" prefHeight="16.0" prefWidth="132.0" />
-      <Button fx:id="resetReviewButton" layoutX="186.0" layoutY="362.0" mnemonicParsing="false" onAction="#resetReview" text="Reset Review" />
+      <Button fx:id="resetReviewButton" layoutX="186.0" layoutY="354.0" mnemonicParsing="false" onAction="#resetReview" text="Reset Review" />
       <Label fx:id="wineNameLabel" layoutX="55.0" layoutY="9.0" prefHeight="16.0" prefWidth="489.0" text="Wine: " />
       <Label fx:id="wineryLabel" layoutX="56.0" layoutY="32.0" prefHeight="16.0" prefWidth="489.0" text="Winery: " />
       <Label fx:id="vintageLabel" layoutX="56.0" layoutY="55.0" prefHeight="16.0" prefWidth="489.0" text="Vintage: " />
       <Label fx:id="criticRatingLabel" layoutX="55.0" layoutY="76.0" prefHeight="16.0" prefWidth="489.0" text="Critic review (/100): " />
+      <Label fx:id="characterLimitLabel" layoutX="378.0" layoutY="328.0" text="Chararcters Remaining:" />
    </children>
 </AnchorPane>
