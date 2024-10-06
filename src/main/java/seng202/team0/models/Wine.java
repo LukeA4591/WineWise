@@ -33,6 +33,14 @@ public class Wine {
         this.description = description;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Wine wine = (Wine) o;
+        return wineName.equals(wine.wineName) && vintage == wine.vintage && wineryString.equals(wine.wineryString);
+    }
+
     /**
      * The Getter method for the colour of wine
      * @return typeWine

@@ -19,6 +19,7 @@ import seng202.team0.models.Wine;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Controller class for the admin_view_wines.fxml page.
@@ -31,6 +32,7 @@ public class AdminViewWinesController {
     private static final Logger log = LogManager.getLogger(AdminViewWinesController.class);
     private WineManager wineManager;
     private List<Wine> wines;
+    private int previouslyEditedIndex = -1;
 
     /**
      * Initializes the wineManager and then gets all the wines from the wine database table as wine objects. Using the
@@ -50,6 +52,13 @@ public class AdminViewWinesController {
      */
     private void initTables() {
         wines = wineManager.getAll();
+        if (previouslyEditedIndex != -1) {
+            Wine updatedWine = wines.get(previouslyEditedIndex);
+            System.out.println(updatedWine.getWineName());
+            wines.remove(previouslyEditedIndex);
+            wines.addFirst(updatedWine);
+        }
+
         wineTable.getColumns().clear();
 
         TableColumn<Wine, String> typeCol = new TableColumn<>("Type");
@@ -123,6 +132,8 @@ public class AdminViewWinesController {
             Stage primaryStage = (Stage) wineTable.getScene().getWindow();
             modalStage.initOwner(primaryStage);
             modalStage.showAndWait();
+            previouslyEditedIndex = wines.indexOf(wineClicked);
+            System.out.println(previouslyEditedIndex);
             initTables();
         } catch (IOException e) {
             e.printStackTrace();
