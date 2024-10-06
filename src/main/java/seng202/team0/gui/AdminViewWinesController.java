@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -28,6 +29,8 @@ public class AdminViewWinesController {
 
     @FXML
     private TableView<Wine> wineTable;
+    @FXML
+    private TextField searchText;
 
     private static final Logger log = LogManager.getLogger(AdminViewWinesController.class);
     private WineManager wineManager;
@@ -42,9 +45,16 @@ public class AdminViewWinesController {
     private void initialize() {
         wineManager = new WineManager();
         wines = wineManager.getAll();
-        initTables();
+        initTables(wines);
     }
 
+    @FXML
+    private void searchPressed() {
+        List<Wine> searchedWines;
+        String search = searchText.getText();
+        searchedWines = wineManager.searchWines(search);
+        initTables(searchedWines);
+    }
     /**
      * The table is initialized with the details of all the wines from the database. When a row is selected and either
      * the BACKSPACE or DELETE button is pressed, that wine will be deleted from the database by calling the

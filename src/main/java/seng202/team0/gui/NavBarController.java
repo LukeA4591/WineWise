@@ -100,7 +100,6 @@ public class NavBarController {
 
     private void loadMapPage() {
         try {
-            System.out.println("YAY");
             FXMLLoader mapPageLoader = new FXMLLoader(getClass().getResource("/fxml/map_page.fxml"));
             Parent mapParent = mapPageLoader.load();
             MapPageController mapPageController = mapPageLoader.getController();

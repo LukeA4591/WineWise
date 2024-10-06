@@ -47,12 +47,15 @@ public class WineDAOTest {
         wineDao.add(new Wine("White", "Plume Sav", "Lake Chalice", 2019, 85, "Marlborough", "So tasty"));
         wineDao.add(new Wine("Rose", "Rosy Rose", "Lakes Winery", 2020, 90, "Otago", "Very rosy"));
         wineDao.add(new Wine("White", "Bland Blanc", "Fields of Grapes", 2021, 50, "Canterbury", "Bland and boring"));
+        wineDao.add(new Wine("Rose", "Rose", "Winery1", 2021, 50, "Canterbury", "Bland and boring"));
+        wineDao.add(new Wine("Red", "Red", "Winery2", 2021, 50, "Canterbury", "Bland and boring"));
+
     }
 
     @Test
     public void testGetAllWines() throws DuplicateExc {
         populateDatabase();
-        Assertions.assertEquals(4, wineDao.getAll().size());
+        Assertions.assertEquals(6, wineDao.getAll().size());
     }
 
     @Test
@@ -91,7 +94,7 @@ public class WineDAOTest {
     public void testGetDistinct() throws DuplicateExc {
         populateDatabase();
         List<String> distinctWineries = wineDao.getDistinct("winery");
-        Assertions.assertEquals(3, distinctWineries.size());
+        Assertions.assertEquals(5, distinctWineries.size());
     }
 
     @Test
@@ -99,28 +102,28 @@ public class WineDAOTest {
         populateDatabase();
         wineDao.add(new Wine("White", "Tasty Blanc", "Fields of Grapes", 2021, 80, "Canterbury", "Yummy"));
         wineDao.add(new Wine("White", "Bland Blanc", "Fields of Grapes", 2021, 60, "Canterbury", "Bland and boring"));
-        Assertions.assertEquals(5, wineDao.getAll().size());
+        Assertions.assertEquals(7, wineDao.getAll().size());
     }
 
     @Test
     public void testDelete() throws DuplicateExc {
         populateDatabase();
         wineDao.delete("Rosy Rose", "Lakes Winery", 2020);
-        Assertions.assertEquals(3, wineDao.getAll().size());
+        Assertions.assertEquals(5, wineDao.getAll().size());
     }
 
     @Test
     public void testDeleteDoesNotExist() throws DuplicateExc {
         populateDatabase();
         wineDao.delete("WWWWWWW", "AAAAAAAAAAA", 0);
-        Assertions.assertEquals(4, wineDao.getAll().size());
+        Assertions.assertEquals(6, wineDao.getAll().size());
     }
 
     @Test
     public void testGetTopRated() throws DuplicateExc {
         populateDatabase();
         List<Wine> wines = wineDao.getTopRated();
-        Assertions.assertEquals(3, wines.size());
+        Assertions.assertEquals(6, wines.size());
         Assertions.assertEquals(wines.get(0).getWineName(), "Rosy Rose");
         Assertions.assertEquals(wines.get(1).getWineName(), "Plume Sav");
         Assertions.assertEquals(wines.get(2).getWineName(), "Plume Pinot Noir");

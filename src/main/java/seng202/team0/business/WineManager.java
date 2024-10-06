@@ -107,4 +107,5 @@ public class WineManager {
      */
     public List<Wine> getTheSimilarWines(Wine wine) {return wineDAO.getSimilarWines(wine); }
 
+    public List<Wine> searchWines(String search) {return  wineDAO.searchWines(search);}
 }

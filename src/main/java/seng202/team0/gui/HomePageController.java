@@ -27,11 +27,23 @@ public class HomePageController {
     @FXML
     private ImageView imageView3;
     @FXML
+    private ImageView imageView4;
+    @FXML
+    private ImageView imageView5;
+    @FXML
+    private ImageView imageView6;
+    @FXML
     private Label rating1;
     @FXML
     private Label rating2;
     @FXML
     private Label rating3;
+    @FXML
+    private Label rating4;
+    @FXML
+    private Label rating5;
+    @FXML
+    private Label rating6;
     @FXML
     private Label desc1;
     @FXML
@@ -39,11 +51,23 @@ public class HomePageController {
     @FXML
     private Label desc3;
     @FXML
+    private Label desc4;
+    @FXML
+    private Label desc5;
+    @FXML
+    private Label desc6;
+    @FXML
     private Label wine1;
     @FXML
     private Label wine2;
     @FXML
     private Label wine3;
+    @FXML
+    private Label wine4;
+    @FXML
+    private Label wine5;
+    @FXML
+    private Label wine6;
 
     private Stage stage;
     private WineManager wineManager;
@@ -56,7 +80,7 @@ public class HomePageController {
      */
     public void init(Stage stage) {
         wineManager = new WineManager();
-        if (wineManager.getAll().size() >= 3) {
+        if (wineManager.getAll().size() >= 6) {
             List<Wine> wines = wineManager.getTopRated();
             displayWines(wines);
             displayWinery(wines);
@@ -73,6 +97,9 @@ public class HomePageController {
         wine1.setText(wines.get(0).getWineName());
         wine2.setText(wines.get(1).getWineName());
         wine3.setText(wines.get(2).getWineName());
+        wine4.setText(wines.get(3).getWineName());
+        wine5.setText(wines.get(4).getWineName());
+        wine6.setText(wines.get(5).getWineName());
     }
 
     /**
@@ -83,6 +110,9 @@ public class HomePageController {
         desc1.setText("Winery: " + wines.get(0).getWineryString());
         desc2.setText("Winery: " + wines.get(1).getWineryString());
         desc3.setText("Winery: " + wines.get(2).getWineryString());
+        desc4.setText("Winery: " + wines.get(3).getWineryString());
+        desc5.setText("Winery: " + wines.get(4).getWineryString());
+        desc6.setText("Winery: " + wines.get(5).getWineryString());
     }
 
     /**
@@ -93,6 +123,9 @@ public class HomePageController {
         rating1.setText(wines.get(0).getScore() + " / 100");
         rating2.setText(wines.get(1).getScore() + " / 100");
         rating3.setText(wines.get(2).getScore() + " / 100");
+        rating4.setText(wines.get(3).getScore() + " / 100");
+        rating5.setText(wines.get(4).getScore() + " / 100");
+        rating6.setText(wines.get(5).getScore() + " / 100");
     }
 
     /**
@@ -101,8 +134,8 @@ public class HomePageController {
      * @param wines A list of the top-rated wines.
      */
     public void setImage(List<Wine> wines) {
-        List<ImageView> imageViews = Arrays.asList(imageView1, imageView2, imageView3);
-        for (int i = 0; i < 3; i++) {
+        List<ImageView> imageViews = Arrays.asList(imageView1, imageView2, imageView3, imageView4, imageView5, imageView6);
+        for (int i = 0; i < 6; i++) {
             Image image = wineService.getImage(wines.get(i));
             ImageView imageView = imageViews.get(i);
             imageView.setImage(image);
@@ -115,7 +148,7 @@ public class HomePageController {
      */
     @FXML
     void wine1Pressed() {
-        if (wineManager.getAll().size() >= 3) {
+        if (wineManager.getAll().size() >= 6) {
             List<Wine> wines = wineManager.getTopRated();
             Wine wine = wines.getFirst();
             Image image = wineService.getImage(wine);
@@ -129,7 +162,7 @@ public class HomePageController {
      */
     @FXML
     void wine2Pressed() {
-        if (wineManager.getAll().size() >= 3) {
+        if (wineManager.getAll().size() >= 6) {
             List<Wine> wines = wineManager.getTopRated();
             Wine wine = wines.get(1);
             Image image = wineService.getImage(wine);
@@ -143,9 +176,39 @@ public class HomePageController {
      */
     @FXML
     void wine3Pressed() {
-        if (wineManager.getAll().size() >= 3) {
+        if (wineManager.getAll().size() >= 6) {
             List<Wine> wines = wineManager.getTopRated();
             Wine wine = wines.get(2);
+            Image image = wineService.getImage(wine);
+            wineService.winePressed(wine, image, rating1);
+        }
+    }
+
+    @FXML
+    void wine4Pressed() {
+        if (wineManager.getAll().size() >= 6) {
+            List<Wine> wines = wineManager.getTopRated();
+            Wine wine = wines.get(3);
+            Image image = wineService.getImage(wine);
+            wineService.winePressed(wine, image, rating1);
+        }
+    }
+
+    @FXML
+    void wine5Pressed() {
+        if (wineManager.getAll().size() >= 6) {
+            List<Wine> wines = wineManager.getTopRated();
+            Wine wine = wines.get(4);
+            Image image = wineService.getImage(wine);
+            wineService.winePressed(wine, image, rating1);
+        }
+    }
+
+    @FXML
+    void wine6Pressed() {
+        if (wineManager.getAll().size() >= 6) {
+            List<Wine> wines = wineManager.getTopRated();
+            Wine wine = wines.get(5);
             Image image = wineService.getImage(wine);
             wineService.winePressed(wine, image, rating1);
         }
