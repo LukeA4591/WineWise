@@ -7,11 +7,12 @@
 
 <BorderPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="900.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.NavBarController">
    <top>
-      <AnchorPane fx:id="navWindow" prefHeight="24.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="navWindow" prefHeight="35.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="homeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#homePressed" styleClass="tab-button" text="Home" />
             <Button fx:id="searchButton" layoutX="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#searchPressed" styleClass="tab-button" text="Search" />
             <Button fx:id="adminButton" layoutX="825.0" mnemonicParsing="false" onAction="#loginPressed" styleClass="tab-button" text="Login" />
+            <Button fx:id="helpButton" layoutX="750.0" mnemonicParsing="false" onAction="#helpPressed" styleClass="tab-button" text="Help" />
          </children>
       </AnchorPane>
    </top>
@@ -25,6 +26,6 @@
       <AnchorPane prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
    </right>
    <center>
-      <Pane minHeight="600.0" minWidth="900.0" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <Pane minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

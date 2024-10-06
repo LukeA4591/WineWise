@@ -135,13 +135,13 @@ public class SearchPageController {
     private void filterClick(){
         if ((Objects.equals(criticScoreMinText.getText(), "") && !(Objects.equals(criticScoreMaxText.getText(), ""))) || (!(Objects.equals(criticScoreMinText.getText(), "")) && Objects.equals(criticScoreMaxText.getText(), ""))) {
             errorLabel.setText("Please input both scores");
-            errorLabel.setStyle("-fx-text-fill: red;");
+            errorLabel.setStyle("-fx-text-fill: white;");
         } else if (!validScore(criticScoreMaxText.getText()) || !validScore(criticScoreMinText.getText())){
             errorLabel.setText("Please enter integers");
-            errorLabel.setStyle("-fx-text-fill: red");
+            errorLabel.setStyle("-fx-text-fill: white");
         } else if (!Objects.equals(criticScoreMaxText.getText(), "") && !Objects.equals(criticScoreMinText.getText(), "") && (Integer.parseInt(criticScoreMaxText.getText()) <= Integer.parseInt(criticScoreMinText.getText()))) {
             errorLabel.setText("Please have from <= to");
-            errorLabel.setStyle("-fx-text-fill: red;");
+            errorLabel.setStyle("-fx-text-fill: white;");
         } else {
             errorLabel.setText("");
             scoreFilters.put("score", Arrays.asList(criticScoreMinText.getText(), criticScoreMaxText.getText()));

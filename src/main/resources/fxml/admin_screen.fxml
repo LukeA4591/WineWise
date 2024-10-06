@@ -6,34 +6,39 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="900.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.AdminScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.AdminScreenController">
    <children>
-      <Button fx:id="logoutButton" layoutX="722.0" layoutY="25.0" mnemonicParsing="false" onAction="#adminLogout" text="Logout">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="508.0" layoutX="14.0" layoutY="78.0" stroke="BLACK" strokeType="INSIDE" styleClass="highlight-rectangle" width="242.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="508.0" layoutX="276.0" layoutY="78.0" stroke="BLACK" strokeType="INSIDE" styleClass="highlight-rectangle" width="608.0" />
+      <Button fx:id="logoutButton" layoutX="732.0" layoutY="25.0" mnemonicParsing="false" onAction="#adminLogout" text="Logout">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="81.0" layoutY="220.0" mnemonicParsing="false" onAction="#addDataSet" text="Add a dataset">
+      <Button layoutX="60.0" layoutY="250.0" mnemonicParsing="false" onAction="#addDataSet" text="Add a dataset">
          <font>
             <Font size="15.0" />
-         </font></Button>
-      <Button layoutX="81.0" layoutY="380.0" mnemonicParsing="false" onAction="#onViewWines" prefHeight="29.0" prefWidth="152.0" text="View Table">
+         </font>
+      </Button>
+      <Button layoutX="60.0" layoutY="390.0" mnemonicParsing="false" onAction="#onViewWines" prefHeight="29.0" prefWidth="152.0" text="View data">
          <font>
             <Font size="15.0" />
-         </font></Button>
-      <Label layoutX="81.0" layoutY="110.0" text="Modify Data">
+         </font>
+      </Button>
+      <Label layoutX="81.0" layoutY="158.0" styleClass="subheader-label" text="Modify Data">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="327.0" layoutY="110.0" text="Flagged Reviews">
+      <Label layoutX="509.0" layoutY="111.0" styleClass="subheader-label" text="Flagged Reviews">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="315.0" layoutY="23.0" styleClass="title-label" text="WineWise Admin">
+      <Label layoutX="276.0" layoutY="14.0" styleClass="title-label" text="WineWise Admin">
          <font>
             <Font name="System Bold Italic" size="24.0" />
          </font>
@@ -46,10 +51,11 @@
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button fx:id="addWine" layoutX="81.0" layoutY="300.0" mnemonicParsing="false" onAction="#onAddWine" text="Add data">
+      <Button fx:id="addWine" layoutX="60.0" layoutY="320.0" mnemonicParsing="false" onAction="#onAddWine" text="Add data">
          <font>
             <Font size="15.0" />
-         </font></Button>
+         </font>
+      </Button>
       <TableView fx:id="ratingTable" layoutX="330.0" layoutY="138.0" prefHeight="163.0" prefWidth="489.0">
          <columns>
             <TableColumn fx:id="ratingColumn" prefWidth="65.0" text="Rating" />
@@ -57,21 +63,22 @@
             <TableColumn fx:id="flaggedColumn" prefWidth="65.0" text="Select" />
          </columns>
       </TableView>
-      <Label layoutX="325.0" layoutY="481.0" text="Tick the checkboxes in the select column then click one of these buttons:">
+      <Label layoutX="361.0" layoutY="485.0" styleClass="subtitle-label" text="Tick the checkboxes in the select column then click one of these buttons:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Button layoutX="563.0" layoutY="25.0" mnemonicParsing="false" onAction="#adminChangePassword" text="Change Password ">
+      <Button layoutX="571.0" layoutY="25.0" mnemonicParsing="false" onAction="#adminChangePassword" text="Change Password ">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="helpButton" layoutX="738.0" layoutY="67.0" mnemonicParsing="false" onAction="#onHelp" text="Help" />
+      <Button fx:id="helpButton" layoutX="14.0" layoutY="25.0" mnemonicParsing="false" onAction="#onHelp" text="Help" />
       <ScrollPane fx:id="selectedReviewScrollPane" layoutX="329.0" layoutY="308.0" prefHeight="163.0" prefWidth="489.0">
          <content>
             <Text fx:id="selectedReviewText" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a review to expand!" />
          </content>
       </ScrollPane>
+      <Label layoutX="307.0" layoutY="41.0" styleClass="subtitle-label" text="Click help if you're lost!" />
    </children>
 </AnchorPane>
