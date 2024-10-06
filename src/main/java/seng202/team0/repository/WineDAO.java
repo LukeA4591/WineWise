@@ -2,14 +2,12 @@ package seng202.team0.repository;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import seng202.team0.exceptions.DuplicateExc;
 import seng202.team0.models.Wine;
 import seng202.team0.models.Winery;
 
 import java.sql.*;
 import java.util.*;
 
-import java.util.Random;
 
 /**
  * WineDAO class, interacts with the database to query wines
@@ -206,7 +204,7 @@ public class WineDAO implements DAOInterface<Wine> {
 
 
     /**
-     * Adds a batch of wines to the database
+     * Adds a batch of wines to the database and sends a list of wines to the WineryDAO, so it can add any new wineries.
      * @param wines list of wines to be added
      */
     public void addBatch (List <Wine> wines) {
@@ -223,11 +221,7 @@ public class WineDAO implements DAOInterface<Wine> {
                 existingWineries.add(winery.getWineryName());
             }
         }
-
         wineryDAO.addBatch(newWineries);
-//        for (Wine wine : wines) {
-//            add(wine);
-//        }
         String sql = "INSERT OR IGNORE INTO wines (type, name, winery, vintage, score, region, description) VALUES (?,?,?,?,?,?,?);";
         try (Connection conn = databaseManager.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {

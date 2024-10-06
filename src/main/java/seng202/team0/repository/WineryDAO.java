@@ -2,6 +2,7 @@ package seng202.team0.repository;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import seng202.team0.models.Wine;
 import seng202.team0.models.Winery;
 
 import java.util.*;
@@ -60,8 +61,25 @@ public class WineryDAO implements DAOInterface<Winery> {
 
     //TODO not sure about the duplicateExc
     public void addBatch (Set <Winery> wineries) {
-        for (Winery winery : wineries) {
-            add(winery);
+        String sql = "INSERT OR IGNORE INTO wineries (wineryName, longitude, latitude) VALUES (?, ?, ?);";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            for (Winery toAdd : wineries) {
+                ps.setString(1, toAdd.getWineryName());
+                if (toAdd.getLatitude() != null && toAdd.getLatitude() != null) {
+                    ps.setFloat(2, toAdd.getLongitude());
+                    ps.setFloat(3, toAdd.getLatitude());
+                }
+                ps.addBatch();
+            }
+            ps.executeBatch();
+            ResultSet rs = ps.getGeneratedKeys();
+            while (rs.next()){
+                log.info(rs.getLong(1));
+            }
+            conn.commit();
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
         }
     }
 
