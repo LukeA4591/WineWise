@@ -52,6 +52,7 @@
 .button:hover {
     -fx-background-color: #9b59b6 ;
     -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
 }
 
 .filter-text-field {
