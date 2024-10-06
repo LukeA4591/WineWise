@@ -10,9 +10,9 @@
       <AnchorPane fx:id="navWindow" prefHeight="24.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="homeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#homePressed" text="Home" />
-            <Button fx:id="searchButton" layoutX="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#searchPressed" text="Search" />
-            <Button fx:id="adminButton" layoutX="852.0" mnemonicParsing="false" onAction="#loginPressed" text="Login" />
-            <Button fx:id="mapButton" layoutX="130.0" minWidth="65.0" mnemonicParsing="false" onAction="#mapPressed" text="Maps" />
+            <Button fx:id="searchButton" layoutX="158.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#searchPressed" text="Search" />
+            <Button fx:id="adminButton" layoutX="742.0" layoutY="-1.0" mnemonicParsing="false" onAction="#loginPressed" text="Login" />
+            <Button fx:id="mapButton" layoutX="319.0" layoutY="-1.0" minWidth="65.0" mnemonicParsing="false" onAction="#mapPressed" text="Maps" />
          </children>
       </AnchorPane>
    </top>

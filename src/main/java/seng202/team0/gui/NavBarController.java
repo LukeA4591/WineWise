@@ -96,20 +96,6 @@ public class NavBarController {
         }
     }
 
-
-    /**
-     * Loads the help page into the border pane
-     */
-    private void loadHelpPage() {
-        try {
-            FXMLLoader helpPageLoader = new FXMLLoader(getClass().getResource("/fxml/user_help_page.fxml"));
-            Parent helpParent = helpPageLoader.load();
-            mainWindow.setCenter(helpParent);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * OnAction method for the Home button
      */
@@ -118,13 +104,6 @@ public class NavBarController {
         loadHomePage();
         setAllButtonsGrey();
         homeButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
-    }
-
-    @FXML
-    private void helpPressed() {
-        loadHelpPage();
-        setAllButtonsGrey();
-        helpButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
     /**
