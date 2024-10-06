@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -37,7 +39,13 @@ public class AdminScreenController {
     @FXML
     private TableColumn<Review, Boolean> flaggedColumn;
     @FXML
-    Button addWine;
+    private Button addWine;
+    @FXML
+    private Button helpButton;
+    @FXML
+    private Text selectedReviewText;
+    @FXML
+    private ScrollPane selectedReviewScrollPane;
 
     private final AppEnvironment appEnvironment;
     private final WineManager wineManager;
@@ -100,6 +108,28 @@ public class AdminScreenController {
                 }
             }
         });
+
+        reviewColumn.setCellFactory(column -> new TableCell<Review, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item);
+                }
+            }
+
+            {
+                this.setOnMouseClicked(event -> {
+                    if (!isEmpty()) {
+                        String fullText = getItem();
+                        selectedReviewText.setText(fullText);
+                        selectedReviewScrollPane.setContent(selectedReviewText);
+                    }
+                });
+            }
+        });
         ratingTable.setItems(observableWineReviews);
     }
 
@@ -113,6 +143,7 @@ public class AdminScreenController {
             reviewManager.delete(selectedReviews.get(i).getReviewID());
         }
         displayFlaggedReviews();
+        selectedReviewText.setText("Select a review to expand!");
     }
 
     /**
@@ -125,6 +156,7 @@ public class AdminScreenController {
             reviewManager.markAsUnreported(selectedReviews.get(i).getReviewID());
         }
         displayFlaggedReviews();
+        selectedReviewText.setText("Select a review to expand!");
 
     }
 
@@ -169,6 +201,25 @@ public class AdminScreenController {
             modalStage.setHeight(624);
             modalStage.setResizable(false);
             modalStage.setTitle("View Wines");
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            Stage primaryStage = (Stage) addWine.getScene().getWindow();
+            modalStage.initOwner(primaryStage);
+            modalStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onHelp() {
+        try {
+            FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_help_popup.fxml"));
+            BorderPane root = newStageLoader.load();
+            Scene modalScene = new Scene(root);
+            Stage modalStage = new Stage();
+            modalStage.setScene(modalScene);
+            modalStage.setResizable(false);
+            modalStage.setTitle("Admin Help Screen");
             modalStage.initModality(Modality.APPLICATION_MODAL);
             Stage primaryStage = (Stage) addWine.getScene().getWindow();
             modalStage.initOwner(primaryStage);

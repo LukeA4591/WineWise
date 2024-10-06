@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.WineReviewsScreenController">
    <children>
@@ -11,12 +13,17 @@
       <Label fx:id="wineryLabel" layoutX="56.0" layoutY="32.0" prefHeight="16.0" prefWidth="489.0" text="Winery: " />
       <Label fx:id="vintageLabel" layoutX="56.0" layoutY="55.0" prefHeight="16.0" prefWidth="489.0" text="Vintage: " />
       <Label fx:id="criticRatingLabel" layoutX="55.0" layoutY="76.0" prefHeight="16.0" prefWidth="489.0" text="Critic review (/100): " />
-      <TableView fx:id="ratingTable" layoutX="12.0" layoutY="109.0" prefHeight="258.0" prefWidth="578.0">
+      <TableView fx:id="ratingTable" layoutX="11.0" layoutY="102.0" prefHeight="157.0" prefWidth="578.0">
         <columns>
           <TableColumn fx:id="ratingColumn" prefWidth="58.0" text="Rating" />
-          <TableColumn fx:id="reviewColumn" prefWidth="446.0" text="Description" />
-            <TableColumn fx:id="reportColumn" prefWidth="73.0" text="Report" />
+          <TableColumn fx:id="reviewColumn" prefWidth="463.0" text="Description" />
+            <TableColumn fx:id="reportColumn" prefWidth="56.0" text="Report" />
         </columns>
       </TableView>
+      <ScrollPane fx:id="selectedReviewScrollPane" fitToWidth="true" layoutX="11.0" layoutY="265.0" prefHeight="121.0" prefWidth="578.0">
+         <content>
+            <Text fx:id="selectedReviewText" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a review to expand!" />
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
