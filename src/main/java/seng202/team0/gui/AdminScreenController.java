@@ -43,6 +43,8 @@ public class AdminScreenController {
     @FXML
     private Button helpButton;
     @FXML
+    private Button addWinery;
+    @FXML
     private Text selectedReviewText;
     @FXML
     private ScrollPane selectedReviewScrollPane;
@@ -252,7 +254,6 @@ public class AdminScreenController {
 
     @FXML
     void adminChangePassword() {
-        System.out.println("Button clicked");
         try {
             FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_change_password_popup.fxml"));
             AnchorPane root = newStageLoader.load();
@@ -266,6 +267,27 @@ public class AdminScreenController {
             modalStage.setTitle("Change Password Popup");
             modalStage.initModality(Modality.WINDOW_MODAL);
             modalStage.initOwner(addWine.getScene().getWindow());
+            modalStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void onAddWinery() {
+        try {
+            FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_map_page.fxml"));
+            AnchorPane root = newStageLoader.load();
+            Scene modalScene = new Scene(root);
+            Stage modalStage = new Stage();
+            modalStage.setScene(modalScene);
+            modalStage.setWidth(900);
+            modalStage.setHeight(624);
+            modalStage.setResizable(false);
+            modalStage.setTitle("Place Wineries");
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            Stage primaryStage = (Stage) addWinery.getScene().getWindow();
+            modalStage.initOwner(primaryStage);
             modalStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();

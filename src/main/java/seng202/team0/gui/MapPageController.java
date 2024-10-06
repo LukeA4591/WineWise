@@ -10,6 +10,11 @@ import javafx.stage.Stage;
 import netscape.javascript.JSObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import seng202.team0.models.Wine;
+import seng202.team0.models.Winery;
+import seng202.team0.repository.WineryDAO;
+
+import java.util.List;
 
 
 public class MapPageController {
@@ -18,10 +23,11 @@ public class MapPageController {
     private WebView webView;
     private WebEngine webEngine;
     private JSObject javaScriptConnector;
+    private WineryDAO wineryDAO;
 
     void init() {
-        System.out.println("YAY");
         initMap();
+        wineryDAO = new WineryDAO();
     }
 
     private void initMap() {
@@ -34,13 +40,21 @@ public class MapPageController {
                         JSObject window = (JSObject) webEngine.executeScript("window");
                         window.setMember("javaScriptBridge", this);
                         javaScriptConnector = (JSObject) webEngine.executeScript("jsConnector");
-                        Platform.runLater(() -> {
-                            if (javaScriptConnector != null) {
-                                javaScriptConnector.call("initMap");
-                            }
-                        });
+                        javaScriptConnector.call("initMap");
+                        addWineryMarkers();
                     }
                 });
     }
 
+    private void addWineryMarkers() {
+        List<Winery> wineries = wineryDAO.getAllWithValidLocation();
+        for (Winery winery : wineries) {
+            javaScriptConnector.call("addMarker", winery.getWineryName(), winery.getLatitude(), winery.getLongitude());
+        }
+        displayMarkers();
+    }
+
+    private void displayMarkers() {
+        javaScriptConnector.call("displayMarkers");
+    }
 }
