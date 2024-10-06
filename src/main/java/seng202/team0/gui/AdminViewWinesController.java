@@ -45,15 +45,14 @@ public class AdminViewWinesController {
     private void initialize() {
         wineManager = new WineManager();
         wines = wineManager.getAll();
-        initTables(wines);
+        initTables();
     }
 
     @FXML
     private void searchPressed() {
-        List<Wine> searchedWines;
         String search = searchText.getText();
-        searchedWines = wineManager.searchWines(search);
-        initTables(searchedWines);
+        wines = wineManager.searchWines(search);
+        initTables();
     }
     /**
      * The table is initialized with the details of all the wines from the database. When a row is selected and either
@@ -61,11 +60,12 @@ public class AdminViewWinesController {
      * wineManager.
      */
     private void initTables() {
-        wines = wineManager.getAll();
         if (editedWine != null) {
             int previousIndex = wines.indexOf(editedWine);
-            wines.remove(previousIndex);
-            wines.addFirst(editedWine);
+            if (previousIndex != -1) {
+                wines.remove(previousIndex);
+                wines.addFirst(editedWine);
+            }
         }
 
         wineTable.getColumns().clear();
@@ -142,6 +142,7 @@ public class AdminViewWinesController {
             modalStage.initOwner(primaryStage);
             modalStage.showAndWait();
             editedWine = wineClicked;
+            wines = wineManager.getAll();
             initTables();
         } catch (IOException e) {
             e.printStackTrace();
