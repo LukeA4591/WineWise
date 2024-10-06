@@ -30,6 +30,8 @@ public class NavBarController {
     private Button adminButton;
     @FXML
     private Button mapButton;
+    @FXML
+    private Button helpButton;
 
     private AppEnvironment appEnvironment;
 
@@ -65,6 +67,19 @@ public class NavBarController {
             HomePageController homePageController = homePageLoader.getController();
             homePageController.init(stage);
             mainWindow.setCenter(mainParent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Loads the help page into the border pane
+     */
+    private void loadHelpPage() {
+        try {
+            FXMLLoader helpPageLoader = new FXMLLoader(getClass().getResource("/fxml/user_help_page.fxml"));
+            Parent helpParent = helpPageLoader.load();
+            mainWindow.setCenter(helpParent);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -123,6 +138,13 @@ public class NavBarController {
         mapButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
+    @FXML
+    private void helpPressed() {
+        loadHelpPage();
+        setAllButtonsGrey();
+        helpButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+    }
+
     /**
      * OnAction method for the login button, initializes the login page
      */
@@ -160,6 +182,7 @@ public class NavBarController {
         homeButton.setStyle("");
         searchButton.setStyle("");
         mapButton.setStyle("");
+        helpButton.setStyle("");
     }
 
     /**
