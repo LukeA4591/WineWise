@@ -32,7 +32,7 @@ public class AdminViewWinesController {
     private static final Logger log = LogManager.getLogger(AdminViewWinesController.class);
     private WineManager wineManager;
     private List<Wine> wines;
-    private int previouslyEditedIndex = -1;
+    private Wine editedWine;
 
     /**
      * Initializes the wineManager and then gets all the wines from the wine database table as wine objects. Using the
@@ -52,11 +52,10 @@ public class AdminViewWinesController {
      */
     private void initTables() {
         wines = wineManager.getAll();
-        if (previouslyEditedIndex != -1) {
-            Wine updatedWine = wines.get(previouslyEditedIndex);
-            System.out.println(updatedWine.getWineName());
-            wines.remove(previouslyEditedIndex);
-            wines.addFirst(updatedWine);
+        if (editedWine != null) {
+            int previousIndex = wines.indexOf(editedWine);
+            wines.remove(previousIndex);
+            wines.addFirst(editedWine);
         }
 
         wineTable.getColumns().clear();
@@ -132,8 +131,7 @@ public class AdminViewWinesController {
             Stage primaryStage = (Stage) wineTable.getScene().getWindow();
             modalStage.initOwner(primaryStage);
             modalStage.showAndWait();
-            previouslyEditedIndex = wines.indexOf(wineClicked);
-            System.out.println(previouslyEditedIndex);
+            editedWine = wineClicked;
             initTables();
         } catch (IOException e) {
             e.printStackTrace();
