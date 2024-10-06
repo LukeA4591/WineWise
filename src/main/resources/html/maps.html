@@ -27,9 +27,9 @@
     var javaScriptBridge; // must be declared as var (will not be correctly assigned in java with let keyword)
 
     let wineIcon = L.icon({
-        iconUrl: 'img/wine.png',
+        iconUrl: 'img/winery.png',
         iconSize: [60, 60],
-        iconAnchor: [12, 0],
+        iconAnchor: [30, 15],
     })
 
     /**
@@ -47,8 +47,8 @@
      */
     function initMap() {
         let mapOptions = {
-            center: [-44.0, 171.0],
-            zoom: 10
+            center: [-43.5, 172.6],
+            zoom: 7
         }
         map = new L.map('map', mapOptions);
         new L.TileLayer('https://tile.csse.canterbury.ac.nz/hot/{z}/{x}/{y}.png', { // UCs tilemap server

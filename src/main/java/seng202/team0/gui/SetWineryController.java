@@ -57,6 +57,7 @@ public class SetWineryController {
             selectedWineryLabel.setText("Please select a Winery to add");
         } else {
             wineryDAO.updateLocationByWineryName(selectedWinery, lat, lon);
+            setWineryInterface.operation(wineryDAO.getWineryByName(selectedWinery));
             Stage stage = (Stage) selectedWineryLabel.getScene().getWindow();
             stage.close();
         }

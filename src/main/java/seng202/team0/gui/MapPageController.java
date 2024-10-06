@@ -37,8 +37,6 @@ public class MapPageController {
         webEngine.getLoadWorker().stateProperty().addListener(
                 (ov, oldState, newState) -> {
                     if (newState == Worker.State.SUCCEEDED) {
-                        JSObject window = (JSObject) webEngine.executeScript("window");
-                        window.setMember("javaScriptBridge", this);
                         javaScriptConnector = (JSObject) webEngine.executeScript("jsConnector");
                         javaScriptConnector.call("initMap");
                         addWineryMarkers();

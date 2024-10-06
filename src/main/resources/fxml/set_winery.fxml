@@ -16,6 +16,6 @@
       <Button fx:id="confirmButton" layoutX="35.0" layoutY="397.0" mnemonicParsing="false" onAction="#onConfirmButton" text="Confirm" />
       <ListView fx:id="wineryList" layoutX="10.0" layoutY="31.0" prefHeight="295.0" prefWidth="200.0" />
       <Label layoutX="64.0" layoutY="332.0" text="Selected Winery:" />
-      <Label fx:id="selectedWineryLabel" layoutX="95.0" layoutY="363.0" />
+      <Label fx:id="selectedWineryLabel" layoutX="50.0" layoutY="363.0" prefHeight="17.0" prefWidth="128.0" />
    </children>
 </AnchorPane>
