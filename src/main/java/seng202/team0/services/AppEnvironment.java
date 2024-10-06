@@ -87,6 +87,7 @@ public class AppEnvironment {
      * Gets the clear runnable that controllers use to clear the page.
      * @return returns the clear runnable.
      */
+
     public Runnable getClearRunnable() {
         return clear;
     }

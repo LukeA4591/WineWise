@@ -1,5 +1,6 @@
 package seng202.team0.gui;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,6 +19,7 @@ import seng202.team0.business.WineManager;
 import seng202.team0.io.WineCSVImporter;
 import seng202.team0.models.Review;
 import seng202.team0.services.AppEnvironment;
+import seng202.team0.services.LoadingScreenService;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,6 +53,7 @@ public class AdminScreenController {
     private final WineManager wineManager;
     private final ReviewManager reviewManager;
     private final List<Review> selectedReviews = new ArrayList<>();
+
 
 
     /**
@@ -235,7 +238,7 @@ public class AdminScreenController {
      * wines.
      */
     @FXML
-    private void addDataSet() {
+    private void addDataSet() throws InterruptedException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
@@ -247,7 +250,27 @@ public class AdminScreenController {
         }
         Stage stage = (Stage) addWine.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
-        wineManager.addBatch(new WineCSVImporter(), file);
+
+        if (file != null && file.exists()) {
+            //show loading screen on JAVAFX thread
+            LoadingScreenService loadingScreenService = new LoadingScreenService(stage);
+            Platform.runLater(() -> loadingScreenService.showLoadingScreen());
+
+                //add batch on background thread.
+                Thread addBatchThread = new Thread(() -> {
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    wineManager.addBatch(new WineCSVImporter(), file);
+
+                    Platform.runLater(() -> loadingScreenService.hideLoadingScreen());
+                });
+
+                addBatchThread.start();
+        }
+
     }
 
     @FXML
