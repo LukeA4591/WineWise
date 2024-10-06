@@ -148,4 +148,24 @@ public class WineryDAO implements DAOInterface<Winery> {
         }
     }
 
+    public Winery getWineryByName(String wineryName) {
+        String sql = "SELECT * FROM wineries WHERE wineryName = ?;";
+        Winery winery = null;
+
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, wineryName);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    String name = rs.getString("wineryName");
+                    Float longitude = rs.getObject("longitude") != null ? rs.getFloat("longitude") : null;
+                    Float latitude = rs.getObject("latitude") != null ? rs.getFloat("latitude") : null;
+                    winery = new Winery(name, longitude, latitude);
+                }
+            }
+        } catch (SQLException sqlException) {
+            log.error("Failed to get winery by name: " + wineryName, sqlException);
+        }
+        return winery;
+    }
 }

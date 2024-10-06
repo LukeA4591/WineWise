@@ -13,6 +13,7 @@ import netscape.javascript.JSObject;
 import seng202.team0.models.Winery;
 import seng202.team0.repository.WineryDAO;
 import seng202.team0.services.AppEnvironment;
+import seng202.team0.services.JavaScriptBridge;
 
 import java.util.List;
 
@@ -23,16 +24,18 @@ public class AdminMapPageController {
     private WebEngine webEngine;
     private JSObject javaScriptConnector;
     private WineryDAO wineryDAO;
+    private JavaScriptBridge javaScriptBridge;
     @FXML
     private Button backButton;
     @FXML
     private ListView<String> wineryList;
 
-    void init(AppEnvironment appEnvironment) {
+    void init(AppEnvironment appEnvironment, Stage stage) {
         this.appEnvironment = appEnvironment;
         wineryDAO = new WineryDAO();
         setWineryList();
         initMap();
+        javaScriptBridge = new JavaScriptBridge(this::addWineryMarker, this::setWineryFromClick, stage);
     }
 
     @FXML
@@ -58,10 +61,36 @@ public class AdminMapPageController {
                 (ov, oldState, newState) -> {
                     if (newState == Worker.State.SUCCEEDED) {
                         JSObject window = (JSObject) webEngine.executeScript("window");
-                        window.setMember("javaScriptBridge", this);
+                        window.setMember("javaScriptBridge", javaScriptBridge);
                         javaScriptConnector = (JSObject) webEngine.executeScript("jsConnector");
                         javaScriptConnector.call("initMap");
+                        addWineryMarkers();
                     }
                 });
+    }
+
+    private void addWineryMarkers() {
+        List<Winery> wineries = wineryDAO.getAllWithValidLocation();
+        for (Winery winery : wineries) {
+            addWineryMarker(winery);
+        }
+        displayMarkers();
+    }
+
+    private void addWineryMarker(Winery winery) {
+        javaScriptConnector.call("addMarker", winery.getWineryName(), winery.getLatitude(), winery.getLongitude());
+
+    }
+
+    private void displayMarkers() {
+        javaScriptConnector.call("displayMarkers");
+    }
+
+    public boolean setWineryFromClick(String wineryName) {
+        Winery winery = wineryDAO.getWineryByName(wineryName);
+        if (winery != null) {
+            // TODO
+        }
+        return false;
     }
 }

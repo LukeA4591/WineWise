@@ -279,9 +279,9 @@ public class AdminScreenController {
             FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_map_page.fxml"));
             AnchorPane root = newStageLoader.load();
             AdminMapPageController controller = newStageLoader.getController();
-            controller.init(appEnvironment);
             Scene modalScene = new Scene(root);
             Stage modalStage = new Stage();
+            controller.init(appEnvironment, modalStage);
             modalStage.setScene(modalScene);
             modalStage.setWidth(900);
             modalStage.setHeight(624);
@@ -290,7 +290,7 @@ public class AdminScreenController {
             modalStage.initModality(Modality.APPLICATION_MODAL);
             Stage primaryStage = (Stage) addWinery.getScene().getWindow();
             modalStage.initOwner(primaryStage);
-            modalStage.showAndWait();
+            modalStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
