@@ -234,21 +234,40 @@ public class SearchPageController {
 
         TableColumn<Wine, String> typeCol = new TableColumn<>("Type");
         typeCol.setCellValueFactory(new PropertyValueFactory<>("color"));
+        typeCol.setPrefWidth(50);
+        typeCol.setMinWidth(50);
+        typeCol.setMaxWidth(50);
 
         TableColumn<Wine, String> nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("wineName"));
+        nameCol.setPrefWidth(250);
+        nameCol.setMinWidth(250);
+        nameCol.setMaxWidth(250);
 
         TableColumn<Wine, String> wineryCol = new TableColumn<>("Winery");
         wineryCol.setCellValueFactory(new PropertyValueFactory<>("wineryString"));
+        wineryCol.setPrefWidth(200);
+        wineryCol.setMaxWidth(200);
+        wineryCol.setMinWidth(200);
 
         TableColumn<Wine, Integer> vintageCol = new TableColumn<>("Vintage");
         vintageCol.setCellValueFactory(new PropertyValueFactory<>("vintage"));
+        vintageCol.setPrefWidth(65);
+        vintageCol.setMinWidth(65);
+        vintageCol.setMaxWidth(65);
+
 
         TableColumn<Wine, Integer> scoreCol = new TableColumn<>("Score");
         scoreCol.setCellValueFactory(new PropertyValueFactory<>("score"));
+        scoreCol.setPrefWidth(50);
+        scoreCol.setMinWidth(50);
+        scoreCol.setMaxWidth(50);
 
         TableColumn<Wine, String> regionCol = new TableColumn<>("Region");
         regionCol.setCellValueFactory(new PropertyValueFactory<>("region"));
+        regionCol.setPrefWidth(90);
+        regionCol.setMinWidth(90);
+        regionCol.setMaxWidth(90);
 
         table.getColumns().add(typeCol);
         table.getColumns().add(nameCol);
