@@ -571,4 +571,33 @@ public class WineDAO implements DAOInterface<Wine> {
         }
         return givenWine;
     }
+
+    public List<Wine> searchWines(String searchText) {
+        List<Wine> wineList = new ArrayList<>();  // Renamed to match naming conventions like `NewWine` in getSimilarVintage
+        String sql = "SELECT * FROM wines WHERE " + "type LIKE ? OR " + "name LIKE ? OR "
+                + "winery LIKE ? OR " + "region LIKE ? OR " + "description LIKE ?";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            String formattedSearchText = "%" + searchText + "%";
+            for (int i = 1; i <= 5; i++) {
+                pstmt.setString(i, formattedSearchText);
+            }
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                Wine wine = new Wine(
+                        resultSet.getString("type"),
+                        resultSet.getString("name"),
+                        resultSet.getString("winery"),
+                        resultSet.getInt("vintage"),
+                        resultSet.getInt("score"),
+                        resultSet.getString("region"),
+                        resultSet.getString("description")
+                );
+                wineList.add(wine);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return wineList;
+    }
 }
