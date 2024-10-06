@@ -17,7 +17,7 @@
       </Pane>
       <Button fx:id="backButton" layoutX="31.0" layoutY="18.0" mnemonicParsing="false" onAction="#onBackButton" text="Back" />
       <ListView fx:id="wineryList" layoutX="14.0" layoutY="122.0" prefHeight="485.0" prefWidth="200.0" />
-      <Label layoutX="446.0" layoutY="27.0" stylesheets="@../style/navbar.css" text="Click to add Winery">
+      <Label layoutX="446.0" layoutY="27.0" stylesheets="@../style/navbar.css" text="Click to add or remove Winery">
          <font>
             <Font size="26.0" />
          </font>

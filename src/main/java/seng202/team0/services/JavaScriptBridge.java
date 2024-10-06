@@ -31,11 +31,6 @@ public class JavaScriptBridge {
         this.parentStage = parentStage;
     }
 
-    public JavaScriptBridge() {
-        // Set the default addSaleInterface to do nothing (this is because other map controller rely on the functionality but don't implement the required methods)
-        setWineryInterface = (Winery winery) -> {};
-        getWineryInterface = (String wineryName) -> false;
-    }
     /**
      * Function called from js when map clicked and opens a modal to ask for sale information
      * @param latlng co-ordinates to add sale at JSON object format {"lat":number, "lng":number}
@@ -67,4 +62,9 @@ public class JavaScriptBridge {
             e.printStackTrace();
         }
     }
+
+    public boolean getWineryFromClick(String wineryName) {
+        return getWineryInterface.operation(wineryName);
+    }
+
 }

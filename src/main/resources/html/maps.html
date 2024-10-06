@@ -37,9 +37,9 @@
      */
     let jsConnector = {
         addMarker: addMarker,
-        removeMarkers: removeMarkers,
         displayMarkers: displayMarkers,
-        initMap: initMap
+        initMap: initMap,
+        removeMarker: removeMarker
     };
 
     /**
@@ -74,12 +74,15 @@
         markers.push(m)
     }
 
-    function removeMarkers() {
-        markers.forEach(m => m.remove())
-    }
-
     function displayMarkers() {
         markers.forEach(m => m.addTo(map))
+    }
+
+    function removeMarker(title) {
+        let markerIndex = markers.findIndex(m => m.getPopup().getContent() === title);
+        let marker = markers[markerIndex];
+        map.removeLayer(marker);
+        markers.splice(markerIndex, 1);
     }
 
 </script>
