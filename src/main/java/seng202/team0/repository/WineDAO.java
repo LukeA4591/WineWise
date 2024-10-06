@@ -251,9 +251,9 @@ public class WineDAO implements DAOInterface<Wine> {
      * Get the three top-rated wines do display on the home page of our application
      * @return a list of the top 3 rated wines
      */
-    public  List<Wine> getTopRated() {
+    public List<Wine> getTopRated() {
         List<Wine> topRated = new ArrayList<>();
-        String sql = "SELECT * FROM wines ORDER BY score DESC LIMIT 3;";
+        String sql = "SELECT * FROM wines ORDER BY score DESC LIMIT 6;";
         try (Connection conn = databaseManager.connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {

@@ -67,7 +67,7 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="helpButton" layoutX="738.0" layoutY="67.0" mnemonicParsing="false" onAction="#onHelp" text="Help" />
+      <Button fx:id="helpButton" layoutX="722.0" layoutY="74.0" mnemonicParsing="false" onAction="#onHelp" text="Help" />
       <ScrollPane fx:id="selectedReviewScrollPane" layoutX="329.0" layoutY="308.0" prefHeight="163.0" prefWidth="489.0">
          <content>
             <Text fx:id="selectedReviewText" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a review to expand!" />
