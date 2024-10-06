@@ -29,7 +29,7 @@ public class NavBarController {
     @FXML
     private Button adminButton;
     @FXML
-    private Button helpButton;
+    private Button mapButton;
 
     private AppEnvironment appEnvironment;
 
@@ -83,14 +83,14 @@ public class NavBarController {
         }
     }
 
-    /**
-     * Loads the help page into the border pane
-     */
-    private void loadHelpPage() {
+    private void loadMapPage() {
         try {
-            FXMLLoader helpPageLoader = new FXMLLoader(getClass().getResource("/fxml/user_help_page.fxml"));
-            Parent helpParent = helpPageLoader.load();
-            mainWindow.setCenter(helpParent);
+            System.out.println("YAY");
+            FXMLLoader mapPageLoader = new FXMLLoader(getClass().getResource("/fxml/map_page.fxml"));
+            Parent mapParent = mapPageLoader.load();
+            MapPageController mapPageController = mapPageLoader.getController();
+            mapPageController.init();
+            mainWindow.setCenter(mapParent);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -106,13 +106,6 @@ public class NavBarController {
         homeButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
-    @FXML
-    private void helpPressed() {
-        loadHelpPage();
-        setAllButtonsGrey();
-        helpButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
-    }
-
     /**
      * OnAction method for the Search button
      */
@@ -121,6 +114,13 @@ public class NavBarController {
         loadSearchPage();
         setAllButtonsGrey();
         searchButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+    }
+
+    @FXML
+    void mapPressed() {
+        loadMapPage();
+        setAllButtonsGrey();
+        mapButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
     /**
@@ -159,7 +159,7 @@ public class NavBarController {
     private void setAllButtonsGrey() {
         homeButton.setStyle("");
         searchButton.setStyle("");
-        helpButton.setStyle("");
+        mapButton.setStyle("");
     }
 
     /**
