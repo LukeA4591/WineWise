@@ -16,8 +16,8 @@
     -fx-border-insets: 0;
 }
 
-.label {
-    -fx-font-family: "Liberation Mono";
+.nav-Window {
+    -fx-background-color: white;
 }
 
 .button {
@@ -173,6 +173,7 @@
     -fx-arc-width: 20;
     -fx-arc-height: 20;
     -fx-stroke: null;
+    -fx-background-color: #cac4ce;
 }
 
 .scroll-pane {

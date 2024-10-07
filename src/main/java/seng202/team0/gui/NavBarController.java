@@ -12,7 +12,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seng202.team0.services.AppEnvironment;
 
+import javax.swing.text.html.ImageView;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Controller class for the nav_bar.fxml file, launches a border pane to load other panes inside
@@ -22,17 +24,6 @@ public class NavBarController {
     @FXML
     private BorderPane mainWindow;
     private Stage stage;
-    @FXML
-    private Button homeButton;
-    @FXML
-    private Button searchButton;
-    @FXML
-    private Button adminButton;
-    @FXML
-    private Button mapButton;
-    @FXML
-    private Button helpButton;
-
     private AppEnvironment appEnvironment;
 
     /**
@@ -46,7 +37,6 @@ public class NavBarController {
      */
     @FXML
     private void initialize() {
-        homeButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
         Platform.runLater(() -> {
             Scene scene = mainWindow.getScene();
             if (scene != null) {
@@ -116,7 +106,7 @@ public class NavBarController {
      * @param loadPageMethod a {@code Runnable} type that contains the logic for loading a specific page.
      */
     private void showPageWithLoadingScreen(Runnable loadPageMethod) {
-        Stage stage = (Stage) homeButton.getScene().getWindow();
+        Stage stage = (Stage) mainWindow.getScene().getWindow();
 
         //show loading screen on JAVAFX thread
         Platform.runLater(() -> {
@@ -148,15 +138,11 @@ public class NavBarController {
     @FXML
     private void homePressed() {
         showPageWithLoadingScreen(this::loadHomePage);
-        setAllButtonsGrey();
-        homeButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
     @FXML
     private void helpPressed() {
         showPageWithLoadingScreen(this::loadHelpPage);
-        setAllButtonsGrey();
-        helpButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
     /**
@@ -165,15 +151,11 @@ public class NavBarController {
     @FXML
     private void searchPressed() {
         showPageWithLoadingScreen(this::loadSearchPage);
-        setAllButtonsGrey();
-        searchButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
     @FXML
     void mapPressed() {
         showPageWithLoadingScreen(this::loadMapPage);
-        setAllButtonsGrey();
-        mapButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
     /**
@@ -197,7 +179,7 @@ public class NavBarController {
             modalStage.setTitle("Admin Login Popup");
             // If we want the modal to not block the other window we can change modality to Modality.NONE
             modalStage.initModality(Modality.WINDOW_MODAL);
-            modalStage.initOwner(adminButton.getScene().getWindow());
+            modalStage.initOwner(mainWindow.getScene().getWindow());
             // Show the modal and wait for it to be closed
             modalStage.showAndWait();
         } catch (IOException e) {
@@ -206,15 +188,6 @@ public class NavBarController {
 
     }
 
-    /**
-     * Helper function to set all the buttons grey
-     */
-    private void setAllButtonsGrey() {
-        homeButton.setStyle("");
-        searchButton.setStyle("");
-        mapButton.setStyle("");
-        helpButton.setStyle("");
-    }
 
     /**
      * The Setter method for the appEnvironment
