@@ -1,10 +1,7 @@
 package seng202.team0.gui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import seng202.team0.business.WineManager;
 import seng202.team0.models.Wine;
@@ -25,7 +22,7 @@ public class EditWineController {
     @FXML
     TextField wineRegion;
     @FXML
-    TextField wineDescription;
+    TextArea wineDescription;
     @FXML
     Label saveNewWineMessage;
     @FXML
