@@ -165,7 +165,7 @@ public class NavBarController {
 
     @FXML
     void mapPressed() {
-        loadMapPage();
+        showPageWithLoadingScreen(this::loadMapPage);
         setAllButtonsGrey();
         mapButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
