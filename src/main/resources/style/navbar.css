@@ -1,8 +1,6 @@
 .root {
     -fx-background-color: #e0e0e0;
-    -fx-font-family: "Liberation Sans";
-    /*-fx-font-family: "Liberation Mono";*/
-    /*-fx-font-family: Gayathri;*/
+    -fx-font-family: "Liberation Mono";
     -fx-text-fill: #000000;
 }
 
@@ -19,20 +17,17 @@
 }
 
 .button {
-    -fx-background-color: transparent;
+    -fx-background-color: #f6d7b0;
     -fx-text-fill: Black;
-    /*-fx-underline: true;*/
     -fx-font-size: 14px;
     -fx-padding: 8px 15px;
-    -fx-pref-width: 150px;
-    -fx-pref-height: 35px;
+    -fx-pref-width: 170px;
+    -fx-pref-height: 40px;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
-    /*-fx-border-color: black;*/
 }
 
 .small-button {
-    /*-fx-background-color: #aeaeae;*/
     -fx-text-fill: black;
     -fx-font-size: 14px;
     -fx-padding: 8px 15px;
@@ -43,7 +38,6 @@
 }
 
 .tab-button {
-    /*-fx-background-color: #aeaeae;*/
     -fx-text-fill: black;
     -fx-font-size: 14px;
     -fx-padding: 8px 15px;
@@ -54,9 +48,10 @@
 }
 
 .button:hover {
-    -fx-background-color: #9b59b6 ;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: #eccca2;
     -fx-cursor: hand;
+    -fx-background-insets: 1 1 1 1;
+    -fx-effect: none;
 }
 
 .filter-text-field {
@@ -106,26 +101,26 @@
     -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-text-fill: #000000;
-    -fx-font-family: "Liberation Sans";
+    -fx-font-family: "Liberation Mono";
 }
 
 .subtitle-label {
     -fx-text-fill: #000000;
-    -fx-font-family: "Liberation Sans";
+    -fx-font-family: "Liberation Mono";
     -fx-font-style: italic;
     -fx-font-size: 13px;
 }
 
 .subheader-label {
     -fx-text-fill: #000000;
-    -fx-font-family: "Liberation Sans";
+    -fx-font-family: "Liberation Mono";
     -fx-font-weight: bold;
     -fx-font-size: 18px;
 }
 
 .colon-label, .radio-button {
     -fx-text-fill: #000000;
-    -fx-font-family: "Liberation Sans";
+    -fx-font-family: "Liberation Mono";
     -fx-font-weight: bold;
     -fx-font-size: 13px;
 }
