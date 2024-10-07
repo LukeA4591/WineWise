@@ -225,6 +225,9 @@ public class WineDAO implements DAOInterface<Wine> {
         String sql = "INSERT OR IGNORE INTO wines (type, name, winery, vintage, score, region, description) VALUES (?,?,?,?,?,?,?);";
         try (Connection conn = databaseManager.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            conn.setAutoCommit(false);
+
             for (Wine toAdd : wines) {
                 ps.setString(1, toAdd.getColor());
                 ps.setString(2, toAdd.getWineName());
@@ -237,11 +240,14 @@ public class WineDAO implements DAOInterface<Wine> {
             }
 
             ps.executeBatch();
+
+            conn.commit();
             ResultSet rs = ps.getGeneratedKeys();
             while (rs.next()){
                 log.info(rs.getLong(1));
             }
             conn.commit();
+            conn.setAutoCommit(true);
         } catch (SQLException sqlException) {
             log.error(sqlException);
         }

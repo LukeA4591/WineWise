@@ -111,13 +111,46 @@ public class NavBarController {
     }
 
     /**
+     * Displays the loading screen while loading a page in the background.
+     * This ensures that the UI is responsive even when there are intensive tasks when changing pages.
+     * @param loadPageMethod a {@code Runnable} type that contains the logic for loading a specific page.
+     */
+    private void showPageWithLoadingScreen(Runnable loadPageMethod) {
+        Stage stage = (Stage) homeButton.getScene().getWindow();
+
+        //show loading screen on JAVAFX thread
+        Platform.runLater(() -> {
+            appEnvironment.setLoadingScreenOwner(stage);
+            appEnvironment.showLoadingScreen();
+        });
+
+        //background thread
+        Thread switchPageThread = new Thread(() -> {
+
+            Platform.runLater(() -> {
+                //run and load the specified page
+                loadPageMethod.run();
+                appEnvironment.hideLoadingScreen();
+            });
+        });
+        switchPageThread.start();
+    }
+
+    /**
      * OnAction method for the Home button
      */
     @FXML
     private void homePressed() {
-        loadHomePage();
+        showPageWithLoadingScreen(this::loadHomePage);
         setAllButtonsGrey();
         homeButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+    }
+
+    @FXML
+    private void helpPressed() {
+        showPageWithLoadingScreen(this::loadHelpPage);
+        setAllButtonsGrey();
+        helpButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
     /**
@@ -125,7 +158,7 @@ public class NavBarController {
      */
     @FXML
     private void searchPressed() {
-        loadSearchPage();
+        showPageWithLoadingScreen(this::loadSearchPage);
         setAllButtonsGrey();
         searchButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
