@@ -18,12 +18,12 @@
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="60.0" layoutY="250.0" mnemonicParsing="false" onAction="#addDataSet" text="Add a dataset">
+      <Button layoutX="50.0" layoutY="251.0" mnemonicParsing="false" onAction="#addDataSet" text="Add a dataset">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button layoutX="60.0" layoutY="390.0" mnemonicParsing="false" onAction="#onViewWines" prefHeight="29.0" prefWidth="152.0" text="View data">
+      <Button layoutX="50.0" layoutY="370.0" mnemonicParsing="false" onAction="#onViewWines" prefHeight="29.0" prefWidth="152.0" text="View data">
          <font>
             <Font size="15.0" />
          </font>
@@ -51,7 +51,7 @@
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button fx:id="addWine" layoutX="60.0" layoutY="320.0" mnemonicParsing="false" onAction="#onAddWine" text="Add data">
+      <Button fx:id="addWine" layoutX="50.0" layoutY="312.0" mnemonicParsing="false" onAction="#onAddWine" text="Add data">
          <font>
             <Font size="15.0" />
          </font>
@@ -79,7 +79,7 @@
             <Text fx:id="selectedReviewText" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a review to expand!" />
          </content>
       </ScrollPane>
-      <Button fx:id="addWinery" layoutX="60.0" layoutY="454.0" mnemonicParsing="false" onAction="#onAddWinery" text="Place winery" />
+      <Button fx:id="addWinery" layoutX="50.0" layoutY="431.0" mnemonicParsing="false" onAction="#onAddWinery" text="Place winery" />
       <Label layoutX="266.0" layoutY="45.0" prefHeight="17.0" prefWidth="234.0" styleClass="subtitle-label" text="Click &quot;Help&quot; if you get lost!" textAlignment="CENTER" />
    </children>
 </AnchorPane>
