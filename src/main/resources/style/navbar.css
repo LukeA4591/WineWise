@@ -1,6 +1,7 @@
 .root {
     -fx-background-color: #e0e0e0;
-    -fx-font-family: "Liberation Mono";
+    -fx-font-family: "Liberation Sans";
+    /*-fx-font-family: "Liberation Mono";*/
     /*-fx-font-family: Gayathri;*/
     -fx-text-fill: #000000;
 }
@@ -20,7 +21,7 @@
 .button {
     -fx-background-color: transparent;
     -fx-text-fill: Black;
-    -fx-underline: true;
+    /*-fx-underline: true;*/
     -fx-font-size: 14px;
     -fx-padding: 8px 15px;
     -fx-pref-width: 150px;
@@ -86,7 +87,7 @@
 
 
 .menu-button {
-    -fx-background-color: #aeaeae;
+    -fx-background-color: #afafaf;
     -fx-text-fill: black;
     -fx-font-size: 14px;
     -fx-background-radius: 5;
@@ -162,7 +163,7 @@
 }
 
 .highlight-rectangle {
-    -fx-fill: #9c3737;
+    -fx-fill: #cac4ce;
     -fx-arc-width: 20;
     -fx-arc-height: 20;
     -fx-stroke: null;
