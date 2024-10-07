@@ -20,14 +20,14 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextArea fx:id="reviewTextArea" layoutX="31.0" layoutY="260.0" onKeyTyped="#checkCharacterLimit" prefHeight="68.0" prefWidth="322.0" wrapText="true" />
-      <Button fx:id="saveReviewButton" layoutX="424.0" layoutY="311.0" mnemonicParsing="false" onAction="#saveReview" text="Save Review" />
+      <TextArea fx:id="reviewTextArea" layoutX="31.0" layoutY="260.0" onKeyTyped="#checkCharacterLimit" prefHeight="85.0" prefWidth="526.0" wrapText="true" />
+      <Button fx:id="saveReviewButton" layoutX="406.0" layoutY="349.0" mnemonicParsing="false" onAction="#saveReview" text="Save Review" />
       <Label fx:id="savedLabel" layoutX="424.0" layoutY="366.0" prefHeight="16.0" prefWidth="132.0" />
-      <Button fx:id="resetReviewButton" layoutX="186.0" layoutY="354.0" mnemonicParsing="false" onAction="#resetReview" text="Reset Review" />
+      <Button fx:id="resetReviewButton" layoutX="274.0" layoutY="349.0" mnemonicParsing="false" onAction="#resetReview" text="Reset Review" />
       <Label fx:id="wineNameLabel" layoutX="55.0" layoutY="9.0" prefHeight="16.0" prefWidth="489.0" text="Wine: " />
       <Label fx:id="wineryLabel" layoutX="56.0" layoutY="32.0" prefHeight="16.0" prefWidth="489.0" text="Winery: " />
       <Label fx:id="vintageLabel" layoutX="56.0" layoutY="55.0" prefHeight="16.0" prefWidth="489.0" text="Vintage: " />
       <Label fx:id="criticRatingLabel" layoutX="55.0" layoutY="76.0" prefHeight="16.0" prefWidth="489.0" text="Critic review (/100): " />
-      <Label fx:id="characterLimitLabel" layoutX="378.0" layoutY="328.0" text="Chararcters Remaining:" />
+      <Label fx:id="characterLimitLabel" layoutX="369.0" layoutY="243.0" text="Chararcters Remaining:" />
    </children>
 </AnchorPane>
