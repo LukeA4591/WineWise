@@ -20,12 +20,12 @@
          </cursor>
          <children>
             <ImageView fx:id="imageView1" fitHeight="150.0" fitWidth="150.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#wine1Pressed" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="wine1" layoutX="160.0" layoutY="16.0" onMouseClicked="#wine1Pressed" text="Name:">
+            <Label fx:id="wine1" layoutX="160.0" layoutY="7.0" onMouseClicked="#wine1Pressed" prefHeight="30.0" prefWidth="257.0" text="Name:">
                <font>
                   <Font name="Liberation Sans" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="desc1" layoutX="160.0" layoutY="48.0" onMouseClicked="#wine1Pressed" text="description of wine">
+            <Label fx:id="desc1" layoutX="160.0" layoutY="38.0" onMouseClicked="#wine1Pressed" prefHeight="40.0" prefWidth="257.0" text="description of wine" wrapText="true">
                <font>
                   <Font name="Liberation Sans" size="16.0" />
                </font>
@@ -42,12 +42,12 @@
          </cursor>
          <children>
             <ImageView fx:id="imageView2" fitHeight="150.0" fitWidth="150.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#wine2Pressed" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="wine2" layoutX="160.0" layoutY="16.0" onMouseClicked="#wine2Pressed" text="Name:">
+            <Label fx:id="wine2" layoutX="160.0" layoutY="7.0" onMouseClicked="#wine2Pressed" prefHeight="30.0" prefWidth="257.0" text="Name:" wrapText="true">
                <font>
                   <Font name="Liberation Sans" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="desc2" layoutX="160.0" layoutY="48.0" onMouseClicked="#wine2Pressed" text="description of wine">
+            <Label fx:id="desc2" layoutX="160.0" layoutY="37.0" onMouseClicked="#wine2Pressed" prefHeight="40.0" prefWidth="257.0" text="description of wine">
                <font>
                   <Font name="Liberation Sans" size="16.0" />
                </font>
@@ -64,12 +64,12 @@
          </cursor>
          <children>
             <ImageView fx:id="imageView3" fitHeight="150.0" fitWidth="150.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#wine3Pressed" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="wine3" layoutX="160.0" layoutY="16.0" onMouseClicked="#wine3Pressed" text="Name:">
+            <Label fx:id="wine3" layoutX="160.0" layoutY="7.0" onMouseClicked="#wine3Pressed" prefHeight="30.0" prefWidth="257.0" text="Name:" wrapText="true">
                <font>
                   <Font name="Liberation Sans" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="desc3" layoutX="160.0" layoutY="48.0" onMouseClicked="#wine3Pressed" text="description of wine">
+            <Label fx:id="desc3" layoutX="160.0" layoutY="37.0" onMouseClicked="#wine3Pressed" prefHeight="40.0" prefWidth="257.0" text="description of wine" wrapText="true">
                <font>
                   <Font name="Liberation Sans" size="16.0" />
                </font>
@@ -86,11 +86,11 @@
          </cursor>
          <children>
             <ImageView fx:id="imageView4" fitHeight="150.0" fitWidth="150.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#wine2Pressed" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="wine4" layoutX="160.0" layoutY="16.0" text="Name:">
+            <Label fx:id="wine4" layoutX="160.0" layoutY="7.0" prefHeight="30.0" prefWidth="257.0" text="Name:">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label fx:id="desc4" layoutX="160.0" layoutY="48.0" text="description of wine">
+            <Label fx:id="desc4" layoutX="155.0" layoutY="39.0" prefHeight="40.0" prefWidth="257.0" text="description of wine" wrapText="true">
                <font>
                   <Font size="16.0" />
                </font></Label>
@@ -106,11 +106,11 @@
          </cursor>
          <children>
             <ImageView fx:id="imageView6" fitHeight="150.0" fitWidth="150.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#wine2Pressed" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="wine6" layoutX="160.0" layoutY="16.0" text="Name:">
+            <Label fx:id="wine6" layoutX="160.0" layoutY="7.0" prefHeight="30.0" prefWidth="257.0" text="Name:" wrapText="true">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label fx:id="desc6" layoutX="160.0" layoutY="48.0" text="description of wine">
+            <Label fx:id="desc6" layoutX="160.0" layoutY="37.0" prefHeight="40.0" prefWidth="257.0" text="description of wine" wrapText="true">
                <font>
                   <Font size="16.0" />
                </font></Label>
@@ -126,11 +126,11 @@
          </cursor>
          <children>
             <ImageView fx:id="imageView5" fitHeight="150.0" fitWidth="150.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#wine2Pressed" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="wine5" layoutX="160.0" layoutY="16.0" text="Name:">
+            <Label fx:id="wine5" layoutX="160.0" layoutY="7.0" prefHeight="30.0" prefWidth="257.0" text="Name:" wrapText="true">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label fx:id="desc5" layoutX="160.0" layoutY="48.0" text="description of wine">
+            <Label fx:id="desc5" layoutX="160.0" layoutY="37.0" prefHeight="40.0" prefWidth="257.0" text="description of wine" wrapText="true">
                <font>
                   <Font size="16.0" />
                </font></Label>
