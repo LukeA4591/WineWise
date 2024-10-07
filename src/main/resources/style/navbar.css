@@ -18,6 +18,10 @@
     -fx-border-insets: 0;
 }
 
+.nav-Window {
+    -fx-background-color: white;
+}
+
 .button {
     -fx-background-color: transparent;
     -fx-text-fill: Black;
