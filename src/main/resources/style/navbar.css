@@ -171,6 +171,7 @@
     -fx-arc-width: 20;
     -fx-arc-height: 20;
     -fx-stroke: null;
+    -fx-background-color: #cac4ce;
 }
 
 .scroll-pane {

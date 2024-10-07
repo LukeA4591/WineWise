@@ -42,7 +42,7 @@ public class FXWrapper {
             pane.getChildren().add(setupParent);
             stage.setTitle("WineWise Nav Bar");
             stage.setWidth(900);
-            stage.setHeight(635);
+            stage.setHeight(680);
             stage.setResizable(false);
         } catch (IOException e) {
             e.printStackTrace();

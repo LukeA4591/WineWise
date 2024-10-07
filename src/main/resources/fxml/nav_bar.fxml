@@ -20,7 +20,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="SearchIcon" fitHeight="75.0" fitWidth="75.0" layoutX="10.0" layoutY="3.0" onMouseClicked="#searchPressed">
+            <ImageView fx:id="SearchIcon" fitHeight="55.0" fitWidth="55.0" layoutX="21.0" layoutY="13.0" onMouseClicked="#searchPressed">
                <image>
                   <Image url="@../images/searchIcon.jpg" />
                </image>
@@ -28,7 +28,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="MapsIcon" fitHeight="75.0" fitWidth="75.0" layoutX="110.0" layoutY="3.0" onMouseClicked="#mapPressed">
+            <ImageView fx:id="MapsIcon" fitHeight="55.0" fitWidth="55.0" layoutX="121.0" layoutY="13.0" onMouseClicked="#mapPressed">
                <image>
                   <Image url="@../images/mapsIcon.jpg" />
                </image>
@@ -36,7 +36,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="HelpIcon" fitHeight="75.0" fitWidth="75.0" layoutX="715.0" layoutY="3.0" onMouseClicked="#helpPressed">
+            <ImageView fx:id="HelpIcon" fitHeight="55.0" fitWidth="55.0" layoutX="726.0" layoutY="13.0" onMouseClicked="#helpPressed">
                <image>
                   <Image url="@../images/helpIcon.png" />
                </image>
@@ -44,7 +44,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="AdminIcon" fitHeight="75.0" fitWidth="75.0" layoutX="815.0" layoutY="3.0" onMouseClicked="#loginPressed">
+            <ImageView fx:id="AdminIcon" fitHeight="55.0" fitWidth="55.0" layoutX="826.0" layoutY="13.0" onMouseClicked="#loginPressed">
                <image>
                   <Image url="@../images/adminicon.png" />
                </image>
