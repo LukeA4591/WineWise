@@ -14,4 +14,6 @@ public interface Importable<T> {
      * @return List of objects type T that are read from the file
      */
     List<T> readFromFile(File file);
+
+    List<String[]> readSixLinesFromFile(File file);
 }

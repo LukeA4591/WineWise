@@ -29,6 +29,7 @@ public class WineCSVImporter implements Importable<Wine>{
         List<Wine> wines = new ArrayList<>();
         try {
             CSVReader csvreader = new CSVReader(new FileReader(file));
+            //TODO Read headers and turn into a list (if duplicate add integer to end)
             csvreader.skip(1);
             List<String[]> lines = csvreader.readAll();
             for (String[] line : lines) {
@@ -42,6 +43,22 @@ public class WineCSVImporter implements Importable<Wine>{
         }
         return wines;
     }
+
+    public List<String[]> readSixLinesFromFile(File file) {
+        List<String[]> lines = new ArrayList<>();
+        String[] line;
+        int count = 0;
+        try {
+            CSVReader csvreader = new CSVReader(new FileReader(file));
+            while ((line = csvreader.readNext()) != null && count++ < 6) {
+                lines.add(line);
+            }
+        } catch (IOException | CsvException e) {
+            log.error(e);
+        }
+        return lines;
+    }
+
     /**
      * Read wine from line of csv
      * @param line current csv line as list of Strings
