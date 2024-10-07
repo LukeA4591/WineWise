@@ -47,16 +47,14 @@ public class AddWineryController {
             } else {
                 Float wineryLongitudeFloat = null;
                 Float wineryLatitudeFloat = null;
-                if (!wineryLongitude.getText().isEmpty()) {
+                if (!wineryLongitude.getText().isEmpty() && !wineryLatitude.getText().isEmpty()) {
                     wineryLongitudeFloat = Float.parseFloat(wineryLongitude.getText());
+                    wineryLatitudeFloat = Float.parseFloat(wineryLatitude.getText());
                     if (wineryLongitudeFloat < -180 || wineryLongitudeFloat >= 180) {
                         saveNewWineryMessage.setStyle("-fx-text-fill: #FF0000");
                         saveNewWineryMessage.setText("Longitude should be >= -180 and less than 180.");
                         return null;
                     }
-                }
-                if (!wineryLatitude.getText().isEmpty()) {
-                    wineryLatitudeFloat = Float.parseFloat(wineryLatitude.getText());
                     if (wineryLatitudeFloat < -90 || wineryLatitudeFloat > 90) {
                         saveNewWineryMessage.setStyle("-fx-text-fill: #FF0000");
                         saveNewWineryMessage.setText("Latitude should be between -90 and 90.");

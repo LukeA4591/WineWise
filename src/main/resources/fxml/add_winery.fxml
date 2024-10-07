@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="600.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.AddWineryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="600.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.AddWineryController">
     <children>
         <Label layoutX="71.0" layoutY="25.0" styleClass="title-label" text="Add a New Winery">
             <font>
@@ -18,12 +18,7 @@
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <Label layoutX="71.0" layoutY="205.0" text="Longitude:">
-            <font>
-                <Font name="Liberation Sans Bold" size="13.0" />
-            </font>
-        </Label>
-        <Label layoutX="71.0" layoutY="295.0" text="Latitude:">
+        <Label layoutX="300.0" layoutY="208.0" text="Latitude:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
@@ -33,14 +28,20 @@
                 <Font size="13.0" />
             </font>
         </Label>
-        <TextField fx:id="wineryName" layoutX="160.0" layoutY="110.0" prefHeight="24.0" prefWidth="320.0" />
-        <TextField fx:id="wineryLongitude" layoutX="160.0" layoutY="200.0" prefHeight="24.0" prefWidth="95.0" />
-        <TextField fx:id="wineryLatitude" layoutX="160.0" layoutY="290.0" prefHeight="24.0" prefWidth="95.0" />
-        <Button layoutX="235.0" layoutY="413.0" mnemonicParsing="false" onAction="#saveNewWinery" text="Save New Winery">
+        <TextField fx:id="wineryName" layoutX="160.0" layoutY="110.0" prefHeight="25.0" prefWidth="325.0" />
+        <TextField fx:id="wineryLongitude" layoutX="160.0" layoutY="214.0" prefHeight="25.0" prefWidth="95.0" />
+        <TextField fx:id="wineryLatitude" layoutX="389.0" layoutY="215.0" prefHeight="24.0" prefWidth="95.0" />
+        <Button layoutX="225.0" layoutY="284.0" mnemonicParsing="false" onAction="#saveNewWinery" text="Save New Winery">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Button>
-      <Label layoutX="385.0" layoutY="227.0" text="Map goes here" />
+      <Label layoutX="71.0" layoutY="208.0" text="Longitude:">
+         <font>
+            <Font name="Liberation Sans Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="71.0" layoutY="228.0" text="(Optional)" />
+      <Label layoutX="300.0" layoutY="228.0" text="(Optional)" />
     </children>
 </AnchorPane>
