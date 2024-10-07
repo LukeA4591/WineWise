@@ -96,6 +96,11 @@ public class NavBarController {
         }
     }
 
+    /**
+     * Displays the loading screen while loading a page in the background.
+     * This ensures that the UI is responsive even when there are intensive tasks when changing pages.
+     * @param loadPageMethod a {@code Runnable} type that contains the logic for loading a specific page.
+     */
     private void showPageWithLoadingScreen(Runnable loadPageMethod) {
         Stage stage = (Stage) homeButton.getScene().getWindow();
 

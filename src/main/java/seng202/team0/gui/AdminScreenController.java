@@ -190,6 +190,7 @@ public class AdminScreenController {
     /**
      * When the view wines button is pressed, it will open up the admin_view_wines.fxml page as a pop-up. The pop-up
      * will restrict the user from doing any other actions on the admin page until they have closed the pop-up.
+     * The loading screen is shown whilst waiting for the app to finish loading in the wines on the background thread.
      */
     @FXML
     public void onViewWines() {
@@ -250,6 +251,7 @@ public class AdminScreenController {
      * Allows a csv file to be chosen from the file manager when the add dataset button is pressed. It will then send
      * this file to the wineManager along with the WineCSVImporter so that the file can be processed into individual
      * wines.
+     * The loading screen is shown whilst waiting for the app to finish reading all the wine tuples from the csv file.
      */
     @FXML
     private void addDataSet() throws InterruptedException {
