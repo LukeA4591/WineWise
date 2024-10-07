@@ -128,7 +128,7 @@ public class NavBarController {
         Thread switchPageThread = new Thread(() -> {
 
             try {
-                Thread.sleep(750);
+                Thread.sleep(2500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
