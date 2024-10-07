@@ -14,7 +14,7 @@
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="508.0" layoutX="14.0" layoutY="78.0" stroke="BLACK" strokeType="INSIDE" styleClass="highlight-rectangle" width="242.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="508.0" layoutX="276.0" layoutY="78.0" stroke="BLACK" strokeType="INSIDE" styleClass="highlight-rectangle" width="608.0" />
-      <Button fx:id="logoutButton" layoutX="732.0" layoutY="25.0" mnemonicParsing="false" onAction="#adminLogout" text="Logout">
+      <Button fx:id="logoutButton" layoutX="714.0" layoutY="25.0" mnemonicParsing="false" onAction="#adminLogout" text="Logout">
          <font>
             <Font size="15.0" />
          </font></Button>
@@ -43,7 +43,7 @@
             <Font name="System Bold Italic" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="413.0" layoutY="517.0" mnemonicParsing="false" onAction="#deleteFlaggedReviews" text="Delete review">
+      <Button layoutX="393.0" layoutY="517.0" mnemonicParsing="false" onAction="#deleteFlaggedReviews" text="Delete review">
          <font>
             <Font size="15.0" />
          </font></Button>
@@ -63,12 +63,12 @@
             <TableColumn fx:id="flaggedColumn" prefWidth="65.0" text="Select" />
          </columns>
       </TableView>
-      <Label layoutX="361.0" layoutY="485.0" styleClass="subtitle-label" text="Tick the checkboxes in the select column then click one of these buttons:">
+      <Label layoutX="295.0" layoutY="486.0" styleClass="subtitle-label" text="Tick the checkboxes in the select column then click one of these buttons:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Button layoutX="571.0" layoutY="25.0" mnemonicParsing="false" onAction="#adminChangePassword" text="Change Password ">
+      <Button layoutX="534.0" layoutY="25.0" mnemonicParsing="false" onAction="#adminChangePassword" text="Change Password ">
          <font>
             <Font size="15.0" />
          </font>
@@ -80,6 +80,6 @@
          </content>
       </ScrollPane>
       <Button fx:id="addWinery" layoutX="60.0" layoutY="454.0" mnemonicParsing="false" onAction="#onAddWinery" text="Place winery" />
-      <Label layoutX="293.0" layoutY="41.0" prefHeight="15.0" prefWidth="195.0" styleClass="subtitle-label" text="Click &quot;Help&quot; if you get lost" textAlignment="CENTER" />
+      <Label layoutX="266.0" layoutY="45.0" prefHeight="17.0" prefWidth="234.0" styleClass="subtitle-label" text="Click &quot;Help&quot; if you get lost!" textAlignment="CENTER" />
    </children>
 </AnchorPane>

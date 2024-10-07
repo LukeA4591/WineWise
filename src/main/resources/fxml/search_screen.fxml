@@ -49,7 +49,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="376.0" minWidth="600.0" prefHeight="575.0" prefWidth="900.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.SearchPageController">
+<VBox minHeight="376.0" minWidth="600.0" prefHeight="575.0" prefWidth="900.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.SearchPageController">
   <children>
       <GridPane centerShape="false" prefHeight="575.0" prefWidth="900.0">
         <columnConstraints>
@@ -70,10 +70,10 @@
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="89.0" prefHeight="89.0" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="97.0" prefHeight="97.0" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="190.0" minHeight="20.0" prefHeight="92.0" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="27.0" prefHeight="197.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="89.0" prefHeight="109.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="58.0" prefHeight="96.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="190.0" minHeight="20.0" prefHeight="98.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="27.0" prefHeight="173.0" vgrow="ALWAYS" />
                   <RowConstraints maxHeight="93.0" minHeight="0.0" prefHeight="89.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
@@ -82,13 +82,13 @@
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <HBox alignment="CENTER" prefHeight="30.0" prefWidth="154.0" GridPane.rowIndex="1">
                            <children>
-                              <MenuButton fx:id="categoryMenuButton" mnemonicParsing="false" prefHeight="29.0" prefWidth="141.0" text="Category: ALL">
+                              <MenuButton fx:id="categoryMenuButton" mnemonicParsing="false" prefHeight="61.0" prefWidth="141.0" text="Category: ALL">
                                  <items>
                                     <MenuItem fx:id="allCategory" mnemonicParsing="false" onAction="#categoryFilterClicked" text="ALL" />
                                     <MenuItem fx:id="whiteCategory" mnemonicParsing="false" onAction="#categoryFilterClicked" text="White" />
@@ -99,12 +99,12 @@
                                     <Font name="Liberation Sans" size="13.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets bottom="20.0" />
+                                    <Insets />
                                  </HBox.margin>
                               </MenuButton>
                            </children>
                         </HBox>
-                        <Label prefHeight="19.0" prefWidth="188.0" styleClass="subheader-label" text="Category of Wine">
+                        <Label prefHeight="19.0" prefWidth="188.0" styleClass="subheader-label" text="Category">
                            <font>
                               <Font name="Liberation Sans Bold" size="16.0" />
                            </font>
@@ -120,8 +120,8 @@
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
@@ -144,7 +144,7 @@
                               <Insets left="5.0" />
                            </padding>
                         </Label>
-                        <Label prefHeight="19.0" prefWidth="84.0" styleClass="colon-label" text="Critic Score" GridPane.rowIndex="1">
+                        <Label prefHeight="19.0" prefWidth="106.0" styleClass="colon-label" text="Critic Score" GridPane.rowIndex="1">
                            <font>
                               <Font name="Liberation Sans Bold" size="13.0" />
                            </font>
@@ -289,7 +289,7 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#filterClick" styleClass="small-button" text="Filter">
+                                    <Button mnemonicParsing="false" onAction="#filterClick" styleClass="small-button" text="Apply">
                                        <font>
                                           <Font name="Liberation Sans Bold" size="13.0" />
                                        </font>
