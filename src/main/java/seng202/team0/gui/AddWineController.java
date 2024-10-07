@@ -24,7 +24,7 @@ public class AddWineController {
     @FXML
     TextField wineRegion;
     @FXML
-    TextField wineDescription;
+    TextArea wineDescription;
     @FXML
     Label saveNewWineMessage;
     @FXML

@@ -1,5 +1,7 @@
 package seng202.team0.services;
 
+import javafx.stage.Stage;
+
 import java.util.function.Consumer;
 
 public class AppEnvironment {
@@ -28,6 +30,8 @@ public class AppEnvironment {
      */
     private final AdminLoginService adminLoginInstance;
 
+    private final LoadingScreenService loadingScreenService;
+
     /**
      * AppEnvironment keeps track of the state of the program
      * @param navBarLauncher Launches the nav bar
@@ -42,6 +46,9 @@ public class AppEnvironment {
         this.adminSetupScreenLauncher = adminSetupScreenLauncher;
         this.adminScreenLauncher = adminScreenLauncher;
         this.clear = clear;
+        this.loadingScreenService = new LoadingScreenService();
+        this.loadingScreenService.loadLoadingScreen();
+
         boolean isFirstRun = adminLoginInstance.doesFileExist();
         if(!isFirstRun) {
             // launch create new account screen
@@ -87,9 +94,24 @@ public class AppEnvironment {
      * Gets the clear runnable that controllers use to clear the page.
      * @return returns the clear runnable.
      */
+
+    public void setLoadingScreenOwner(Stage appStage) {
+        loadingScreenService.positionScreen(appStage);
+    }
+
+    public void showLoadingScreen() {
+        loadingScreenService.showLoadingScreen();
+    }
+
+    public void hideLoadingScreen() {
+        loadingScreenService.hideLoadingScreen();
+    }
+
     public Runnable getClearRunnable() {
         return clear;
     }
+
+
 
 }
 

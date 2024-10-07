@@ -28,5 +28,13 @@ public class WineryManager {
         return wineryDAO.getExistingWineryNames();
     }
 
-    public void delete(String name) { wineryDAO.delete(name); }
+    public List<Winery> getAllWithNullLocation() {return wineryDAO.getAllWithNullLocation(); }
+
+    public int updateLocationByWineryName(String wineryName, Float newLatitude, Float newLongitude) {
+        return wineryDAO.updateLocationByWineryName(wineryName, newLatitude, newLongitude);
+    }
+
+    public List<Winery> getAllWithValidLocation() {return wineryDAO.getAllWithValidLocation(); }
+
+    public Winery getWineryByName(String wineryName) {return wineryDAO.getWineryByName(wineryName); }
 }

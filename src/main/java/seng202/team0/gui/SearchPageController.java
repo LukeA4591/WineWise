@@ -8,6 +8,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import seng202.team0.business.WineManager;
 import seng202.team0.models.Wine;
+import seng202.team0.repository.WineDAO;
 import seng202.team0.services.WinePopupService;
 
 import java.util.*;
@@ -32,6 +33,8 @@ public class SearchPageController {
     @FXML
     private TextField criticScoreMaxText;
     @FXML
+    private TextField searchText;
+    @FXML
     private Label errorLabel;
 
     private List<Wine> wines;
@@ -39,6 +42,7 @@ public class SearchPageController {
     private Map<String, List<String>> scoreFilters = new HashMap<>();
     private WineManager wineManager;
     private WinePopupService wineMethods = new WinePopupService();
+    List<Double> columnWidths = new ArrayList<>();
 
     /**
      * Constructor for search page controller
@@ -53,11 +57,9 @@ public class SearchPageController {
      */
     @FXML
     private void initialize() {
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         wines = wineManager.getAll();
         if (!wines.isEmpty()) {
             initTable(wines);
-
             MenuItem allRegion = new MenuItem();
             allRegion.setOnAction(this::regionFilterClicked);
             allRegion.setText("ALL");
@@ -135,13 +137,13 @@ public class SearchPageController {
     private void filterClick(){
         if ((Objects.equals(criticScoreMinText.getText(), "") && !(Objects.equals(criticScoreMaxText.getText(), ""))) || (!(Objects.equals(criticScoreMinText.getText(), "")) && Objects.equals(criticScoreMaxText.getText(), ""))) {
             errorLabel.setText("Please input both scores");
-            errorLabel.setStyle("-fx-text-fill: red;");
+            errorLabel.setStyle("-fx-text-fill: white;");
         } else if (!validScore(criticScoreMaxText.getText()) || !validScore(criticScoreMinText.getText())){
             errorLabel.setText("Please enter integers");
-            errorLabel.setStyle("-fx-text-fill: red");
+            errorLabel.setStyle("-fx-text-fill: white");
         } else if (!Objects.equals(criticScoreMaxText.getText(), "") && !Objects.equals(criticScoreMinText.getText(), "") && (Integer.parseInt(criticScoreMaxText.getText()) <= Integer.parseInt(criticScoreMinText.getText()))) {
             errorLabel.setText("Please have from <= to");
-            errorLabel.setStyle("-fx-text-fill: red;");
+            errorLabel.setStyle("-fx-text-fill: white;");
         } else {
             errorLabel.setText("");
             scoreFilters.put("score", Arrays.asList(criticScoreMinText.getText(), criticScoreMaxText.getText()));
@@ -219,10 +221,19 @@ public class SearchPageController {
         regionMenuButton.setText("Region: ALL");
         yearMenuButton.setText("Year: ALL");
         wineryMenuButton.setText("Winery: ALL");
+        searchText.setText("");
         criticScoreMinText.setText("");
         criticScoreMaxText.setText("");
         wines = wineManager.getAll();
         initTable(wines);
+    }
+
+    @FXML
+    private void searchPressed() {
+        List<Wine> searchedWines;
+        String search = searchText.getText();
+        searchedWines = wineManager.searchWines(search);
+        initTable(searchedWines);
     }
 
     /**
@@ -234,21 +245,40 @@ public class SearchPageController {
 
         TableColumn<Wine, String> typeCol = new TableColumn<>("Type");
         typeCol.setCellValueFactory(new PropertyValueFactory<>("color"));
+        typeCol.setPrefWidth(50);
+        typeCol.setMinWidth(50);
+        typeCol.setMaxWidth(50);
 
         TableColumn<Wine, String> nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("wineName"));
+        nameCol.setPrefWidth(250);
+        nameCol.setMinWidth(250);
+        nameCol.setMaxWidth(250);
 
         TableColumn<Wine, String> wineryCol = new TableColumn<>("Winery");
         wineryCol.setCellValueFactory(new PropertyValueFactory<>("wineryString"));
+        wineryCol.setPrefWidth(200);
+        wineryCol.setMaxWidth(200);
+        wineryCol.setMinWidth(200);
 
         TableColumn<Wine, Integer> vintageCol = new TableColumn<>("Vintage");
         vintageCol.setCellValueFactory(new PropertyValueFactory<>("vintage"));
+        vintageCol.setPrefWidth(65);
+        vintageCol.setMinWidth(65);
+        vintageCol.setMaxWidth(65);
+
 
         TableColumn<Wine, Integer> scoreCol = new TableColumn<>("Score");
         scoreCol.setCellValueFactory(new PropertyValueFactory<>("score"));
+        scoreCol.setPrefWidth(50);
+        scoreCol.setMinWidth(50);
+        scoreCol.setMaxWidth(50);
 
         TableColumn<Wine, String> regionCol = new TableColumn<>("Region");
         regionCol.setCellValueFactory(new PropertyValueFactory<>("region"));
+        regionCol.setPrefWidth(90);
+        regionCol.setMinWidth(90);
+        regionCol.setMaxWidth(90);
 
         table.getColumns().add(typeCol);
         table.getColumns().add(nameCol);
@@ -256,7 +286,6 @@ public class SearchPageController {
         table.getColumns().add(vintageCol);
         table.getColumns().add(scoreCol);
         table.getColumns().add(regionCol);
-
         table.setItems(FXCollections.observableArrayList(wines));
     }
 

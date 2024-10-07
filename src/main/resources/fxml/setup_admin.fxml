@@ -5,21 +5,23 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#enterKeyPressed" prefHeight="400.0" prefWidth="600.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.AdminSetupScreenController">
    <children>
-      <Label layoutX="192.0" layoutY="60.0" styleClass="title-label" text="Create Admin Login" />
-      <Label layoutX="201.0" layoutY="143.0" text="Username:" />
-      <Label layoutX="202.0" layoutY="174.0" text="Password:" />
-      <Label layoutX="153.0" layoutY="205.0" text="Confirm Password:" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="275.0" layoutX="91.0" layoutY="97.0" stroke="BLACK" strokeType="INSIDE" styleClass="highlight-rectangle" width="439.0" />
+      <Label layoutX="186.0" layoutY="27.0" styleClass="title-label" text="Create Admin Login" />
+      <Label layoutX="150.0" layoutY="140.0" styleClass="colon-label" text="Username:" />
+      <Label layoutX="152.0" layoutY="183.0" styleClass="colon-label" text="Password:" />
+      <Label layoutX="98.0" layoutY="227.0" styleClass="colon-label" text="Confirm Password:" />
       <Label fx:id="errorLabel" layoutX="282.0" layoutY="323.0" textFill="#f80303" />
-      <TextField fx:id="createUsernameInputField" layoutX="282.0" layoutY="139.0" />
-      <TextField fx:id="createPasswordInputField" layoutX="282.0" layoutY="170.0" />
-      <PasswordField fx:id="createPasswordField" layoutX="282.0" layoutY="170.0" />
-      <TextField fx:id="createConfirmPasswordInputField" layoutX="282.0" layoutY="201.0" />
-      <PasswordField fx:id="confirmPasswordField" layoutX="282.0" layoutY="201.0" />
-      <Button fx:id="viewButton" layoutX="454.0" layoutY="166.0" mnemonicParsing="false" onAction="#onViewButtonClicked" styleClass="small-button" text="View" />
-      <Button layoutX="225.0" layoutY="242.0" mnemonicParsing="false" onAction="#createAccountLaunchAdminScreen" text="Create" />
-      <Label layoutX="224.0" layoutY="87.0" styleClass="subtitle-label" text="Please enter details below" />
+      <TextField fx:id="createUsernameInputField" layoutX="218.0" layoutY="136.0" />
+      <TextField fx:id="createPasswordInputField" layoutX="219.0" layoutY="179.0" />
+      <PasswordField fx:id="createPasswordField" layoutX="219.0" layoutY="179.0" />
+      <TextField fx:id="createConfirmPasswordInputField" layoutX="219.0" layoutY="223.0" />
+      <PasswordField fx:id="confirmPasswordField" layoutX="219.0" layoutY="223.0" />
+      <Button fx:id="viewButton" layoutX="391.0" layoutY="175.0" mnemonicParsing="false" onAction="#onViewButtonClicked" styleClass="small-button" text="View" />
+      <Button layoutX="226.0" layoutY="288.0" mnemonicParsing="false" onAction="#createAccountLaunchAdminScreen" text="Create" />
+      <Label layoutX="224.0" layoutY="54.0" styleClass="subtitle-label" text="Please enter details below" />
    </children>
 </AnchorPane>
