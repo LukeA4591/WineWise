@@ -127,6 +127,12 @@ public class NavBarController {
         //background thread
         Thread switchPageThread = new Thread(() -> {
 
+            try {
+                Thread.sleep(750);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
             Platform.runLater(() -> {
                 //run and load the specified page
                 loadPageMethod.run();

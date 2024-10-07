@@ -1,6 +1,7 @@
 .root {
     -fx-background-color: #e0e0e0;
-    -fx-font-family: "Liberation Sans";
+    -fx-font-family: "Liberation Mono";
+    /*-fx-font-family: Gayathri;*/
     -fx-text-fill: #000000;
 }
 
@@ -17,18 +18,20 @@
 }
 
 .button {
-    -fx-background-color: #aeaeae;
-    -fx-text-fill: black;
+    -fx-background-color: transparent;
+    -fx-text-fill: Black;
+    -fx-underline: true;
     -fx-font-size: 14px;
     -fx-padding: 8px 15px;
     -fx-pref-width: 150px;
     -fx-pref-height: 35px;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
+    /*-fx-border-color: black;*/
 }
 
 .small-button {
-    -fx-background-color: #aeaeae;
+    /*-fx-background-color: #aeaeae;*/
     -fx-text-fill: black;
     -fx-font-size: 14px;
     -fx-padding: 8px 15px;
@@ -39,7 +42,7 @@
 }
 
 .tab-button {
-    -fx-background-color: #aeaeae;
+    /*-fx-background-color: #aeaeae;*/
     -fx-text-fill: black;
     -fx-font-size: 14px;
     -fx-padding: 8px 15px;
@@ -68,7 +71,7 @@
 .suggestedwine-pane {
     -fx-background-radius: 8;
     -fx-border-radius: 8;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 2);
+    /*-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 2);*/
 }
 
 .suggestedwine-pane:hover {

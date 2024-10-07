@@ -79,6 +79,7 @@
             <Text fx:id="selectedReviewText" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a review to expand!" />
          </content>
       </ScrollPane>
-      <Button fx:id="addWinery" layoutX="81.0" layoutY="454.0" mnemonicParsing="false" onAction="#onAddWinery" text="Place winery" />
+      <Button fx:id="addWinery" layoutX="60.0" layoutY="454.0" mnemonicParsing="false" onAction="#onAddWinery" text="Place winery" />
+      <Label layoutX="293.0" layoutY="41.0" prefHeight="15.0" prefWidth="195.0" styleClass="subtitle-label" text="Click &quot;Help&quot; if you get lost" textAlignment="CENTER" />
    </children>
 </AnchorPane>
