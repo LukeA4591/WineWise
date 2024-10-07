@@ -2,6 +2,7 @@ package seng202.team0.repository;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import seng202.team0.models.Wine;
 import seng202.team0.models.Winery;
 
 import java.util.*;
@@ -60,8 +61,25 @@ public class WineryDAO implements DAOInterface<Winery> {
 
     //TODO not sure about the duplicateExc
     public void addBatch (Set <Winery> wineries) {
-        for (Winery winery : wineries) {
-            add(winery);
+        String sql = "INSERT OR IGNORE INTO wineries (wineryName, longitude, latitude) VALUES (?, ?, ?);";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            for (Winery toAdd : wineries) {
+                ps.setString(1, toAdd.getWineryName());
+                if (toAdd.getLatitude() != null && toAdd.getLatitude() != null) {
+                    ps.setFloat(2, toAdd.getLongitude());
+                    ps.setFloat(3, toAdd.getLatitude());
+                }
+                ps.addBatch();
+            }
+            ps.executeBatch();
+            ResultSet rs = ps.getGeneratedKeys();
+            while (rs.next()){
+                log.info(rs.getLong(1));
+            }
+            conn.commit();
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
         }
     }
 
@@ -81,5 +99,73 @@ public class WineryDAO implements DAOInterface<Winery> {
         }
     }
 
+    public List<Winery> getAllWithNullLocation() {
+        List<Winery> wineries = new ArrayList<>();
+        String sql = "SELECT * FROM wineries WHERE latitude IS NULL AND longitude IS NULL;";
+        try (Connection conn = databaseManager.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                wineries.add(new Winery(rs.getString("wineryName"), null, null));
+            }
+            return wineries;
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            return new ArrayList<>();
+        }
+    }
 
+    public int updateLocationByWineryName(String wineryName, Float newLatitude, Float newLongitude) {
+        String sql = "UPDATE wineries SET latitude = ?, longitude = ? WHERE wineryName = ?;";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setObject(1, newLatitude, java.sql.Types.REAL);
+            ps.setObject(2, newLongitude, java.sql.Types.REAL);
+            ps.setString(3, wineryName);
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated;  // Return the number of rows updated directly
+        } catch (SQLException sqlException) {
+            log.error("Failed to update location for winery: " + wineryName, sqlException);
+            return -1;
+        }
+    }
+
+    public List<Winery> getAllWithValidLocation() {
+        List<Winery> wineries = new ArrayList<>();
+        String sql = "SELECT * FROM wineries WHERE latitude IS NOT NULL AND longitude IS NOT NULL;";
+        try (Connection conn = databaseManager.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Float longitude = rs.getFloat("longitude");
+                Float latitude = rs.getFloat("latitude");
+                wineries.add(new Winery(rs.getString("wineryName"), longitude, latitude));
+            }
+            return wineries;
+        } catch (SQLException sqlException) {
+            log.error("Failed to retrieve wineries with valid location", sqlException);
+            return new ArrayList<>();
+        }
+    }
+
+    public Winery getWineryByName(String wineryName) {
+        String sql = "SELECT * FROM wineries WHERE wineryName = ?;";
+        Winery winery = null;
+
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, wineryName);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    String name = rs.getString("wineryName");
+                    Float longitude = rs.getObject("longitude") != null ? rs.getFloat("longitude") : null;
+                    Float latitude = rs.getObject("latitude") != null ? rs.getFloat("latitude") : null;
+                    winery = new Winery(name, longitude, latitude);
+                }
+            }
+        } catch (SQLException sqlException) {
+            log.error("Failed to get winery by name: " + wineryName, sqlException);
+        }
+        return winery;
+    }
 }

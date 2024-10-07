@@ -2,14 +2,12 @@ package seng202.team0.repository;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import seng202.team0.exceptions.DuplicateExc;
 import seng202.team0.models.Wine;
 import seng202.team0.models.Winery;
 
 import java.sql.*;
 import java.util.*;
 
-import java.util.Random;
 
 /**
  * WineDAO class, interacts with the database to query wines
@@ -206,7 +204,7 @@ public class WineDAO implements DAOInterface<Wine> {
 
 
     /**
-     * Adds a batch of wines to the database
+     * Adds a batch of wines to the database and sends a list of wines to the WineryDAO, so it can add any new wineries.
      * @param wines list of wines to be added
      */
     public void addBatch (List <Wine> wines) {
@@ -223,14 +221,13 @@ public class WineDAO implements DAOInterface<Wine> {
                 existingWineries.add(winery.getWineryName());
             }
         }
-
         wineryDAO.addBatch(newWineries);
-//        for (Wine wine : wines) {
-//            add(wine);
-//        }
         String sql = "INSERT OR IGNORE INTO wines (type, name, winery, vintage, score, region, description) VALUES (?,?,?,?,?,?,?);";
         try (Connection conn = databaseManager.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            conn.setAutoCommit(false);
+
             for (Wine toAdd : wines) {
                 ps.setString(1, toAdd.getColor());
                 ps.setString(2, toAdd.getWineName());
@@ -243,11 +240,14 @@ public class WineDAO implements DAOInterface<Wine> {
             }
 
             ps.executeBatch();
+
+            conn.commit();
             ResultSet rs = ps.getGeneratedKeys();
             while (rs.next()){
                 log.info(rs.getLong(1));
             }
             conn.commit();
+            conn.setAutoCommit(true);
         } catch (SQLException sqlException) {
             log.error(sqlException);
         }
@@ -257,9 +257,9 @@ public class WineDAO implements DAOInterface<Wine> {
      * Get the three top-rated wines do display on the home page of our application
      * @return a list of the top 3 rated wines
      */
-    public  List<Wine> getTopRated() {
+    public List<Wine> getTopRated() {
         List<Wine> topRated = new ArrayList<>();
-        String sql = "SELECT * FROM wines ORDER BY score DESC LIMIT 3;";
+        String sql = "SELECT * FROM wines ORDER BY score DESC LIMIT 6;";
         try (Connection conn = databaseManager.connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -576,5 +576,34 @@ public class WineDAO implements DAOInterface<Wine> {
             }
         }
         return givenWine;
+    }
+
+    public List<Wine> searchWines(String searchText) {
+        List<Wine> wineList = new ArrayList<>();  // Renamed to match naming conventions like `NewWine` in getSimilarVintage
+        String sql = "SELECT * FROM wines WHERE " + "type LIKE ? OR " + "name LIKE ? OR "
+                + "winery LIKE ? OR " + "region LIKE ? OR " + "description LIKE ?";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            String formattedSearchText = "%" + searchText + "%";
+            for (int i = 1; i <= 5; i++) {
+                pstmt.setString(i, formattedSearchText);
+            }
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                Wine wine = new Wine(
+                        resultSet.getString("type"),
+                        resultSet.getString("name"),
+                        resultSet.getString("winery"),
+                        resultSet.getInt("vintage"),
+                        resultSet.getInt("score"),
+                        resultSet.getString("region"),
+                        resultSet.getString("description")
+                );
+                wineList.add(wine);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return wineList;
     }
 }

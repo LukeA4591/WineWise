@@ -79,6 +79,6 @@
             <Text fx:id="selectedReviewText" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a review to expand!" />
          </content>
       </ScrollPane>
-      <Label layoutX="307.0" layoutY="41.0" styleClass="subtitle-label" text="Click help if you're lost!" />
+      <Button fx:id="addWinery" layoutX="81.0" layoutY="454.0" mnemonicParsing="false" onAction="#onAddWinery" text="Place winery" />
    </children>
 </AnchorPane>

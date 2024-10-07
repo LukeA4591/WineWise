@@ -29,6 +29,8 @@ public class NavBarController {
     @FXML
     private Button adminButton;
     @FXML
+    private Button mapButton;
+    @FXML
     private Button helpButton;
 
     private AppEnvironment appEnvironment;
@@ -71,19 +73,6 @@ public class NavBarController {
     }
 
     /**
-     * Loads the search page into the border pane
-     */
-    private void loadSearchPage() {
-        try {
-            FXMLLoader searchPageLoader = new FXMLLoader(getClass().getResource("/fxml/search_screen.fxml"));
-            Parent searchParent = searchPageLoader.load();
-            mainWindow.setCenter(searchParent);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Loads the help page into the border pane
      */
     private void loadHelpPage() {
@@ -97,18 +86,69 @@ public class NavBarController {
     }
 
     /**
+     * Loads the search page into the border pane
+     */
+    private void loadSearchPage() {
+        try {
+            FXMLLoader searchPageLoader = new FXMLLoader(getClass().getResource("/fxml/search_screen.fxml"));
+            Parent searchParent = searchPageLoader.load();
+            mainWindow.setCenter(searchParent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadMapPage() {
+        try {
+            FXMLLoader mapPageLoader = new FXMLLoader(getClass().getResource("/fxml/map_page.fxml"));
+            Parent mapParent = mapPageLoader.load();
+            MapPageController mapPageController = mapPageLoader.getController();
+            mapPageController.init();
+            mainWindow.setCenter(mapParent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Displays the loading screen while loading a page in the background.
+     * This ensures that the UI is responsive even when there are intensive tasks when changing pages.
+     * @param loadPageMethod a {@code Runnable} type that contains the logic for loading a specific page.
+     */
+    private void showPageWithLoadingScreen(Runnable loadPageMethod) {
+        Stage stage = (Stage) homeButton.getScene().getWindow();
+
+        //show loading screen on JAVAFX thread
+        Platform.runLater(() -> {
+            appEnvironment.setLoadingScreenOwner(stage);
+            appEnvironment.showLoadingScreen();
+        });
+
+        //background thread
+        Thread switchPageThread = new Thread(() -> {
+
+            Platform.runLater(() -> {
+                //run and load the specified page
+                loadPageMethod.run();
+                appEnvironment.hideLoadingScreen();
+            });
+        });
+        switchPageThread.start();
+    }
+
+    /**
      * OnAction method for the Home button
      */
     @FXML
     private void homePressed() {
-        loadHomePage();
+        showPageWithLoadingScreen(this::loadHomePage);
         setAllButtonsGrey();
         homeButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
     @FXML
     private void helpPressed() {
-        loadHelpPage();
+        showPageWithLoadingScreen(this::loadHelpPage);
         setAllButtonsGrey();
         helpButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
@@ -118,9 +158,16 @@ public class NavBarController {
      */
     @FXML
     private void searchPressed() {
-        loadSearchPage();
+        showPageWithLoadingScreen(this::loadSearchPage);
         setAllButtonsGrey();
         searchButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+    }
+
+    @FXML
+    void mapPressed() {
+        showPageWithLoadingScreen(this::loadMapPage);
+        setAllButtonsGrey();
+        mapButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
     /**
@@ -159,6 +206,7 @@ public class NavBarController {
     private void setAllButtonsGrey() {
         homeButton.setStyle("");
         searchButton.setStyle("");
+        mapButton.setStyle("");
         helpButton.setStyle("");
     }
 

@@ -1,5 +1,6 @@
 package seng202.team0.gui;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -43,6 +44,8 @@ public class AdminScreenController {
     @FXML
     private Button helpButton;
     @FXML
+    private Button addWinery;
+    @FXML
     private Text selectedReviewText;
     @FXML
     private ScrollPane selectedReviewScrollPane;
@@ -51,6 +54,7 @@ public class AdminScreenController {
     private final WineManager wineManager;
     private final ReviewManager reviewManager;
     private final List<Review> selectedReviews = new ArrayList<>();
+
 
 
     /**
@@ -188,26 +192,42 @@ public class AdminScreenController {
     /**
      * When the view wines button is pressed, it will open up the admin_view_wines.fxml page as a pop-up. The pop-up
      * will restrict the user from doing any other actions on the admin page until they have closed the pop-up.
+     * The loading screen is shown whilst waiting for the app to finish loading in the wines on the background thread.
      */
     @FXML
     public void onViewWines() {
-        try {
-            FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_view_wines.fxml"));
-            AnchorPane root = newStageLoader.load();
-            Scene modalScene = new Scene(root);
-            Stage modalStage = new Stage();
-            modalStage.setScene(modalScene);
-            modalStage.setWidth(900);
-            modalStage.setHeight(624);
-            modalStage.setResizable(false);
-            modalStage.setTitle("View Wines");
-            modalStage.initModality(Modality.APPLICATION_MODAL);
-            Stage primaryStage = (Stage) addWine.getScene().getWindow();
-            modalStage.initOwner(primaryStage);
-            modalStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Stage primaryStage = (Stage) addWine.getScene().getWindow();
+        Platform.runLater(() -> {
+            appEnvironment.setLoadingScreenOwner(primaryStage);
+            appEnvironment.showLoadingScreen();
+        });
+
+        //add batch on background thread.
+        Thread viewWinesThread = new Thread(() -> {
+
+            Platform.runLater(() -> {
+                try {
+                    FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_view_wines.fxml"));
+                    AnchorPane root = newStageLoader.load();
+                    appEnvironment.hideLoadingScreen();
+                    Scene modalScene = new Scene(root);
+                    Stage modalStage = new Stage();
+                    modalStage.setScene(modalScene);
+                    modalStage.setWidth(900);
+                    modalStage.setHeight(624);
+                    modalStage.setResizable(false);
+                    modalStage.setTitle("View Wines");
+                    modalStage.initModality(Modality.APPLICATION_MODAL);
+                    modalStage.initOwner(primaryStage);
+                    modalStage.showAndWait();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        });
+
+        viewWinesThread.start();
+
     }
 
     @FXML
@@ -233,9 +253,10 @@ public class AdminScreenController {
      * Allows a csv file to be chosen from the file manager when the add dataset button is pressed. It will then send
      * this file to the wineManager along with the WineCSVImporter so that the file can be processed into individual
      * wines.
+     * The loading screen is shown whilst waiting for the app to finish reading all the wine tuples from the csv file.
      */
     @FXML
-    private void addDataSet() {
+    private void addDataSet() throws InterruptedException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
@@ -247,12 +268,29 @@ public class AdminScreenController {
         }
         Stage stage = (Stage) addWine.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
-        wineManager.addBatch(new WineCSVImporter(), file);
+
+        if (file != null && file.exists()) {
+            //show loading screen on JAVAFX thread
+            Platform.runLater(() -> {
+                appEnvironment.setLoadingScreenOwner(stage);
+                appEnvironment.showLoadingScreen();
+            });
+
+            //add batch on background thread.
+            Thread addBatchThread = new Thread(() -> {
+
+                wineManager.addBatch(new WineCSVImporter(), file);
+
+                Platform.runLater(() -> appEnvironment.hideLoadingScreen());
+            });
+
+            addBatchThread.start();
+        }
+
     }
 
     @FXML
     void adminChangePassword() {
-        System.out.println("Button clicked");
         try {
             FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_change_password_popup.fxml"));
             AnchorPane root = newStageLoader.load();
@@ -270,6 +308,43 @@ public class AdminScreenController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void onAddWinery() {
+        Stage primaryStage = (Stage) addWine.getScene().getWindow();
+        Platform.runLater(() -> {
+            appEnvironment.setLoadingScreenOwner(primaryStage);
+            appEnvironment.showLoadingScreen();
+        });
+
+        //add batch on background thread.
+        Thread viewWinesThread = new Thread(() -> {
+
+            Platform.runLater(() -> {
+                try {
+                    FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_map_page.fxml"));
+                    AnchorPane root = newStageLoader.load();
+                    appEnvironment.hideLoadingScreen();
+                    AdminMapPageController controller = newStageLoader.getController();
+                    Scene modalScene = new Scene(root);
+                    Stage modalStage = new Stage();
+                    controller.init(appEnvironment, modalStage);
+                    modalStage.setScene(modalScene);
+                    modalStage.setWidth(900);
+                    modalStage.setHeight(624);
+                    modalStage.setResizable(false);
+                    modalStage.setTitle("Place Wineries");
+                    modalStage.initModality(Modality.APPLICATION_MODAL);
+                    modalStage.initOwner(primaryStage);
+                    modalStage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        });
+
+        viewWinesThread.start();
     }
 
     /**
