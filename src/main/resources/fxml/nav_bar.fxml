@@ -1,19 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
 <BorderPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="900.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.NavBarController">
    <top>
-      <AnchorPane fx:id="navWindow" prefHeight="35.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="navWindow" prefHeight="80.0" prefWidth="900.0" styleClass="nav-Window" stylesheets="@../style/navbar.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="homeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#homePressed" styleClass="tab-button" text="Home" />
-            <Button fx:id="searchButton" layoutX="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#searchPressed" styleClass="tab-button" text="Search" />
-            <Button fx:id="adminButton" layoutX="825.0" mnemonicParsing="false" onAction="#loginPressed" styleClass="tab-button" text="Login" />
-            <Button fx:id="mapButton" layoutX="150.0" minWidth="65.0" mnemonicParsing="false" onAction="#mapPressed" styleClass="tab-button" text="Maps" />
-            <Button fx:id="helpButton" layoutX="750.0" mnemonicParsing="false" onAction="#helpPressed" styleClass="tab-button" text="Help" />
+            <ImageView fx:id="HomeLogo" fitHeight="100.0" fitWidth="125.0" layoutX="388.0" layoutY="-15.0" onMouseClicked="#homePressed" preserveRatio="true">
+               <image>
+                  <Image url="@../images/winewiselogocropped.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="SearchIcon" fitHeight="55.0" fitWidth="55.0" layoutX="21.0" layoutY="13.0" onMouseClicked="#searchPressed">
+               <image>
+                  <Image url="@../images/searchIcon.jpg" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="MapsIcon" fitHeight="55.0" fitWidth="55.0" layoutX="121.0" layoutY="13.0" onMouseClicked="#mapPressed">
+               <image>
+                  <Image url="@../images/mapsIcon.jpg" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="HelpIcon" fitHeight="55.0" fitWidth="55.0" layoutX="726.0" layoutY="13.0" onMouseClicked="#helpPressed">
+               <image>
+                  <Image url="@../images/helpIcon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="AdminIcon" fitHeight="55.0" fitWidth="55.0" layoutX="826.0" layoutY="13.0" onMouseClicked="#loginPressed">
+               <image>
+                  <Image url="@../images/adminicon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <Pane fx:id="doNotDelete" layoutX="388.0" layoutY="-22.0" onMouseClicked="#homePressed" prefHeight="100.0" prefWidth="125.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
          </children>
       </AnchorPane>
    </top>
@@ -27,6 +73,6 @@
       <AnchorPane prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
    </right>
    <center>
-      <Pane minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <Pane minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

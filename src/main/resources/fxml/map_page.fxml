@@ -3,8 +3,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.MapPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.MapPageController">
    <children>
-      <WebView fx:id="webView" layoutY="13.0" maxHeight="600.0" prefHeight="572.0" prefWidth="900.0" />
+      <WebView fx:id="webView" maxHeight="600.0" prefHeight="575.0" prefWidth="900.0" />
    </children>
 </AnchorPane>
