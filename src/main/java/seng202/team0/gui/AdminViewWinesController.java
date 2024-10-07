@@ -72,24 +72,45 @@ public class AdminViewWinesController {
 
         TableColumn<Wine, String> typeCol = new TableColumn<>("Type");
         typeCol.setCellValueFactory(new PropertyValueFactory<>("color"));
+        typeCol.setPrefWidth(50);
+        typeCol.setMinWidth(50);
+        typeCol.setMaxWidth(50);
 
         TableColumn<Wine, String> nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("wineName"));
+        nameCol.setPrefWidth(200);
+        nameCol.setMinWidth(200);
+        nameCol.setMaxWidth(200);
 
         TableColumn<Wine, String> wineryCol = new TableColumn<>("Winery");
         wineryCol.setCellValueFactory(new PropertyValueFactory<>("wineryString"));
+        wineryCol.setPrefWidth(200);
+        wineryCol.setMaxWidth(200);
+        wineryCol.setMinWidth(200);
 
         TableColumn<Wine, Integer> vintageCol = new TableColumn<>("Vintage");
         vintageCol.setCellValueFactory(new PropertyValueFactory<>("vintage"));
+        vintageCol.setPrefWidth(65);
+        vintageCol.setMinWidth(65);
+        vintageCol.setMaxWidth(65);
 
         TableColumn<Wine, Integer> scoreCol = new TableColumn<>("Score");
         scoreCol.setCellValueFactory(new PropertyValueFactory<>("score"));
+        scoreCol.setPrefWidth(50);
+        scoreCol.setMinWidth(50);
+        scoreCol.setMaxWidth(50);
 
         TableColumn<Wine, String> regionCol = new TableColumn<>("Region");
         regionCol.setCellValueFactory(new PropertyValueFactory<>("region"));
+        regionCol.setPrefWidth(90);
+        regionCol.setMinWidth(90);
+        regionCol.setMaxWidth(90);
 
         TableColumn<Wine, String> descCol = new TableColumn<>("Desc.");
         descCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        descCol.setPrefWidth(230);
+        descCol.setMinWidth(230);
+        descCol.setMaxWidth(230);
 
         wineTable.getColumns().add(typeCol);
         wineTable.getColumns().add(nameCol);

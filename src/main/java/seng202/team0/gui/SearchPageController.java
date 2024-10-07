@@ -137,13 +137,13 @@ public class SearchPageController {
     private void filterClick(){
         if ((Objects.equals(criticScoreMinText.getText(), "") && !(Objects.equals(criticScoreMaxText.getText(), ""))) || (!(Objects.equals(criticScoreMinText.getText(), "")) && Objects.equals(criticScoreMaxText.getText(), ""))) {
             errorLabel.setText("Please input both scores");
-            errorLabel.setStyle("-fx-text-fill: red;");
+            errorLabel.setStyle("-fx-text-fill: white;");
         } else if (!validScore(criticScoreMaxText.getText()) || !validScore(criticScoreMinText.getText())){
             errorLabel.setText("Please enter integers");
-            errorLabel.setStyle("-fx-text-fill: red");
+            errorLabel.setStyle("-fx-text-fill: white");
         } else if (!Objects.equals(criticScoreMaxText.getText(), "") && !Objects.equals(criticScoreMinText.getText(), "") && (Integer.parseInt(criticScoreMaxText.getText()) <= Integer.parseInt(criticScoreMinText.getText()))) {
             errorLabel.setText("Please have from <= to");
-            errorLabel.setStyle("-fx-text-fill: red;");
+            errorLabel.setStyle("-fx-text-fill: white;");
         } else {
             errorLabel.setText("");
             scoreFilters.put("score", Arrays.asList(criticScoreMinText.getText(), criticScoreMaxText.getText()));
@@ -245,33 +245,40 @@ public class SearchPageController {
 
         TableColumn<Wine, String> typeCol = new TableColumn<>("Type");
         typeCol.setCellValueFactory(new PropertyValueFactory<>("color"));
-        typeCol.setMinWidth(60);
-        typeCol.setMaxWidth(60);
+        typeCol.setPrefWidth(50);
+        typeCol.setMinWidth(50);
+        typeCol.setMaxWidth(50);
 
         TableColumn<Wine, String> nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("wineName"));
+        nameCol.setPrefWidth(250);
         nameCol.setMinWidth(250);
         nameCol.setMaxWidth(250);
 
         TableColumn<Wine, String> wineryCol = new TableColumn<>("Winery");
         wineryCol.setCellValueFactory(new PropertyValueFactory<>("wineryString"));
-        wineryCol.setMinWidth(150);
-        wineryCol.setMaxWidth(150);
+        wineryCol.setPrefWidth(200);
+        wineryCol.setMaxWidth(200);
+        wineryCol.setMinWidth(200);
 
         TableColumn<Wine, Integer> vintageCol = new TableColumn<>("Vintage");
         vintageCol.setCellValueFactory(new PropertyValueFactory<>("vintage"));
-        vintageCol.setMinWidth(100);
-        vintageCol.setMaxWidth(100);
+        vintageCol.setPrefWidth(65);
+        vintageCol.setMinWidth(65);
+        vintageCol.setMaxWidth(65);
+
 
         TableColumn<Wine, Integer> scoreCol = new TableColumn<>("Score");
         scoreCol.setCellValueFactory(new PropertyValueFactory<>("score"));
+        scoreCol.setPrefWidth(50);
         scoreCol.setMinWidth(50);
         scoreCol.setMaxWidth(50);
 
         TableColumn<Wine, String> regionCol = new TableColumn<>("Region");
         regionCol.setCellValueFactory(new PropertyValueFactory<>("region"));
-        regionCol.setMaxWidth(100);
-        regionCol.setMinWidth(100);
+        regionCol.setPrefWidth(90);
+        regionCol.setMinWidth(90);
+        regionCol.setMaxWidth(90);
 
         table.getColumns().add(typeCol);
         table.getColumns().add(nameCol);
