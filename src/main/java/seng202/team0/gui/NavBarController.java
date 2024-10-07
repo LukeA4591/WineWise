@@ -24,20 +24,6 @@ public class NavBarController {
     @FXML
     private BorderPane mainWindow;
     private Stage stage;
-
-//    @FXML
-//    private ImageView HomeLogo;
-//    @FXML
-//    private ImageView SearchIcon;
-//    @FXML
-//    private ImageView MapsIcon;
-//    @FXML
-//    private ImageView HelpIcon;
-//    @FXML
-//    private ImageView AdminIcon;
-
-    @FXML
-    private AnchorPane navWindow;
     private AppEnvironment appEnvironment;
 
     /**
