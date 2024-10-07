@@ -10,9 +10,9 @@
 
 <BorderPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="900.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.NavBarController">
    <top>
-      <AnchorPane fx:id="navWindow" prefHeight="50.0" prefWidth="200.0" styleClass="nav-Window" stylesheets="@../style/navbar.css" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="navWindow" prefHeight="80.0" prefWidth="900.0" styleClass="nav-Window" stylesheets="@../style/navbar.css" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="100.0" fitWidth="125.0" layoutX="388.0" layoutY="-15.0" onMouseClicked="#homePressed" preserveRatio="true">
+            <ImageView fx:id="HomeLogo" fitHeight="100.0" fitWidth="125.0" layoutX="388.0" layoutY="-15.0" onMouseClicked="#homePressed" preserveRatio="true">
                <image>
                   <Image url="@../images/winewiselogocropped.png" />
                </image>
@@ -20,7 +20,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="10.0" layoutY="3.0" onMouseClicked="#searchPressed">
+            <ImageView fx:id="SearchIcon" fitHeight="75.0" fitWidth="75.0" layoutX="10.0" layoutY="3.0" onMouseClicked="#searchPressed">
                <image>
                   <Image url="@../images/searchIcon.jpg" />
                </image>
@@ -28,7 +28,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="110.0" layoutY="3.0" onMouseClicked="#mapPressed">
+            <ImageView fx:id="MapsIcon" fitHeight="75.0" fitWidth="75.0" layoutX="110.0" layoutY="3.0" onMouseClicked="#mapPressed">
                <image>
                   <Image url="@../images/mapsIcon.jpg" />
                </image>
@@ -36,7 +36,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="715.0" layoutY="3.0" onMouseClicked="#helpPressed">
+            <ImageView fx:id="HelpIcon" fitHeight="75.0" fitWidth="75.0" layoutX="715.0" layoutY="3.0" onMouseClicked="#helpPressed">
                <image>
                   <Image url="@../images/helpIcon.png" />
                </image>
@@ -44,7 +44,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="815.0" layoutY="3.0" onMouseClicked="#loginPressed">
+            <ImageView fx:id="AdminIcon" fitHeight="75.0" fitWidth="75.0" layoutX="815.0" layoutY="3.0" onMouseClicked="#loginPressed">
                <image>
                   <Image url="@../images/adminicon.png" />
                </image>

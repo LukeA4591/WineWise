@@ -12,7 +12,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seng202.team0.services.AppEnvironment;
 
+import javax.swing.text.html.ImageView;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Controller class for the nav_bar.fxml file, launches a border pane to load other panes inside
@@ -22,6 +24,17 @@ public class NavBarController {
     @FXML
     private BorderPane mainWindow;
     private Stage stage;
+
+//    @FXML
+//    private ImageView HomeLogo;
+//    @FXML
+//    private ImageView SearchIcon;
+//    @FXML
+//    private ImageView MapsIcon;
+//    @FXML
+//    private ImageView HelpIcon;
+//    @FXML
+//    private ImageView AdminIcon;
 
     @FXML
     private AnchorPane navWindow;
@@ -139,13 +152,11 @@ public class NavBarController {
     @FXML
     private void homePressed() {
         showPageWithLoadingScreen(this::loadHomePage);
-        setAllButtonsGrey();
     }
 
     @FXML
     private void helpPressed() {
         showPageWithLoadingScreen(this::loadHelpPage);
-        setAllButtonsGrey();
     }
 
     /**
@@ -154,13 +165,11 @@ public class NavBarController {
     @FXML
     private void searchPressed() {
         showPageWithLoadingScreen(this::loadSearchPage);
-        setAllButtonsGrey();
     }
 
     @FXML
     void mapPressed() {
         showPageWithLoadingScreen(this::loadMapPage);
-        setAllButtonsGrey();
     }
 
     /**
@@ -193,15 +202,6 @@ public class NavBarController {
 
     }
 
-    /**TODO IMPLEMENT
-     * Helper function to fade out all other buttons when clicking a button
-     */
-    private void setAllButtonsGrey() {
-//        homeButton.setStyle("");
-//        searchButton.setStyle("");
-//        mapButton.setStyle("");
-//        helpButton.setStyle("");
-    }
 
     /**
      * The Setter method for the appEnvironment
