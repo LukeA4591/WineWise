@@ -312,25 +312,39 @@ public class AdminScreenController {
 
     @FXML
     void onAddWinery() {
-        try {
-            FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_map_page.fxml"));
-            AnchorPane root = newStageLoader.load();
-            AdminMapPageController controller = newStageLoader.getController();
-            Scene modalScene = new Scene(root);
-            Stage modalStage = new Stage();
-            controller.init(appEnvironment, modalStage);
-            modalStage.setScene(modalScene);
-            modalStage.setWidth(900);
-            modalStage.setHeight(624);
-            modalStage.setResizable(false);
-            modalStage.setTitle("Place Wineries");
-            modalStage.initModality(Modality.APPLICATION_MODAL);
-            Stage primaryStage = (Stage) addWinery.getScene().getWindow();
-            modalStage.initOwner(primaryStage);
-            modalStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Stage primaryStage = (Stage) addWine.getScene().getWindow();
+        Platform.runLater(() -> {
+            appEnvironment.setLoadingScreenOwner(primaryStage);
+            appEnvironment.showLoadingScreen();
+        });
+
+        //add batch on background thread.
+        Thread viewWinesThread = new Thread(() -> {
+
+            Platform.runLater(() -> {
+                try {
+                    FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_map_page.fxml"));
+                    AnchorPane root = newStageLoader.load();
+                    appEnvironment.hideLoadingScreen();
+                    AdminMapPageController controller = newStageLoader.getController();
+                    Scene modalScene = new Scene(root);
+                    Stage modalStage = new Stage();
+                    controller.init(appEnvironment, modalStage);
+                    modalStage.setScene(modalScene);
+                    modalStage.setWidth(900);
+                    modalStage.setHeight(624);
+                    modalStage.setResizable(false);
+                    modalStage.setTitle("Place Wineries");
+                    modalStage.initModality(Modality.APPLICATION_MODAL);
+                    modalStage.initOwner(primaryStage);
+                    modalStage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        });
+
+        viewWinesThread.start();
     }
 
     /**
