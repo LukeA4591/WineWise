@@ -56,7 +56,7 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <TableView fx:id="ratingTable" layoutX="330.0" layoutY="138.0" prefHeight="163.0" prefWidth="489.0">
+      <TableView fx:id="ratingTable" layoutX="330.0" layoutY="138.0" prefHeight="163.0" prefWidth="489.0" styleClass="table-view-review">
          <columns>
             <TableColumn fx:id="ratingColumn" prefWidth="65.0" text="Rating" />
             <TableColumn fx:id="reviewColumn" prefWidth="360.0" text="Description" />
@@ -74,7 +74,7 @@
          </font>
       </Button>
       <Button fx:id="helpButton" layoutX="14.0" layoutY="25.0" mnemonicParsing="false" onAction="#onHelp" text="Help" />
-      <ScrollPane fx:id="selectedReviewScrollPane" layoutX="329.0" layoutY="308.0" prefHeight="163.0" prefWidth="489.0">
+      <ScrollPane fx:id="selectedReviewScrollPane" layoutX="329.0" layoutY="308.0" prefHeight="163.0" prefWidth="489.0" styleClass="review-expand-scroll">
          <content>
             <Text fx:id="selectedReviewText" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a review to expand!" />
          </content>
