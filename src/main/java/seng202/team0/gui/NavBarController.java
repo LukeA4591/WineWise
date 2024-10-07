@@ -170,13 +170,6 @@ public class NavBarController {
         mapButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
-    @FXML
-    private void helpPressed() {
-        loadHelpPage();
-        setAllButtonsGrey();
-        helpButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
-    }
-
     /**
      * OnAction method for the login button, initializes the login page
      */
