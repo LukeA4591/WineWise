@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -19,6 +20,7 @@ import seng202.team0.models.Wine;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Controller class for the admin_view_wines.fxml page.
@@ -27,10 +29,13 @@ public class AdminViewWinesController {
 
     @FXML
     private TableView<Wine> wineTable;
+    @FXML
+    private TextField searchText;
 
     private static final Logger log = LogManager.getLogger(AdminViewWinesController.class);
     private WineManager wineManager;
     private List<Wine> wines;
+    private Wine editedWine;
 
     /**
      * Initializes the wineManager and then gets all the wines from the wine database table as wine objects. Using the
@@ -43,13 +48,26 @@ public class AdminViewWinesController {
         initTables();
     }
 
+    @FXML
+    private void searchPressed() {
+        String search = searchText.getText();
+        wines = wineManager.searchWines(search);
+        initTables();
+    }
     /**
      * The table is initialized with the details of all the wines from the database. When a row is selected and either
      * the BACKSPACE or DELETE button is pressed, that wine will be deleted from the database by calling the
      * wineManager.
      */
     private void initTables() {
-        wines = wineManager.getAll();
+        if (editedWine != null) {
+            int previousIndex = wines.indexOf(editedWine);
+            if (previousIndex != -1) {
+                wines.remove(previousIndex);
+                wines.addFirst(editedWine);
+            }
+        }
+
         wineTable.getColumns().clear();
 
         TableColumn<Wine, String> typeCol = new TableColumn<>("Type");
@@ -123,6 +141,8 @@ public class AdminViewWinesController {
             Stage primaryStage = (Stage) wineTable.getScene().getWindow();
             modalStage.initOwner(primaryStage);
             modalStage.showAndWait();
+            editedWine = wineClicked;
+            wines = wineManager.getAll();
             initTables();
         } catch (IOException e) {
             e.printStackTrace();

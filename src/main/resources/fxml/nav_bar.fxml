@@ -12,6 +12,8 @@
             <Button fx:id="homeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#homePressed" styleClass="tab-button" text="Home" />
             <Button fx:id="searchButton" layoutX="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="65.0" mnemonicParsing="false" onAction="#searchPressed" styleClass="tab-button" text="Search" />
             <Button fx:id="adminButton" layoutX="825.0" mnemonicParsing="false" onAction="#loginPressed" styleClass="tab-button" text="Login" />
+            <Button fx:id="mapButton" layoutX="150.0" minWidth="65.0" mnemonicParsing="false" onAction="#mapPressed" styleClass="tab-button" text="Maps" />
+            <Button fx:id="helpButton" layoutX="750.0" mnemonicParsing="false" onAction="#helpPressed" styleClass="tab-button" text="Help" />
          </children>
       </AnchorPane>
    </top>

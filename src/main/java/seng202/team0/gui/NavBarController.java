@@ -29,6 +29,8 @@ public class NavBarController {
     @FXML
     private Button adminButton;
     @FXML
+    private Button mapButton;
+    @FXML
     private Button helpButton;
 
     private AppEnvironment appEnvironment;
@@ -71,6 +73,19 @@ public class NavBarController {
     }
 
     /**
+     * Loads the help page into the border pane
+     */
+    private void loadHelpPage() {
+        try {
+            FXMLLoader helpPageLoader = new FXMLLoader(getClass().getResource("/fxml/user_help_page.fxml"));
+            Parent helpParent = helpPageLoader.load();
+            mainWindow.setCenter(helpParent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Loads the search page into the border pane
      */
     private void loadSearchPage() {
@@ -83,14 +98,13 @@ public class NavBarController {
         }
     }
 
-    /**
-     * Loads the help page into the border pane
-     */
-    private void loadHelpPage() {
+    private void loadMapPage() {
         try {
-            FXMLLoader helpPageLoader = new FXMLLoader(getClass().getResource("/fxml/user_help_page.fxml"));
-            Parent helpParent = helpPageLoader.load();
-            mainWindow.setCenter(helpParent);
+            FXMLLoader mapPageLoader = new FXMLLoader(getClass().getResource("/fxml/map_page.fxml"));
+            Parent mapParent = mapPageLoader.load();
+            MapPageController mapPageController = mapPageLoader.getController();
+            mapPageController.init();
+            mainWindow.setCenter(mapParent);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -149,6 +163,20 @@ public class NavBarController {
         searchButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
+    @FXML
+    void mapPressed() {
+        loadMapPage();
+        setAllButtonsGrey();
+        mapButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+    }
+
+    @FXML
+    private void helpPressed() {
+        loadHelpPage();
+        setAllButtonsGrey();
+        helpButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+    }
+
     /**
      * OnAction method for the login button, initializes the login page
      */
@@ -185,6 +213,7 @@ public class NavBarController {
     private void setAllButtonsGrey() {
         homeButton.setStyle("");
         searchButton.setStyle("");
+        mapButton.setStyle("");
         helpButton.setStyle("");
     }
 

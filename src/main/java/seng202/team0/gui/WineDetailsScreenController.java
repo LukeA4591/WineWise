@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import seng202.team0.business.WineManager;
 import seng202.team0.models.Wine;
 import javafx.scene.image.Image;
@@ -68,6 +69,7 @@ public class WineDetailsScreenController {
     String wineryString;
     String description;
     Wine wine;
+    Stage stage;
 
     WineManager wineManager;
 
@@ -95,7 +97,6 @@ public class WineDetailsScreenController {
         wineRegion.setText(region);
         wineYear.setText(vintageString);
         rating.setText(wine.getScore() + " / 100");
-
         wineManager = new WineManager();
         winePopupService = new WinePopupService();
         showSimilarWines();
@@ -128,13 +129,20 @@ public class WineDetailsScreenController {
     @FXML
     void recWine1Pressed() {
         winePopupService.winePressed(wineList.getFirst(), RecommendedImageList[0].getImage(), rating);
+        stage = (Stage) wineYear.getScene().getWindow();
+        stage.close();
     }
     @FXML
     void recWine2Pressed() {
         winePopupService.winePressed(wineList.get(1), RecommendedImageList[1].getImage(), rating);
+        stage = (Stage) wineYear.getScene().getWindow();
+        stage.close();
     }
     @FXML
     void recWine3Pressed() {
         winePopupService.winePressed(wineList.get(2), RecommendedImageList[2].getImage(), rating);
+        stage = (Stage) wineYear.getScene().getWindow();
+        stage.close();
     }
+
 }
