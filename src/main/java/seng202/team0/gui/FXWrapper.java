@@ -62,7 +62,7 @@ public class FXWrapper {
             setupParent.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
             stage.setTitle("Admin Setup Screen");
             stage.setWidth(600);
-            stage.setHeight(400);
+            stage.setHeight(430);
             stage.setResizable(false);
         } catch (IOException e) {
             e.printStackTrace();
