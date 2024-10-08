@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import seng202.team0.exceptions.DuplicateExc;
 import seng202.team0.models.Wine;
 import javafx.fxml.FXML;
@@ -23,6 +24,9 @@ public class WinePopupController {
     private Button wineReviewsButton;
     @FXML
     private Button wineUserRatingButton;
+
+    @FXML
+    private Button wineCloseButton;
     @FXML
     private Pane wineNavWindow;
 
@@ -135,6 +139,14 @@ public class WinePopupController {
         loadUserRatingScreen();
         setAllButtonsGrey();
         wineUserRatingButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+    }
+
+    @FXML
+    void closeButtonPressed() {
+        Stage stage = (Stage) (wineCloseButton.getScene().getWindow());
+        stage.close();
+        setAllButtonsGrey();
+        wineCloseButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
 }

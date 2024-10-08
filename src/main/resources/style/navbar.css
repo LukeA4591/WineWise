@@ -31,6 +31,10 @@
     -fx-border-radius: 5;
 }
 
+.button-4-even {
+    -fx-pref-width: 150;
+}
+
 .small-button {
     -fx-text-fill: black;
     -fx-font-size: 14px;

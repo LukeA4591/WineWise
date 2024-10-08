@@ -12,9 +12,10 @@
    <top>
       <AnchorPane prefHeight="24.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="wineDetailsButton" mnemonicParsing="false" onAction="#detailsButtonPressed" text="Details" />
-            <Button fx:id="wineReviewsButton" layoutX="170.0" mnemonicParsing="false" onAction="#reviewsButtonPressed" text="Reviews" />
-            <Button fx:id="wineUserRatingButton" layoutX="340.0" mnemonicParsing="false" onAction="#ratingButtonPressed" text="Leave a review" />
+            <Button fx:id="wineDetailsButton" mnemonicParsing="false" onAction="#detailsButtonPressed" styleClass="button-4-even" text="Details" />
+            <Button fx:id="wineReviewsButton" layoutX="150.0" mnemonicParsing="false" onAction="#reviewsButtonPressed" styleClass="button-4-even" text="Reviews" />
+            <Button fx:id="wineUserRatingButton" layoutX="300.0" mnemonicParsing="false" onAction="#ratingButtonPressed" prefHeight="40.0" prefWidth="214.0" styleClass="button-4-even" text="Leave a review" />
+            <Button fx:id="wineCloseButton" layoutX="450.0" mnemonicParsing="false" onAction="#closeButtonPressed" prefWidth="10.0" styleClass="button-4-even" text="Close" />
          </children>
       </AnchorPane>
    </top>
