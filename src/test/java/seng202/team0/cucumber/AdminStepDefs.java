@@ -5,6 +5,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
+import javafx.application.Platform;
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.Assertions;
 import seng202.team0.services.AdminLoginService;
 import seng202.team0.services.AppEnvironment;
@@ -20,21 +22,11 @@ public class AdminStepDefs {
     private String username;
     private String password;
     private String confirmPassword;
-    private AppEnvironment appEnvironment;
     private AdminLoginService adminLoginService;
-    private AdminSetupScreenController adminSetupScreenController;
-    private boolean loggedIn = false;
-
-    void consumer1(AppEnvironment appEnvironment){}
-    void consumer2(AppEnvironment appEnvironment){}
-    void consumer3(AppEnvironment appEnvironment){}
-    void clear(){}
 
     @Before
     public void setup() {
-        this.appEnvironment = new AppEnvironment(this::consumer1, this::consumer2, this::consumer3, this::clear);
         this.adminLoginService = AdminLoginService.getInstance();
-        this.adminSetupScreenController = new AdminSetupScreenController(appEnvironment);
         File file = adminLoginService.getCredentialsFile();
         if (file.exists()) {
             file.delete();
