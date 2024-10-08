@@ -204,7 +204,6 @@ public class AdminScreenController {
 
         //add batch on background thread.
         Thread viewWinesThread = new Thread(() -> {
-
             Platform.runLater(() -> {
                 try {
                     FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_view_wines.fxml"));
@@ -293,7 +292,7 @@ public class AdminScreenController {
             Scene modalScene = new Scene(root);
             Stage modalStage = new Stage();
             ImportPreviewController importPreviewController = newStageLoader.getController();
-            importPreviewController.init(file);
+            importPreviewController.init(file, appEnvironment);
             modalStage.setScene(modalScene);
             modalStage.setResizable(false);
             modalStage.setTitle("Admin Help Screen");

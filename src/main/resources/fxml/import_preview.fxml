@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.ImportPreviewController">
@@ -86,9 +87,13 @@
             </ComboBox>
          </children>
       </GridPane>
-      <Button fx:id="exitButton" layoutX="828.0" layoutY="23.0" mnemonicParsing="false" text="Exit" />
-      <Button fx:id="saveDatasetButton" layoutX="396.0" layoutY="552.0" mnemonicParsing="false" text="Save dataset" />
+      <Button fx:id="exitButton" layoutX="828.0" layoutY="23.0" mnemonicParsing="false" onAction="#exitInputPreview" text="Exit" />
+      <Button fx:id="saveDatasetButton" layoutX="396.0" layoutY="552.0" mnemonicParsing="false" onAction="#saveDataset" text="Save dataset" />
       <Label layoutX="27.0" layoutY="349.0" text="All fields must be selected" />
-      <Label fx:id="errorMessageLabel" layoutX="403.0" layoutY="520.0" text="Error message" />
+      <StackPane layoutX="273.0" layoutY="488.0" prefHeight="55.0" prefWidth="353.0">
+         <children>
+            <Label fx:id="errorMessageLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="328.0" />
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>

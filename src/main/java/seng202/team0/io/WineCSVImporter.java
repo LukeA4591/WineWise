@@ -25,15 +25,14 @@ public class WineCSVImporter implements Importable<Wine>{
      * @return List of wines in csv file
      */
     @Override
-    public List<Wine> readFromFile(File file) {
+    public List<Wine> readFromFile(File file, List<Integer> headerIndexes) {
         List<Wine> wines = new ArrayList<>();
         try {
             CSVReader csvreader = new CSVReader(new FileReader(file));
-            //TODO Read headers and turn into a list (if duplicate add integer to end)
             csvreader.skip(1);
             List<String[]> lines = csvreader.readAll();
             for (String[] line : lines) {
-                Wine wine = readWineFromLine(line);
+                Wine wine = readWineFromLine(line, headerIndexes);
                 if (wine != null) {
                     wines.add(wine);
                 }
@@ -64,15 +63,15 @@ public class WineCSVImporter implements Importable<Wine>{
      * @param line current csv line as list of Strings
      * @return Wine object parsed from line
      */
-    private Wine readWineFromLine(String[] line) {
+    private Wine readWineFromLine(String[] line, List<Integer> headerIndexes) {
         try {
-            String type = line[5];
-            String name = line[1];
-            String winery = line[0];
-            int score = Integer.parseInt(line[2]);
-            int vintage = Integer.parseInt(line[4]);
-            String description = line[6];
-            String region = line[3];
+            String type = line[headerIndexes.getFirst()];
+            String name = line[headerIndexes.get(1)];
+            String winery = line[headerIndexes.get(2)];
+            int vintage = Integer.parseInt(line[headerIndexes.get(3)]);
+            int score = Integer.parseInt(line[headerIndexes.get(4)]);
+            String region = line[headerIndexes.get(5)];
+            String description = line[headerIndexes.get(6)];
             return new Wine(type, name, winery, vintage, score, region, description);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             log.error(e);
