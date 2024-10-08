@@ -17,6 +17,8 @@ public class WineDAO implements DAOInterface<Wine> {
     private static final Logger log = LogManager.getLogger(WineDAO.class);
     private final DatabaseManager databaseManager;
 
+    private List<Wine> alreadySelected = new ArrayList<>();
+
     private WineryDAO wineryDAO = new WineryDAO();
 
     /**
@@ -363,99 +365,16 @@ public class WineDAO implements DAOInterface<Wine> {
      * @return
      */
     public List<Wine> getSimilarWines(Wine wine) {
-        List<Wine> similarWines = new ArrayList<>();
 
-        similarWines.add(getSimilarColour(wine));
-        similarWines.add(getSimilarWinery(wine));
-        similarWines.add(getSimilarVintage(wine));
-
-        for (int i = 0; i < similarWines.size(); i++) {
-            if (checkSameWine(similarWines.get(i), similarWines.get((i + 1) % similarWines.size()))) {
-                List<Wine> the_list = new ArrayList<Wine>();
-                the_list.add(wine);
-                the_list.add(similarWines.get((i + 1) % similarWines.size()));
-                the_list.add(similarWines.get((i + 2) % similarWines.size()));
-
-
-                similarWines.set(i, reselectWine(i, the_list));
-            }
+        alreadySelected.add(getSimilarColour(wine));
+        alreadySelected.add(getSimilarWinery(wine));
+        alreadySelected.add(getSimilarVintage(wine));
+        for (Wine wine1 : alreadySelected) {
+            System.out.println(wine1.getWineName());
         }
 
 
-        return similarWines;
-    }
-
-    /**
-     * Reselects a wine from the database in the same "category" (top type/winery/vintage) that is different from all current wines given
-     * this is to ensure all recommended wines are different.
-     * Note: first value in the list of wine to not be the same is always the original one we want to reference for which category
-     * @param category
-     * @param alreadyUsedWine
-     */
-    private Wine reselectWine(int category, List<Wine> alreadyUsedWine) {
-        Wine NewWine;
-        String sql = null;
-        switch (category) {
-            case 0:
-                // New Colour/Type
-                sql = "SELECT * FROM wines WHERE type=? ORDER BY score DESC LIMIT 5";
-                break;
-            case 1:
-                // New Winery
-                sql = "SELECT * FROM wines WHERE winery=? ORDER BY score DESC LIMIT 5";
-                break;
-            case 2:
-                // New Vintage
-                sql = "SELECT * FROM wines WHERE vintage=? ORDER BY score DESC LIMIT 5";
-                break;
-        }
-        try(Connection conn = databaseManager.connect();
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            switch (category) {
-                case 0:
-                    pstmt.setString(1, alreadyUsedWine.get(0).getColor());
-                    break;
-                case 1:
-                    pstmt.setString(1, alreadyUsedWine.get(0).getWineryString());
-                    break;
-                case 2:
-                    pstmt.setInt(1, alreadyUsedWine.get(0).getVintage());
-            }
-
-            ResultSet rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                NewWine = new Wine(rs.getString("type"), rs.getString("name"),
-                        rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"),
-                        rs.getString("region"), rs.getString("description"));
-
-                if (checkSameWine(NewWine, alreadyUsedWine.get(0)) ||
-                    checkSameWine(NewWine, alreadyUsedWine.get(1)) ||
-                    checkSameWine(NewWine, alreadyUsedWine.get(2))) {
-                    continue;
-                } else {
-                    return NewWine;
-                }
-            }
-
-        } catch (SQLException sqlException) {
-            log.error(sqlException);
-        }
-        return null;
-    }
-
-    /**
-     * Function to check if 2 given wines are the same by their unique values
-     * @param wine1
-     * @param wine2
-     * @return true if they are the same wine
-     */
-    public boolean checkSameWine(Wine wine1, Wine wine2) {
-        if (Objects.equals(wine1.getWineName(), wine2.getWineName()) && Objects.equals(wine1.getColor(), wine2.getColor()) &&  wine1.getVintage() == wine2.getVintage()) {
-            return true;
-        } else {
-            return false;
-        }
+        return alreadySelected;
     }
 
     /**
@@ -475,14 +394,14 @@ public class WineDAO implements DAOInterface<Wine> {
                         rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"),
                         rs.getString("region"), rs.getString("description"));
 
-                if (checkSameWine(NewWine, givenWine)) {
+                if (NewWine.equals(givenWine)) {
                     continue;
                 } else {
                     return NewWine;
                 }
             }
 
-            if (NewWine == null) {
+            if (NewWine == null || NewWine.equals(givenWine)) {
                 return getRandomOtherWine(givenWine);
             }
 
@@ -509,14 +428,14 @@ public class WineDAO implements DAOInterface<Wine> {
                 NewWine = new Wine(rs.getString("type"), rs.getString("name"),
                         rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"),
                         rs.getString("region"), rs.getString("description"));
-                if (checkSameWine(NewWine, givenWine)) {
+                if (NewWine.equals(givenWine)) {
                     continue;
                 } else {
                     return NewWine;
                 }
             }
 
-            if (checkSameWine(NewWine, givenWine)) {
+            if (NewWine == null || NewWine.equals(givenWine)) {
                 return getRandomOtherWine(givenWine);
             }
 
@@ -542,7 +461,7 @@ public class WineDAO implements DAOInterface<Wine> {
                 NewWine = new Wine(rs.getString("type"), rs.getString("name"),
                         rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"),
                         rs.getString("region"), rs.getString("description"));
-                if (checkSameWine(NewWine, givenWine)) {
+                if (NewWine.equals(givenWine)) {
                     continue;
                 } else {
                     return NewWine;
@@ -550,7 +469,7 @@ public class WineDAO implements DAOInterface<Wine> {
 
             }
 
-            if (checkSameWine(NewWine, givenWine)) {
+            if (NewWine == null || NewWine.equals(givenWine)) {
                 return getRandomOtherWine(givenWine);
             }
 
@@ -566,13 +485,13 @@ public class WineDAO implements DAOInterface<Wine> {
      * @return
      */
     public Wine getRandomOtherWine(Wine givenWine) {
-        List<Wine> RandomWines = getAll();
-        Collections.shuffle(RandomWines);
-        for (int i = 0; i < RandomWines.size(); i++) {
-            if (checkSameWine(RandomWines.get(i), givenWine)) {
+        List<Wine> randomWines = getAll();
+        Collections.shuffle(randomWines);
+        for (int i = 0; i < randomWines.size(); i++) {
+            if (!randomWines.get(i).equals(givenWine) && !alreadySelected.contains(randomWines.get(i))) {
+                return randomWines.get(i);
+            } else {
                 continue;
-            }else {
-                return RandomWines.get(i);
             }
         }
         return givenWine;

@@ -16,9 +16,7 @@ import seng202.team0.models.Wine;
 import seng202.team0.repository.DatabaseManager;
 import seng202.team0.services.AppEnvironment;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,7 +28,7 @@ public class WineDAOStepDefs {
     private DatabaseManager databaseManager;
 
     List<Wine> winesToAdd = new ArrayList<>();
-    List<Wine> suggestedWines;
+    List<Wine> generatedWines;
 
     @Before
     public void setup() throws DuplicateExc {
@@ -43,7 +41,7 @@ public class WineDAOStepDefs {
     public void resetDB() {
         databaseManager.resetDB();
         winesToAdd.clear();
-        suggestedWines.clear();
+        generatedWines = null;
     }
 
     @Given("An admin is on the admin page and has filled in the add wine popup with inputs {string}, {string}, {string}, {int}, {int}, {string}, {string}")
@@ -128,18 +126,51 @@ public class WineDAOStepDefs {
     @When("A user queries for similar wines to the wine with details {string}, {string}, {string}, {int}")
     public void similarWines(String name, String type, String winery, int vintage) {
         Wine wine = new Wine(type, name, winery, vintage, 100, null, null);
-        suggestedWines = wineManager.getTheSimilarWines(wine);
+        generatedWines = wineManager.getTheSimilarWines(wine);
     }
 
-    @Then("The suggested wines will contain the wine with details {string}, {string}, {string}, {int}")
-    public void checkSimilarWines(String name, String type, String winery, int vintage) {
-        Wine wine = new Wine(type, name, winery, vintage, 100, null, null);
-        assertTrue(suggestedWines.contains(wine));
+    @Then("The generated wines will contain the following wines:")
+    public void checkSimilarWines(io.cucumber.datatable.DataTable dataTable) {
+        List<Map<String, String>> wines = dataTable.asMaps(String.class, String.class);
+
+        for (Map<String, String> wine : wines) {
+            String name = wine.get("wineName");
+            String type = wine.get("wineType");
+            String winery = wine.get("winery");
+            int vintage = Integer.parseInt(wine.get("year"));
+
+            assertTrue(generatedWines.contains(new Wine(type, name, winery, vintage, 100, null, null)));
+        }
     }
 
-    @And("The suggested wines will have a size of {int}")
+    @And("The generated wines will have a size of {int}")
     public void checkSimilarWinesSize(int size) {
-        assertEquals(size, suggestedWines.size());
+        assertEquals(size, generatedWines.size());
+    }
+
+    @When("A user selects the following filters:")
+    public void filterWines(io.cucumber.datatable.DataTable dataTable) {
+        List<Map<String, String>> filters = dataTable.asMaps(String.class, String.class);
+        Map<String, String> passedFilters = new HashMap<>();
+        Map<String, List<String>> scoreFilters = new HashMap<>();
+        List<String> criticScore = new ArrayList<>();
+        criticScore.add("");
+        criticScore.add("");
+        scoreFilters.put("score", criticScore);
+
+        for (Map<String, String> filter : filters) {
+            String filterName = filter.get("filterName");
+            String filterEntry = filter.get("filterEntry");
+
+            passedFilters.put(filterName, filterEntry);
+        }
+
+        generatedWines = wineManager.getFilteredWines(passedFilters, scoreFilters);
+    }
+
+    @And("The list is all wines")
+    public void checkList() {
+        assertFalse(generatedWines.contains(null));
     }
 
 }

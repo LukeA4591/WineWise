@@ -54,10 +54,12 @@ Feature: WineDAO
       | Fourth Wine  | Red | First Winery | 2017 |
       | Nothing in Common Wine  | Red | Niche Winery | 1882 |
     When A user queries for similar wines to the wine with details "First Wine", "White", "First Winery", 2020
-    Then The suggested wines will contain the wine with details "Second Wine", "White", "Second Winery", 2019
-    And The suggested wines will contain the wine with details "Third Wine", "Red", "Third Winery", 2020
-    And The suggested wines will contain the wine with details "Fourth Wine", "Red", "First Winery", 2017
-    And The suggested wines will have a size of 3
+    Then The generated wines will contain the following wines:
+      | wineName    | wineType | winery | year |
+      | Second Wine  | White | Second Winery | 2019 |
+      | Third Wine  | Red | Third Winery | 2020 |
+      | Fourth Wine  | Red | First Winery | 2017 |
+    And The generated wines will have a size of 3
     And The database has a size of 5
 
   Scenario: A user getting similar wines when there is no similar wines
@@ -68,8 +70,58 @@ Feature: WineDAO
       | Third Wine  | Red | Third Winery | 2018 |
       | Fourth Wine  | Red | Fourth Winery | 2017 |
     When A user queries for similar wines to the wine with details "First Wine", "White", "First Winery", 2020
-    Then The suggested wines will contain the wine with details "Second Wine", "Red", "Second Winery", 2019
-    And The suggested wines will contain the wine with details "Third Wine", "Red", "Third Winery", 2018
-    And The suggested wines will contain the wine with details "Fourth Wine", "Red", "Fourth Winery", 2017
-    And The suggested wines will have a size of 3
+    Then The list is all wines
+    And The generated wines will contain the following wines:
+      | wineName    | wineType | winery | year |
+      | Second Wine  | Red | Second Winery | 2019 |
+      | Third Wine  | Red | Third Winery | 2018 |
+      | Fourth Wine  | Red | Fourth Winery | 2017 |
+    And The generated wines will have a size of 3
     And The database has a size of 4
+
+  Scenario: A user getting filtered wines
+    Given A database with the following wines:
+      | wineName    | wineType | winery | year |
+      | First Wine  | White | First Winery | 2020 |
+      | Second Wine  | Red | Second Winery | 2019 |
+      | Third Wine  | Rose | Second Winery | 2018 |
+      | Fourth Wine  | Red | Fourth Winery | 2020 |
+    When A user selects the following filters:
+      | filterName | filterEntry |
+      | type | Red |
+    Then The generated wines will contain the following wines:
+      | wineName    | wineType | winery | year |
+      | Second Wine  | Red | Second Winery | 2019 |
+      | Fourth Wine  | Red | Fourth Winery | 2020 |
+    And The generated wines will have a size of 2
+
+  Scenario: A user getting an empty filter
+    Given A database with the following wines:
+      | wineName    | wineType | winery | year |
+      | First Wine  | White | First Winery | 2020 |
+      | Second Wine  | Red | Second Winery | 2019 |
+      | Third Wine  | Rose | Second Winery | 2018 |
+      | Fourth Wine  | Red | Fourth Winery | 2020 |
+    When A user selects the following filters:
+      | filterName | filterEntry |
+      | winery | This winery doesnt exist! |
+    Then The generated wines will contain the following wines:
+      | wineName    | wineType | winery | year |
+    And The generated wines will have a size of 0
+
+  Scenario: A user doesnt do any filters
+    Given A database with the following wines:
+      | wineName    | wineType | winery | year |
+      | First Wine  | White | First Winery | 2020 |
+      | Second Wine  | Red | Second Winery | 2019 |
+      | Third Wine  | Rose | Second Winery | 2018 |
+      | Fourth Wine  | Red | Fourth Winery | 2020 |
+    When A user selects the following filters:
+      | filterName | filterEntry |
+    Then The generated wines will contain the following wines:
+      | wineName    | wineType | winery | year |
+      | First Wine  | White | First Winery | 2020 |
+      | Second Wine  | Red | Second Winery | 2019 |
+      | Third Wine  | Rose | Second Winery | 2018 |
+      | Fourth Wine  | Red | Fourth Winery | 2020 |
+    And The generated wines will have a size of 4
