@@ -50,7 +50,7 @@ public class ImportPreviewService {
         return headersNoBlanks[i];
     }
 
-    public String checkHeaders(List<String> headerArray) {
+    public String checkHeaders(List<String> headerArray, List<String[]> data, List<Integer> headerIndexes) {
         for (String header : headerArray) {
             if (header == null) {
                 return "Not all headers are selected.";
@@ -60,10 +60,16 @@ public class ImportPreviewService {
         if (headerSet.size() != headerArray.size()) {
             return "Duplicate headers are selected.";
         }
+        if (!validIntegerConversion(headerIndexes.subList(3, 5), data)) {
+            return "Winery and vintage fields must contain integers.";
+        }
+        if (!validMandatoryAttributes(headerIndexes.subList(1, 4), data)) {
+            return "Name, winery, and vintage fields must have values.";
+        }
         return "";
     }
 
-    public List<Integer> getHeaderIndexes (List<String> fileOrder, List<String> headerOrder) {
+    public List<Integer> getHeaderIndexes(List<String> fileOrder, List<String> headerOrder) {
         List<Integer> headerIndexes = new ArrayList<>();
         for (String header : headerOrder) {
             headerIndexes.add(fileOrder.indexOf(header));
@@ -71,11 +77,27 @@ public class ImportPreviewService {
         return headerIndexes;
     }
 
-    public List<Wine> getPreviewWines(List<String[]> data, List<Integer> headerIndexes) {
-        List<Wine> wines = new ArrayList<>();
-        for (String[] line : data) {
-            wines.add(importer.readWineFromLine(line, headerIndexes));
+    public boolean validIntegerConversion(List<Integer> vintageScoreIndexes, List<String[]> data) {
+        for (Integer index : vintageScoreIndexes) {
+            for (String[] line : data) {
+                try {
+                    int convertToInt = Integer.parseInt(line[index]);
+                } catch (NumberFormatException e) {
+                    return false;
+                }
+            }
         }
-        return wines;
+        return true;
+    }
+
+    public boolean validMandatoryAttributes(List<Integer> nameWineryVintageIndexes, List<String[]> data) {
+        for (Integer index : nameWineryVintageIndexes) {
+            for (String[] line : data) {
+                if (line[index].isEmpty()) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
