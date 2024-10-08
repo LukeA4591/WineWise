@@ -60,7 +60,8 @@ public class WineDAO implements DAOInterface<Wine> {
      * @param scoreFilters map of score filters
      * @return a list of the wines
      */
-    public List<Wine> getFilteredWines(Map<String, String> filters, Map<String, List<String>> scoreFilters) {
+    public List<Wine> getFilteredWines(Map<String, String> filters, Map<String, List<String>> scoreFilters, String search) {
+        boolean searchIncluded = false;
         List<Wine> wines = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT * FROM wines WHERE 1=1");
         for (Map.Entry<String, String> filter : filters.entrySet()) {
@@ -100,6 +101,22 @@ public class WineDAO implements DAOInterface<Wine> {
             sql.append(" INTERSECT ");
             sql.append(sqlScores.toString());
         }
+        boolean isNum = search.matches("\\d+");
+        StringBuilder sqlSearch;
+        if (!isNum) {
+            sqlSearch = new StringBuilder("SELECT * FROM wines WHERE " + "type LIKE ? OR " + "name LIKE ? OR "
+                    + "winery LIKE ? OR " + "region LIKE ? OR " + "description LIKE ?");
+        } else {
+            sqlSearch = new StringBuilder("SELECT * FROM wines WHERE score = CAST(? AS INTEGER) OR vintage = CAST(? AS INTEGER)");
+        }
+
+        if (search != "") {
+            sql.append(" INTERSECT ");
+            sql.append(sqlSearch);
+            searchIncluded = true;
+        }
+
+
         try(Connection conn = databaseManager.connect();
             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
             int index = 1;
@@ -112,7 +129,19 @@ public class WineDAO implements DAOInterface<Wine> {
             if (criticScoreIncluded) {
                 List<String> bounds = scoreFilters.get("score");
                 ps.setObject(index++, bounds.get(1));
-                ps.setObject(index, bounds.get(0));
+                ps.setObject(index++, bounds.get(0));
+            }
+            if (searchIncluded) {
+                if (!isNum) {
+                    int indexMax = index + 4;
+                    String formattedSearchText = "%" + search + "%";
+                    for (int index2 = index; index2 <= indexMax; index2++) {
+                        ps.setObject(index2, formattedSearchText);
+                    }
+                } else {
+                    ps.setObject(index++, search);
+                    ps.setObject(index, search);
+                }
             }
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

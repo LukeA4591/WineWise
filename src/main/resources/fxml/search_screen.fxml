@@ -307,11 +307,11 @@
             </GridPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <TextField fx:id="searchText" layoutX="14.0" layoutY="26.0" prefHeight="34.0" prefWidth="594.0" promptText="Search" stylesheets="@../style/navbar.css" />
-                  <Button layoutX="622.0" layoutY="24.0" maxWidth="90.0" mnemonicParsing="false" onAction="#searchPressed" prefHeight="16.0" prefWidth="50.0" text="Search" />
+                  <TextField fx:id="searchText" layoutX="14.0" layoutY="19.0" prefHeight="34.0" prefWidth="594.0" promptText="Search" stylesheets="@../style/navbar.css" />
+                  <Button layoutX="622.0" layoutY="16.0" maxWidth="90.0" mnemonicParsing="false" onAction="#searchPressed" prefHeight="16.0" prefWidth="50.0" text="Search" />
                </children>
             </AnchorPane>
-            <TableView fx:id="table" centerShape="false" maxHeight="507.0" prefHeight="480.0" prefWidth="733.0" stylesheets="@../style/navbar.css" translateY="40.0" GridPane.columnIndex="1">
+            <TableView fx:id="table" centerShape="false" maxHeight="507.0" prefHeight="398.0" prefWidth="733.0" stylesheets="@../style/navbar.css" translateY="40.0" GridPane.columnIndex="1">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
