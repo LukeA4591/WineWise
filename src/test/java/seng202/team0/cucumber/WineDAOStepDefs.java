@@ -165,7 +165,7 @@ public class WineDAOStepDefs {
             passedFilters.put(filterName, filterEntry);
         }
 
-        generatedWines = wineManager.getFilteredWines(passedFilters, scoreFilters);
+        generatedWines = wineManager.getFilteredWines(passedFilters, scoreFilters, "");
     }
 
     @And("The list is all wines")

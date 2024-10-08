@@ -28,6 +28,10 @@ public class WineDAO implements DAOInterface<Wine> {
         databaseManager = DatabaseManager.getInstance();
     }
 
+    public void clearAlreadySelected() {
+        alreadySelected.clear();
+    }
+
     /**
      * Gets all wines in database
      * @return a list of all wines
@@ -401,10 +405,10 @@ public class WineDAO implements DAOInterface<Wine> {
         alreadySelected.add(getSimilarColour(wine));
         alreadySelected.add(getSimilarWinery(wine));
         alreadySelected.add(getSimilarVintage(wine));
+
         for (Wine wine1 : alreadySelected) {
             System.out.println(wine1.getWineName());
         }
-
 
         return alreadySelected;
     }
@@ -426,7 +430,7 @@ public class WineDAO implements DAOInterface<Wine> {
                         rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"),
                         rs.getString("region"), rs.getString("description"));
 
-                if (NewWine.equals(givenWine)) {
+                if (NewWine.equals(givenWine) || alreadySelected.contains(NewWine)) {
                     continue;
                 } else {
                     return NewWine;
@@ -460,7 +464,7 @@ public class WineDAO implements DAOInterface<Wine> {
                 NewWine = new Wine(rs.getString("type"), rs.getString("name"),
                         rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"),
                         rs.getString("region"), rs.getString("description"));
-                if (NewWine.equals(givenWine)) {
+                if (NewWine.equals(givenWine) || alreadySelected.contains(NewWine)) {
                     continue;
                 } else {
                     return NewWine;
@@ -493,7 +497,7 @@ public class WineDAO implements DAOInterface<Wine> {
                 NewWine = new Wine(rs.getString("type"), rs.getString("name"),
                         rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"),
                         rs.getString("region"), rs.getString("description"));
-                if (NewWine.equals(givenWine)) {
+                if (NewWine.equals(givenWine) || alreadySelected.contains(NewWine)) {
                     continue;
                 } else {
                     return NewWine;
