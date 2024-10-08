@@ -113,14 +113,14 @@
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
                      <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="33.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                            <children>
-                              <Label fx:id="errorLabel" prefHeight="39.0" prefWidth="140.0" wrapText="true">
+                              <Label fx:id="errorLabel" prefHeight="33.0" prefWidth="169.0" wrapText="true">
                                  <font>
                                     <Font name="Liberation Sans Bold" size="13.0" />
                                  </font>

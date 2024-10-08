@@ -42,7 +42,7 @@ public class SearchPageController {
     private Map<String, List<String>> scoreFilters = new HashMap<>();
     private WineManager wineManager;
     private WinePopupService wineMethods = new WinePopupService();
-    List<Double> columnWidths = new ArrayList<>();
+    private final String errorLabelStyle = "-fx-text-fill: white;";
 
     /**
      * Constructor for search page controller
@@ -76,6 +76,8 @@ public class SearchPageController {
             yearMenuButton.getItems().add(allYear);
 
             List<String> regions = wineManager.getDistinct("region");
+            regions.remove(""); //incase region is blank
+            regions.sort(Comparator.comparingInt(s -> Character.toLowerCase(s.charAt(0))));
             for (String region : regions) {
                 if (!Objects.equals(region, "Not Applicable")) {
                     MenuItem menu = new MenuItem();
@@ -86,6 +88,7 @@ public class SearchPageController {
             }
 
             List<String> wineries = wineManager.getDistinct("winery");
+            wineries.sort(Comparator.comparingInt(s -> Character.toLowerCase(s.charAt(0))));
             for (String winery : wineries) {
                 MenuItem menu = new MenuItem();
                 menu.setText(winery);
@@ -221,15 +224,20 @@ public class SearchPageController {
 
     private void search() {
         String search = searchText.getText();
-        if ((Objects.equals(criticScoreMinText.getText(), "") && !(Objects.equals(criticScoreMaxText.getText(), ""))) || (!(Objects.equals(criticScoreMinText.getText(), "")) && Objects.equals(criticScoreMaxText.getText(), ""))) {
+        String criticScoreMax = criticScoreMaxText.getText();
+        String criticScoreMin = criticScoreMinText.getText();
+        if ((Objects.equals(criticScoreMin, "") && !(Objects.equals(criticScoreMax, ""))) || (!(Objects.equals(criticScoreMin, "")) && Objects.equals(criticScoreMax, ""))) {
             errorLabel.setText("Please input both scores");
-            errorLabel.setStyle("-fx-text-fill: white;");
-        } else if (!validScore(criticScoreMaxText.getText()) || !validScore(criticScoreMinText.getText())){
+            errorLabel.setStyle(errorLabelStyle);
+        } else if (!validScore(criticScoreMax) || !validScore(criticScoreMin)) {
             errorLabel.setText("Please enter integers");
-            errorLabel.setStyle("-fx-text-fill: white");
-        } else if (!Objects.equals(criticScoreMaxText.getText(), "") && !Objects.equals(criticScoreMinText.getText(), "") && (Integer.parseInt(criticScoreMaxText.getText()) <= Integer.parseInt(criticScoreMinText.getText()))) {
+            errorLabel.setStyle(errorLabelStyle);
+        } else if (!Objects.equals(criticScoreMax, "") && !Objects.equals(criticScoreMin, "") && (Integer.parseInt(criticScoreMax) < Integer.parseInt(criticScoreMin))) {
             errorLabel.setText("Please have from <= to");
-            errorLabel.setStyle("-fx-text-fill: white;");
+            errorLabel.setStyle(errorLabelStyle);
+        } else if ((Integer.parseInt(criticScoreMax) > 100 || Integer.parseInt(criticScoreMin) > 100)) {
+            errorLabel.setText("Please have both scores <= 100");
+            errorLabel.setStyle(errorLabelStyle);
         } else {
             errorLabel.setText("");
             scoreFilters.put("score", Arrays.asList(criticScoreMinText.getText(), criticScoreMaxText.getText()));
