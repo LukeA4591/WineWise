@@ -18,7 +18,7 @@ public class RemoveWineryPopupController {
         this.onConfirmRemove = onConfirmRemove;
         this.wineryName = wineryName;
         wineryManager = new WineryManager();
-        removeWineryLabel.setText("Remove Winery: " + wineryName);
+        removeWineryLabel.setText("Remove Winery: " + wineryName + "?");
     }
 
     @FXML
