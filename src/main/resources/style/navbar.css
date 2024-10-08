@@ -32,7 +32,8 @@
 }
 
 .button-4-even {
-    -fx-pref-width: 150;
+    -fx-pref-width: 145;
+    -fx-font-size: 13.5;
 }
 
 .small-button {
