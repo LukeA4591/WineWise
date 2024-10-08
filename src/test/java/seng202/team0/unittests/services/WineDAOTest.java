@@ -122,7 +122,7 @@ public class WineDAOTest {
     @Test
     public void testGetTopRated() throws DuplicateExc {
         populateDatabase();
-        List<Wine> wines = wineDao.getTopRated();
+        List<Wine> wines = wineDao.getTopRated(0);
         Assertions.assertEquals(6, wines.size());
         Assertions.assertEquals(wines.get(0).getWineName(), "Rosy Rose");
         Assertions.assertEquals(wines.get(1).getWineName(), "Plume Sav");

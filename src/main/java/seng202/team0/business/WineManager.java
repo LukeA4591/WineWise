@@ -83,7 +83,7 @@ public class WineManager {
      * Gets a list of the top 3 rated wines in the wine database.
      * @return A list of the top wines.
      */
-    public List<Wine> getTopRated() { return wineDAO.getTopRated(); }
+    public List<Wine> getTopRated(int page) { return wineDAO.getTopRated(page); }
 
     /**
      * Updates the wine and checks if it can be updated, returns true if successfully updated

@@ -33,6 +33,10 @@ public class HomePageController {
     @FXML
     private ImageView imageView6;
     @FXML
+    private ImageView nextImage;
+    @FXML
+    private ImageView prevImage;
+    @FXML
     private Label rating1;
     @FXML
     private Label rating2;
@@ -68,7 +72,10 @@ public class HomePageController {
     private Label wine5;
     @FXML
     private Label wine6;
+    @FXML
+    private Label pageLabel;
 
+    private int page;
     private Stage stage;
     private WineManager wineManager;
     private WinePopupService wineService = new WinePopupService();
@@ -79,14 +86,52 @@ public class HomePageController {
      * @param stage The main stage passed from NavBarController.
      */
     public void init(Stage stage) {
+        page = 0;
+        prevImage.setVisible(false);
         wineManager = new WineManager();
         if (wineManager.getAll().size() >= 6) {
-            List<Wine> wines = wineManager.getTopRated();
+            List<Wine> wines = wineManager.getTopRated(page);
             displayWines(wines);
             displayWinery(wines);
             displayRatings(wines);
             setImage(wines);
         }
+    }
+
+    @FXML
+    private void nextPage() {
+        int size = wineManager.getAll().size();
+        page++;
+        pageLabel.setText("Page " + (page + 1));
+        if (page >= 1) {
+            prevImage.setVisible(true);
+        }
+        if ((page + 2) * 6 > size) {
+            nextImage.setVisible(false);
+        }
+        List<Wine> wines = wineManager.getTopRated(page);
+        displayWines(wines);
+        displayWinery(wines);
+        displayRatings(wines);
+        setImage(wines);
+    }
+
+    @FXML
+    private void prevPage() {
+        int size = wineManager.getAll().size();
+        page--;
+        pageLabel.setText("Page " + (page + 1));
+        if (page == 0) {
+            prevImage.setVisible(false);
+        }
+        if ((page + 2) * 6 <= size) {
+            nextImage.setVisible(true);
+        }
+        List<Wine> wines = wineManager.getTopRated(page);
+        displayWines(wines);
+        displayWinery(wines);
+        displayRatings(wines);
+        setImage(wines);
     }
 
     /**
@@ -149,7 +194,7 @@ public class HomePageController {
     @FXML
     void wine1Pressed() {
         if (wineManager.getAll().size() >= 6) {
-            List<Wine> wines = wineManager.getTopRated();
+            List<Wine> wines = wineManager.getTopRated(page);
             Wine wine = wines.getFirst();
             Image image = wineService.getImage(wine);
             wineService.winePressed(wine, image, rating1);
@@ -163,7 +208,7 @@ public class HomePageController {
     @FXML
     void wine2Pressed() {
         if (wineManager.getAll().size() >= 6) {
-            List<Wine> wines = wineManager.getTopRated();
+            List<Wine> wines = wineManager.getTopRated(page);
             Wine wine = wines.get(1);
             Image image = wineService.getImage(wine);
             wineService.winePressed(wine, image, rating1);
@@ -177,7 +222,7 @@ public class HomePageController {
     @FXML
     void wine3Pressed() {
         if (wineManager.getAll().size() >= 6) {
-            List<Wine> wines = wineManager.getTopRated();
+            List<Wine> wines = wineManager.getTopRated(page);
             Wine wine = wines.get(2);
             Image image = wineService.getImage(wine);
             wineService.winePressed(wine, image, rating1);
@@ -187,7 +232,7 @@ public class HomePageController {
     @FXML
     void wine4Pressed() {
         if (wineManager.getAll().size() >= 6) {
-            List<Wine> wines = wineManager.getTopRated();
+            List<Wine> wines = wineManager.getTopRated(page);
             Wine wine = wines.get(3);
             Image image = wineService.getImage(wine);
             wineService.winePressed(wine, image, rating1);
@@ -197,7 +242,7 @@ public class HomePageController {
     @FXML
     void wine5Pressed() {
         if (wineManager.getAll().size() >= 6) {
-            List<Wine> wines = wineManager.getTopRated();
+            List<Wine> wines = wineManager.getTopRated(page);
             Wine wine = wines.get(4);
             Image image = wineService.getImage(wine);
             wineService.winePressed(wine, image, rating1);
@@ -207,7 +252,7 @@ public class HomePageController {
     @FXML
     void wine6Pressed() {
         if (wineManager.getAll().size() >= 6) {
-            List<Wine> wines = wineManager.getTopRated();
+            List<Wine> wines = wineManager.getTopRated(page);
             Wine wine = wines.get(5);
             Image image = wineService.getImage(wine);
             wineService.winePressed(wine, image, rating1);
