@@ -36,7 +36,7 @@ public class ImportPreviewService {
 
     private String[] turnEmptyToTemp(String[] headers) {
         for (int i = 0; i < headers.length; i++) {
-            if (headers[i].isEmpty()) {
+            if (headers[i].isBlank()) {
                 headers[i] = "Temp";
             }
         }
@@ -56,7 +56,7 @@ public class ImportPreviewService {
                 return "Not all headers are selected.";
             }
         }
-        Set<String> headerSet = new HashSet<String>(headerArray);
+        Set<String> headerSet = new HashSet<>(headerArray);
         if (headerSet.size() != headerArray.size()) {
             return "Duplicate headers are selected.";
         }
