@@ -27,8 +27,8 @@ public class WineManager {
      * @param importer Importer object (e.g. CSV importer)
      * @param file File with the same type as the importer
      * **/
-    public void addBatch(Importable<Wine> importer, File file) {
-        List<Wine> wines = importer.readFromFile(file);
+    public void addBatch(Importable<Wine> importer, File file, List<Integer> headerIndexes) {
+        List<Wine> wines = importer.readFromFile(file, headerIndexes);
         wineDAO.addBatch(wines);
     }
 

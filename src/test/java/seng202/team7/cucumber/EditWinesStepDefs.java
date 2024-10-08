@@ -11,6 +11,7 @@ import seng202.team7.models.Wine;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,8 +31,9 @@ public class EditWinesStepDefs {
             throw new RuntimeException("File not found: " + filename);
         }
         File file = new File(url.getPath());
-        wineList = wineCSVImporter.readFromFile(file);
-        wineManager.addBatch(wineCSVImporter, file);
+        List<Integer> headerIndexes = Arrays.asList(5, 1, 0, 4, 2, 3, 6);
+        wineList = wineCSVImporter.readFromFile(file, headerIndexes);
+        wineManager.addBatch(wineCSVImporter, file, headerIndexes);
     }
 
     @And("The admin is on the view table page")

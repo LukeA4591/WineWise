@@ -13,7 +13,7 @@ public interface Importable<T> {
      * @param file File to read from
      * @return List of objects type T that are read from the file
      */
-    List<T> readFromFile(File file);
+    List<T> readFromFile(File file, List<Integer> headerIndexes);
 
     List<String[]> readSixLinesFromFile(File file);
 }

@@ -11,6 +11,7 @@ import seng202.team7.models.Wine;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,7 +27,8 @@ public class DatasetStepDefs {
         URL url = Thread.currentThread().getContextClassLoader().getResource("files/" + filename);
         assertTrue(url != null);
         File file = new File(url.getPath());
-        wineList = wineCSVImporter.readFromFile(file);
+        List<Integer> headerIndexes = Arrays.asList(5, 1, 0, 4, 2, 3, 6);
+        wineList = wineCSVImporter.readFromFile(file, headerIndexes);
     }
 
     @When("The wine dataset is imported")

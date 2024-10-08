@@ -1,14 +1,18 @@
 package seng202.team7.gui;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import seng202.team7.business.WineManager;
 import seng202.team7.io.Importable;
 import seng202.team7.io.WineCSVImporter;
 import seng202.team7.models.Wine;
+import seng202.team7.services.AppEnvironment;
+import seng202.team7.services.ImportPreviewService;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,24 +51,35 @@ public class ImportPreviewController {
     ComboBox<String>[] comboBoxList;
 
     File file;
-    Importable<Wine> importer;
+    Importable<Wine> csvImporter;
     String[] headers;
     List<String[]> data;
+    ImportPreviewService importPreviewService;
+    WineManager wineManager;
+    AppEnvironment appEnvironment;
 
-    public void init(File file) {
+    public void init(File file, AppEnvironment appEnvironment) {
         this.file = file;
-        this.importer = new WineCSVImporter();
+        this.csvImporter = new WineCSVImporter();
         this.data = new ArrayList<>();
+        this.importPreviewService = new ImportPreviewService();
+        this.wineManager = new WineManager();
+        this.appEnvironment = appEnvironment;
         getStringFromFile(file);
         initTable();
         initComboBoxes();
     }
 
+    private void goBackToAdmin() {
+        Stage stage = (Stage) dataTable.getScene().getWindow();
+        stage.close();
+    }
+
     //TODO put into service class
     private void getStringFromFile(File file) {
-        List<String[]> lines = importer.readSixLinesFromFile(file);
+        List<String[]> lines = csvImporter.readSixLinesFromFile(file);
         if (!lines.isEmpty()) {
-            headers = lines.getFirst();
+            headers = importPreviewService.modifyHeaders(lines.getFirst());
         }
         for (int i = 1; i < lines.size(); i++) {
             data.add(lines.get(i));
@@ -88,6 +103,46 @@ public class ImportPreviewController {
         comboBoxList = (ComboBox<String>[]) new ComboBox<?>[] {typeComboBox, nameComboBox, wineryComboBox, vintageComboBox, scoreComboBox, regionComboBox, descriptionComboBox};
         for (ComboBox<String> comboBox : comboBoxList) {
            comboBox.getItems().addAll(headers);
+        }
+    }
+
+    public void exitInputPreview() {
+        goBackToAdmin();
+    }
+
+    public void saveDataset() {
+        String typeComboBoxHeader = typeComboBox.getValue();
+        String nameComboBoxHeader = nameComboBox.getValue();
+        String wineryComboBoxHeader = wineryComboBox.getValue();
+        String vintageComboBoxHeader = vintageComboBox.getValue();
+        String scoreComboBoxHeader = scoreComboBox.getValue();
+        String regionComboBoxHeader = regionComboBox.getValue();
+        String descriptionComboBoxHeader = descriptionComboBox.getValue();
+        String headerMessage;
+        List<String> headerArray = Arrays.asList(typeComboBoxHeader, nameComboBoxHeader, wineryComboBoxHeader,
+                vintageComboBoxHeader, scoreComboBoxHeader, regionComboBoxHeader,
+                descriptionComboBoxHeader);
+        Stage stage = (Stage) dataTable.getScene().getWindow();
+        if ((headerMessage = importPreviewService.checkHeaders(headerArray)).isEmpty()) {
+            Platform.runLater(() -> {
+                appEnvironment.setLoadingScreenOwner(stage);
+                appEnvironment.showLoadingScreen();
+            });
+
+            //add batch on background thread.
+            Thread addBatchThread = new Thread(() -> {
+
+                wineManager.addBatch(new WineCSVImporter(), file, importPreviewService.getHeaderIndexes(Arrays.asList(headers), headerArray));
+
+                Platform.runLater(() -> appEnvironment.hideLoadingScreen());
+            });
+
+            addBatchThread.start();
+
+            goBackToAdmin();
+
+        } else {
+            errorMessageLabel.setText(headerMessage);
         }
     }
 }
