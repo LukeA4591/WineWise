@@ -26,7 +26,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="changeTableButton" layoutX="27.0" layoutY="263.0" mnemonicParsing="false" text="Preview import" />
+      <Button fx:id="changeTableButton" layoutX="27.0" layoutY="263.0" mnemonicParsing="false" onAction="#onChangeTable" text="Preview import" />
       <GridPane layoutX="43.0" layoutY="377.0" prefHeight="100.0" prefWidth="810.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.0" minWidth="100.0" prefWidth="41.0" />
@@ -87,12 +87,17 @@
             </ComboBox>
          </children>
       </GridPane>
-      <Button fx:id="exitButton" layoutX="828.0" layoutY="23.0" mnemonicParsing="false" onAction="#exitInputPreview" text="Exit" />
-      <Button fx:id="saveDatasetButton" layoutX="396.0" layoutY="552.0" mnemonicParsing="false" onAction="#saveDataset" text="Save dataset" />
+      <Button fx:id="exitButton" layoutX="828.0" layoutY="23.0" mnemonicParsing="false" onAction="#onExitPopup" text="Exit" />
+      <Button fx:id="saveDatasetButton" layoutX="396.0" layoutY="552.0" mnemonicParsing="false" onAction="#onSaveDataset" text="Save dataset" />
       <Label layoutX="27.0" layoutY="349.0" text="All fields must be selected" />
       <StackPane layoutX="273.0" layoutY="488.0" prefHeight="55.0" prefWidth="353.0">
          <children>
             <Label fx:id="errorMessageLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="328.0" />
+         </children>
+      </StackPane>
+      <StackPane layoutX="177.0" layoutY="248.0" prefHeight="55.0" prefWidth="353.0">
+         <children>
+            <Label fx:id="tableErrorMessageLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="328.0" />
          </children>
       </StackPane>
    </children>

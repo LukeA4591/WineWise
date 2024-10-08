@@ -2,8 +2,10 @@ package seng202.team7.gui;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,6 +20,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 public class ImportPreviewController {
@@ -47,6 +50,8 @@ public class ImportPreviewController {
     ComboBox<String> descriptionComboBox;
     @FXML
     Label errorMessageLabel;
+    @FXML
+    Label tableErrorMessageLabel;
 
     ComboBox<String>[] comboBoxList;
 
@@ -66,7 +71,7 @@ public class ImportPreviewController {
         this.wineManager = new WineManager();
         this.appEnvironment = appEnvironment;
         getStringFromFile(file);
-        initTable();
+        initCSVTable();
         initComboBoxes();
     }
 
@@ -86,11 +91,25 @@ public class ImportPreviewController {
         }
     }
 
-    private void initTable() {
+    private void initCSVTable() {
         dataTable.getColumns().clear();
         for (int i = 0; i < headers.length; i++) {
             final int index = i;
             TableColumn<String[], String> column = new TableColumn<>(headers[i]);
+            column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue()[index]));
+            dataTable.getColumns().add(column);
+        }
+        for (String[] line : data) {
+            dataTable.getItems().add(line);
+        }
+    }
+
+    private void initPreviewTable(List<Integer> headerIndexes) {
+        String[] wineHeaders = new String[]{"Type", "Name", "Winery", "Vintage", "Score", "Region", "Description"};
+        dataTable.getColumns().clear();
+        for (int i = 0; i < headerIndexes.size(); i++) {
+            int index = headerIndexes.get(i);
+            TableColumn<String[], String> column = new TableColumn<>(wineHeaders[i]);
             column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue()[index]));
             dataTable.getColumns().add(column);
         }
@@ -106,11 +125,7 @@ public class ImportPreviewController {
         }
     }
 
-    public void exitInputPreview() {
-        goBackToAdmin();
-    }
-
-    public void saveDataset() {
+    private List<String> getComboBoxHeaders() {
         String typeComboBoxHeader = typeComboBox.getValue();
         String nameComboBoxHeader = nameComboBox.getValue();
         String wineryComboBoxHeader = wineryComboBox.getValue();
@@ -118,10 +133,18 @@ public class ImportPreviewController {
         String scoreComboBoxHeader = scoreComboBox.getValue();
         String regionComboBoxHeader = regionComboBox.getValue();
         String descriptionComboBoxHeader = descriptionComboBox.getValue();
-        String headerMessage;
-        List<String> headerArray = Arrays.asList(typeComboBoxHeader, nameComboBoxHeader, wineryComboBoxHeader,
+        return Arrays.asList(typeComboBoxHeader, nameComboBoxHeader, wineryComboBoxHeader,
                 vintageComboBoxHeader, scoreComboBoxHeader, regionComboBoxHeader,
                 descriptionComboBoxHeader);
+    }
+
+    public void onExitPopup() {
+        goBackToAdmin();
+    }
+
+    public void onSaveDataset() {
+        List<String> headerArray = getComboBoxHeaders();
+        String headerMessage;
         Stage stage = (Stage) dataTable.getScene().getWindow();
         if ((headerMessage = importPreviewService.checkHeaders(headerArray)).isEmpty()) {
             Platform.runLater(() -> {
@@ -143,6 +166,24 @@ public class ImportPreviewController {
 
         } else {
             errorMessageLabel.setText(headerMessage);
+        }
+    }
+
+    public void onChangeTable() {
+        if (Objects.equals(changeTableButton.getText(), "Preview import")) {
+            List<String> headerArray = getComboBoxHeaders();
+            String headerMessage;
+            if ((headerMessage = importPreviewService.checkHeaders(headerArray)).isEmpty()) {
+                List<Integer> headerIndexes = importPreviewService.getHeaderIndexes(Arrays.asList(headers), headerArray);
+//                List<Wine> wines = importPreviewService.getPreviewWines(data, headerIndexes);
+                initPreviewTable(headerIndexes);
+            }
+            tableErrorMessageLabel.setText(headerMessage);
+            changeTableButton.setText("Preview CSV");
+        } else {
+            initCSVTable();
+            tableErrorMessageLabel.setText("");
+            changeTableButton.setText("Preview import");
         }
     }
 }

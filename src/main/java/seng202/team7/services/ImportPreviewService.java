@@ -1,8 +1,20 @@
 package seng202.team7.services;
 
+import org.apache.xmlbeans.impl.xb.xsdschema.ImportDocument;
+import seng202.team0.io.Importable;
+import seng202.team0.io.WineCSVImporter;
+import seng202.team0.models.Wine;
+
 import java.util.*;
 
 public class ImportPreviewService {
+
+    Importable<Wine> importer;
+
+    public ImportPreviewService() {
+        this.importer = new WineCSVImporter();
+    }
+
     public String[] modifyHeaders(String[] headers) {
         Map<String, Integer> headerCount = new HashMap<>();
         String[] newHeaders = new String[headers.length];
@@ -59,4 +71,11 @@ public class ImportPreviewService {
         return headerIndexes;
     }
 
+    public List<Wine> getPreviewWines(List<String[]> data, List<Integer> headerIndexes) {
+        List<Wine> wines = new ArrayList<>();
+        for (String[] line : data) {
+            wines.add(importer.readWineFromLine(line, headerIndexes));
+        }
+        return wines;
+    }
 }

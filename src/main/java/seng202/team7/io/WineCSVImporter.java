@@ -63,7 +63,7 @@ public class WineCSVImporter implements Importable<Wine>{
      * @param line current csv line as list of Strings
      * @return Wine object parsed from line
      */
-    private Wine readWineFromLine(String[] line, List<Integer> headerIndexes) {
+    public Wine readWineFromLine(String[] line, List<Integer> headerIndexes) {
         try {
             String type = line[headerIndexes.getFirst()];
             String name = line[headerIndexes.get(1)];
