@@ -388,7 +388,7 @@ public class WineDAO implements DAOInterface<Wine> {
     /**
      * Reselects a wine from the database in the same "category" (top type/winery/vintage) that is different from all current wines given
      * this is to ensure all recommended wines are different.
-     * Note: first value in the list of wine to not be the same is always the original one we want to reference for which catagory
+     * Note: first value in the list of wine to not be the same is always the original one we want to reference for which category
      * @param category
      * @param alreadyUsedWine
      */
@@ -489,7 +489,7 @@ public class WineDAO implements DAOInterface<Wine> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return getRandomOtherWine(givenWine);
     }
 
     /**
@@ -523,7 +523,7 @@ public class WineDAO implements DAOInterface<Wine> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return getRandomOtherWine(givenWine);
     }
 
     /**
@@ -557,7 +557,7 @@ public class WineDAO implements DAOInterface<Wine> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return getRandomOtherWine(givenWine);
     }
 
     /**

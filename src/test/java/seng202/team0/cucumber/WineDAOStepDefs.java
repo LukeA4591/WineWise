@@ -3,6 +3,7 @@ package seng202.team0.cucumber;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.BeforeAll;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -17,6 +18,7 @@ import seng202.team0.services.AppEnvironment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,6 +30,7 @@ public class WineDAOStepDefs {
     private DatabaseManager databaseManager;
 
     List<Wine> winesToAdd = new ArrayList<>();
+    List<Wine> suggestedWines;
 
     @Before
     public void setup() throws DuplicateExc {
@@ -40,6 +43,7 @@ public class WineDAOStepDefs {
     public void resetDB() {
         databaseManager.resetDB();
         winesToAdd.clear();
+        suggestedWines.clear();
     }
 
     @Given("An admin is on the admin page and has filled in the add wine popup with inputs {string}, {string}, {string}, {int}, {int}, {string}, {string}")
@@ -69,13 +73,20 @@ public class WineDAOStepDefs {
         assertEquals(winesToAdd.size() - 1, wines.size());
     }
 
-    @Given("A database with a wine with wine {string}, {string}, {string}, {int}")
-    public void addWineToDatabase(String name, String type, String winery, int vintage) {
-        Wine wine1 = new Wine(type, name, winery, vintage, 100, null, null);
-        Wine wine2 = new Wine("Red", "Not Famous Wine", "Not Famous Winery", 2000, 0, null, null);
-        wineManager.add(wine1);
-        wineManager.add(wine2);
+    @Given("A database with the following wines:")
+    public void addMultipleWinesToDatabase(io.cucumber.datatable.DataTable dataTable) {
+        List<Map<String, String>> wines = dataTable.asMaps(String.class, String.class);
+
+        for (Map<String, String> wine : wines) {
+            String name = wine.get("wineName");
+            String type = wine.get("wineType");
+            String winery = wine.get("winery");
+            int vintage = Integer.parseInt(wine.get("year"));
+
+            wineManager.add(new Wine(type, name, winery, vintage, 100, null, null));
+        }
     }
+
 
     @When("The admin deletes a wine with details {string}, {string}, {int}")
     public void adminDeletesWine(String name, String winery, int vintage) {
@@ -85,13 +96,50 @@ public class WineDAOStepDefs {
     @Then("The wine with details {string}, {string}, {int} is deleted from the database")
     public void wineNoLongerInDatabase(String name, String winery, int vintage) {
         List<Wine> wines = wineManager.getAll();
-        Wine wine = new Wine("Red", name, winery, vintage, 100, null, null);
+        Wine wine = new Wine("White", name, winery, vintage, 100, null, null);
         assertFalse(wines.contains(wine));
     }
 
-    @Then("The database has one less entry")
-    public void checkDatabaseSize() {
-        assertEquals(1, wineManager.getAll().size());
+    @And("The database has a size of {int}")
+    public void checkDatabaseSize(int expectedSize) {
+        assertEquals(expectedSize, wineManager.getAll().size());
+    }
+
+    @And("No other wines have been deleted")
+    public void checkOtherWines() {
+        Wine wine = new Wine("Red", "Not Famous Wine", "Not Famous Winery", 2000, 0, null, null);
+        List<Wine> wines = wineManager.getAll();
+        assertTrue(wines.contains(wine));
+    }
+
+    @When("The admin updates the wine with details {string}, {string}, {string}, {int} to {string}, {string}, {string}, {int}")
+    public void updateWine(String name1, String type1, String winery1, int vintage1, String name2, String type2, String winery2, int vintage2) {
+        Wine oldWine = new Wine(type1, name1, winery1, vintage1, 100, null, null);
+        Wine newWine = new Wine(type2, name2, winery2, vintage2, 100, null, null);
+        wineManager.updateWine(newWine, oldWine);
+    }
+
+    @Then("There will be a wine with details {string}, {string}, {string}, {int}")
+    public void savedDetails(String name, String type, String winery, int vintage) {
+        Wine wine = new Wine(type, name, winery, vintage, 100, null, null);
+        assertTrue(wineManager.getAll().contains(wine));
+    }
+
+    @When("A user queries for similar wines to the wine with details {string}, {string}, {string}, {int}")
+    public void similarWines(String name, String type, String winery, int vintage) {
+        Wine wine = new Wine(type, name, winery, vintage, 100, null, null);
+        suggestedWines = wineManager.getTheSimilarWines(wine);
+    }
+
+    @Then("The suggested wines will contain the wine with details {string}, {string}, {string}, {int}")
+    public void checkSimilarWines(String name, String type, String winery, int vintage) {
+        Wine wine = new Wine(type, name, winery, vintage, 100, null, null);
+        assertTrue(suggestedWines.contains(wine));
+    }
+
+    @And("The suggested wines will have a size of {int}")
+    public void checkSimilarWinesSize(int size) {
+        assertEquals(size, suggestedWines.size());
     }
 
 }
