@@ -28,7 +28,7 @@ public class WineryManager {
         return wineryDAO.getExistingWineryNames();
     }
 
-    public List<Winery> getAllWithNullLocation() {return wineryDAO.getAllWithNullLocation(); }
+    public List<Winery> getAllWithNullLocation(String search) {return wineryDAO.getAllWithNullLocation(search); }
 
     public int updateLocationByWineryName(String wineryName, Float newLatitude, Float newLongitude) {
         return wineryDAO.updateLocationByWineryName(wineryName, newLatitude, newLongitude);

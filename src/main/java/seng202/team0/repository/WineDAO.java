@@ -608,7 +608,7 @@ public class WineDAO implements DAOInterface<Wine> {
     }
 
     public List<Wine> searchWines(String searchText) {
-        List<Wine> wineList = new ArrayList<>();  // Renamed to match naming conventions like `NewWine` in getSimilarVintage
+        List<Wine> wineList = new ArrayList<>();
         String sql = "SELECT * FROM wines WHERE " + "type LIKE ? OR " + "name LIKE ? OR "
                 + "winery LIKE ? OR " + "region LIKE ? OR " + "description LIKE ?";
         try (Connection conn = databaseManager.connect();

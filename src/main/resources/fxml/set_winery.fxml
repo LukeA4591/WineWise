@@ -3,19 +3,21 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="219.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.SetWineryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="219.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.SetWineryController">
    <children>
-      <Label layoutX="59.0" layoutY="6.0" text="Select Winery">
+      <Label layoutX="58.0" layoutY="14.0" styleClass="subheader-label" stylesheets="@../style/navbar.css" text="Select Winery">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Button fx:id="confirmButton" layoutX="25.0" layoutY="397.0" mnemonicParsing="false" onAction="#onConfirmButton" text="Confirm" />
-      <ListView fx:id="wineryList" layoutX="10.0" layoutY="31.0" prefHeight="295.0" prefWidth="200.0" />
-      <Label layoutX="52.0" layoutY="333.0" text="Selected Winery:" />
-      <Label fx:id="selectedWineryLabel" layoutX="50.0" layoutY="363.0" prefHeight="17.0" prefWidth="128.0" />
+      <Button fx:id="confirmButton" layoutX="25.0" layoutY="500.0" mnemonicParsing="false" onAction="#onConfirmButton" text="Confirm" />
+      <ListView fx:id="wineryList" layoutX="10.0" layoutY="93.0" prefHeight="295.0" prefWidth="200.0" />
+      <Label layoutX="46.0" layoutY="404.0" styleClass="subheader-label" stylesheets="@../style/navbar.css" text="Selected Winery:" />
+      <Label fx:id="selectedWineryLabel" layoutX="46.0" layoutY="456.0" prefHeight="17.0" prefWidth="128.0" styleClass="subheader-label" stylesheets="@../style/navbar.css" />
+      <TextField fx:id="searchText" layoutX="25.0" layoutY="56.0" onKeyTyped="#updateSearch" prefHeight="26.0" prefWidth="170.0" promptText="Search.." />
    </children>
 </AnchorPane>

@@ -58,7 +58,7 @@ public class AdminMapPageController {
     }
 
     void setWineryList() {
-        List<Winery> wineries = wineryManager.getAllWithNullLocation();
+        List<Winery> wineries = wineryManager.getAllWithNullLocation("");
         ObservableList<String> wineryNames = FXCollections.observableArrayList();
         for (Winery winery : wineries) {
             wineryNames.add(winery.getWineryName());

@@ -99,21 +99,31 @@ public class WineryDAO implements DAOInterface<Winery> {
         }
     }
 
-    public List<Winery> getAllWithNullLocation() {
+    public List<Winery> getAllWithNullLocation(String search) {
         List<Winery> wineries = new ArrayList<>();
-        String sql = "SELECT * FROM wineries WHERE latitude IS NULL AND longitude IS NULL;";
+        String sql = "SELECT * FROM wineries WHERE latitude IS NULL AND longitude IS NULL";
+        if (!Objects.equals(search, "")) {
+            search = search + "%";
+            sql += " AND wineryName LIKE ? ORDER BY wineryName;";
+        } else {
+            sql += " ORDER BY wineryName;";
+        }
         try (Connection conn = databaseManager.connect();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            if (!Objects.equals(search, "")) {
+                stmt.setString(1, search);
+            }
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 wineries.add(new Winery(rs.getString("wineryName"), null, null));
             }
-            return wineries;
         } catch (SQLException sqlException) {
             log.error(sqlException);
             return new ArrayList<>();
         }
+        return wineries;
     }
+
 
     public int updateLocationByWineryName(String wineryName, Float newLatitude, Float newLongitude) {
         String sql = "UPDATE wineries SET latitude = ?, longitude = ? WHERE wineryName = ?;";
