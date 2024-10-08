@@ -20,39 +20,39 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="SearchIcon" fitHeight="55.0" fitWidth="55.0" layoutX="21.0" layoutY="13.0" onMouseClicked="#searchPressed">
+            <ImageView fx:id="SearchIcon" blendMode="SRC_ATOP" fitHeight="55.0" fitWidth="55.0" layoutX="21.0" layoutY="13.0" onMouseClicked="#searchPressed">
                <image>
-                  <Image url="@../images/searchIcon.jpg" />
+                  <Image url="@../images/searchIconResized.jpg" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="MapsIcon" fitHeight="55.0" fitWidth="55.0" layoutX="121.0" layoutY="13.0" onMouseClicked="#mapPressed">
+            <ImageView fx:id="MapsIcon" blendMode="SRC_ATOP" fitHeight="55.0" fitWidth="55.0" layoutX="121.0" layoutY="13.0" onMouseClicked="#mapPressed">
                <image>
-                  <Image url="@../images/mapsIcon.jpg" />
+                  <Image url="@../images/mapsIconResized.jpg" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="HelpIcon" fitHeight="55.0" fitWidth="55.0" layoutX="726.0" layoutY="13.0" onMouseClicked="#helpPressed">
+            <ImageView fx:id="HelpIcon" blendMode="SRC_ATOP" fitHeight="55.0" fitWidth="55.0" layoutX="726.0" layoutY="13.0" onMouseClicked="#helpPressed">
                <image>
-                  <Image url="@../images/helpIcon.png" />
+                  <Image url="@../images/helpIconResized.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="AdminIcon" fitHeight="55.0" fitWidth="55.0" layoutX="826.0" layoutY="13.0" onMouseClicked="#loginPressed">
+            <ImageView fx:id="AdminIcon" blendMode="SRC_ATOP" fitHeight="55.0" fitWidth="55.0" layoutX="826.0" layoutY="13.0" onMouseClicked="#loginPressed">
                <image>
-                  <Image url="@../images/adminicon.png" />
+                  <Image url="@../images/adminiconResized.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Pane fx:id="doNotDelete" layoutX="388.0" layoutY="-22.0" onMouseClicked="#homePressed" prefHeight="100.0" prefWidth="125.0">
+            <Pane fx:id="doNotDelete" blendMode="EXCLUSION" layoutX="388.0" layoutY="-22.0" onMouseClicked="#homePressed" prefHeight="100.0" prefWidth="125.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
