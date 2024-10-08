@@ -250,14 +250,6 @@ public class AdminScreenController {
     }
 
     /**
-     *
-     */
-    @FXML
-    private void onShutdown() {
-
-    }
-
-    /**
      * Allows a csv file to be chosen from the file manager when the add dataset button is pressed. It will then send
      * this file to the wineManager along with the WineCSVImporter so that the file can be processed into individual
      * wines.
