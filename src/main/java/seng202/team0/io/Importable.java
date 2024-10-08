@@ -1,5 +1,7 @@
 package seng202.team0.io;
 
+import seng202.team0.models.Wine;
+
 import java.io.File;
 import java.util.List;
 
@@ -16,4 +18,6 @@ public interface Importable<T> {
     List<T> readFromFile(File file, List<Integer> headerIndexes);
 
     List<String[]> readSixLinesFromFile(File file);
+
+    Wine readWineFromLine(String[] line, List<Integer> headerIndexes);
 }
