@@ -22,7 +22,7 @@
             </ImageView>
             <ImageView fx:id="SearchIcon" blendMode="SRC_ATOP" fitHeight="55.0" fitWidth="55.0" layoutX="21.0" layoutY="13.0" onMouseClicked="#searchPressed">
                <image>
-                  <Image url="@../images/searchIconResized.jpg" />
+                  <Image url="@../images/2.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -30,7 +30,7 @@
             </ImageView>
             <ImageView fx:id="MapsIcon" blendMode="SRC_ATOP" fitHeight="55.0" fitWidth="55.0" layoutX="121.0" layoutY="13.0" onMouseClicked="#mapPressed">
                <image>
-                  <Image url="@../images/mapsIconResized.jpg" />
+                  <Image url="@../images/1.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -38,7 +38,7 @@
             </ImageView>
             <ImageView fx:id="HelpIcon" blendMode="SRC_ATOP" fitHeight="55.0" fitWidth="55.0" layoutX="726.0" layoutY="13.0" onMouseClicked="#helpPressed">
                <image>
-                  <Image url="@../images/helpIconResized.png" />
+                  <Image url="@../images/3.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -46,7 +46,7 @@
             </ImageView>
             <ImageView fx:id="AdminIcon" blendMode="SRC_ATOP" fitHeight="55.0" fitWidth="55.0" layoutX="826.0" layoutY="13.0" onMouseClicked="#loginPressed">
                <image>
-                  <Image url="@../images/adminiconResized.png" />
+                  <Image url="@../images/4.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
