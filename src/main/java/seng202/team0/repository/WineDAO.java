@@ -101,9 +101,14 @@ public class WineDAO implements DAOInterface<Wine> {
             sql.append(" INTERSECT ");
             sql.append(sqlScores.toString());
         }
-
-        StringBuilder sqlSearch = new StringBuilder("SELECT * FROM wines WHERE " + "type LIKE ? OR " + "name LIKE ? OR "
-                + "winery LIKE ? OR " + "region LIKE ? OR " + "description LIKE ?");
+        boolean isNum = search.matches("\\d+");
+        StringBuilder sqlSearch;
+        if (!isNum) {
+            sqlSearch = new StringBuilder("SELECT * FROM wines WHERE " + "type LIKE ? OR " + "name LIKE ? OR "
+                    + "winery LIKE ? OR " + "region LIKE ? OR " + "description LIKE ?");
+        } else {
+            sqlSearch = new StringBuilder("SELECT * FROM wines WHERE score = CAST(? AS INTEGER) OR vintage = CAST(? AS INTEGER)");
+        }
 
         if (search != "") {
             sql.append(" INTERSECT ");
@@ -127,10 +132,15 @@ public class WineDAO implements DAOInterface<Wine> {
                 ps.setObject(index++, bounds.get(0));
             }
             if (searchIncluded) {
-                int indexMax = index + 4;
-                String formattedSearchText = "%" + search + "%";
-                for (int index2 = index; index2<=indexMax; index2++) {
-                    ps.setObject(index2, formattedSearchText);
+                if (!isNum) {
+                    int indexMax = index + 4;
+                    String formattedSearchText = "%" + search + "%";
+                    for (int index2 = index; index2 <= indexMax; index2++) {
+                        ps.setObject(index2, formattedSearchText);
+                    }
+                } else {
+                    ps.setObject(index++, search);
+                    ps.setObject(index, search);
                 }
             }
             ResultSet rs = ps.executeQuery();
