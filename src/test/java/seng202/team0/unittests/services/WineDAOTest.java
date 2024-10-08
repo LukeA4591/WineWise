@@ -62,7 +62,7 @@ public class WineDAOTest {
     public void testFilterByType() throws DuplicateExc {
         populateDatabase();
         filters.put("type", "White");
-        List<Wine> wines = wineDao.getFilteredWines(filters, scoreFilters);
+        List<Wine> wines = wineDao.getFilteredWines(filters, scoreFilters, "");
         Assertions.assertEquals(2, wines.size());
         Assertions.assertEquals("White", wines.get(0).getColor());
         Assertions.assertEquals("White", wines.get(1).getColor());
@@ -73,7 +73,7 @@ public class WineDAOTest {
         populateDatabase();
         filters.put("type", "White");
         filters.put("winery", "Lake Chalice");
-        List<Wine> wines = wineDao.getFilteredWines(filters, scoreFilters);
+        List<Wine> wines = wineDao.getFilteredWines(filters, scoreFilters, "");
         Assertions.assertEquals(1, wines.size());
         Assertions.assertEquals("White", wines.getFirst().getColor());
         Assertions.assertEquals("Lake Chalice", wines.getFirst().getWineryString());
@@ -84,7 +84,7 @@ public class WineDAOTest {
         populateDatabase();
         filters.put("type", "White");
         scoreFilters.put("score", Arrays.asList("60", "90"));
-        List<Wine> wines = wineDao.getFilteredWines(filters, scoreFilters);
+        List<Wine> wines = wineDao.getFilteredWines(filters, scoreFilters, "");
         Assertions.assertEquals(1, wines.size());
         Assertions.assertEquals("White", wines.getFirst().getColor());
         Assertions.assertTrue(wines.getFirst().getScore() < 90 && wines.getFirst().getScore() >= 60);

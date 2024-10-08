@@ -36,6 +36,11 @@
     -fx-font-size: 13.5;
 }
 
+.button-search {
+    -fx-pref-height: 20;
+    -fx-pref-width: 100;
+}
+
 .small-button {
     -fx-text-fill: black;
     -fx-font-size: 14px;
@@ -45,6 +50,8 @@
     -fx-background-radius: 5;
     -fx-border-radius: 5;
 }
+
+
 
 .tab-button {
     -fx-text-fill: black;

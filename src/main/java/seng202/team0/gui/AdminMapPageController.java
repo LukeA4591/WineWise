@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -18,15 +19,20 @@ import seng202.team0.business.WineryManager;
 import seng202.team0.models.Winery;
 import seng202.team0.repository.WineryDAO;
 import seng202.team0.services.AppEnvironment;
+import seng202.team0.services.Geolocator;
 import seng202.team0.services.JavaScriptBridge;
+import seng202.team0.services.Position;
 
 import java.io.IOException;
 import java.util.List;
 
 public class AdminMapPageController {
     private AppEnvironment appEnvironment;
+    private Geolocator geolocator;
     @FXML
     private WebView webView;
+    @FXML
+    private TextField addressText;
     private WebEngine webEngine;
     private JSObject javaScriptConnector;
     private WineryManager wineryManager;
@@ -39,6 +45,7 @@ public class AdminMapPageController {
     void init(AppEnvironment appEnvironment, Stage stage) {
         this.appEnvironment = appEnvironment;
         wineryManager = new WineryManager();
+        geolocator = new Geolocator();
         setWineryList();
         initMap();
         javaScriptBridge = new JavaScriptBridge(this::addWineryMarker, this::getWineryFromClick, stage);
@@ -51,7 +58,7 @@ public class AdminMapPageController {
     }
 
     void setWineryList() {
-        List<Winery> wineries = wineryManager.getAllWithNullLocation();
+        List<Winery> wineries = wineryManager.getAllWithNullLocation("");
         ObservableList<String> wineryNames = FXCollections.observableArrayList();
         for (Winery winery : wineries) {
             wineryNames.add(winery.getWineryName());
@@ -113,6 +120,15 @@ public class AdminMapPageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        setWineryList();
         return true;
+    }
+
+    @FXML
+    private void searchPressed() {
+        String address = addressText.getText();
+        Position coords = geolocator.queryAddress(address);
+        javaScriptBridge.setWineryFromClick(coords.toString());
+        setWineryList();
     }
 }

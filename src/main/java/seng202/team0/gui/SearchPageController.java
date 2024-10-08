@@ -235,6 +235,7 @@ public class SearchPageController {
             scoreFilters.put("score", Arrays.asList(criticScoreMinText.getText(), criticScoreMaxText.getText()));
             wines = wineManager.getFilteredWines(filters, scoreFilters, search);
             initTable(wines);
+            wines = wineManager.getAll();
         }
     }
 
