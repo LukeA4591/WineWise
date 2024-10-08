@@ -78,6 +78,7 @@ public class AddWineController {
                 goBackToAdmin();
             } else {
                 saveNewWineMessage.setText("Wine Already Exists in the Database");
+                saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
             }
         }
     }
