@@ -36,6 +36,7 @@ public class JavaScriptBridge {
      * @param latlng co-ordinates to add sale at JSON object format {"lat":number, "lng":number}
      */
     public void setWineryFromClick(String latlng){
+        System.out.printf(latlng);
         JSONParser parser = new JSONParser();
         WineryDAO wineryDAO = new WineryDAO();
         try {
