@@ -61,7 +61,7 @@ public class ImportPreviewService {
             return "Duplicate headers are selected.";
         }
         if (!validIntegerConversion(headerIndexes.subList(3, 5), data)) {
-            return "Winery and vintage fields must contain integers.";
+            return "Vintage and score fields must contain integers.";
         }
         if (!validMandatoryAttributes(headerIndexes.subList(1, 4), data)) {
             return "Name, winery, and vintage fields must have values.";

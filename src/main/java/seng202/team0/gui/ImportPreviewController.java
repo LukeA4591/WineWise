@@ -149,6 +149,7 @@ public class ImportPreviewController {
         String headerMessage;
         Stage stage = (Stage) dataTable.getScene().getWindow();
         List<Integer> headerIndexes = importPreviewService.getHeaderIndexes(Arrays.asList(headers), headerArray);
+        System.out.println(headerIndexes.get(0));
         if ((headerMessage = importPreviewService.checkHeaders(headerArray, data, headerIndexes)).isEmpty()) {
             Platform.runLater(() -> {
                 appEnvironment.setLoadingScreenOwner(stage);
