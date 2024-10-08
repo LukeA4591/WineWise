@@ -1,20 +1,23 @@
 package seng202.team7.services;
 
-import org.apache.xmlbeans.impl.xb.xsdschema.ImportDocument;
-import seng202.team0.io.Importable;
-import seng202.team0.io.WineCSVImporter;
-import seng202.team0.models.Wine;
-
 import java.util.*;
 
+/**
+ * A service class for ImportPreviewController that allows the controller to check
+ * whether the headers that the users selected can be mapped to each wine attribute
+ * and returns indexes so that the wine data can be added from the CSV file to the
+ * database.
+ */
 public class ImportPreviewService {
 
-    Importable<Wine> importer;
-
-    public ImportPreviewService() {
-        this.importer = new WineCSVImporter();
-    }
-
+    /**
+     * Modifies the headers from the CSV file to make sure there are no duplicate
+     * or blank headers. This is so that when the user has to select a header
+     * for each wine attribute, they won't get confused if a header is named the
+     * same as another or has no name.
+     * @param headers A list of the headers (first line) from the imported CSV file
+     * @return A list of the new modified headers that the users can select from
+     */
     public String[] modifyHeaders(String[] headers) {
         Map<String, Integer> headerCount = new HashMap<>();
         String[] newHeaders = new String[headers.length];
@@ -34,6 +37,11 @@ public class ImportPreviewService {
         return newHeaders;
     }
 
+    /**
+     * Turns any blank headers in a list into "Temp".
+     * @param headers A list of the headers from the imported CSV file
+     * @return A list of the headers without the blank headers
+     */
     private String[] turnEmptyToTemp(String[] headers) {
         for (int i = 0; i < headers.length; i++) {
             if (headers[i].isBlank()) {
@@ -43,13 +51,33 @@ public class ImportPreviewService {
         return headers;
     }
 
-    private String containsHeader(String[] headersNoBlanks, String[] newHeaders, int i) {
-        while (Arrays.asList(newHeaders).contains(headersNoBlanks[i])) {
-            headersNoBlanks[i] = headersNoBlanks[i] + "#";
+    /**
+     * Adds a hash to the end of the header if the header name already exists
+     * within the headers that the user can select from. This prevents any
+     * duplicate headers that can be caused if a header ends with "_{integer}"
+     * or "#".
+     * @param headersNoBlanks A list of the headers without any blank headers
+     * @param newHeaders A list of headers which the user will select from
+     * @param index Index of the header being checked
+     * @return The modified header
+     */
+    private String containsHeader(String[] headersNoBlanks, String[] newHeaders, int index) {
+        while (Arrays.asList(newHeaders).contains(headersNoBlanks[index])) {
+            headersNoBlanks[index] = headersNoBlanks[index] + "#";
         }
-        return headersNoBlanks[i];
+        return headersNoBlanks[index];
     }
 
+    /**
+     * Checks whether the CSV headers selected for each attribute are valid and
+     * whether all the attributes have been to a header. Returns an error message
+     * if something was wrong with the selected headers.
+     * @param headerArray A list of the headers from the CSV file
+     * @param data A list of each line of the CSV file excluding the header
+     * @param headerIndexes A list of indexes to show which CSV header column each
+     *                      wine attribute maps to
+     * @return A message to show if the headers were mapped to a wine attribute
+     */
     public String checkHeaders(List<String> headerArray, List<String[]> data, List<Integer> headerIndexes) {
         for (String header : headerArray) {
             if (header == null) {
@@ -69,6 +97,14 @@ public class ImportPreviewService {
         return "";
     }
 
+    /**
+     * Returns a list of header indexes so that each wine attribute can be connected
+     * to a column in the CSV file.
+     * @param fileOrder A list of the headers from the CSV file
+     * @param headerOrder A list of the headers selected by the user
+     * @return A list of indexes of the headers from the CSV file with its index
+     * within the list correlating to a particular wine attribute
+     */
     public List<Integer> getHeaderIndexes(List<String> fileOrder, List<String> headerOrder) {
         List<Integer> headerIndexes = new ArrayList<>();
         for (String header : headerOrder) {
@@ -77,6 +113,14 @@ public class ImportPreviewService {
         return headerIndexes;
     }
 
+    /**
+     * Checks whether the values correlating to the headers selected to be the
+     * vintage and score fields can be turned into integers.
+     * @param vintageScoreIndexes The column indexes for the vintage and score values
+     * @param data A list of each line of the CSV file excluding the header
+     * @return Boolean whether the vintage and score fields can be turned into
+     * an integer
+     */
     public boolean validIntegerConversion(List<Integer> vintageScoreIndexes, List<String[]> data) {
         for (Integer index : vintageScoreIndexes) {
             for (String[] line : data) {
@@ -90,6 +134,15 @@ public class ImportPreviewService {
         return true;
     }
 
+    /**
+     * Checks whether there are no null values in the data selected to be the wine
+     * name, winery, vintage values.
+     * @param nameWineryVintageIndexes The column indexes for the wine name, winery,
+     *                                 vintage values
+     * @param data A list of each line of the CSV file excluding the header
+     * @return Boolean whether there are no null values in the wine name, winery,
+     * and vintage fields
+     */
     public boolean validMandatoryAttributes(List<Integer> nameWineryVintageIndexes, List<String[]> data) {
         for (Integer index : nameWineryVintageIndexes) {
             for (String[] line : data) {
