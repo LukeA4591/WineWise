@@ -60,8 +60,25 @@ public class AddWineController {
     public void saveNewWine() {
         Wine wine = validateWine();
         if (wine != null) {
-            wineManager.add(wine);
-            goBackToAdmin();
+
+            if (!wineManager.checkIfWineExists(wine)) {
+
+                saveNewWineMessage.setStyle("-fx-text-fill: #008000");
+                saveNewWineMessage.setText("New wine saved.");
+                wineWineryName.setText("");
+                wineName.setText("");
+                wineVintage.setText("");
+                wineScore.setText("");
+                wineTypeToggle.selectToggle(wineTypeWhite);
+                wineRegion.setText("");
+                wineDescription.setText("");
+
+                wineManager.add(wine);
+
+                goBackToAdmin();
+            } else {
+                saveNewWineMessage.setText("Wine Already Exists in the Database");
+            }
         }
     }
 
@@ -116,15 +133,7 @@ public class AddWineController {
                     return null;
                 }
 
-                saveNewWineMessage.setStyle("-fx-text-fill: #008000");
-                saveNewWineMessage.setText("New wine saved.");
-                wineWineryName.setText("");
-                wineName.setText("");
-                wineVintage.setText("");
-                wineScore.setText("");
-                wineTypeToggle.selectToggle(wineTypeWhite);
-                wineRegion.setText("");
-                wineDescription.setText("");
+
                 return new Wine(wineTypeString, wineNameString, wineWineryNameString, wineVintageInt, wineScoreInt,
                         wineRegionString, wineDescriptionString);
             }

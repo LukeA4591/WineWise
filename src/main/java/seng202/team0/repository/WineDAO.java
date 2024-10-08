@@ -606,4 +606,25 @@ public class WineDAO implements DAOInterface<Wine> {
         }
         return wineList;
     }
+
+    public boolean checkIfWineExists(Wine wine) {
+        Wine NewWine = null;
+        String sql = "SELECT * FROM wines WHERE vintage=? AND name=? AND winery=?";
+        try(Connection conn = databaseManager.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, wine.getVintage());
+            pstmt.setString(2, wine.getWineName());
+            pstmt.setString(3, wine.getWineryString());
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                return true;
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return false;
+    }
 }
