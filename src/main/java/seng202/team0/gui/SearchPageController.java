@@ -135,21 +135,7 @@ public class SearchPageController {
      */
     @FXML
     private void filterClick(){
-        if ((Objects.equals(criticScoreMinText.getText(), "") && !(Objects.equals(criticScoreMaxText.getText(), ""))) || (!(Objects.equals(criticScoreMinText.getText(), "")) && Objects.equals(criticScoreMaxText.getText(), ""))) {
-            errorLabel.setText("Please input both scores");
-            errorLabel.setStyle("-fx-text-fill: white;");
-        } else if (!validScore(criticScoreMaxText.getText()) || !validScore(criticScoreMinText.getText())){
-            errorLabel.setText("Please enter integers");
-            errorLabel.setStyle("-fx-text-fill: white");
-        } else if (!Objects.equals(criticScoreMaxText.getText(), "") && !Objects.equals(criticScoreMinText.getText(), "") && (Integer.parseInt(criticScoreMaxText.getText()) <= Integer.parseInt(criticScoreMinText.getText()))) {
-            errorLabel.setText("Please have from <= to");
-            errorLabel.setStyle("-fx-text-fill: white;");
-        } else {
-            errorLabel.setText("");
-            scoreFilters.put("score", Arrays.asList(criticScoreMinText.getText(), criticScoreMaxText.getText()));
-            wines = wineManager.getFilteredWines(filters, scoreFilters);
-            initTable(wines);
-        }
+        search();
     }
 
     /**
@@ -230,10 +216,26 @@ public class SearchPageController {
 
     @FXML
     private void searchPressed() {
-        List<Wine> searchedWines;
+        search();
+    }
+
+    private void search() {
         String search = searchText.getText();
-        searchedWines = wineManager.searchWines(search);
-        initTable(searchedWines);
+        if ((Objects.equals(criticScoreMinText.getText(), "") && !(Objects.equals(criticScoreMaxText.getText(), ""))) || (!(Objects.equals(criticScoreMinText.getText(), "")) && Objects.equals(criticScoreMaxText.getText(), ""))) {
+            errorLabel.setText("Please input both scores");
+            errorLabel.setStyle("-fx-text-fill: white;");
+        } else if (!validScore(criticScoreMaxText.getText()) || !validScore(criticScoreMinText.getText())){
+            errorLabel.setText("Please enter integers");
+            errorLabel.setStyle("-fx-text-fill: white");
+        } else if (!Objects.equals(criticScoreMaxText.getText(), "") && !Objects.equals(criticScoreMinText.getText(), "") && (Integer.parseInt(criticScoreMaxText.getText()) <= Integer.parseInt(criticScoreMinText.getText()))) {
+            errorLabel.setText("Please have from <= to");
+            errorLabel.setStyle("-fx-text-fill: white;");
+        } else {
+            errorLabel.setText("");
+            scoreFilters.put("score", Arrays.asList(criticScoreMinText.getText(), criticScoreMaxText.getText()));
+            wines = wineManager.getFilteredWines(filters, scoreFilters, search);
+            initTable(wines);
+        }
     }
 
     /**

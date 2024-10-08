@@ -70,7 +70,7 @@ public class WineManager {
      *                     the score.
      * @return A list of wines based on the filters.
      */
-    public List<Wine> getFilteredWines(Map<String, String> filters, Map<String, List<String>> scoreFilters) { return wineDAO.getFilteredWines(filters, scoreFilters); }
+    public List<Wine> getFilteredWines(Map<String, String> filters, Map<String, List<String>> scoreFilters, String search) { return wineDAO.getFilteredWines(filters, scoreFilters, search); }
 
     /**
      * Gets all the distinct strings or values in a column in the wine database.

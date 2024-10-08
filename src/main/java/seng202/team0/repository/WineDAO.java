@@ -60,7 +60,8 @@ public class WineDAO implements DAOInterface<Wine> {
      * @param scoreFilters map of score filters
      * @return a list of the wines
      */
-    public List<Wine> getFilteredWines(Map<String, String> filters, Map<String, List<String>> scoreFilters) {
+    public List<Wine> getFilteredWines(Map<String, String> filters, Map<String, List<String>> scoreFilters, String search) {
+        boolean searchIncluded = false;
         List<Wine> wines = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT * FROM wines WHERE 1=1");
         for (Map.Entry<String, String> filter : filters.entrySet()) {
@@ -100,6 +101,17 @@ public class WineDAO implements DAOInterface<Wine> {
             sql.append(" INTERSECT ");
             sql.append(sqlScores.toString());
         }
+
+        StringBuilder sqlSearch = new StringBuilder("SELECT * FROM wines WHERE " + "type LIKE ? OR " + "name LIKE ? OR "
+                + "winery LIKE ? OR " + "region LIKE ? OR " + "description LIKE ?");
+
+        if (search != "") {
+            sql.append(" INTERSECT ");
+            sql.append(sqlSearch);
+            searchIncluded = true;
+        }
+
+
         try(Connection conn = databaseManager.connect();
             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
             int index = 1;
@@ -112,7 +124,14 @@ public class WineDAO implements DAOInterface<Wine> {
             if (criticScoreIncluded) {
                 List<String> bounds = scoreFilters.get("score");
                 ps.setObject(index++, bounds.get(1));
-                ps.setObject(index, bounds.get(0));
+                ps.setObject(index++, bounds.get(0));
+            }
+            if (searchIncluded) {
+                int indexMax = index + 4;
+                String formattedSearchText = "%" + search + "%";
+                for (int index2 = index; index2<=indexMax; index2++) {
+                    ps.setObject(index2, formattedSearchText);
+                }
             }
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -125,6 +144,36 @@ public class WineDAO implements DAOInterface<Wine> {
         }
 
     }
+
+    public List<Wine> searchWines(String searchText) {
+        List<Wine> wineList = new ArrayList<>();
+        String sql = "SELECT * FROM wines WHERE " + "type LIKE ? OR " + "name LIKE ? OR "
+                + "winery LIKE ? OR " + "region LIKE ? OR " + "description LIKE ?";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            String formattedSearchText = "%" + searchText + "%";
+            for (int i = 1; i <= 5; i++) {
+                pstmt.setString(i, formattedSearchText);
+            }
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                Wine wine = new Wine(
+                        resultSet.getString("type"),
+                        resultSet.getString("name"),
+                        resultSet.getString("winery"),
+                        resultSet.getInt("vintage"),
+                        resultSet.getInt("score"),
+                        resultSet.getString("region"),
+                        resultSet.getString("description")
+                );
+                wineList.add(wine);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return wineList;
+    }
+
     /**
      * Method for getting all the distinct values of a column from the wine table + SQL INJECTION Protection with hecking val column (WILL NEED TO CHANGE IF CHANGE WINE table)
      * @param column column which all the distinct values are needed
@@ -576,34 +625,5 @@ public class WineDAO implements DAOInterface<Wine> {
             }
         }
         return givenWine;
-    }
-
-    public List<Wine> searchWines(String searchText) {
-        List<Wine> wineList = new ArrayList<>();  // Renamed to match naming conventions like `NewWine` in getSimilarVintage
-        String sql = "SELECT * FROM wines WHERE " + "type LIKE ? OR " + "name LIKE ? OR "
-                + "winery LIKE ? OR " + "region LIKE ? OR " + "description LIKE ?";
-        try (Connection conn = databaseManager.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            String formattedSearchText = "%" + searchText + "%";
-            for (int i = 1; i <= 5; i++) {
-                pstmt.setString(i, formattedSearchText);
-            }
-            ResultSet resultSet = pstmt.executeQuery();
-            while (resultSet.next()) {
-                Wine wine = new Wine(
-                        resultSet.getString("type"),
-                        resultSet.getString("name"),
-                        resultSet.getString("winery"),
-                        resultSet.getInt("vintage"),
-                        resultSet.getInt("score"),
-                        resultSet.getString("region"),
-                        resultSet.getString("description")
-                );
-                wineList.add(wine);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return wineList;
     }
 }
