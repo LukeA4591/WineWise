@@ -2,10 +2,8 @@ package seng202.team0.gui;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -149,7 +147,6 @@ public class ImportPreviewController {
         String headerMessage;
         Stage stage = (Stage) dataTable.getScene().getWindow();
         List<Integer> headerIndexes = importPreviewService.getHeaderIndexes(Arrays.asList(headers), headerArray);
-        System.out.println(headerIndexes.get(0));
         if ((headerMessage = importPreviewService.checkHeaders(headerArray, data, headerIndexes)).isEmpty()) {
             Platform.runLater(() -> {
                 appEnvironment.setLoadingScreenOwner(stage);

@@ -1,12 +1,10 @@
 package seng202.team0.unittests.services;
 
-import org.apache.poi.util.ArrayUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seng202.team0.services.ImportPreviewService;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
