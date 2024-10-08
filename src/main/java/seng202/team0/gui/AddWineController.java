@@ -1,5 +1,6 @@
 package seng202.team0.gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -62,7 +63,7 @@ public class AddWineController {
         if (wine != null) {
 
             if (!wineManager.checkIfWineExists(wine)) {
-
+                System.out.println("Adding wine");
                 saveNewWineMessage.setStyle("-fx-text-fill: #008000");
                 saveNewWineMessage.setText("New wine saved.");
                 wineWineryName.setText("");
@@ -72,15 +73,25 @@ public class AddWineController {
                 wineTypeToggle.selectToggle(wineTypeWhite);
                 wineRegion.setText("");
                 wineDescription.setText("");
-
                 wineManager.add(wine);
+                closePage();
 
-                goBackToAdmin();
             } else {
                 saveNewWineMessage.setText("Wine Already Exists in the Database");
                 saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
             }
         }
+    }
+
+    private void closePage() {
+        Platform.runLater(() -> {
+            try {
+                Thread.sleep(5000);
+                goBackToAdmin();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     /**
