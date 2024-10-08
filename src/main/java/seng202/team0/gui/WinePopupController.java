@@ -141,6 +141,9 @@ public class WinePopupController {
         wineUserRatingButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
     }
 
+    /**
+     * onAction method for clicking the close button, will close the wine popup
+     */
     @FXML
     void closeButtonPressed() {
         Stage stage = (Stage) (wineCloseButton.getScene().getWindow());
