@@ -12,9 +12,9 @@
    <top>
       <AnchorPane fx:id="navWindow" prefHeight="80.0" prefWidth="900.0" styleClass="nav-Window" stylesheets="@../style/navbar.css" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="HomeLogo" fitHeight="100.0" fitWidth="125.0" layoutX="388.0" layoutY="-15.0" onMouseClicked="#homePressed" preserveRatio="true">
+            <ImageView fx:id="HomeLogo" fitHeight="85.0" fitWidth="116.0" layoutX="394.0" layoutY="-12.0" onMouseClicked="#homePressed" preserveRatio="true">
                <image>
-                  <Image url="@../images/winewiselogocropped.png" />
+                  <Image url="@../images/winewiselogocroppedResized2.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -52,7 +52,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Pane fx:id="doNotDelete" blendMode="EXCLUSION" layoutX="388.0" layoutY="-22.0" onMouseClicked="#homePressed" prefHeight="100.0" prefWidth="125.0">
+            <Pane fx:id="doNotDelete" blendMode="EXCLUSION" layoutX="388.0" layoutY="-19.0" onMouseClicked="#homePressed" prefHeight="100.0" prefWidth="125.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
