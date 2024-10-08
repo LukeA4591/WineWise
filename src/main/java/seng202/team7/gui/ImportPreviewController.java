@@ -93,6 +93,7 @@ public class ImportPreviewController {
 
     private void initCSVTable() {
         dataTable.getColumns().clear();
+        dataTable.getItems().clear();
         for (int i = 0; i < headers.length; i++) {
             final int index = i;
             TableColumn<String[], String> column = new TableColumn<>(headers[i]);
@@ -107,6 +108,7 @@ public class ImportPreviewController {
     private void initPreviewTable(List<Integer> headerIndexes) {
         String[] wineHeaders = new String[]{"Type", "Name", "Winery", "Vintage", "Score", "Region", "Description"};
         dataTable.getColumns().clear();
+        dataTable.getItems().clear();
         for (int i = 0; i < headerIndexes.size(); i++) {
             int index = headerIndexes.get(i);
             TableColumn<String[], String> column = new TableColumn<>(wineHeaders[i]);
@@ -146,7 +148,8 @@ public class ImportPreviewController {
         List<String> headerArray = getComboBoxHeaders();
         String headerMessage;
         Stage stage = (Stage) dataTable.getScene().getWindow();
-        if ((headerMessage = importPreviewService.checkHeaders(headerArray)).isEmpty()) {
+        List<Integer> headerIndexes = importPreviewService.getHeaderIndexes(Arrays.asList(headers), headerArray);
+        if ((headerMessage = importPreviewService.checkHeaders(headerArray, data, headerIndexes)).isEmpty()) {
             Platform.runLater(() -> {
                 appEnvironment.setLoadingScreenOwner(stage);
                 appEnvironment.showLoadingScreen();
@@ -173,13 +176,12 @@ public class ImportPreviewController {
         if (Objects.equals(changeTableButton.getText(), "Preview import")) {
             List<String> headerArray = getComboBoxHeaders();
             String headerMessage;
-            if ((headerMessage = importPreviewService.checkHeaders(headerArray)).isEmpty()) {
-                List<Integer> headerIndexes = importPreviewService.getHeaderIndexes(Arrays.asList(headers), headerArray);
-//                List<Wine> wines = importPreviewService.getPreviewWines(data, headerIndexes);
+            List<Integer> headerIndexes = importPreviewService.getHeaderIndexes(Arrays.asList(headers), headerArray);
+            if ((headerMessage = importPreviewService.checkHeaders(headerArray, data, headerIndexes)).isEmpty()) {
                 initPreviewTable(headerIndexes);
+                changeTableButton.setText("Preview CSV");
             }
             tableErrorMessageLabel.setText(headerMessage);
-            changeTableButton.setText("Preview CSV");
         } else {
             initCSVTable();
             tableErrorMessageLabel.setText("");
