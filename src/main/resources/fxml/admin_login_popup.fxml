@@ -5,6 +5,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -14,20 +15,24 @@
       <TextField fx:id="passwordInput" layoutX="235.0" layoutY="173.0" prefHeight="25.0" prefWidth="152.0" />
       <TextField fx:id="usernameInput" layoutX="235.0" layoutY="130.0" prefHeight="25.0" prefWidth="152.0" />
       <PasswordField fx:id="passwordTextInput" layoutX="234.0" layoutY="173.0" prefHeight="25.0" prefWidth="152.0" />
-      <Button fx:id="viewButton" layoutX="392.0" layoutY="169.0" mnemonicParsing="false" onAction="#onViewButtonClicked" styleClass="small-button" text="View" />
-      <Button layoutX="225.0" layoutY="219.0" mnemonicParsing="false" onAction="#onLogin" text="Login" />
-      <Button layoutX="225.0" layoutY="270.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" />
+      <Button fx:id="viewButton" layoutX="407.0" layoutY="169.0" mnemonicParsing="false" onAction="#onViewButtonClicked" styleClass="small-button" text="View" />
+      <Button layoutX="226.0" layoutY="243.0" mnemonicParsing="false" onAction="#onLogin" text="Login" />
+      <Button layoutX="226.0" layoutY="294.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" />
       <Label layoutX="147.0" layoutY="134.0" styleClass="colon-label" text="Username:">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <Label layoutX="149.0" layoutY="177.0" styleClass="colon-label" text="Password:" />
+      <Label layoutX="147.0" layoutY="177.0" styleClass="colon-label" text="Password:" />
       <Label layoutX="225.0" layoutY="24.0" prefHeight="30.0" prefWidth="170.0" styleClass="title-label" text="Admin Login" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="adminLoginErrorLabel" layoutX="209.0" layoutY="210.0" prefHeight="15.0" prefWidth="19.0" textFill="WHITE" />
       <Label layoutX="209.0" layoutY="54.0" styleClass="subtitle-label" text="Please enter details below" />
+      <StackPane layoutX="211.0" layoutY="207.0" prefHeight="30.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="adminLoginErrorLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="colon-label" textFill="RED" />
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>
