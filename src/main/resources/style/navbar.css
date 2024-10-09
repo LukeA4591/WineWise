@@ -16,6 +16,25 @@
     -fx-border-insets: 0;
 }
 
+.table-view .scroll-bar:horizontal { /*removing horizontal scrolll bar*/
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-arrow,
+.table-view *.scroll-bar:horizontal *.decrement-arrow { /*removing horizontal scroll bar arrows */
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
+
 .nav-Window {
     -fx-background-color: white;
 }
