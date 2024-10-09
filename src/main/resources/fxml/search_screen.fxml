@@ -48,7 +48,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="376.0" minWidth="600.0" prefHeight="590.0" prefWidth="900.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team0.gui.SearchPageController">
+<VBox minHeight="376.0" minWidth="600.0" prefHeight="600.0" prefWidth="900.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.gui.SearchPageController">
   <children>
       <GridPane centerShape="false" prefHeight="604.0" prefWidth="900.0">
         <columnConstraints>
@@ -59,7 +59,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane prefHeight="629.0" prefWidth="167.0" styleClass="highlight-rectangle" stylesheets="@../style/navbar.css">
+            <GridPane prefHeight="660.0" prefWidth="167.0" styleClass="highlight-rectangle" stylesheets="@../style/navbar.css">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
