@@ -31,5 +31,10 @@
          </font>
       </Button>
       <Label layoutX="697.0" layoutY="14.0" styleClass="subheader-label" stylesheets="@../style/navbar.css" text="Select winery to remove" />
+      <Label fx:id="addressErrorLabel" layoutX="683.0" layoutY="37.0" prefHeight="40.0" prefWidth="209.0" stylesheets="@../style/navbar.css">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

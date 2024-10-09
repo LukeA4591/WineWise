@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -41,6 +42,8 @@ public class AdminMapPageController {
     private Button backButton;
     @FXML
     private ListView<String> wineryList;
+    @FXML
+    private Label addressErrorLabel;
 
     void init(AppEnvironment appEnvironment, Stage stage) {
         this.appEnvironment = appEnvironment;
@@ -128,7 +131,11 @@ public class AdminMapPageController {
     private void searchPressed() {
         String address = addressText.getText();
         Position coords = geolocator.queryAddress(address);
-        javaScriptBridge.setWineryFromClick(coords.toString());
-        setWineryList();
+        if (coords.getLng() != -1000) {
+            javaScriptBridge.setWineryFromClick(coords.toString());
+            setWineryList();
+        } else {
+            addressErrorLabel.setText("Address not found, please try again or select the map.");
+        }
     }
 }

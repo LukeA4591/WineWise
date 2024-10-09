@@ -6,6 +6,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -36,6 +37,9 @@ public class Geolocator {
             // Parsing the json response to get the latitude and longitude co-ordinates
             JSONParser parser = new JSONParser();
             JSONArray results = (JSONArray)  parser.parse(response.body());
+            if (results.size() == 0) {
+                return new Position(-1000, -1000);
+            }
             JSONObject bestResult = (JSONObject) results.get(0);
             double lat = Double.parseDouble((String) bestResult.get("lat"));
             double lng = Double.parseDouble((String) bestResult.get("lon"));
@@ -46,6 +50,6 @@ public class Geolocator {
             System.err.println(ie);
             Thread.currentThread().interrupt();
         }
-        return new Position(0d, 0d);
+        return new Position(-1000, -1000);
     }
 }
