@@ -11,7 +11,7 @@ public class WineModelTest {
         Wine wine = new Wine("Red", "A red wine", "Lakes Winery", 2018, 90, "Canterbury", "This is a wine from canterbury");
         Assertions.assertEquals("Red", wine.getColor());
         Assertions.assertEquals("A red wine", wine.getWineName());
-        Assertions.assertEquals("Lakes Winery", wine.getWineName());
+        Assertions.assertEquals("Lakes Winery", wine.getWineryString());
         Assertions.assertEquals(2018, wine.getVintage());
         Assertions.assertEquals(90, wine.getScore());
         Assertions.assertEquals("Canterbury", wine.getRegion());

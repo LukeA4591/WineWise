@@ -14,7 +14,7 @@ import seng202.team7.repository.DatabaseManager;
 
 import java.util.List;
 
-public class ReviewStepDefs {
+public class ReviewDAOStepDefs {
 
     private Review review;
     private String description;
