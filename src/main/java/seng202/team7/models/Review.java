@@ -39,6 +39,14 @@ public class Review {
         this.reported = false;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Review review = (Review) o;
+        return reviewID == review.reviewID;
+    }
+
     /**
      * The Getter method for the wine associated with the review
      * @return wine related to review
