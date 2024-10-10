@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
@@ -14,7 +15,10 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import seng202.team7.business.WineryManager;
+import seng202.team7.models.Wine;
 import seng202.team7.models.Winery;
 import seng202.team7.services.AppEnvironment;
 import seng202.team7.services.Geolocator;
@@ -36,6 +40,7 @@ public class AdminMapPageController {
     private JSObject javaScriptConnector;
     private WineryManager wineryManager;
     private JavaScriptBridge javaScriptBridge;
+    private static final Logger log = LogManager.getLogger(AdminMapPageController.class);
     @FXML
     private Button backButton;
     @FXML
@@ -105,6 +110,21 @@ public class AdminMapPageController {
                     } else {
                         setStyle("-fx-background-color: #a6f2ad");
                     }
+                }
+            }
+        });
+        wineryList.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.DELETE || e.getCode() == KeyCode.BACK_SPACE) {
+                try {
+                    Winery selectedWinery = wineryList.getSelectionModel().getSelectedItem();
+                    if (selectedWinery.getLongitude() != null && selectedWinery.getLatitude() != null) {
+                        removeMarker(selectedWinery.getWineryName());
+                    }
+                    wineryList.getItems().remove(selectedWinery);
+                    wineryManager.delete(selectedWinery.getWineryName());
+                } catch (NullPointerException nullPointerException) {
+                    log.warn("No wine selected for delete");
+                    log.warn(nullPointerException.getMessage());
                 }
             }
         });

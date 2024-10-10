@@ -37,4 +37,6 @@ public class WineryManager {
     public List<Winery> getAllWithValidLocation() {return wineryDAO.getAllWithValidLocation(); }
 
     public Winery getWineryByName(String wineryName) {return wineryDAO.getWineryByName(wineryName); }
+
+    public void delete(String name) { wineryDAO.delete(name); }
 }
