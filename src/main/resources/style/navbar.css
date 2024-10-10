@@ -64,6 +64,11 @@
     -fx-pref-width: 100;
 }
 
+.button-add-winery {
+    -fx-pref-height: 20;
+    -fx-pref-width: 120;
+}
+
 .small-button {
     -fx-text-fill: black;
     -fx-font-size: 14px;

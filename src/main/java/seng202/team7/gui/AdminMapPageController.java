@@ -59,6 +59,28 @@ public class AdminMapPageController {
         stage.close();
     }
 
+    @FXML
+    public void onAddWinery() {
+        try {
+            FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/add_winery.fxml"));
+            AnchorPane root = newStageLoader.load();
+            Scene modalScene = new Scene(root);
+            Stage modalStage = new Stage();
+            modalStage.setScene(modalScene);
+            modalStage.setWidth(600);
+            modalStage.setHeight(454);
+            modalStage.setResizable(false);
+            modalStage.setTitle("Add Wine");
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            Stage primaryStage = (Stage) backButton.getScene().getWindow();
+            modalStage.initOwner(primaryStage);
+            modalStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        setWineryList();
+    }
+
     void setWineryList() {
         List<Winery> wineries = wineryManager.getAllWithNullLocation("");
         ObservableList<String> wineryNames = FXCollections.observableArrayList();
