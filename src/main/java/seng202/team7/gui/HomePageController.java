@@ -76,16 +76,14 @@ public class HomePageController {
     private Label pageLabel;
 
     private int page;
-    private Stage stage;
     private WineManager wineManager;
     private WinePopupService wineService = new WinePopupService();
 
     /**
      * Initializes the HomePageController. Sets the stage and loads the top 3 rated wines to be displayed with their
      * information. If there aren't 3 wines in the database, it doesn't load any.
-     * @param stage The main stage passed from NavBarController.
      */
-    public void init(Stage stage) {
+    public void init() {
         page = 0;
         prevImage.setVisible(false);
         wineManager = new WineManager();

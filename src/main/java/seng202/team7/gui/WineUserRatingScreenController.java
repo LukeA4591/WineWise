@@ -71,6 +71,7 @@ public class WineUserRatingScreenController {
             savedLabel.setText("Saved!");
             savedLabel.setStyle("-fx-text-fill: indigo");
             resetReview();
+            movedSlider = false;
         } else {
             savedLabel.setText("Please Move Slider");
             savedLabel.setStyle("-fx-text-fill: red");
@@ -85,6 +86,7 @@ public class WineUserRatingScreenController {
         ratingSlider.setValue(0);
         reviewTextArea.setText("");
         characterLimitLabel.setText("Characters Remaining: " + MAX_CHARACTERS);
+        savedLabel.setText("");
     }
 
     /**
@@ -93,6 +95,12 @@ public class WineUserRatingScreenController {
     @FXML
     private void sliderMoved() {
         movedSlider = true;
+        savedLabel.setText("");
+    }
+
+    @FXML
+    private void textSelected() {
+        savedLabel.setText("");
     }
 
     @FXML

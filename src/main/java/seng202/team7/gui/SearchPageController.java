@@ -121,6 +121,23 @@ public class SearchPageController {
             });
             return row;
         });
+
+        TextFormatter<String> textFormatterMax = new TextFormatter<>(text -> {
+            if (text.getControlNewText().length() > 3) {
+                return null;
+            }
+            return text;
+        });
+
+        TextFormatter<String> textFormatterMin = new TextFormatter<>(text -> {
+            if (text.getControlNewText().length() > 3) {
+                return null;
+            }
+            return text;
+        });
+
+        criticScoreMaxText.setTextFormatter(textFormatterMax);
+        criticScoreMinText.setTextFormatter(textFormatterMin);
     }
 
     /**
