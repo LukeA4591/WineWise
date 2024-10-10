@@ -17,6 +17,14 @@ public class Winery {
         this.latitude = null;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Winery winery = (Winery) o;
+        return wineryName.equals(winery.wineryName);
+    }
+
     public String getWineryName() {
         return wineryName;
     }
