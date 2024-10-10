@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="900.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.gui.AdminMapPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="900.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.gui.AdminMapPageController">
    <children>
       <Pane layoutX="225.0" layoutY="79.0" prefHeight="545.0" prefWidth="675.0" stylesheets="@../style/navbar.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="79.0">
          <children>
@@ -17,21 +17,15 @@
          </children>
       </Pane>
       <Button fx:id="backButton" layoutX="31.0" layoutY="18.0" mnemonicParsing="false" onAction="#onBackButton" text="Back" />
-      <ListView fx:id="wineryList" layoutX="14.0" layoutY="122.0" prefHeight="485.0" prefWidth="200.0" />
-      <Label layoutX="225.0" layoutY="14.0" styleClass="subheader-label" stylesheets="@../style/navbar.css" text="Enter address or click on map to add winery">
-         <font>
-            <Font size="26.0" />
-         </font>
-      </Label>
+      <ListView fx:id="wineryList" layoutX="14.0" layoutY="123.0" prefHeight="471.0" prefWidth="200.0" />
       <Label layoutX="35.0" layoutY="89.0" styleClass="subheader-label" text="Wineries to add" />
-      <TextField fx:id="addressText" layoutX="225.0" layoutY="46.0" prefHeight="25.0" prefWidth="338.0" promptText="address" />
-      <Button layoutX="574.0" layoutY="40.0" mnemonicParsing="false" onAction="#searchPressed" prefHeight="14.0" prefWidth="112.0" styleClass="button-search" text="Search">
+      <TextField fx:id="addressText" layoutX="344.0" layoutY="30.0" prefHeight="25.0" prefWidth="285.0" promptText="Find address" />
+      <Button contentDisplay="CENTER" layoutX="649.0" layoutY="28.0" mnemonicParsing="false" onAction="#searchPressed" prefHeight="14.0" prefWidth="112.0" styleClass="button-search" text="Search">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Label layoutX="697.0" layoutY="14.0" styleClass="subheader-label" stylesheets="@../style/navbar.css" text="Select winery to remove" />
-      <Label fx:id="addressErrorLabel" layoutX="683.0" layoutY="37.0" prefHeight="40.0" prefWidth="209.0" stylesheets="@../style/navbar.css">
+      <Label fx:id="addressErrorLabel" layoutX="770.0" layoutY="25.0" prefHeight="40.0" prefWidth="100.0" stylesheets="@../style/navbar.css">
          <font>
             <Font size="11.0" />
          </font>

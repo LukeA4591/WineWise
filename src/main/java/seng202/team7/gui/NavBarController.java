@@ -7,6 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seng202.team7.services.AppEnvironment;
@@ -20,6 +23,10 @@ public class NavBarController {
 
     @FXML
     private BorderPane mainWindow;
+    @FXML
+    private ImageView homeLogo;
+    @FXML
+    private Pane logoSelectPane;
     private Stage stage;
     private AppEnvironment appEnvironment;
 
@@ -41,7 +48,7 @@ public class NavBarController {
             }
         });
         loadHomePage();
-
+        setLogoHover();
     }
 
     /**
@@ -200,5 +207,14 @@ public class NavBarController {
      */
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    private void setLogoHover() {
+        ColorAdjust colorAdjust = new ColorAdjust();
+
+        logoSelectPane.setOnMouseEntered(event -> {colorAdjust.setBrightness(0.5);
+            homeLogo.setEffect(colorAdjust);});
+        logoSelectPane.setOnMouseExited(event -> {colorAdjust.setBrightness(0);
+            homeLogo.setEffect(colorAdjust);});
     }
 }

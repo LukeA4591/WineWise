@@ -94,7 +94,7 @@ public class AdminMapPageController {
 
     private void addWineryMarker(Winery winery) {
         javaScriptConnector.call("addMarker", winery.getWineryName(), winery.getLatitude(), winery.getLongitude());
-
+        setWineryList();
     }
 
     private void removeMarker(String wineryName) {
@@ -128,13 +128,14 @@ public class AdminMapPageController {
 
     @FXML
     private void searchPressed() {
+        addressErrorLabel.setText("");
         String address = addressText.getText();
         Position coords = geolocator.queryAddress(address);
         if (coords.getLng() != -1000) {
             javaScriptBridge.setWineryFromClick(coords.toString());
             setWineryList();
         } else {
-            addressErrorLabel.setText("Address not found, please try again or select the map.");
+            addressErrorLabel.setText("Address not found.");
         }
     }
 }

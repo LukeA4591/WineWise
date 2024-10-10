@@ -222,3 +222,7 @@
 .text {
     -fx-background-color: #e0e0e0;
 }
+
+.pressable-button:hover {
+    -fx-opacity: 40%;
+}
