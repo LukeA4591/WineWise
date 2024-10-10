@@ -101,6 +101,9 @@ public class AddWineController {
         });
     }
 
+    /**
+     * Tied to UI button "Cancel" to close out the Add Wine Page
+     */
     @FXML
     private void closePressed() {
         Stage stage = (Stage) (wineName.getScene().getWindow());

@@ -54,6 +54,9 @@ public class AdminViewWinesController {
         initTables();
     }
 
+    /**
+     * Tied to UI button "Close" to close out the View Wines Pop up
+     */
     @FXML
     private void closePressed() {
         Stage stage = (Stage) (wineTable.getScene().getWindow());
