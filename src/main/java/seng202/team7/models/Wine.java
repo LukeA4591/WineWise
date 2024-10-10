@@ -33,6 +33,13 @@ public class Wine {
         this.description = description;
     }
 
+    /**
+     * An override method for equals which allows two wine objects to be compared based on their wineName, vintage, and
+     * winery. Since each wine with have a unique combination of these 3 attributes, if they both have the same then they
+     * will be referring to the same wine.
+     * @param o The wine that is being compared to the current wine
+     * @return True if they are same and false if they are not
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,8 +57,8 @@ public class Wine {
     }
 
     /**
-     * The Getter method for the volume of the wine
-     * @return volume
+     * The Getter method for the region of the wine
+     * @return region
      */
     public String getRegion() {
         return region;
@@ -90,13 +97,11 @@ public class Wine {
     }
 
     /**
-     * returns winerystring
+     * The Getter method for the name of the wine's winery
      * @return wineryString
      */
     public String getWineryString() {
         return wineryString;
     }
-
-
 
 }
