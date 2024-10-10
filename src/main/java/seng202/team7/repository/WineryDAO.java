@@ -63,6 +63,7 @@ public class WineryDAO implements DAOInterface<Winery> {
         String sql = "INSERT OR IGNORE INTO wineries (wineryName, longitude, latitude) VALUES (?, ?, ?);";
         try (Connection conn = databaseManager.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
+            conn.setAutoCommit(false);
             for (Winery toAdd : wineries) {
                 ps.setString(1, toAdd.getWineryName());
                 if (toAdd.getLatitude() != null && toAdd.getLatitude() != null) {
@@ -77,6 +78,7 @@ public class WineryDAO implements DAOInterface<Winery> {
                 log.info(rs.getLong(1));
             }
             conn.commit();
+            conn.setAutoCommit(true);
         } catch (SQLException sqlException) {
             log.error(sqlException);
         }
