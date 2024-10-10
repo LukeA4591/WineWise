@@ -102,7 +102,15 @@ public class AdminScreenController {
         flaggedColumn.setMinWidth(60);
         flaggedColumn.setMaxWidth(60);
         flaggedColumn.setPrefWidth(60);
-        flaggedColumn.setCellFactory(column -> new TableCell<Review, Boolean>() {
+
+        setFlaggedColumnCellFactory();
+        setReviewColumnCellFactory();
+
+        reviewTable.setItems(observableWineReviews);
+    }
+
+    private void setFlaggedColumnCellFactory() {
+        flaggedColumn.setCellFactory(column -> new TableCell<>() {
             private final CheckBox checkBox = new CheckBox();
 
             @Override
@@ -124,8 +132,10 @@ public class AdminScreenController {
                 }
             }
         });
+    }
 
-        reviewColumn.setCellFactory(column -> new TableCell<Review, String>() {
+    private void setReviewColumnCellFactory() {
+        reviewColumn.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -146,7 +156,6 @@ public class AdminScreenController {
                 });
             }
         });
-        reviewTable.setItems(observableWineReviews);
     }
 
     /**
