@@ -102,6 +102,15 @@ public class AddWineController {
     }
 
     /**
+     * Tied to UI button "Cancel" to close out the Add Wine Page
+     */
+    @FXML
+    private void closePressed() {
+        Stage stage = (Stage) (wineName.getScene().getWindow());
+        stage.close();
+    }
+
+    /**
      * Checks to see if the text fields were all filled with valid inputs. If at least one of the text fields were not
      * filled in correctly, it will set an error message with a description of the error. If all the fields were
      * correct, it will tell the user that the wine has been saved.

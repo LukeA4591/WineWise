@@ -31,6 +31,13 @@ public class NavBarController {
     private AppEnvironment appEnvironment;
 
     /**
+     * Integer between 0-3 to indicate which page user is on to avoid
+     * loading same page user is on when UI button is clicked
+     * 0 - Home, 1 - Search, 2 - Map, 3 - Help
+     */
+    private int currentPage = 0;
+
+    /**
      * NavBarController initializer, needs to be empty for FXML
      */
     public NavBarController() {
@@ -141,12 +148,18 @@ public class NavBarController {
      */
     @FXML
     private void homePressed() {
-        showPageWithLoadingScreen(this::loadHomePage);
+        if (currentPage != 0) {
+            currentPage = 0;
+            showPageWithLoadingScreen(this::loadHomePage);
+        }
     }
 
     @FXML
     private void helpPressed() {
-        showPageWithLoadingScreen(this::loadHelpPage);
+        if (currentPage != 3) {
+            currentPage = 3;
+            showPageWithLoadingScreen(this::loadHelpPage);
+        }
     }
 
     /**
@@ -154,12 +167,18 @@ public class NavBarController {
      */
     @FXML
     private void searchPressed() {
-        showPageWithLoadingScreen(this::loadSearchPage);
+        if (currentPage != 1) {
+            currentPage = 1;
+            showPageWithLoadingScreen(this::loadSearchPage);
+        }
     }
 
     @FXML
     void mapPressed() {
-        showPageWithLoadingScreen(this::loadMapPage);
+        if (currentPage != 2) {
+            currentPage = 2;
+            showPageWithLoadingScreen(this::loadMapPage);
+        }
     }
 
     /**
