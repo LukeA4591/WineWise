@@ -6,11 +6,9 @@ import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
@@ -24,6 +22,7 @@ import seng202.team7.services.JavaScriptBridge;
 import seng202.team7.services.Position;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 public class AdminMapPageController {
@@ -40,7 +39,7 @@ public class AdminMapPageController {
     @FXML
     private Button backButton;
     @FXML
-    private ListView<String> wineryList;
+    private ListView<Winery> wineryList;
     @FXML
     private Label addressErrorLabel;
 
@@ -82,12 +81,33 @@ public class AdminMapPageController {
     }
 
     void setWineryList() {
-        List<Winery> wineries = wineryManager.getAllWithNullLocation("");
-        ObservableList<String> wineryNames = FXCollections.observableArrayList();
-        for (Winery winery : wineries) {
-            wineryNames.add(winery.getWineryName());
-        }
+//        List<Winery> wineries = wineryManager.getAllWithNullLocation("");
+//        ObservableList<String> wineryNames = FXCollections.observableArrayList();
+//        for (Winery winery : wineries) {
+//            wineryNames.add(winery.getWineryName());
+//        }
+//        wineryList.setItems(wineryNames);
+        List<Winery> wineries = wineryManager.getAll();
+        wineries.sort(Comparator.comparing(Winery::getWineryName));
+        ObservableList<Winery> wineryNames = FXCollections.observableArrayList(wineries);
         wineryList.setItems(wineryNames);
+        wineryList.setCellFactory(cell -> new ListCell<>() {
+            @Override
+            protected void updateItem(Winery winery, boolean empty) {
+                super.updateItem(winery, empty);
+                if (empty || winery == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(winery.getWineryName());
+                    if (winery.getLatitude() == null || winery.getLongitude() == null) {
+                        setStyle("-fx-background-color: #ffb3b3");
+                    } else {
+                        setStyle("-fx-background-color: #a6f2ad");
+                    }
+                }
+            }
+        });
     }
 
     void initMap() {
