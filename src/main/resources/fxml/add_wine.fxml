@@ -67,11 +67,16 @@
         <RadioButton fx:id="wineTypeRed" layoutX="254.0" layoutY="200.0" mnemonicParsing="false" text="Red" toggleGroup="$wineTypeToggle" />
         <RadioButton fx:id="wineTypeRose" layoutX="344.0" layoutY="200.0" mnemonicParsing="false" text="Rose" toggleGroup="$wineTypeToggle" />
         <TextField fx:id="wineRegion" layoutX="160.0" layoutY="239.0" prefHeight="24.0" prefWidth="320.0" />
-        <Button layoutX="225.0" layoutY="381.0" mnemonicParsing="false" onAction="#saveNewWine" text="Save New Wine">
+        <Button layoutX="300.0" layoutY="381.0" mnemonicParsing="false" onAction="#saveNewWine" text="Save New Wine">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Button>
       <TextArea fx:id="wineDescription" layoutX="160.0" layoutY="290.0" prefHeight="71.0" prefWidth="320.0" />
+      <Button layoutX="100.0" layoutY="381.0" mnemonicParsing="false" onAction="#closePressed" text="Cancel">
+         <font>
+            <Font name="Liberation Sans Bold" size="13.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

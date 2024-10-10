@@ -2,6 +2,7 @@ package seng202.team7.gui;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -99,6 +100,12 @@ public class AddWineController {
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    @FXML
+    private void closePressed() {
+        Stage stage = (Stage) (wineName.getScene().getWindow());
+        stage.close();
     }
 
     /**

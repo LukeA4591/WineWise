@@ -53,6 +53,12 @@ public class AdminViewWinesController {
         wines = wineManager.searchWines(search);
         initTables();
     }
+
+    @FXML
+    private void closePressed() {
+        Stage stage = (Stage) (wineTable.getScene().getWindow());
+        stage.close();
+    }
     /**
      * The table is initialized with the details of all the wines from the database. When a row is selected and either
      * the BACKSPACE or DELETE button is pressed, that wine will be deleted from the database by calling the
