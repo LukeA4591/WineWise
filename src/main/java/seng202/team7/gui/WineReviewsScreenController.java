@@ -54,6 +54,11 @@ public class WineReviewsScreenController {
         selectedReviewText.wrappingWidthProperty().bind(selectedReviewScrollPane.widthProperty().subtract(20));
         selectedReviewScrollPane.setPannable(true);
         selectedReviewScrollPane.setContent(selectedReviewText);
+
+        wineNameLabel.setText(wineNameLabel.getText() + wine.getWineName());
+        wineryLabel.setText(wineryLabel.getText() + wine.getWineryString());
+        vintageLabel.setText(vintageLabel.getText() + wine.getVintage());
+        criticRatingLabel.setText("Critic rating: " + wine.getScore() + " / 100");
     }
 
     /**
@@ -63,16 +68,11 @@ public class WineReviewsScreenController {
     public void displayAllReviews() {
         int wineID = wineManager.getWineID(wine);
         List<Review> wineReviews = reviewManager.getReviewsByWineId(wineID);
-        wineNameLabel.setText(wineNameLabel.getText() + wine.getWineName());
-        wineryLabel.setText(wineryLabel.getText() + wine.getWineryString());
-        vintageLabel.setText(vintageLabel.getText() + wine.getVintage());
-        criticRatingLabel.setText("Critic rating: " + wine.getScore() + " / 100");
-
         ObservableList<Review> observableWineReviews = FXCollections.observableArrayList(wineReviews);
 
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
         reviewColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-        reportColumn.setCellFactory(column -> new TableCell<Review, Boolean>() {
+        reportColumn.setCellFactory(column -> new TableCell<>() {
             private final CheckBox checkBox = new CheckBox();
 
             @Override
@@ -96,7 +96,16 @@ public class WineReviewsScreenController {
             }
         });
 
-        reviewColumn.setCellFactory(column -> new TableCell<Review, String>() {
+        setReviewCellFactory(observableWineReviews);
+
+    }
+
+    /**
+     * Helper method to set the wine reviews table to click to expand
+     * @param observableWineReviews observable list of all reviews on the wine
+     */
+    private void setReviewCellFactory(ObservableList<Review> observableWineReviews) {
+        reviewColumn.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -119,7 +128,6 @@ public class WineReviewsScreenController {
         });
 
         ratingTable.setItems(observableWineReviews);
-
     }
 
 }

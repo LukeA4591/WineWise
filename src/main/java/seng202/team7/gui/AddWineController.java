@@ -40,6 +40,7 @@ public class AddWineController {
     @FXML
     ToggleGroup wineTypeToggle;
     private WineManager wineManager;
+    private final String setLabelRed = "-fx-text-fill: FF0000";
 
     /**
      * Method for going back to admin when the go back button is pressed.
@@ -73,7 +74,7 @@ public class AddWineController {
 
             } else {
                 saveNewWineMessage.setText("Wine Already Exists in the Database");
-                saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
+                saveNewWineMessage.setStyle(setLabelRed);
             }
         }
     }
@@ -121,21 +122,21 @@ public class AddWineController {
             String wineWineryNameString = wineWineryName.getText();
             String wineNameString = wineName.getText();
             if (wineWineryNameString.isEmpty()) {
-                saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
+                saveNewWineMessage.setStyle(setLabelRed);
                 saveNewWineMessage.setText("Winery Name field is empty.");
                 return null;
             } else if (wineNameString.isEmpty()){
-                saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
+                saveNewWineMessage.setStyle(setLabelRed);
                 saveNewWineMessage.setText("Wine Name field is empty.");
                 return null;
             } else if (wineVintage.getText().isEmpty()) {
-                saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
+                saveNewWineMessage.setStyle(setLabelRed);
                 saveNewWineMessage.setText("Wine Vintage field is empty.");
                 return null;
             } else {
                 int wineVintageInt = Integer.parseInt(wineVintage.getText());
                 if (wineVintageInt < 0 || wineVintageInt > Year.now().getValue()) {
-                    saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
+                    saveNewWineMessage.setStyle(setLabelRed);
                     saveNewWineMessage.setText("Vintage should be between 0 and the current year.");
                     return null;
                 }
@@ -145,7 +146,7 @@ public class AddWineController {
                 } else {
                     wineScoreInt = Integer.parseInt(wineScore.getText());
                     if (wineScoreInt < 0 || wineScoreInt > 100) {
-                        saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
+                        saveNewWineMessage.setStyle(setLabelRed);
                         saveNewWineMessage.setText("Score should be between 0-100.");
                         return null;
                     }
@@ -156,7 +157,7 @@ public class AddWineController {
 
                 if (wineWineryNameString.length() > 100 | wineNameString.length() > 100 |
                         wineRegionString.length() > 100 | wineDescriptionString.length() > 1000) {
-                    saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
+                    saveNewWineMessage.setStyle(setLabelRed);
                     saveNewWineMessage.setText("Text fields are too long.");
                     return null;
                 }
@@ -166,7 +167,7 @@ public class AddWineController {
                         wineRegionString, wineDescriptionString);
             }
         } catch (NumberFormatException e) {
-            saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
+            saveNewWineMessage.setStyle(setLabelRed);
             saveNewWineMessage.setText("Wine Vintage and Score should be a number.");
             return null;
         }

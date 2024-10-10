@@ -61,14 +61,57 @@ public class WineDAO implements DAOInterface<Wine> {
     }
 
     /**
-     * Gets a list of wines depending on filters
-     * @param filters map of filters
-     * @param scoreFilters map of score filters
-     * @return a list of the wines
+     * Gets a list of wines depending on filters and a search query, generates a sql string and then calls a helper method to execute it
+     * @param filters User inputted string filters
+     * @param scoreFilters User inputted integer filters
+     * @param search User inputted search query
+     * @return List of filtered wines
      */
     public List<Wine> getFilteredWines(Map<String, String> filters, Map<String, List<String>> scoreFilters, String search) {
         boolean searchIncluded = false;
-        List<Wine> wines = new ArrayList<>();
+        StringBuilder sql = getSqlStringFilters(filters);
+
+        StringBuilder sqlScores = new StringBuilder("SELECT * FROM wines WHERE 1=1");
+        boolean criticScoreIncluded = false;
+        for (Map.Entry<String, List<String>> filter : scoreFilters.entrySet()) {
+            if (!Objects.equals(filter.getValue().get(0), "")) {
+                criticScoreIncluded = true;
+                sqlScores.append(" AND score <= ? ");
+                sqlScores.append(" AND score >= ? ");
+            }
+
+        }
+
+        if (criticScoreIncluded) {
+            sql.append(" INTERSECT ");
+            sql.append(sqlScores);
+        }
+
+        boolean isNum = search.matches("\\d+");
+        StringBuilder sqlSearch;
+        if (!isNum) {
+            sqlSearch = new StringBuilder("SELECT * FROM wines WHERE " + "type LIKE ? OR " + "name LIKE ? OR "
+                    + "winery LIKE ? OR " + "region LIKE ? OR " + "description LIKE ?");
+        } else {
+            sqlSearch = new StringBuilder("SELECT * FROM wines WHERE score = CAST(? AS INTEGER) OR vintage = CAST(? AS INTEGER)");
+        }
+
+        if (!search.isEmpty()) {
+            sql.append(" INTERSECT ");
+            sql.append(sqlSearch);
+            searchIncluded = true;
+        }
+
+        return executeFilterSql(sql, filters, scoreFilters, criticScoreIncluded, searchIncluded, search, isNum);
+
+    }
+
+    /**
+     * Helper function for getting filtered wines
+     * @param filters the string filters that the user has submitted
+     * @return StringBuilder of the sql query getting string filters
+     */
+    private StringBuilder getSqlStringFilters(Map<String, String> filters) {
         StringBuilder sql = new StringBuilder("SELECT * FROM wines WHERE 1=1");
         for (Map.Entry<String, String> filter : filters.entrySet()) {
             String key = filter.getKey();
@@ -88,41 +131,28 @@ public class WineDAO implements DAOInterface<Wine> {
                     case "region":
                         sql.append(" AND region = ?");
                         break;
+                    default:
+                        break;
                 }
             }
         }
 
-        StringBuilder sqlScores = new StringBuilder("SELECT * FROM wines WHERE 1=1");
-        boolean criticScoreIncluded = false;
-        for (Map.Entry<String, List<String>> filter : scoreFilters.entrySet()) {
-            if (!Objects.equals(filter.getValue().get(0), "")) {
-                criticScoreIncluded = true;
-                sqlScores.append(" AND score <= ? ");
-                sqlScores.append(" AND score >= ? ");
-            }
+        return sql;
+    }
 
-        }
-
-        if (criticScoreIncluded) {
-            sql.append(" INTERSECT ");
-            sql.append(sqlScores.toString());
-        }
-        boolean isNum = search.matches("\\d+");
-        StringBuilder sqlSearch;
-        if (!isNum) {
-            sqlSearch = new StringBuilder("SELECT * FROM wines WHERE " + "type LIKE ? OR " + "name LIKE ? OR "
-                    + "winery LIKE ? OR " + "region LIKE ? OR " + "description LIKE ?");
-        } else {
-            sqlSearch = new StringBuilder("SELECT * FROM wines WHERE score = CAST(? AS INTEGER) OR vintage = CAST(? AS INTEGER)");
-        }
-
-        if (search != "") {
-            sql.append(" INTERSECT ");
-            sql.append(sqlSearch);
-            searchIncluded = true;
-        }
-
-
+    /**
+     * Helps the filtered wine method to execute the sql query
+     * @param sql sql query
+     * @param filters user inputted string filters
+     * @param scoreFilters user inputted score filters
+     * @param criticScoreIncluded bool if critic score is included
+     * @param searchIncluded bool if search is included
+     * @param search search string
+     * @param isNum bool to determine if search in an integer
+     * @return
+     */
+    private List<Wine> executeFilterSql(StringBuilder sql, Map<String, String> filters, Map<String, List<String>> scoreFilters, boolean criticScoreIncluded, boolean searchIncluded, String search, boolean isNum) {
+        List<Wine> wines = new ArrayList<>();
         try(Connection conn = databaseManager.connect();
             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
             int index = 1;
@@ -158,8 +188,8 @@ public class WineDAO implements DAOInterface<Wine> {
             log.error(sqlException);
             return new ArrayList<>();
         }
-
     }
+
     /**
      * Method for getting all the distinct values of a column from the wine table + SQL INJECTION Protection with hecking val column (WILL NEED TO CHANGE IF CHANGE WINE table)
      * @param column column which all the distinct values are needed
