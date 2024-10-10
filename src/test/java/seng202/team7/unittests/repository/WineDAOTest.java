@@ -154,4 +154,116 @@ public class WineDAOTest {
         Wine RandomWine = wineDao.getRandomOtherWine(NewWine);
         Assertions.assertNotEquals("Plume Pinot Noir", RandomWine.getWineName());
     }
+
+    @Test
+    public void testSuccessfulUpdateWineNotKeyAttribute() throws DuplicateExc {
+        populateDatabase();
+        Wine oldWine = new Wine("Red", "Plume Pinot Noir", "Lake Chalice", 2019, 80, "Marlborough", "High quality wine with woody notes");
+        Wine newWine = new Wine("Red", "Plume Pinot Noir", "Lake Chalice", 2019, 90, "Marlborough", "High quality wine with woody notes");
+        wineDao.updateWine(newWine, oldWine);
+        Assertions.assertTrue(wineDao.getAll().contains(newWine));
+        Wine newWineFromDB = wineDao.getWineFromID(wineDao.getWineID(newWine));
+        Assertions.assertEquals(90, newWineFromDB.getScore());
+    }
+
+    @Test
+    public void testSuccessfulUpdateWineKeyAttribute() throws DuplicateExc {
+        populateDatabase();
+        Wine oldWine = new Wine("Red", "Plume Pinot Noir", "Lake Chalice", 2019, 80, "Marlborough", "High quality wine with woody notes");
+        Wine newWine = new Wine("Red", "Plume Pinot Noir But Better", "Lake Chalice", 2019, 90, "Marlborough", "High quality wine with woody notes");
+        boolean success = wineDao.updateWine(newWine, oldWine);
+
+        Assertions.assertTrue(success);
+        Assertions.assertTrue(wineDao.getAll().contains(newWine));
+        Assertions.assertFalse(wineDao.getAll().contains(oldWine));
+
+        Wine newWineFromDB = wineDao.getWineFromID(wineDao.getWineID(newWine));
+        Assertions.assertEquals(90, newWineFromDB.getScore());
+        Assertions.assertEquals("Plume Pinot Noir But Better", newWineFromDB.getWineName());
+    }
+
+    @Test
+    public void testUnsuccessfulUpdateWine() throws DuplicateExc {
+        populateDatabase();
+        Wine oldWine = new Wine("Red", "Plume Pinot Noir", "Lake Chalice", 2019, 80, "Marlborough", "High quality wine with woody notes");
+        Wine newWine = new Wine("White", "Plume Sav", "Lake Chalice", 2019, 85, "Marlborough", "So tasty");
+        boolean success = wineDao.updateWine(newWine, oldWine);
+
+        Assertions.assertFalse(success);
+        Assertions.assertTrue(wineDao.getAll().contains(oldWine));
+    }
+
+    @Test
+    public void testSearchWineSuccess() throws DuplicateExc {
+        populateDatabase();
+        List<Wine> wines = wineDao.searchWines("Lake Chalice");
+
+        Wine wine1 = new Wine("Red", "Plume Pinot Noir", "Lake Chalice", 2019, 80, "Marlborough", "High quality wine with woody notes");
+        Wine wine2 = new Wine("White", "Plume Sav", "Lake Chalice", 2019, 85, "Marlborough", "So tasty");
+
+        Assertions.assertEquals(2, wines.size());
+        Assertions.assertTrue(wines.contains(wine1));
+        Assertions.assertTrue(wines.contains(wine2));
+    }
+
+    @Test
+    public void testSearchWineNoWines() throws DuplicateExc {
+        populateDatabase();
+        List<Wine> wines = wineDao.searchWines("This is a huge string that makes no sense and no wines will have anything to do with it!");
+        Assertions.assertEquals(0, wines.size());
+    }
+
+    @Test
+    public void testAddBatch() {
+        Wine wine1 = new Wine("Red", "Plume Pinot Noir", "Lake Chalice", 2019, 80, "Marlborough", "High quality wine with woody notes");
+        Wine wine2 = new Wine("White", "Plume Sav", "Lake Chalice", 2019, 85, "Marlborough", "So tasty");
+        Wine wine3 = new Wine("Rose", "Rosy Rose", "Lakes Winery", 2020, 90, "Otago", "Very rosy");
+        Wine wine4 = new Wine("White", "Bland Blanc", "Fields of Grapes", 2019, 50, "Canterbury", "Bland and boring");
+
+        List<Wine> wines = Arrays.asList(wine1, wine2, wine3, wine4);
+
+        wineDao.addBatch(wines);
+
+        List<Wine> winesFromDB = wineDao.getAll();
+        Assertions.assertTrue(winesFromDB.contains(wine1));
+        Assertions.assertTrue(winesFromDB.contains(wine2));
+        Assertions.assertTrue(winesFromDB.contains(wine3));
+        Assertions.assertTrue(winesFromDB.contains(wine4));
+    }
+
+    @Test
+    public void testFilteredWinesWithSearch() throws DuplicateExc {
+        populateDatabase();
+
+        filters.put("winery", "Lake Chalice");
+        List<Wine> wines = wineDao.getFilteredWines(filters, scoreFilters, "Plume Sav");
+        Assertions.assertEquals(1, wines.size());
+        Assertions.assertTrue(wines.contains(new Wine("White", "Plume Sav", "Lake Chalice", 2019, 85, "Marlborough", "So tasty")));
+    }
+
+    @Test
+    public void testRecommendedWinesNoSimilar() {
+        Wine wine1 = new Wine("Red", "Plume Pinot Noir", "Lake Chalice", 2019, 80, "Marlborough", "High quality wine with woody notes");
+        Wine wine2 = new Wine("White", "Plume Sav", "Grassy Plains", 2020, 85, "Marlborough", "So tasty");
+        Wine wine3 = new Wine("White", "Rosy Rose", "Lakes Winery", 2020, 90, "Otago", "Very rosy");
+        Wine wine4 = new Wine("White", "Bland Blanc", "Fields of Grapes", 2020, 50, "Canterbury", "Bland and boring");
+
+        wineDao.addBatch(Arrays.asList(wine1, wine2, wine3, wine4));
+
+        List<Wine> wines = wineDao.getSimilarWines(wine1);
+
+        Assertions.assertEquals(3, wines.size());
+        Assertions.assertTrue(wines.contains(wine2));
+        Assertions.assertTrue(wines.contains(wine3));
+        Assertions.assertTrue(wines.contains(wine4));
+    }
+
+    @Test
+    public void testCheckIfWineExists() {
+        Wine wine1 = new Wine("Red", "Plume Pinot Noir", "Lake Chalice", 2019, 80, "Marlborough", "High quality wine with woody notes");
+        Wine wine2 = new Wine("White", "Plume Sav", "Grassy Plains", 2020, 85, "Marlborough", "So tasty");
+        wineDao.add(wine1);
+        Assertions.assertTrue(wineDao.checkIfWineExists(wine1));
+        Assertions.assertFalse(wineDao.checkIfWineExists(wine2));
+    }
 }

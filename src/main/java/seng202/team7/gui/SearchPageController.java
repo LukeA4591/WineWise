@@ -234,7 +234,7 @@ public class SearchPageController {
         } else if (!Objects.equals(criticScoreMax, "") && !Objects.equals(criticScoreMin, "") && (Integer.parseInt(criticScoreMax) < Integer.parseInt(criticScoreMin))) {
             errorLabel.setText("Please have from <= to");
             errorLabel.setStyle(errorLabelStyle);
-        } else if ((Integer.parseInt(criticScoreMax) > 100 || Integer.parseInt(criticScoreMin) > 100)) {
+        } else if ((!Objects.equals(criticScoreMax, "") && !Objects.equals(criticScoreMin, "")) && (Integer.parseInt(criticScoreMax) > 100 || Integer.parseInt(criticScoreMin) > 100)) {
             errorLabel.setText("Please have both scores <= 100");
             errorLabel.setStyle(errorLabelStyle);
         } else {
