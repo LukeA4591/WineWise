@@ -371,7 +371,7 @@ public class WineDAO implements DAOInterface<Wine> {
     public boolean updateWine(Wine toUpdate, Wine oldWine) {
         int id1 = getWineID(oldWine);
         int id2 = getWineID(toUpdate);
-        if (id2 != 0 && id2 != id1) {
+        if (id2 != 0 && id2 != id1) { //key attributes of toUpdate already exist
             return false;
         }
         String sql = "UPDATE wines SET type=?, name=?, winery=?, vintage=?, score=?, region=?, description=? WHERE wineID=?";
