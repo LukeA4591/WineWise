@@ -96,6 +96,7 @@ public class WineryDAO implements DAOInterface<Winery> {
             log.error(sqlException);
             return new HashSet<>();
         }
+
     }
 
     public List<Winery> getAllWithNullLocation(String search) {
