@@ -52,7 +52,7 @@ public class NavBarController {
             FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
             Parent mainParent = homePageLoader.load();
             HomePageController homePageController = homePageLoader.getController();
-            homePageController.init(stage);
+            homePageController.init();
             mainWindow.setCenter(mainParent);
         } catch (IOException e) {
             e.printStackTrace();
