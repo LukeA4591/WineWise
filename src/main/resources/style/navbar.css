@@ -9,6 +9,10 @@
     -fx-faint-focus-color: transparent;
 }
 
+.text-area, .text-field {
+    -fx-highlight-fill: indigo;
+}
+
 .table-view {
     -fx-background-color: #e0e0e0;
     -fx-padding: 0;
