@@ -8,8 +8,6 @@ import seng202.team7.business.WineryManager;
 import seng202.team7.exceptions.DuplicateExc;
 import seng202.team7.models.Winery;
 import seng202.team7.repository.DatabaseManager;
-import seng202.team7.repository.WineDAO;
-import seng202.team7.repository.WineryDAO;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -99,7 +97,7 @@ public class WineryManagerTest {
         trueNames.add("Wine ry 3");
 
         for (int i = 0; i < trueNames.size(); i++) {
-            Assertions.assertEquals(trueNames[i]);
+            Assertions.assertEquals(wineryManager.getExistingWineryNames(), trueNames);
         }
 
     }
@@ -108,7 +106,7 @@ public class WineryManagerTest {
     public void testGetAllWithNullLocation() {
         populateWineriesThroughManager();
         wineryManager.add(new Winery("Totally Real Winery", null, null));
-        Assertions.assertEquals(1, wineryManager.getAllWithNullLocation(""));
+        Assertions.assertEquals(1, wineryManager.getAllWithNullLocation("").size());
     }
 
     @Test
@@ -123,6 +121,7 @@ public class WineryManagerTest {
         populateWineriesThroughManager();
         wineryManager.add(new Winery("Totally Real Winery", null, null));
         wineryManager.add(new Winery("Totally Real Winery as well", null, null));
+        wineryManager.add(new Winery("Actually Real Winery", (float) 80.0, (float) 45.0));
         Assertions.assertEquals(4, wineryManager.getAllWithValidLocation().size());
     }
 
