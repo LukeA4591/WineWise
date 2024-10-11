@@ -316,7 +316,7 @@ public class AdminScreenController {
             importPreviewController.init(file, appEnvironment);
             modalStage.setScene(modalScene);
             modalStage.setResizable(false);
-            modalStage.setTitle("Admin Help Screen");
+            modalStage.setTitle("Add a Dataset");
             modalStage.initModality(Modality.APPLICATION_MODAL);
             Stage primaryStage = (Stage) addWine.getScene().getWindow();
             modalStage.initOwner(primaryStage);
