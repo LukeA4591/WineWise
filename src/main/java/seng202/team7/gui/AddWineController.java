@@ -11,8 +11,6 @@ import seng202.team7.business.WineManager;
 import seng202.team7.models.Wine;
 import seng202.team7.services.WineService;
 
-import java.time.Year;
-
 /**
  * Controller class for the add_wine.fxml page.
  */
@@ -78,9 +76,7 @@ public class AddWineController {
         String errorLabel = wineService.validateWine(wineNameString, wineryNameString, wineVintageString, wineScoreString, wineRegionString, wineDescriptionString);
         if (errorLabel.isEmpty()) {
 
-            if (wineScoreString.isBlank()) {
-                wineScoreString = null;
-            } else {
+            if (!wineScoreString.isBlank()) {
                 newWineScore = Integer.parseInt(wineScoreString);
             }
 
