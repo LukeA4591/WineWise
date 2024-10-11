@@ -180,4 +180,18 @@ public class WineryDAO implements DAOInterface<Winery> {
         }
         return winery;
     }
+
+    public void delete(String name) {
+        String sql = "DELETE FROM wineries WHERE wineryName=?";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            try (Statement stmt = conn.createStatement()) {
+                stmt.execute("PRAGMA foreign_keys = ON;");
+            }
+            ps.setString(1, name);
+            ps.executeUpdate();
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+        }
+    }
 }

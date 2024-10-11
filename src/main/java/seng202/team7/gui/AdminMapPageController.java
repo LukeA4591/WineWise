@@ -6,18 +6,24 @@ import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import seng202.team7.business.WineryManager;
+import seng202.team7.models.Wine;
 import seng202.team7.models.Winery;
 import seng202.team7.services.AppEnvironment;
 import seng202.team7.services.Geolocator;
@@ -25,6 +31,7 @@ import seng202.team7.services.JavaScriptBridge;
 import seng202.team7.services.Position;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,10 +46,11 @@ public class AdminMapPageController {
     private JSObject javaScriptConnector;
     private WineryManager wineryManager;
     private JavaScriptBridge javaScriptBridge;
+    private static final Logger log = LogManager.getLogger(AdminMapPageController.class);
     @FXML
     private Button backButton;
     @FXML
-    private ListView<String> wineryList;
+    private ListView<Winery> wineryList;
     @FXML
     private Label addressErrorLabel;
 
@@ -61,13 +69,71 @@ public class AdminMapPageController {
         stage.close();
     }
 
-    void setWineryList() {
-        List<Winery> wineries = wineryManager.getAllWithNullLocation("");
-        ObservableList<String> wineryNames = FXCollections.observableArrayList();
-        for (Winery winery : wineries) {
-            wineryNames.add(winery.getWineryName());
+    @FXML
+    public void onAddWinery() {
+        try {
+            FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/add_winery.fxml"));
+            AnchorPane root = newStageLoader.load();
+            Scene modalScene = new Scene(root);
+            Stage modalStage = new Stage();
+            modalStage.setScene(modalScene);
+            modalStage.setWidth(600);
+            modalStage.setHeight(454);
+            modalStage.setResizable(false);
+            modalStage.setTitle("Add Wine");
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            Stage primaryStage = (Stage) backButton.getScene().getWindow();
+            modalStage.initOwner(primaryStage);
+            modalStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        setWineryList();
+    }
+
+    void setWineryList() {
+//        List<Winery> wineries = wineryManager.getAllWithNullLocation("");
+//        ObservableList<String> wineryNames = FXCollections.observableArrayList();
+//        for (Winery winery : wineries) {
+//            wineryNames.add(winery.getWineryName());
+//        }
+//        wineryList.setItems(wineryNames);
+        List<Winery> wineries = wineryManager.getAll();
+        wineries.sort(Comparator.comparing(Winery::getWineryName));
+        ObservableList<Winery> wineryNames = FXCollections.observableArrayList(wineries);
         wineryList.setItems(wineryNames);
+        wineryList.setCellFactory(cell -> new ListCell<>() {
+            @Override
+            protected void updateItem(Winery winery, boolean empty) {
+                super.updateItem(winery, empty);
+                if (empty || winery == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(winery.getWineryName());
+                    if (winery.getLatitude() == null || winery.getLongitude() == null) {
+                        setStyle("-fx-background-color: #ffb3b3");
+                    } else {
+                        setStyle("-fx-background-color: #a6f2ad");
+                    }
+                }
+            }
+        });
+        wineryList.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.DELETE || e.getCode() == KeyCode.BACK_SPACE) {
+                try {
+                    Winery selectedWinery = wineryList.getSelectionModel().getSelectedItem();
+                    if (selectedWinery.getLongitude() != null && selectedWinery.getLatitude() != null) {
+                        removeMarker(selectedWinery.getWineryName());
+                    }
+                    wineryList.getItems().remove(selectedWinery);
+                    wineryManager.delete(selectedWinery.getWineryName());
+                } catch (NullPointerException nullPointerException) {
+                    log.warn("No wine selected for delete");
+                    log.warn(nullPointerException.getMessage());
+                }
+            }
+        });
     }
 
     void initMap() {
