@@ -5,8 +5,10 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import seng202.team7.business.WineManager;
 import seng202.team7.models.Wine;
+import seng202.team7.services.WineService;
 
 import java.time.Year;
+import java.util.Objects;
 
 public class EditWineController {
 
@@ -34,10 +36,12 @@ public class EditWineController {
     ToggleGroup wineTypeToggle;
     private WineManager wineManager;
     private Wine origionalWine;
+    private WineService wineService;
 
     public EditWineController(Wine wine) {
         this.origionalWine = wine;
         this.wineManager = new WineManager();
+        this.wineService = new WineService();
     }
 
     @FXML
@@ -59,73 +63,27 @@ public class EditWineController {
 
     @FXML
     public void saveWine() {
-        Wine wine = validateWine();
-        if (wine != null) {
-            Stage stage = (Stage) wineWineryName.getScene().getWindow();
-            stage.close();
-        }
-    }
-
-    private Wine validateWine() {
-        try {
-            String wineWineryNameString = wineWineryName.getText();
-            String wineNameString = wineName.getText();
-            if (wineWineryNameString.isEmpty()) {
+        String wineNameString = wineName.getText();
+        String wineryNameString = wineWineryName.getText();
+        String wineVintageString = wineVintage.getText();
+        String wineRegionString = wineRegion.getText();
+        String wineScoreString = wineScore.getText();
+        String wineDescriptionString = wineDescription.getText();
+        String wineTypeString = ((RadioButton) wineTypeToggle.getSelectedToggle()).getText();
+        String errorLabel = wineService.validateWine(wineNameString, wineryNameString, wineVintageString, wineScoreString, wineRegionString, wineDescriptionString);
+        if (Objects.equals(errorLabel, "")) {
+            Wine wine = new Wine(wineTypeString, wineNameString, wineryNameString, Integer.parseInt(wineVintageString), Integer.parseInt(wineScoreString), wineRegionString, wineDescriptionString);
+            boolean successfulUpdate = wineManager.updateWine(wine, this.origionalWine);
+            if (!successfulUpdate) {
                 saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
-                saveNewWineMessage.setText("Winery Name field is empty.");
-                return null;
-            } else if (wineNameString.isEmpty()){
-                saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
-                saveNewWineMessage.setText("Wine Name field is empty.");
-                return null;
-            } else if (wineVintage.getText().isEmpty()) {
-                saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
-                saveNewWineMessage.setText("Wine Vintage field is empty.");
-                return null;
+                saveNewWineMessage.setText("This wine already exists.");
             } else {
-                int wineVintageInt = Integer.parseInt(wineVintage.getText());
-                if (wineVintageInt < 0 || wineVintageInt > Year.now().getValue()) {
-                    saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
-                    saveNewWineMessage.setText("Vintage should be between 0 and the current year.");
-                    return null;
-                }
-                int wineScoreInt;
-                if (wineScore.getText().isEmpty()) {
-                    wineScoreInt = 0;
-                } else {
-                    wineScoreInt = Integer.parseInt(wineScore.getText());
-                    if (wineScoreInt < 0 || wineScoreInt > 100) {
-                        saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
-                        saveNewWineMessage.setText("Score should be between 0-100.");
-                        return null;
-                    }
-                }
-                String wineTypeString = ((RadioButton) wineTypeToggle.getSelectedToggle()).getText();
-                String wineRegionString = wineRegion.getText();
-                String wineDescriptionString = wineDescription.getText();
-
-                if (wineWineryNameString.length() > 100 | wineNameString.length() > 100 |
-                        wineRegionString.length() > 100 | wineDescriptionString.length() > 1000) {
-                    saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
-                    saveNewWineMessage.setText("Text fields are too long.");
-                    return null;
-                }
-
-                Wine wine = new Wine(wineTypeString, wineNameString, wineWineryNameString, wineVintageInt, wineScoreInt,
-                        wineRegionString, wineDescriptionString);
-                boolean successfulUpdate = wineManager.updateWine(wine, this.origionalWine);
-                if (!successfulUpdate) {
-                    saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
-                    saveNewWineMessage.setText("This wine already exists.");
-                    return null;
-                } else {
-                    return wine;
-                }
+                Stage stage = (Stage) wineWineryName.getScene().getWindow();
+                stage.close();
             }
-        } catch (NumberFormatException e) {
-            saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
-            saveNewWineMessage.setText("Wine Vintage and Score should be a number.");
-            return null;
+        } else {
+            saveNewWineMessage.setText(errorLabel);
+            saveNewWineMessage.setStyle("-fx-text-fill: #ff0000");
         }
     }
 }

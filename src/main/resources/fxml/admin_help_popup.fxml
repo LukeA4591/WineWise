@@ -2,15 +2,15 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="600.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.gui.AdminHelpPopupController">
    <top>
-      <AnchorPane prefHeight="35.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="backButton" layoutX="6.0" layoutY="6.0" mnemonicParsing="false" onAction="#onBack" text="Back" />
+            <Button fx:id="backButton" layoutX="6.0" layoutY="3.0" mnemonicParsing="false" onAction="#onBack" styleClass="small-button" text="Back" />
             <Label layoutX="201.0" layoutY="4.0" styleClass="title-label" text="Admin Help Page" />
          </children>
       </AnchorPane>
@@ -25,10 +25,6 @@
       <AnchorPane prefHeight="0.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
    </bottom>
    <center>
-      <ScrollPane maxHeight="400.0" maxWidth="600.0" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <content>
-            <Label prefHeight="673.0" prefWidth="584.0" text="This is a help page, it is scrollable" />
-         </content>
-      </ScrollPane>
+      <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" text="Hello Admin!&#10;&#10;Thank you for installing WineWise, we hope you're having a great experience so far. If you're stuck on some features, refer to the headers below for a guide.&#10;&#10;Admin Screen:&#10;-------------&#10;This is your main screen for everything you will need to do. Up in the top left is the help button, which you used to get here. In the top right, there is the change password button, if you need to change your password. And the logout button, when you're done with the admin page and want to go back to the user screen.&#10;&#10;On the left, there is the data tab. This contains buttons to upload an external dataset, manually add an individual wine, view the wines in the database, and place a winery on the map.&#10;&#10;On the right, there is the reviews tab. Here you can see all inappropriate reviews that users have flagged. There are more details on this further down the page.&#10;&#10;Adding a Dataset:&#10;-----------------&#10;When you click the 'Add a Dataset' button, a popup will occur prompting you to upload your own dataset. Once you've chosen your dataset, you will get a preview of your imported data. Here you need to match your own column headers with the ones in WineWise. Once you've selected these headers, you can click 'Preview Import' to double check you've chosen the right headers. Once you're ready, click the 'Save Dataset' button and it will upload into the WineWise database.&#10;&#10;Add a Single Wine:&#10;------------------&#10;If you want to manually add a single wine, click the 'Add a New Wine' button on the left, it will launch a popup where you can enter the details of your new wine. You can leave the score, region, and description blank if you would like. Before WineWise saves the wine, it will check that the wine doesn't already exist in the database. If not, you can change the details of your wine.&#10;&#10;Viewing Data:&#10;-------------&#10;If you click the 'View Data' button on the admin page, it will bring you to a screen full of the wines in the database. You can use the search bar if you want to find a specific wine. If you select a row, you can press the backspace or delete key to delete the wine from the database. You can also double click a wine to edit the details. This will bring you to a similar screen as the add a single wine screen, and will also check if the details you're changing it to already exist.&#10;&#10;Placing Wineries:&#10;-----------------&#10;If you click the 'Place Winery' button on the admin screen, it will bring you to a screen with a map. On the left are all the wineries that have not been placed on the map. You can place wineries one of two ways. Firstly, you can click somewhere on the map, and a popup will occur asking which winery you would like to place there. Secondly, you can search by an address and place a winery there as well. If you place a winery in the wrong spot, just click the icon, and you will be asked if you would like to remove the winery.&#10;&#10;Flagged Reviews:&#10;----------------&#10;On the admin screen, you will see a table with reviews that users have flagged as being inappropriate. If you can't see the full review, give it a click and it will load into the box below. If you deem the review to be inappropriate, you can select it with the check box on the right of the table, and click the 'Delete Review' button on the bottom to delete the review. If you think the review is fine, you can check it and then click the 'Unflag Review' button to unflag it. You can check multiple boxes at once if you would like to delete or unflag multiple reviews at a time." wrapText="true" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

@@ -50,7 +50,10 @@ public class AdminScreenController {
     private Text selectedReviewText;
     @FXML
     private ScrollPane selectedReviewScrollPane;
-
+    @FXML
+    private Button deleteReviewButton;
+    @FXML
+    private Button unflagReviewButton;
     private final AppEnvironment appEnvironment;
     private final WineManager wineManager;
     private final ReviewManager reviewManager;
@@ -76,6 +79,8 @@ public class AdminScreenController {
     @FXML
     public void initialize() {
         displayFlaggedReviews();
+        deleteReviewButton.setDisable(true);
+        unflagReviewButton.setDisable(true);
     }
 
     /**
@@ -102,7 +107,25 @@ public class AdminScreenController {
         flaggedColumn.setMinWidth(60);
         flaggedColumn.setMaxWidth(60);
         flaggedColumn.setPrefWidth(60);
-        flaggedColumn.setCellFactory(column -> new TableCell<Review, Boolean>() {
+
+        setFlaggedColumnCellFactory();
+        setReviewColumnCellFactory();
+
+        reviewTable.setItems(observableWineReviews);
+    }
+
+    private void checkReviewCount() {
+        if (selectedReviews.isEmpty()) {
+            deleteReviewButton.setDisable(true);
+            unflagReviewButton.setDisable(true);
+        } else {
+            deleteReviewButton.setDisable(false);
+            unflagReviewButton.setDisable(false);
+        }
+    }
+
+    private void setFlaggedColumnCellFactory() {
+        flaggedColumn.setCellFactory(column -> new TableCell<>() {
             private final CheckBox checkBox = new CheckBox();
 
             @Override
@@ -119,13 +142,16 @@ public class AdminScreenController {
                         } else if (selectedReviews.contains((getTableRow().getItem()))) {
                             selectedReviews.remove(getTableRow().getItem());
                         }
+                        checkReviewCount();
                     });
                     setGraphic(checkBox);
                 }
             }
         });
+    }
 
-        reviewColumn.setCellFactory(column -> new TableCell<Review, String>() {
+    private void setReviewColumnCellFactory() {
+        reviewColumn.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -146,7 +172,6 @@ public class AdminScreenController {
                 });
             }
         });
-        reviewTable.setItems(observableWineReviews);
     }
 
     /**
@@ -155,10 +180,12 @@ public class AdminScreenController {
      */
     @FXML
     public void deleteFlaggedReviews() {
-        for (int i = 0; i < selectedReviews.size(); i++) {
+        for (int i = selectedReviews.size() - 1; i >= 0; i--) { //iterate backwards to remove reviews from the selected reviews
             reviewManager.delete(selectedReviews.get(i).getReviewID());
+            selectedReviews.remove(i);
         }
         displayFlaggedReviews();
+        checkReviewCount();
         selectedReviewText.setText("Select a review to expand!");
     }
 
@@ -168,10 +195,12 @@ public class AdminScreenController {
      */
     @FXML
     public void unflagFlaggedReviews() {
-        for (int i = 0; i < selectedReviews.size(); i++) {
+        for (int i = 0; i < selectedReviews.size(); i++) { //iterate backwards to remove reviews from the selected reviews
             reviewManager.markAsUnreported(selectedReviews.get(i).getReviewID());
+            selectedReviews.remove(i);
         }
         displayFlaggedReviews();
+        checkReviewCount();
         selectedReviewText.setText("Select a review to expand!");
 
     }
@@ -216,7 +245,6 @@ public class AdminScreenController {
 
         //add batch on background thread.
         Thread viewWinesThread = new Thread(() -> {
-
             Platform.runLater(() -> {
                 try {
                     FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_view_wines.fxml"));
@@ -281,22 +309,40 @@ public class AdminScreenController {
         Stage stage = (Stage) addWine.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
 
-        if (file != null && file.exists()) {
-            //show loading screen on JAVAFX thread
-            Platform.runLater(() -> {
-                appEnvironment.setLoadingScreenOwner(stage);
-                appEnvironment.showLoadingScreen();
-            });
+//        if (file != null && file.exists()) {
+//            //show loading screen on JAVAFX thread
+//            Platform.runLater(() -> {
+//                appEnvironment.setLoadingScreenOwner(stage);
+//                appEnvironment.showLoadingScreen();
+//            });
+//
+//            //add batch on background thread.
+//            Thread addBatchThread = new Thread(() -> {
+//
+//                wineManager.addBatch(new WineCSVImporter(), file);
+//
+//                Platform.runLater(() -> appEnvironment.hideLoadingScreen());
+//            });
+//
+//            addBatchThread.start();
+//        }
 
-            //add batch on background thread.
-            Thread addBatchThread = new Thread(() -> {
-
-                wineManager.addBatch(new WineCSVImporter(), file);
-
-                Platform.runLater(() -> appEnvironment.hideLoadingScreen());
-            });
-
-            addBatchThread.start();
+        try {
+            FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/import_preview.fxml"));
+            AnchorPane root = newStageLoader.load();
+            Scene modalScene = new Scene(root);
+            Stage modalStage = new Stage();
+            ImportPreviewController importPreviewController = newStageLoader.getController();
+            importPreviewController.init(file, appEnvironment);
+            modalStage.setScene(modalScene);
+            modalStage.setResizable(false);
+            modalStage.setTitle("Add a Dataset");
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            Stage primaryStage = (Stage) addWine.getScene().getWindow();
+            modalStage.initOwner(primaryStage);
+            modalStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

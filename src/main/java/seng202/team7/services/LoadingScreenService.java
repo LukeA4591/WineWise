@@ -2,11 +2,13 @@ package seng202.team7.services;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.IOException;
+import java.util.Objects;
 
 public class LoadingScreenService {
 
@@ -42,6 +44,9 @@ public class LoadingScreenService {
             StackPane loadingScreen = newStageLoader.load();
             Scene loadingScene = new Scene(loadingScreen);
             loadingStage.setScene(loadingScene);
+            loadingStage.setTitle("Please wait...");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/whiteIconBG(1).png")));
+            loadingStage.getIcons().add(icon);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -43,11 +43,11 @@
             <Font name="System Bold Italic" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="393.0" layoutY="517.0" mnemonicParsing="false" onAction="#deleteFlaggedReviews" text="Delete Review">
+      <Button fx:id="deleteReviewButton" layoutX="393.0" layoutY="517.0" mnemonicParsing="false" onAction="#deleteFlaggedReviews" text="Delete Review">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="582.0" layoutY="517.0" mnemonicParsing="false" onAction="#unflagFlaggedReviews" text="Unflag Review">
+      <Button fx:id="unflagReviewButton" layoutX="582.0" layoutY="517.0" mnemonicParsing="false" onAction="#unflagFlaggedReviews" text="Unflag Review">
          <font>
             <Font size="15.0" />
          </font></Button>

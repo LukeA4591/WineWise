@@ -16,17 +16,17 @@
             <Font name="Liberation Sans Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="71.0" layoutY="65.0" styleClass="colon-label" text="Winery:">
+      <Label layoutX="66.0" layoutY="65.0" styleClass="colon-label" text="*Winery:">
          <font>
             <Font name="Liberation Sans Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="71.0" layoutY="110.0" styleClass="colon-label" text="Name:">
+      <Label layoutX="66.0" layoutY="110.0" styleClass="colon-label" text="*Name:">
          <font>
             <Font name="Liberation Sans Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="71.0" layoutY="155.0" styleClass="colon-label" text="Vintage:">
+      <Label layoutX="66.0" layoutY="155.0" styleClass="colon-label" text="*Vintage:">
          <font>
             <Font name="Liberation Sans Bold" size="13.0" />
          </font>
@@ -36,22 +36,22 @@
             <Font name="Liberation Sans Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="71.0" layoutY="200.0" styleClass="colon-label" text="Type:">
+      <Label layoutX="66.0" layoutY="200.0" styleClass="colon-label" text="Type:">
          <font>
             <Font name="Liberation Sans Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="71.0" layoutY="245.0" styleClass="colon-label" text="Region:">
+      <Label layoutX="66.0" layoutY="245.0" styleClass="colon-label" text="Region:">
          <font>
             <Font name="Liberation Sans Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="71.0" layoutY="290.0" styleClass="colon-label" text="Description:">
+      <Label layoutX="66.0" layoutY="290.0" styleClass="colon-label" text="Description:">
          <font>
             <Font name="Liberation Sans Bold" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="saveNewWineMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="142.0" layoutY="373.0" maxWidth="300.0" prefWidth="300.0">
+      <Label fx:id="saveNewWineMessage" alignment="CENTER" contentDisplay="CENTER" layoutY="423.0" maxWidth="600.0" prefHeight="17.0" prefWidth="600.0" textAlignment="CENTER">
          <font>
             <Font size="13.0" />
          </font>
@@ -74,5 +74,6 @@
          </font>
       </Button>
       <TextArea fx:id="wineDescription" layoutX="160.0" layoutY="290.0" prefHeight="71.0" prefWidth="320.0" />
+      <Label layoutX="4.0" layoutY="436.0" text="* = Required" />
    </children>
 </AnchorPane>
