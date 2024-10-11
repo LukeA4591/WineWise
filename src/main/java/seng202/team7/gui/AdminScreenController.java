@@ -50,7 +50,10 @@ public class AdminScreenController {
     private Text selectedReviewText;
     @FXML
     private ScrollPane selectedReviewScrollPane;
-
+    @FXML
+    private Button deleteReviewButton;
+    @FXML
+    private Button unflagReviewButton;
     private final AppEnvironment appEnvironment;
     private final WineManager wineManager;
     private final ReviewManager reviewManager;
@@ -76,6 +79,8 @@ public class AdminScreenController {
     @FXML
     public void initialize() {
         displayFlaggedReviews();
+        deleteReviewButton.setDisable(true);
+        unflagReviewButton.setDisable(true);
     }
 
     /**
@@ -109,6 +114,16 @@ public class AdminScreenController {
         reviewTable.setItems(observableWineReviews);
     }
 
+    private void checkReviewCount() {
+        if (selectedReviews.isEmpty()) {
+            deleteReviewButton.setDisable(true);
+            unflagReviewButton.setDisable(true);
+        } else {
+            deleteReviewButton.setDisable(false);
+            unflagReviewButton.setDisable(false);
+        }
+    }
+
     private void setFlaggedColumnCellFactory() {
         flaggedColumn.setCellFactory(column -> new TableCell<>() {
             private final CheckBox checkBox = new CheckBox();
@@ -127,6 +142,7 @@ public class AdminScreenController {
                         } else if (selectedReviews.contains((getTableRow().getItem()))) {
                             selectedReviews.remove(getTableRow().getItem());
                         }
+                        checkReviewCount();
                     });
                     setGraphic(checkBox);
                 }
@@ -164,10 +180,12 @@ public class AdminScreenController {
      */
     @FXML
     public void deleteFlaggedReviews() {
-        for (int i = 0; i < selectedReviews.size(); i++) {
+        for (int i = selectedReviews.size() - 1; i >= 0; i--) { //iterate backwards to remove reviews from the selected reviews
             reviewManager.delete(selectedReviews.get(i).getReviewID());
+            selectedReviews.remove(i);
         }
         displayFlaggedReviews();
+        checkReviewCount();
         selectedReviewText.setText("Select a review to expand!");
     }
 
@@ -177,10 +195,12 @@ public class AdminScreenController {
      */
     @FXML
     public void unflagFlaggedReviews() {
-        for (int i = 0; i < selectedReviews.size(); i++) {
+        for (int i = 0; i < selectedReviews.size(); i++) { //iterate backwards to remove reviews from the selected reviews
             reviewManager.markAsUnreported(selectedReviews.get(i).getReviewID());
+            selectedReviews.remove(i);
         }
         displayFlaggedReviews();
+        checkReviewCount();
         selectedReviewText.setText("Select a review to expand!");
 
     }
