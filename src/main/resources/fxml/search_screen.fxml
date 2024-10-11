@@ -64,8 +64,8 @@
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="89.0" prefHeight="109.0" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="58.0" prefHeight="96.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="89.0" prefHeight="128.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="58.0" prefHeight="90.0" vgrow="ALWAYS" />
                   <RowConstraints maxHeight="190.0" minHeight="20.0" prefHeight="98.0" vgrow="ALWAYS" />
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="27.0" prefHeight="173.0" vgrow="ALWAYS" />
                   <RowConstraints maxHeight="93.0" minHeight="0.0" prefHeight="89.0" vgrow="SOMETIMES" />
@@ -76,13 +76,13 @@
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="94.0" minHeight="10.0" prefHeight="94.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <HBox alignment="CENTER" prefHeight="30.0" prefWidth="154.0" GridPane.rowIndex="1">
                            <children>
-                              <MenuButton fx:id="categoryMenuButton" mnemonicParsing="false" prefHeight="61.0" prefWidth="141.0" text="Category: ALL">
+                              <MenuButton fx:id="categoryMenuButton" mnemonicParsing="false" prefHeight="73.0" prefWidth="141.0" text="Category: ALL" wrapText="true">
                                  <items>
                                     <MenuItem fx:id="allCategory" mnemonicParsing="false" onAction="#categoryFilterClicked" text="ALL" />
                                     <MenuItem fx:id="whiteCategory" mnemonicParsing="false" onAction="#categoryFilterClicked" text="White" />

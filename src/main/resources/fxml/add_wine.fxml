@@ -16,17 +16,17 @@
                 <Font name="Liberation Sans Bold" size="16.0" />
             </font>
         </Label>
-        <Label layoutX="71.0" layoutY="65.0" styleClass="colon-label" text="Winery:">
+        <Label layoutX="66.0" layoutY="65.0" styleClass="colon-label" text="*Winery:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <Label layoutX="71.0" layoutY="110.0" styleClass="colon-label" text="Name:">
+        <Label layoutX="66.0" layoutY="110.0" styleClass="colon-label" text="*Name:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <Label layoutX="71.0" layoutY="155.0" styleClass="colon-label" text="Vintage:">
+        <Label layoutX="66.0" layoutY="155.0" styleClass="colon-label" text="*Vintage:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
@@ -36,17 +36,17 @@
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <Label layoutX="71.0" layoutY="200.0" styleClass="colon-label" text="Type:">
+        <Label layoutX="66.0" layoutY="200.0" styleClass="colon-label" text="Type:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <Label layoutX="71.0" layoutY="245.0" styleClass="colon-label" text="Region:">
+        <Label layoutX="66.0" layoutY="245.0" styleClass="colon-label" text="Region:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <Label layoutX="71.0" layoutY="290.0" styleClass="colon-label" text="Description:">
+        <Label layoutX="66.0" layoutY="290.0" styleClass="colon-label" text="Description:">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
@@ -67,16 +67,17 @@
         <RadioButton fx:id="wineTypeRed" layoutX="254.0" layoutY="200.0" mnemonicParsing="false" text="Red" toggleGroup="$wineTypeToggle" />
         <RadioButton fx:id="wineTypeRose" layoutX="344.0" layoutY="200.0" mnemonicParsing="false" text="Rose" toggleGroup="$wineTypeToggle" />
         <TextField fx:id="wineRegion" layoutX="160.0" layoutY="239.0" prefHeight="24.0" prefWidth="320.0" />
-        <Button layoutX="315.0" layoutY="381.0" mnemonicParsing="false" onAction="#saveNewWine" text="Save New Wine">
+        <Button layoutX="315.0" layoutY="392.0" mnemonicParsing="false" onAction="#saveNewWine" text="Save New Wine">
             <font>
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Button>
       <TextArea fx:id="wineDescription" layoutX="160.0" layoutY="290.0" prefHeight="71.0" prefWidth="320.0" />
-      <Button layoutX="115.0" layoutY="381.0" mnemonicParsing="false" onAction="#closePressed" text="Cancel">
+      <Button layoutX="111.0" layoutY="392.0" mnemonicParsing="false" onAction="#closePressed" text="Cancel">
          <font>
             <Font name="Liberation Sans Bold" size="13.0" />
          </font>
       </Button>
+      <Label layoutX="8.0" layoutY="430.0" text="* = Required" />
     </children>
 </AnchorPane>

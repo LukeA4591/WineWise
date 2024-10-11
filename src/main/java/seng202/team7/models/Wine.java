@@ -104,4 +104,8 @@ public class Wine {
         return wineryString;
     }
 
+    public void setWineScore(Integer rating) {
+        this.score = rating;
+    }
+
 }

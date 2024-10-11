@@ -14,7 +14,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="275.0" layoutX="81.0" layoutY="87.0" stroke="BLACK" strokeType="INSIDE" styleClass="highlight-rectangle" width="439.0" />
       <TextField fx:id="passwordInput" layoutX="235.0" layoutY="173.0" prefHeight="25.0" prefWidth="152.0" />
       <TextField fx:id="usernameInput" layoutX="235.0" layoutY="130.0" prefHeight="25.0" prefWidth="152.0" />
-      <PasswordField fx:id="passwordTextInput" layoutX="234.0" layoutY="173.0" prefHeight="25.0" prefWidth="152.0" />
+      <PasswordField fx:id="passwordTextInput" layoutX="235.0" layoutY="173.0" prefHeight="25.0" prefWidth="152.0" />
       <Button fx:id="viewButton" layoutX="407.0" layoutY="169.0" mnemonicParsing="false" onAction="#onViewButtonClicked" styleClass="small-button" text="View" />
       <Button layoutX="226.0" layoutY="243.0" mnemonicParsing="false" onAction="#onLogin" text="Login" />
       <Button layoutX="226.0" layoutY="294.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" />
