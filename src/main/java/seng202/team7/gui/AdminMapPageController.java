@@ -111,7 +111,11 @@ public class AdminMapPageController {
                     setStyle("");
                 } else {
                     setText(winery.getWineryName());
-                    if (winery.getLatitude() == null || winery.getLongitude() == null) {
+                    Winery selectedWinery = wineryList.getSelectionModel().getSelectedItem();
+                    if (winery == selectedWinery) {
+                        setStyle("-fx-background-color: #eccca2");
+                    }
+                    else if (winery.getLatitude() == null || winery.getLongitude() == null) {
                         setStyle("-fx-background-color: #ffb3b3");
                     } else {
                         setStyle("-fx-background-color: #a6f2ad");

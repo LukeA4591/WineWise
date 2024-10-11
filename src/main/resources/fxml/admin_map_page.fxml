@@ -17,7 +17,7 @@
          </children>
       </Pane>
       <Button fx:id="backButton" layoutX="801.0" layoutY="25.0" mnemonicParsing="false" onAction="#onBackButton" styleClass="small-button" text="Back" />
-      <ListView fx:id="wineryList" layoutX="14.0" layoutY="123.0" prefHeight="471.0" prefWidth="200.0" />
+      <ListView fx:id="wineryList" layoutX="14.0" layoutY="123.0" prefHeight="471.0" prefWidth="200.0" styleClass="winery-list-view" />
       <Label layoutX="71.0" layoutY="85.0" styleClass="subheader-label" text="Wineries" />
       <TextField fx:id="addressText" layoutX="225.0" layoutY="30.0" prefHeight="25.0" prefWidth="313.0" promptText="Find address" />
       <Button contentDisplay="CENTER" layoutX="553.0" layoutY="26.0" mnemonicParsing="false" onAction="#searchPressed" prefHeight="33.0" prefWidth="81.0" styleClass="button-search" text="Search">
