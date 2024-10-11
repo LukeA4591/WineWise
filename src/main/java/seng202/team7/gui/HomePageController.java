@@ -1,10 +1,13 @@
 package seng202.team7.gui;
 
+import javafx.scene.control.Button;
+import seng202.team7.business.ReviewManager;
 import seng202.team7.business.WineManager;
 import seng202.team7.models.Wine;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
@@ -74,25 +77,42 @@ public class HomePageController {
     private Label wine6;
     @FXML
     private Label pageLabel;
+    @FXML
+    private Button sortButton;
 
     private int page;
     private WineManager wineManager;
+    private ReviewManager reviewManager;
     private WinePopupService wineService = new WinePopupService();
+    boolean viewCritic;
 
     /**
      * Initializes the HomePageController. Sets the stage and loads the top 3 rated wines to be displayed with their
      * information. If there aren't 3 wines in the database, it doesn't load any.
      */
     public void init() {
+        viewCritic = true;
         page = 0;
         prevImage.setVisible(false);
         wineManager = new WineManager();
+        reviewManager = new ReviewManager();
         if (wineManager.getAll().size() >= 6) {
             List<Wine> wines = wineManager.getTopRated(page);
             displayWines(wines);
             displayWinery(wines);
             displayRatings(wines);
             setImage(wines);
+        }
+    }
+
+    @FXML
+    private void sortByButton() {
+        if (viewCritic) {
+            sortButton.setText("Customers");
+            viewCritic = !viewCritic;
+        } else {
+            sortButton.setText("Critics");
+            viewCritic = !viewCritic;
         }
     }
 
@@ -130,6 +150,10 @@ public class HomePageController {
         displayWinery(wines);
         displayRatings(wines);
         setImage(wines);
+    }
+
+    private void getTopUsers() {
+
     }
 
     /**
