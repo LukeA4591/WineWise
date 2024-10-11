@@ -19,5 +19,6 @@
       <Label layoutX="24.0" layoutY="402.0" styleClass="subheader-label" stylesheets="@../style/navbar.css" text="Selected Winery:" />
       <Label fx:id="selectedWineryLabel" layoutX="25.0" layoutY="426.0" prefHeight="55.0" prefWidth="170.0" styleClass="subheader-label" stylesheets="@../style/navbar.css" textAlignment="CENTER" wrapText="true" />
       <TextField fx:id="searchText" layoutX="25.0" layoutY="56.0" onKeyTyped="#updateSearch" prefHeight="26.0" prefWidth="170.0" promptText="Search.." />
+      <Button fx:id="confirmButton1" layoutX="26.0" layoutY="546.0" mnemonicParsing="false" onAction="#cancelPressed" text="Cancel" />
    </children>
 </AnchorPane>
