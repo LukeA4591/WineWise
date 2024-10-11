@@ -216,7 +216,6 @@ public class AdminScreenController {
 
         //add batch on background thread.
         Thread viewWinesThread = new Thread(() -> {
-
             Platform.runLater(() -> {
                 try {
                     FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_view_wines.fxml"));
@@ -281,22 +280,40 @@ public class AdminScreenController {
         Stage stage = (Stage) addWine.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
 
-        if (file != null && file.exists()) {
-            //show loading screen on JAVAFX thread
-            Platform.runLater(() -> {
-                appEnvironment.setLoadingScreenOwner(stage);
-                appEnvironment.showLoadingScreen();
-            });
+//        if (file != null && file.exists()) {
+//            //show loading screen on JAVAFX thread
+//            Platform.runLater(() -> {
+//                appEnvironment.setLoadingScreenOwner(stage);
+//                appEnvironment.showLoadingScreen();
+//            });
+//
+//            //add batch on background thread.
+//            Thread addBatchThread = new Thread(() -> {
+//
+//                wineManager.addBatch(new WineCSVImporter(), file);
+//
+//                Platform.runLater(() -> appEnvironment.hideLoadingScreen());
+//            });
+//
+//            addBatchThread.start();
+//        }
 
-            //add batch on background thread.
-            Thread addBatchThread = new Thread(() -> {
-
-                wineManager.addBatch(new WineCSVImporter(), file);
-
-                Platform.runLater(() -> appEnvironment.hideLoadingScreen());
-            });
-
-            addBatchThread.start();
+        try {
+            FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/import_preview.fxml"));
+            AnchorPane root = newStageLoader.load();
+            Scene modalScene = new Scene(root);
+            Stage modalStage = new Stage();
+            ImportPreviewController importPreviewController = newStageLoader.getController();
+            importPreviewController.init(file, appEnvironment);
+            modalStage.setScene(modalScene);
+            modalStage.setResizable(false);
+            modalStage.setTitle("Admin Help Screen");
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            Stage primaryStage = (Stage) addWine.getScene().getWindow();
+            modalStage.initOwner(primaryStage);
+            modalStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
