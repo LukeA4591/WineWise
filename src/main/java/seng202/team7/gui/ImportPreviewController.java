@@ -22,7 +22,7 @@ import java.util.Objects;
 
 
 public class ImportPreviewController {
-    private static final Logger log = LogManager.getLogger(seng202.team0.gui.ImportPreviewController.class);
+    private static final Logger log = LogManager.getLogger(seng202.team7.gui.ImportPreviewController.class);
 
     @FXML
     Button changeTableButton;
