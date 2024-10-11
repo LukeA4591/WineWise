@@ -1,6 +1,8 @@
 package seng202.team7.gui;
 
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+import org.apache.poi.openxml4j.opc.PackageNamespaces;
 import seng202.team7.business.ReviewManager;
 import seng202.team7.business.WineManager;
 import seng202.team7.models.Wine;
@@ -76,25 +78,53 @@ public class HomePageController {
     @FXML
     private Label pageLabel;
     @FXML
+    private Label noReviewsLabel;
+    @FXML
     private Button sortButton;
+    @FXML
+    private Pane pane1;
+    @FXML
+    private Pane pane2;
+    @FXML
+    private Pane pane3;
+    @FXML
+    private Pane pane4;
+    @FXML
+    private Pane pane5;
+    @FXML
+    private Pane pane6;
 
     private int page;
+    private int totalPages;
     private WineManager wineManager;
     private ReviewManager reviewManager;
     private List<Wine> topUserWines;
     private WinePopupService wineService = new WinePopupService();
     boolean viewCritic = true;
-
+    boolean finalPage = false;
+    private List<Pane> panes;
+    private List<Label> wineLabels;
+    private List<Label> descs;
+    private List<Label> ratings;
+    private List<ImageView> images;
     /**
      * Initializes the HomePageController. Sets the stage and loads the top 3 rated wines to be displayed with their
      * information. If there aren't 3 wines in the database, it doesn't load any.
      */
     public void init() {
+        panes = new ArrayList<>(Arrays.asList(pane1, pane2, pane3, pane4, pane5, pane6));
+        wineLabels = new ArrayList<>(Arrays.asList(wine1, wine2, wine3, wine4, wine5, wine6));
+        descs = new ArrayList<>(Arrays.asList(desc1, desc2, desc3, desc4, desc5, desc6));
+        ratings = new ArrayList<>(Arrays.asList(rating1, rating2, rating3, rating4, rating5, rating6));
+        images = new ArrayList<>(Arrays.asList(imageView1, imageView2, imageView3, imageView4, imageView5, imageView6));
         page = 0;
         prevImage.setVisible(false);
         wineManager = new WineManager();
         reviewManager = new ReviewManager();
         getTopUsers();
+        validateButtons();
+        checkClearScreen();
+        totalPages = (wineManager.getAll().size() / 6) + 1;
         if (viewCritic) {
             if (wineManager.getAll().size() >= 6) {
                 List<Wine> wines = wineManager.getTopRated(page);
@@ -105,70 +135,176 @@ public class HomePageController {
             }
         } else {
             if (topUserWines.size() >= 6) {
-                displayWines(topUserWines);
-                displayWinery(topUserWines);
-                displayRatings(topUserWines);
-                setImage(topUserWines);
+                List<Wine> topUserWinesPage = topUserWines.subList(page, page + 6);
+                displayWines(topUserWinesPage);
+                displayWinery(topUserWinesPage);
+                displayRatings(topUserWinesPage);
+                setImage(topUserWinesPage);
+            } else {
+                List<Wine> topUserWinesPage = topUserWines.subList(page, topUserWines.size());
+                for (Pane pane : panes) {
+                    pane.setVisible(false);
+                }
+                for (int i = 0; i < topUserWinesPage.size(); i++) {
+                    panes.get(i).setVisible(true);
+                }
+                displayWines(topUserWinesPage);
+                displayWinery(topUserWinesPage);
+                displayRatings(topUserWinesPage);
+                setImage(topUserWinesPage);
             }
         }
     }
 
+    private void checkClearScreen() {
+        if (viewCritic) {
+            if (wineManager.getAll().size() == 0) {
+                noReviewsLabel.setText("No reviews to display");
+                for (Pane pane : panes) {
+                    pane.setVisible(false);
+                }
+                pageLabel.setVisible(false);
+                prevImage.setVisible(false);
+                nextImage.setVisible(false);
+            } else {
+                noReviewsLabel.setText("");
+                for (Pane pane : panes) {
+                    pane.setVisible(true);
+                }
+                pageLabel.setVisible(true);
+            }
+        } else {
+            if (topUserWines.size() == 0) {
+                noReviewsLabel.setText("No reviews to display");
+                for (Pane pane : panes) {
+                    pane.setVisible(false);
+                }
+                pageLabel.setVisible(false);
+                prevImage.setVisible(false);
+                nextImage.setVisible(false);
+            } else {
+                noReviewsLabel.setText("");
+                for (Pane pane : panes) {
+                    pane.setVisible(true);
+                }
+                pageLabel.setVisible(true);
+            }
+        }
+    }
+
+
     @FXML
     private void sortByButton() {
         if (viewCritic) {
+            totalPages = (topUserWines.size() / 6) + 1;
             sortButton.setText("Customers");
             viewCritic = !viewCritic;
+            page = 0;
         } else {
+            totalPages = (wineManager.getAll().size() / 6) + 1;
             sortButton.setText("Critics");
             viewCritic = !viewCritic;
+            page = 0;
         }
+        setPage();
         init();
     }
 
     @FXML
     private void nextPage() {
-        int size;
-        if (viewCritic) {
-            size = wineManager.getAll().size();
-        } else {
-            size = topUserWines.size();
-        }
         page++;
-        pageLabel.setText("Page " + (page + 1));
-        if (page >= 1) {
-            prevImage.setVisible(true);
-        }
-        if ((page + 2) * 6 > size) {
-            nextImage.setVisible(false);
-        }
+        validateButtons();
+        setPage();
         List<Wine> wines = wineManager.getTopRated(page);
-        displayWines(wines);
-        displayWinery(wines);
-        displayRatings(wines);
-        setImage(wines);
+        if (viewCritic) {
+            displayWines(wines);
+            displayWinery(wines);
+            displayRatings(wines);
+            setImage(wines);
+        } else {
+            if (!finalPage) {
+                List<Wine> topUserWinesPage = topUserWines.subList(page * 6, (page * 6) + 6);
+                displayWines(topUserWinesPage);
+                displayWinery(topUserWinesPage);
+                displayRatings(topUserWinesPage);
+                setImage(topUserWinesPage);
+            } else {
+                List<Wine> topUserWinesPage = topUserWines.subList(page * 6, topUserWines.size());
+                for (Pane pane : panes) {
+                    pane.setVisible(false);
+                }
+                for (int i = 0; i < topUserWinesPage.size(); i++) {
+                    panes.get(i).setVisible(true);
+                }
+                displayWines(topUserWinesPage);
+                displayWinery(topUserWinesPage);
+                displayRatings(topUserWinesPage);
+                setImage(topUserWinesPage);
+            }
+        }
     }
 
     @FXML
     private void prevPage() {
+        if (finalPage) {
+            for (Pane pane : panes) {
+                pane.setVisible(true);
+            }
+            finalPage = !finalPage;
+        }
+        page--;
+        validateButtons();
+        setPage();
+        if (viewCritic) {
+            List<Wine> wines = wineManager.getTopRated(page);
+            displayWines(wines);
+            displayWinery(wines);
+            displayRatings(wines);
+            setImage(wines);
+        } else {
+            List<Wine> topUserWinesPage = topUserWines.subList(page * 6, (page * 6) + 6);
+            displayWines(topUserWinesPage);
+            displayWinery(topUserWinesPage);
+            displayRatings(topUserWinesPage);
+            setImage(topUserWinesPage);
+        }
+    }
+
+    private void setPage() {
+        pageLabel.setText("Page " + (page + 1));
+    }
+
+    private void validateButtons() {
         int size;
         if (viewCritic) {
             size = wineManager.getAll().size();
         } else {
             size = topUserWines.size();
         }
-        page--;
-        pageLabel.setText("Page " + (page + 1));
         if (page == 0) {
             prevImage.setVisible(false);
+        } else {
+            prevImage.setVisible(true);
         }
         if ((page + 2) * 6 <= size) {
             nextImage.setVisible(true);
+        } else {
+            if (!finalPage) {
+                finalPageButton();
+            } else {
+                nextImage.setVisible(false);
+            }
         }
-        List<Wine> wines = wineManager.getTopRated(page);
-        displayWines(wines);
-        displayWinery(wines);
-        displayRatings(wines);
-        setImage(wines);
+    }
+
+    private void finalPageButton() {
+        if ((totalPages % 6) != 0 && totalPages > 6) {
+            nextImage.setVisible(true);
+            finalPage = true;
+        } else {
+            nextImage.setVisible(false);
+            finalPage = false;
+        }
     }
 
     private void getTopUsers() {
@@ -187,12 +323,10 @@ public class HomePageController {
      * @param wines A list of the top-rated wines.
      */
     public void displayWines(List<Wine> wines) {
-        wine1.setText(wines.get(0).getWineName());
-        wine2.setText(wines.get(1).getWineName());
-        wine3.setText(wines.get(2).getWineName());
-        wine4.setText(wines.get(3).getWineName());
-        wine5.setText(wines.get(4).getWineName());
-        wine6.setText(wines.get(5).getWineName());
+        for (int i = 0; i < wines.size(); i++) {
+            Label wineLabel = wineLabels.get(i);
+            wineLabel.setText(wines.get(i).getWineName());
+        }
     }
 
     /**
@@ -200,12 +334,10 @@ public class HomePageController {
      * @param wines A list of the top-rated wines.
      */
     public void displayWinery(List<Wine> wines) {
-        desc1.setText("Winery: " + wines.get(0).getWineryString());
-        desc2.setText("Winery: " + wines.get(1).getWineryString());
-        desc3.setText("Winery: " + wines.get(2).getWineryString());
-        desc4.setText("Winery: " + wines.get(3).getWineryString());
-        desc5.setText("Winery: " + wines.get(4).getWineryString());
-        desc6.setText("Winery: " + wines.get(5).getWineryString());
+        for (int i = 0; i < wines.size(); i++) {
+            Label desc = descs.get(i);
+            desc.setText("Winery: " + wines.get(i).getWineryString());
+        }
     }
 
     /**
@@ -213,12 +345,10 @@ public class HomePageController {
      * @param wines A list of the top-rated wines.
      */
     public void displayRatings(List<Wine> wines) {
-        rating1.setText(wines.get(0).getScore() + " / 100");
-        rating2.setText(wines.get(1).getScore() + " / 100");
-        rating3.setText(wines.get(2).getScore() + " / 100");
-        rating4.setText(wines.get(3).getScore() + " / 100");
-        rating5.setText(wines.get(4).getScore() + " / 100");
-        rating6.setText(wines.get(5).getScore() + " / 100");
+        for (int i = 0; i < wines.size(); i++) {
+            Label rating = ratings.get(i);
+            rating.setText(wines.get(i).getScore() + " / 100");
+        }
     }
 
     /**
@@ -227,10 +357,9 @@ public class HomePageController {
      * @param wines A list of the top-rated wines.
      */
     public void setImage(List<Wine> wines) {
-        List<ImageView> imageViews = Arrays.asList(imageView1, imageView2, imageView3, imageView4, imageView5, imageView6);
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < wines.size(); i++) {
             Image image = wineService.getImage(wines.get(i));
-            ImageView imageView = imageViews.get(i);
+            ImageView imageView = images.get(i);
             imageView.setImage(image);
         }
     }

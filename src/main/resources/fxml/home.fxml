@@ -16,7 +16,7 @@
             <Font name="Liberation Sans Bold" size="26.0" />
          </font>
       </Label>
-      <Pane layoutX="20.0" layoutY="55.0" onMouseClicked="#wine1Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
+      <Pane fx:id="pane1" layoutX="20.0" layoutY="55.0" onMouseClicked="#wine1Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -38,7 +38,7 @@
                </font>
             </Label>
          </children></Pane>
-      <Pane layoutX="20.0" layoutY="214.0" onMouseClicked="#wine2Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
+      <Pane fx:id="pane2" layoutX="20.0" layoutY="214.0" onMouseClicked="#wine2Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -49,7 +49,7 @@
                   <Font name="Liberation Sans" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="desc2" layoutX="160.0" layoutY="37.0" onMouseClicked="#wine2Pressed" prefHeight="40.0" prefWidth="257.0" text="Description">
+            <Label fx:id="desc2" layoutX="160.0" layoutY="37.0" onMouseClicked="#wine2Pressed" prefHeight="40.0" prefWidth="257.0" text="description of wine">
                <font>
                   <Font name="Liberation Sans" size="16.0" />
                </font>
@@ -60,7 +60,7 @@
                </font>
             </Label>
          </children></Pane>
-      <Pane layoutX="20.0" layoutY="374.0" onMouseClicked="#wine3Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
+      <Pane fx:id="pane3" layoutX="20.0" layoutY="374.0" onMouseClicked="#wine3Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -71,7 +71,7 @@
                   <Font name="Liberation Sans" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="desc3" layoutX="160.0" layoutY="37.0" onMouseClicked="#wine3Pressed" prefHeight="40.0" prefWidth="257.0" text="Description" wrapText="true">
+            <Label fx:id="desc3" layoutX="160.0" layoutY="37.0" onMouseClicked="#wine3Pressed" prefHeight="40.0" prefWidth="257.0" text="description of wine" wrapText="true">
                <font>
                   <Font name="Liberation Sans" size="16.0" />
                </font>
@@ -82,7 +82,7 @@
                </font>
             </Label>
          </children></Pane>
-      <Pane layoutX="463.0" layoutY="55.0" onMouseClicked="#wine4Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
+      <Pane fx:id="pane4" layoutX="463.0" layoutY="55.0" onMouseClicked="#wine4Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -102,27 +102,7 @@
                </font></Label>
          </children>
       </Pane>
-      <Pane layoutX="463.0" layoutY="374.0" onMouseClicked="#wine6Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <children>
-            <ImageView fx:id="imageView6" fitHeight="150.0" fitWidth="150.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#wine2Pressed" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="wine6" layoutX="160.0" layoutY="7.0" prefHeight="30.0" prefWidth="257.0" text="Name:" wrapText="true">
-               <font>
-                  <Font size="16.0" />
-               </font></Label>
-            <Label fx:id="desc6" layoutX="160.0" layoutY="37.0" prefHeight="40.0" prefWidth="257.0" text="Description" wrapText="true">
-               <font>
-                  <Font size="16.0" />
-               </font></Label>
-            <Label fx:id="rating6" layoutX="160.0" layoutY="80.0" text="Rating">
-               <font>
-                  <Font size="16.0" />
-               </font></Label>
-         </children>
-      </Pane>
-      <Pane layoutX="463.0" layoutY="214.0" onMouseClicked="#wine5Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
+      <Pane fx:id="pane5" layoutX="463.0" layoutY="214.0" onMouseClicked="#wine5Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -132,11 +112,31 @@
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label fx:id="desc5" layoutX="160.0" layoutY="37.0" prefHeight="40.0" prefWidth="257.0" text="Description" wrapText="true">
+            <Label fx:id="desc5" layoutX="160.0" layoutY="37.0" prefHeight="40.0" prefWidth="257.0" text="description of wine" wrapText="true">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label fx:id="rating5" layoutX="160.0" layoutY="80.0" text="Rating">
+            <Label fx:id="rating5" layoutX="160.0" layoutY="80.0" text="rating">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+         </children>
+      </Pane>
+      <Pane fx:id="pane6" layoutX="463.0" layoutY="374.0" onMouseClicked="#wine6Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <children>
+            <ImageView fx:id="imageView6" fitHeight="150.0" fitWidth="150.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#wine2Pressed" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="wine6" layoutX="160.0" layoutY="7.0" prefHeight="30.0" prefWidth="257.0" text="Name:" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="desc6" layoutX="160.0" layoutY="37.0" prefHeight="40.0" prefWidth="257.0" text="description of wine" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="rating6" layoutX="160.0" layoutY="80.0" text="rating">
                <font>
                   <Font size="16.0" />
                </font></Label>
@@ -172,6 +172,11 @@
       <Label layoutX="818.0" layoutY="26.0" text="ratings">
          <font>
             <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="noReviewsLabel" alignment="CENTER" layoutX="300.0" layoutY="246.0">
+         <font>
+            <Font name="System Bold" size="38.0" />
          </font>
       </Label>
    </children>
