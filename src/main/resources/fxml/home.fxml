@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.gui.HomePageController">
    <children>
@@ -24,7 +26,7 @@
                   <Font name="Liberation Sans" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="desc1" layoutX="160.0" layoutY="38.0" onMouseClicked="#wine1Pressed" prefHeight="40.0" prefWidth="257.0" text="description of wine" wrapText="true">
+            <Label fx:id="desc1" layoutX="159.0" layoutY="38.0" onMouseClicked="#wine1Pressed" prefHeight="40.0" prefWidth="257.0" text="Description" wrapText="true">
                <font>
                   <Font name="Liberation Sans" size="16.0" />
                </font>
@@ -46,7 +48,7 @@
                   <Font name="Liberation Sans" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="desc2" layoutX="160.0" layoutY="37.0" onMouseClicked="#wine2Pressed" prefHeight="40.0" prefWidth="257.0" text="description of wine">
+            <Label fx:id="desc2" layoutX="160.0" layoutY="37.0" onMouseClicked="#wine2Pressed" prefHeight="40.0" prefWidth="257.0" text="Description">
                <font>
                   <Font name="Liberation Sans" size="16.0" />
                </font>
@@ -68,7 +70,7 @@
                   <Font name="Liberation Sans" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="desc3" layoutX="160.0" layoutY="37.0" onMouseClicked="#wine3Pressed" prefHeight="40.0" prefWidth="257.0" text="description of wine" wrapText="true">
+            <Label fx:id="desc3" layoutX="160.0" layoutY="37.0" onMouseClicked="#wine3Pressed" prefHeight="40.0" prefWidth="257.0" text="Description" wrapText="true">
                <font>
                   <Font name="Liberation Sans" size="16.0" />
                </font>
@@ -89,7 +91,7 @@
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label fx:id="desc4" layoutX="155.0" layoutY="39.0" prefHeight="40.0" prefWidth="257.0" text="description of wine" wrapText="true">
+            <Label fx:id="desc4" layoutX="159.0" layoutY="39.0" prefHeight="40.0" prefWidth="257.0" text="Description" wrapText="true">
                <font>
                   <Font size="16.0" />
                </font></Label>
@@ -109,11 +111,11 @@
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label fx:id="desc6" layoutX="160.0" layoutY="37.0" prefHeight="40.0" prefWidth="257.0" text="description of wine" wrapText="true">
+            <Label fx:id="desc6" layoutX="160.0" layoutY="37.0" prefHeight="40.0" prefWidth="257.0" text="Description" wrapText="true">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label fx:id="rating6" layoutX="160.0" layoutY="80.0" text="rating">
+            <Label fx:id="rating6" layoutX="160.0" layoutY="80.0" text="Rating">
                <font>
                   <Font size="16.0" />
                </font></Label>
@@ -129,11 +131,11 @@
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label fx:id="desc5" layoutX="160.0" layoutY="37.0" prefHeight="40.0" prefWidth="257.0" text="description of wine" wrapText="true">
+            <Label fx:id="desc5" layoutX="160.0" layoutY="37.0" prefHeight="40.0" prefWidth="257.0" text="Description" wrapText="true">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label fx:id="rating5" layoutX="160.0" layoutY="80.0" text="rating">
+            <Label fx:id="rating5" layoutX="160.0" layoutY="80.0" text="Rating">
                <font>
                   <Font size="16.0" />
                </font></Label>
