@@ -1,7 +1,9 @@
 package seng202.team7.gui;
 
+import javafx.animation.TranslateTransition;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 import org.apache.poi.openxml4j.opc.PackageNamespaces;
 import seng202.team7.business.ReviewManager;
 import seng202.team7.business.WineManager;
@@ -101,7 +103,7 @@ public class HomePageController {
     private List<Wine> topUserWines;
     private WinePopupService wineService = new WinePopupService();
     boolean viewCritic = true;
-    boolean finalPage = false;
+    boolean finalPage;
     private List<Pane> panes;
     private List<Label> wineLabels;
     private List<Label> descs;
@@ -112,6 +114,7 @@ public class HomePageController {
      * information. If there aren't 3 wines in the database, it doesn't load any.
      */
     public void init() {
+        finalPage = false;
         panes = new ArrayList<>(Arrays.asList(pane1, pane2, pane3, pane4, pane5, pane6));
         wineLabels = new ArrayList<>(Arrays.asList(wine1, wine2, wine3, wine4, wine5, wine6));
         descs = new ArrayList<>(Arrays.asList(desc1, desc2, desc3, desc4, desc5, desc6));
@@ -156,6 +159,9 @@ public class HomePageController {
         }
     }
 
+    /**
+     * Checks the current state of the screen and clears or hides elements if there are no reviews to display.
+     */
     private void checkClearScreen() {
         if (viewCritic) {
             if (wineManager.getAll().size() == 0) {
@@ -192,7 +198,10 @@ public class HomePageController {
         }
     }
 
-
+    /**
+     * Handles the sort button action to toggle between viewing critic reviews and user reviews.
+     * Updates the view and buttons based on the selected sort type.
+     */
     @FXML
     private void sortByButton() {
         if (viewCritic) {
@@ -210,6 +219,10 @@ public class HomePageController {
         init();
     }
 
+    /**
+     * Handles the next page button click event.
+     * Moves to the next page of wines and updates the displayed information accordingly.
+     */
     @FXML
     private void nextPage() {
         page++;
@@ -217,12 +230,14 @@ public class HomePageController {
         setPage();
         List<Wine> wines = wineManager.getTopRated(page);
         if (viewCritic) {
+            slidePanes(true, 6);
             displayWines(wines);
             displayWinery(wines);
             displayRatings(wines);
             setImage(wines);
         } else {
             if (!finalPage) {
+                slidePanes(true, 6);
                 List<Wine> topUserWinesPage = topUserWines.subList(page * 6, (page * 6) + 6);
                 displayWines(topUserWinesPage);
                 displayWinery(topUserWinesPage);
@@ -230,6 +245,7 @@ public class HomePageController {
                 setImage(topUserWinesPage);
             } else {
                 List<Wine> topUserWinesPage = topUserWines.subList(page * 6, topUserWines.size());
+                slidePanes(true, topUserWinesPage.size());
                 for (Pane pane : panes) {
                     pane.setVisible(false);
                 }
@@ -244,6 +260,10 @@ public class HomePageController {
         }
     }
 
+    /**
+     * Handles the previous page button click event.
+     * Moves to the previous page of wines and updates the displayed information accordingly.
+     */
     @FXML
     private void prevPage() {
         if (finalPage) {
@@ -252,6 +272,7 @@ public class HomePageController {
             }
             finalPage = !finalPage;
         }
+        slidePanes(false, 6);
         page--;
         validateButtons();
         setPage();
@@ -270,10 +291,17 @@ public class HomePageController {
         }
     }
 
+    /**
+     * Sets the current page label based on the page number.
+     */
     private void setPage() {
         pageLabel.setText("Page " + (page + 1));
     }
 
+    /**
+     * Validates the state of the navigation buttons based on the current page number and total number of pages.
+     * Enables or disables the next and previous buttons accordingly.
+     */
     private void validateButtons() {
         int size;
         if (viewCritic) {
@@ -297,8 +325,11 @@ public class HomePageController {
         }
     }
 
+    /**
+     * Updates the final page button state based on the total number of wines and total pages.
+     */
     private void finalPageButton() {
-        if ((totalPages % 6) != 0 && totalPages > 6) {
+        if ((totalPages % 6) != 0 && totalPages > 1) {
             nextImage.setVisible(true);
             finalPage = true;
         } else {
@@ -307,6 +338,9 @@ public class HomePageController {
         }
     }
 
+    /**
+     * Retrieves the top user-rated wines from the review manager and stores them in a list.
+     */
     private void getTopUsers() {
         topUserWines = new ArrayList<>();
         Wine wine;
@@ -406,6 +440,10 @@ public class HomePageController {
         }
     }
 
+    /**
+     * Event handler for pressing the fourth wine label.
+     * Displays the details of the fourth wine in a popup.
+     */
     @FXML
     void wine4Pressed() {
         if (wineManager.getAll().size() >= 6) {
@@ -416,6 +454,10 @@ public class HomePageController {
         }
     }
 
+    /**
+     * Event handler for pressing the fifth wine label.
+     * Displays the details of the fifth wine in a popup.
+     */
     @FXML
     void wine5Pressed() {
         if (wineManager.getAll().size() >= 6) {
@@ -426,6 +468,10 @@ public class HomePageController {
         }
     }
 
+    /**
+     * Event handler for pressing the sixth wine label.
+     * Displays the details of the sixth wine in a popup.
+     */
     @FXML
     void wine6Pressed() {
         if (wineManager.getAll().size() >= 6) {
@@ -435,4 +481,69 @@ public class HomePageController {
             wineService.winePressed(wine, image, rating1);
         }
     }
+
+    /**
+     * Triggers the sliding animation for all panes.
+     * Animates the panes to slide left if next is true, or right if next is false.
+     * @param next Indicates the direction of the slide (true for left, false for right).
+     */
+    public void slidePanes(boolean next, int panesOn) {
+        if (next) {
+            animatePaneNext(panes, panesOn);
+        } else {
+            for (Pane pane : panes) {
+                animatePanePrev(pane);
+            }
+        }
+    }
+    /**
+     * Creates and plays a sliding animation for the given Pane.
+     *
+     * @param pane The Pane to be animated.
+     */
+    /**
+     * Creates and plays a sliding animation for all panes to slide off the screen,
+     * but only a specified number of panes slide back on.
+     *
+     * @param panes  The list of all panes to be animated.
+     * @param panesOn The number of panes to slide back onto the screen.
+     */
+    private void animatePaneNext(List<Pane> panes, int panesOn) {
+        for (int i = 0; i < panes.size(); i++) {
+            Pane pane = panes.get(i);
+            TranslateTransition slideOff = new TranslateTransition(Duration.seconds(0.25), pane);
+            slideOff.setByX(-(1.75 * pane.getPrefWidth()));
+            slideOff.setOnFinished(event -> {
+                pane.setTranslateX(1.75 * pane.getPrefWidth());
+                if (panes.indexOf(pane) < panesOn) {
+                    TranslateTransition slideIn = new TranslateTransition(Duration.seconds(0.25), pane);
+                    slideIn.setToX(0); // Move back to the original position
+                    slideIn.play();
+                }
+            });
+            // Play the slide-off animation
+            slideOff.play();
+        }
+    }
+
+
+    /**
+     * Animate the Pane to slide off to the right and come back in from the left.
+     *
+     * @param pane The Pane to be animated.
+     */
+    private void animatePanePrev(Pane pane) {
+        // Slide the pane off to the right
+        TranslateTransition slideOff = new TranslateTransition(Duration.seconds(0.25), pane);
+        slideOff.setByX(pane.getPrefWidth() * 1.75);
+        slideOff.setOnFinished(event -> {
+            pane.setTranslateX(-pane.getPrefWidth() * 1.75);
+            TranslateTransition slideIn = new TranslateTransition(Duration.seconds(0.25), pane);
+            slideIn.setToX(0);
+            slideIn.play();
+        });
+        // Start the slide-off animation
+        slideOff.play();
+    }
+
 }
