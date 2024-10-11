@@ -66,6 +66,7 @@ public class AddWineController {
      * text fields were all valid.
      */
     public void saveNewWine() {
+
         String wineNameString = wineName.getText();
         String wineryNameString = wineWineryName.getText();
         String wineVintageString = wineVintage.getText();
@@ -73,10 +74,17 @@ public class AddWineController {
         String wineScoreString = wineScore.getText();
         String wineDescriptionString = wineDescription.getText();
         String wineTypeString = ((RadioButton) wineTypeToggle.getSelectedToggle()).getText();
+        int wineScore = 0;
+
+
         String errorLabel = wineService.validateWine(wineNameString, wineryNameString, wineVintageString, wineScoreString, wineRegionString, wineDescriptionString);
         if (errorLabel.isEmpty()) {
 
-            Wine wine = new Wine(wineTypeString, wineNameString, wineryNameString, Integer.parseInt(wineVintageString), Integer.parseInt(wineScoreString), wineRegionString, wineDescriptionString);
+            if (!wineScoreString.isEmpty()) {
+                wineScore = Integer.parseInt(wineScoreString);
+            }
+
+            Wine wine = new Wine(wineTypeString, wineNameString, wineryNameString, Integer.parseInt(wineVintageString), wineScore, wineRegionString, wineDescriptionString);
 
             if (!wineManager.checkIfWineExists(wine)) {
                 confirmChangeUI();
