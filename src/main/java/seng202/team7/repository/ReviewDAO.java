@@ -9,8 +9,7 @@ import java.sql.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * ReviewDAO class, interacts with the database to query reviews
@@ -166,5 +165,21 @@ public class ReviewDAO implements DAOInterface<Review>{
             log.error(sqlException);
             return null;
         }
+    }
+
+    public LinkedHashMap<Integer, Integer> getAverageReviews() {
+        LinkedHashMap<Integer, Integer> averageReviews = new LinkedHashMap<>();
+        String sql = "SELECT wine, AVG(rating) AS average_rating FROM reviews GROUP BY wine ORDER BY average_rating DESC";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                averageReviews.put(rs.getInt("wine"), rs.getInt("average_rating"));
+            }
+        } catch (SQLException e) {
+            log.error(e);
+        }
+
+        return averageReviews;
     }
 }

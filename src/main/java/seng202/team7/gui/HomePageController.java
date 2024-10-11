@@ -5,9 +5,7 @@ import seng202.team7.business.ReviewManager;
 import seng202.team7.business.WineManager;
 import seng202.team7.models.Wine;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
@@ -83,6 +81,7 @@ public class HomePageController {
     private int page;
     private WineManager wineManager;
     private ReviewManager reviewManager;
+    private List<Wine> topUserWines;
     private WinePopupService wineService = new WinePopupService();
     boolean viewCritic;
 
@@ -96,6 +95,7 @@ public class HomePageController {
         prevImage.setVisible(false);
         wineManager = new WineManager();
         reviewManager = new ReviewManager();
+        getTopUsers();
         if (wineManager.getAll().size() >= 6) {
             List<Wine> wines = wineManager.getTopRated(page);
             displayWines(wines);
@@ -114,6 +114,7 @@ public class HomePageController {
             sortButton.setText("Critics");
             viewCritic = !viewCritic;
         }
+        getTopUsers();
     }
 
     @FXML
@@ -153,7 +154,14 @@ public class HomePageController {
     }
 
     private void getTopUsers() {
-
+        topUserWines = new ArrayList<>();
+        Wine wine;
+        LinkedHashMap<Integer, Integer> avgReviews = reviewManager.getAverageReviews();
+        for (Map.Entry<Integer, Integer> entry : avgReviews.entrySet()) {
+            wine = wineManager.getWineFromID(entry.getKey());
+            wine.setWineScore(entry.getValue());
+            topUserWines.add(wine);
+        }
     }
 
     /**
