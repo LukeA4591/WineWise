@@ -36,7 +36,7 @@ public class WineryManagerTest {
     }
 
     /**
-     * Creates two wineryManagers and checks they are referencing the same instance of the wineDao to add to the
+     * Creates two wineryManagers and checks they are referencing the same instance of the wineryDao to add to the
      * same database
      */
     @Test

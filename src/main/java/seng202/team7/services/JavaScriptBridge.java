@@ -48,8 +48,8 @@ public class JavaScriptBridge {
             Scene modalScene = new Scene(root);
             Stage modal = new Stage();
             modal.setScene(modalScene);
-            modal.setWidth(219);
-            modal.setHeight(600);
+            modal.setWidth(220);
+            modal.setHeight(620);
             modal.setResizable(false);
             modal.setTitle("Choose Winery");
             modal.initOwner(parentStage);

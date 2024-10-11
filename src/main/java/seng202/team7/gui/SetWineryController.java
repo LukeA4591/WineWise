@@ -68,6 +68,12 @@ public class SetWineryController {
     }
 
     @FXML
+    void cancelPressed() {
+        Stage stage = (Stage) selectedWineryLabel.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
     void updateSearch() {
         List<Winery> wineries;
         search = searchText.getText();

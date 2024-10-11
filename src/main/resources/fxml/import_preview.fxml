@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.gui.ImportPreviewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="900.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.gui.ImportPreviewController">
    <children>
       <TableView fx:id="dataTable" layoutX="27.0" layoutY="72.0" prefHeight="174.0" prefWidth="844.0" />
       <Label layoutX="27.0" layoutY="24.0" text="Preview of imported data">
@@ -81,7 +81,7 @@
             </ComboBox>
          </children>
       </GridPane>
-      <Button fx:id="exitButton" layoutX="828.0" layoutY="23.0" mnemonicParsing="false" onAction="#onExitPopup" text="Exit" />
+      <Button fx:id="exitButton" layoutX="683.0" layoutY="21.0" mnemonicParsing="false" onAction="#onExitPopup" text="Exit" />
       <Button fx:id="saveDatasetButton" layoutX="396.0" layoutY="552.0" mnemonicParsing="false" onAction="#onSaveDataset" text="Save dataset" />
       <Label layoutX="27.0" layoutY="349.0" text="All fields must be selected" />
       <StackPane layoutX="225.0" layoutY="483.0" prefHeight="55.0" prefWidth="446.0">
