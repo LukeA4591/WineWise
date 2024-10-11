@@ -159,15 +159,20 @@
          </cursor>
       </ImageView>
       <Label fx:id="pageLabel" layoutX="425.0" layoutY="559.0" prefWidth="490.0" styleClass="subheader-label" text="Page 1" />
-      <Label layoutX="665.0" layoutY="26.0" text="Currently viewing by: ">
+      <Label layoutX="559.0" layoutY="26.0" text="Currently viewing by: ">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="sortButton" layoutX="807.0" layoutY="17.0" mnemonicParsing="false" onAction="#sortByButton" styleClass="button-search" text="Critics">
+      <Button fx:id="sortButton" layoutX="701.0" layoutY="17.0" mnemonicParsing="false" onAction="#sortByButton" styleClass="button-search" text="Critics">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <Label layoutX="818.0" layoutY="26.0" text="ratings">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
