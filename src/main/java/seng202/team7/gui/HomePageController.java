@@ -102,7 +102,7 @@ public class HomePageController {
     private ReviewManager reviewManager;
     private List<Wine> topUserWines;
     private WinePopupService wineService = new WinePopupService();
-    boolean viewCritic = true;
+    boolean viewCritic;
     boolean finalPage;
     private List<Pane> panes;
     private List<Label> wineLabels;
@@ -114,6 +114,7 @@ public class HomePageController {
      * information. If there aren't 3 wines in the database, it doesn't load any.
      */
     public void init() {
+        viewCritic = true;
         finalPage = false;
         panes = new ArrayList<>(Arrays.asList(pane1, pane2, pane3, pane4, pane5, pane6));
         wineLabels = new ArrayList<>(Arrays.asList(wine1, wine2, wine3, wine4, wine5, wine6));
@@ -124,6 +125,10 @@ public class HomePageController {
         prevImage.setVisible(false);
         wineManager = new WineManager();
         reviewManager = new ReviewManager();
+        initScreen();
+    }
+
+    private void initScreen() {
         getTopUsers();
         validateButtons();
         checkClearScreen();
@@ -207,16 +212,16 @@ public class HomePageController {
         if (viewCritic) {
             totalPages = (topUserWines.size() / 6) + 1;
             sortButton.setText("Customers");
-            viewCritic = !viewCritic;
+            viewCritic = false;
             page = 0;
         } else {
             totalPages = (wineManager.getAll().size() / 6) + 1;
             sortButton.setText("Critics");
-            viewCritic = !viewCritic;
+            viewCritic = true;
             page = 0;
         }
         setPage();
-        init();
+        initScreen();
     }
 
     /**
@@ -230,14 +235,14 @@ public class HomePageController {
         setPage();
         List<Wine> wines = wineManager.getTopRated(page);
         if (viewCritic) {
-            slidePanes(true, 6);
+            slidePanes(true);
             displayWines(wines);
             displayWinery(wines);
             displayRatings(wines);
             setImage(wines);
         } else {
             if (!finalPage) {
-                slidePanes(true, 6);
+                slidePanes(true);
                 List<Wine> topUserWinesPage = topUserWines.subList(page * 6, (page * 6) + 6);
                 displayWines(topUserWinesPage);
                 displayWinery(topUserWinesPage);
@@ -245,7 +250,7 @@ public class HomePageController {
                 setImage(topUserWinesPage);
             } else {
                 List<Wine> topUserWinesPage = topUserWines.subList(page * 6, topUserWines.size());
-                slidePanes(true, topUserWinesPage.size());
+                slidePanes(true);
                 for (Pane pane : panes) {
                     pane.setVisible(false);
                 }
@@ -272,7 +277,7 @@ public class HomePageController {
             }
             finalPage = !finalPage;
         }
-        slidePanes(false, 6);
+        slidePanes(false);
         page--;
         validateButtons();
         setPage();
@@ -487,9 +492,11 @@ public class HomePageController {
      * Animates the panes to slide left if next is true, or right if next is false.
      * @param next Indicates the direction of the slide (true for left, false for right).
      */
-    public void slidePanes(boolean next, int panesOn) {
+    public void slidePanes(boolean next) {
         if (next) {
-            animatePaneNext(panes, panesOn);
+            for (Pane pane : panes) {
+                animatePaneNext(pane);
+            }
         } else {
             for (Pane pane : panes) {
                 animatePanePrev(pane);
@@ -505,25 +512,19 @@ public class HomePageController {
      * Creates and plays a sliding animation for all panes to slide off the screen,
      * but only a specified number of panes slide back on.
      *
-     * @param panes  The list of all panes to be animated.
-     * @param panesOn The number of panes to slide back onto the screen.
+     * @param pane The pane to be animated.
      */
-    private void animatePaneNext(List<Pane> panes, int panesOn) {
-        for (int i = 0; i < panes.size(); i++) {
-            Pane pane = panes.get(i);
-            TranslateTransition slideOff = new TranslateTransition(Duration.seconds(0.25), pane);
-            slideOff.setByX(-(1.75 * pane.getPrefWidth()));
-            slideOff.setOnFinished(event -> {
-                pane.setTranslateX(1.75 * pane.getPrefWidth());
-                if (panes.indexOf(pane) < panesOn) {
-                    TranslateTransition slideIn = new TranslateTransition(Duration.seconds(0.25), pane);
-                    slideIn.setToX(0); // Move back to the original position
-                    slideIn.play();
-                }
-            });
-            // Play the slide-off animation
-            slideOff.play();
-        }
+    private void animatePaneNext(Pane pane) {
+        // Slide the pane off to the left
+        TranslateTransition slideOff = new TranslateTransition(Duration.seconds(0.25), pane);
+        slideOff.setByX(-pane.getPrefWidth() * 1.75); // Move the pane to the left by its width
+        slideOff.setOnFinished(event -> {
+            pane.setTranslateX(pane.getPrefWidth() * 1.75);
+            TranslateTransition slideIn = new TranslateTransition(Duration.seconds(0.25), pane);
+            slideIn.setToX(0);
+            slideIn.play();
+        });
+        slideOff.play();
     }
 
 
