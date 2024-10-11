@@ -49,7 +49,7 @@ public class ReviewManagerTest {
     }
 
     /**
-     * Tests any ReviewManagers point to the same instance of Review
+     * Tests any ReviewManagers point to the same instance of ReviewDao
      */
     @Test
     public void testSameInstance() {
