@@ -44,6 +44,8 @@ public class AddWineController {
     private WineService wineService;
     private final String setLabelRed = "-fx-text-fill: FF0000";
 
+    private int newWineScore;
+
     /**
      * Method for going back to admin when the go back button is pressed.
      * **/
@@ -76,7 +78,13 @@ public class AddWineController {
         String errorLabel = wineService.validateWine(wineNameString, wineryNameString, wineVintageString, wineScoreString, wineRegionString, wineDescriptionString);
         if (errorLabel.isEmpty()) {
 
-            Wine wine = new Wine(wineTypeString, wineNameString, wineryNameString, Integer.parseInt(wineVintageString), Integer.parseInt(wineScoreString), wineRegionString, wineDescriptionString);
+            if (wineScoreString.isBlank()) {
+                wineScoreString = null;
+            } else {
+                newWineScore = Integer.parseInt(wineScoreString);
+            }
+
+            Wine wine = new Wine(wineTypeString, wineNameString, wineryNameString, Integer.parseInt(wineVintageString), newWineScore, wineRegionString, wineDescriptionString);
 
             if (!wineManager.checkIfWineExists(wine)) {
                 confirmChangeUI();
