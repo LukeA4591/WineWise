@@ -83,25 +83,33 @@ public class HomePageController {
     private ReviewManager reviewManager;
     private List<Wine> topUserWines;
     private WinePopupService wineService = new WinePopupService();
-    boolean viewCritic;
+    boolean viewCritic = true;
 
     /**
      * Initializes the HomePageController. Sets the stage and loads the top 3 rated wines to be displayed with their
      * information. If there aren't 3 wines in the database, it doesn't load any.
      */
     public void init() {
-        viewCritic = true;
         page = 0;
         prevImage.setVisible(false);
         wineManager = new WineManager();
         reviewManager = new ReviewManager();
         getTopUsers();
-        if (wineManager.getAll().size() >= 6) {
-            List<Wine> wines = wineManager.getTopRated(page);
-            displayWines(wines);
-            displayWinery(wines);
-            displayRatings(wines);
-            setImage(wines);
+        if (viewCritic) {
+            if (wineManager.getAll().size() >= 6) {
+                List<Wine> wines = wineManager.getTopRated(page);
+                displayWines(wines);
+                displayWinery(wines);
+                displayRatings(wines);
+                setImage(wines);
+            }
+        } else {
+            if (topUserWines.size() >= 6) {
+                displayWines(topUserWines);
+                displayWinery(topUserWines);
+                displayRatings(topUserWines);
+                setImage(topUserWines);
+            }
         }
     }
 
@@ -114,12 +122,17 @@ public class HomePageController {
             sortButton.setText("Critics");
             viewCritic = !viewCritic;
         }
-        getTopUsers();
+        init();
     }
 
     @FXML
     private void nextPage() {
-        int size = wineManager.getAll().size();
+        int size;
+        if (viewCritic) {
+            size = wineManager.getAll().size();
+        } else {
+            size = topUserWines.size();
+        }
         page++;
         pageLabel.setText("Page " + (page + 1));
         if (page >= 1) {
@@ -137,7 +150,12 @@ public class HomePageController {
 
     @FXML
     private void prevPage() {
-        int size = wineManager.getAll().size();
+        int size;
+        if (viewCritic) {
+            size = wineManager.getAll().size();
+        } else {
+            size = topUserWines.size();
+        }
         page--;
         pageLabel.setText("Page " + (page + 1));
         if (page == 0) {
