@@ -34,6 +34,7 @@ public class WineUserRatingScreenController {
     private ReviewManager reviewManager;
     private boolean movedSlider = false;
     private final int MAX_CHARACTERS = 500;
+    private final String charRemaining = "Characters Remaining: ";
 
     /**
      * Init method for the user rating screen
@@ -47,7 +48,7 @@ public class WineUserRatingScreenController {
         wineryLabel.setText(wineryLabel.getText() + wine.getWineryString());
         vintageLabel.setText(vintageLabel.getText() + wine.getVintage());
         criticRatingLabel.setText("Critic rating: " + wine.getScore() + " / 100");
-        characterLimitLabel.setText("Characters Remaining: " + MAX_CHARACTERS);
+        characterLimitLabel.setText(charRemaining + MAX_CHARACTERS);
 
         TextFormatter<String> textFormatter = new TextFormatter<>(text -> {
             if (text.getControlNewText().length() > MAX_CHARACTERS) {
@@ -85,7 +86,7 @@ public class WineUserRatingScreenController {
     private void resetReview() {
         ratingSlider.setValue(0);
         reviewTextArea.setText("");
-        characterLimitLabel.setText("Characters Remaining: " + MAX_CHARACTERS);
+        characterLimitLabel.setText(charRemaining + MAX_CHARACTERS);
         savedLabel.setText("");
     }
 
@@ -106,7 +107,7 @@ public class WineUserRatingScreenController {
     @FXML
     private void checkCharacterLimit() {
         int textLength = reviewTextArea.getLength();
-        characterLimitLabel.setText("Characters Remaining: " + (MAX_CHARACTERS - textLength));
+        characterLimitLabel.setText(charRemaining + (MAX_CHARACTERS - textLength));
     }
 
 

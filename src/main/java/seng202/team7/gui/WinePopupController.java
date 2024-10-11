@@ -33,6 +33,7 @@ public class WinePopupController {
     private Wine wine;
     private Image image;
 
+    private final String turnButtonIndigo = "-fx-background-color: indigo; -fx-text-fill: white";
     /**
      * Init method for the wine popup navbar
      * @param wine wine which details are being presented
@@ -48,7 +49,7 @@ public class WinePopupController {
                 scene.getStylesheets().add(getClass().getResource("/style/navbar.css").toExternalForm());
             }
         });
-        wineDetailsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+        wineDetailsButton.setStyle(turnButtonIndigo);
         loadDetailsScreen();
     }
 
@@ -118,7 +119,7 @@ public class WinePopupController {
     void detailsButtonPressed() {
         loadDetailsScreen();
         setAllButtonsGrey();
-        wineDetailsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+        wineDetailsButton.setStyle(turnButtonIndigo);
     }
 
     /**
@@ -128,7 +129,7 @@ public class WinePopupController {
     void reviewsButtonPressed() {
         loadReviewsScreen();
         setAllButtonsGrey();
-        wineReviewsButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+        wineReviewsButton.setStyle(turnButtonIndigo);
     }
 
     /**
@@ -138,7 +139,7 @@ public class WinePopupController {
     void ratingButtonPressed() {
         loadUserRatingScreen();
         setAllButtonsGrey();
-        wineUserRatingButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+        wineUserRatingButton.setStyle(turnButtonIndigo);
     }
 
     /**
@@ -149,7 +150,7 @@ public class WinePopupController {
         Stage stage = (Stage) (wineCloseButton.getScene().getWindow());
         stage.close();
         setAllButtonsGrey();
-        wineCloseButton.setStyle("-fx-background-color: indigo; -fx-text-fill: white");
+        wineCloseButton.setStyle(turnButtonIndigo);
     }
 
 }

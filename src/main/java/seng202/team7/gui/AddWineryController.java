@@ -18,6 +18,7 @@ public class AddWineryController {
     Label saveNewWineryMessage;
 
     private WineryManager wineryManager;
+    private final String setLabelRed = "-fx-text-fill: #ff0000";
 
     private void goBackToAdmin() {
         Stage stage = (Stage) wineryName.getScene().getWindow();
@@ -41,7 +42,7 @@ public class AddWineryController {
         try {
             String wineryNameString = wineryName.getText();
             if (wineryNameString.isEmpty()) {
-                saveNewWineryMessage.setStyle("-fx-text-fill: #FF0000");
+                saveNewWineryMessage.setStyle(setLabelRed);
                 saveNewWineryMessage.setText("Name field is empty.");
                 return null;
             } else {
@@ -51,12 +52,12 @@ public class AddWineryController {
                     wineryLongitudeFloat = Float.parseFloat(wineryLongitude.getText());
                     wineryLatitudeFloat = Float.parseFloat(wineryLatitude.getText());
                     if (wineryLongitudeFloat < -180 || wineryLongitudeFloat >= 180) {
-                        saveNewWineryMessage.setStyle("-fx-text-fill: #FF0000");
+                        saveNewWineryMessage.setStyle(setLabelRed);
                         saveNewWineryMessage.setText("Longitude should be >= -180 and less than 180.");
                         return null;
                     }
                     if (wineryLatitudeFloat < -90 || wineryLatitudeFloat > 90) {
-                        saveNewWineryMessage.setStyle("-fx-text-fill: #FF0000");
+                        saveNewWineryMessage.setStyle(setLabelRed);
                         saveNewWineryMessage.setText("Latitude should be between -90 and 90.");
                         return null;
                     }
@@ -69,7 +70,7 @@ public class AddWineryController {
                 return new Winery(wineryNameString, wineryLongitudeFloat, wineryLatitudeFloat);
             }
         } catch (NumberFormatException e) {
-            saveNewWineryMessage.setStyle("-fx-text-fill: #FF0000");
+            saveNewWineryMessage.setStyle(setLabelRed);
             saveNewWineryMessage.setText("Longitude and latitude should be a float.");
             return null;
         }

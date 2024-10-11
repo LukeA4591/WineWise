@@ -71,6 +71,7 @@ public class WineDetailsScreenController {
     WineManager wineManager;
 
     private WinePopupService winePopupService;
+    private final String defaultImageFilePath = "/images/defaultwine.png";
 
     /**
      * Provide all information about the wine to allow the user to read more about any specific wine
@@ -101,9 +102,9 @@ public class WineDetailsScreenController {
 
     @FXML
     public void initialize() {
-        recommendImage1.setImage(new Image(getClass().getResourceAsStream("/images/defaultwine.png")));
-        recommendImage2.setImage(new Image(getClass().getResourceAsStream("/images/defaultwine.png")));
-        recommendImage3.setImage(new Image(getClass().getResourceAsStream("/images/defaultwine.png")));
+        recommendImage1.setImage(new Image(getClass().getResourceAsStream(defaultImageFilePath)));
+        recommendImage2.setImage(new Image(getClass().getResourceAsStream(defaultImageFilePath)));
+        recommendImage3.setImage(new Image(getClass().getResourceAsStream(defaultImageFilePath)));
 
         RecommendedImageList = new ImageView[]{recommendImage1, recommendImage2, recommendImage3};
         RecommendedLabelList = new Label[]{recommendLabel1, recommendLabel2, recommendLabel3};
