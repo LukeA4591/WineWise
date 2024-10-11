@@ -2,9 +2,9 @@ package seng202.team7.unittests.services;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import seng202.team0.io.Importable;
-import seng202.team0.io.WineCSVImporter;
-import seng202.team0.models.Wine;
+import seng202.team7.io.Importable;
+import seng202.team7.io.WineCSVImporter;
+import seng202.team7.models.Wine;
 
 import java.io.File;
 import java.net.URL;

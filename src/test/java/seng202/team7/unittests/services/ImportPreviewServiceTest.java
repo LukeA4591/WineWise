@@ -3,7 +3,7 @@ package seng202.team7.unittests.services;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seng202.team0.services.ImportPreviewService;
+import seng202.team7.services.ImportPreviewService;
 
 import java.util.Arrays;
 import java.util.List;
