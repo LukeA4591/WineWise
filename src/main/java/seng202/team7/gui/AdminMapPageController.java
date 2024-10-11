@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -25,6 +26,7 @@ import seng202.team7.services.Position;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class AdminMapPageController {
     private AppEnvironment appEnvironment;
@@ -117,6 +119,8 @@ public class AdminMapPageController {
             modalStage.setResizable(false);
             modalStage.setTitle("Remove Winery");
             modalStage.initModality(Modality.WINDOW_MODAL);
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/whiteIconBG(1).png")));
+            modalStage.getIcons().add(icon);
             modalStage.initOwner(backButton.getScene().getWindow());
             modalStage.showAndWait();
         } catch (IOException e) {

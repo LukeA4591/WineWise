@@ -2,6 +2,7 @@ package seng202.team7.services;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -16,6 +17,7 @@ import seng202.team7.io.GetWineryInterface;
 import seng202.team7.repository.WineryDAO;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class JavaScriptBridge {
     private static final Logger log = LogManager.getLogger(JavaScriptBridge.class);
@@ -52,6 +54,8 @@ public class JavaScriptBridge {
             modal.setHeight(620);
             modal.setResizable(false);
             modal.setTitle("Choose Winery");
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/whiteIconBG(1).png")));
+            parentStage.getIcons().add(icon);
             modal.initOwner(parentStage);
             modal.initModality(Modality.WINDOW_MODAL);
             modal.showAndWait();
