@@ -17,11 +17,7 @@ public class Position {
         this.lng = lng;
     }
 
-    /**
-     * Getter for the latitude of the position
-     * @return double latitude
-     */
-    private double getLat() {
+    public double getLat() {
         return lat;
     }
 
