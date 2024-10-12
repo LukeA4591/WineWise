@@ -167,11 +167,12 @@ public class ReviewDAO implements DAOInterface<Review>{
         }
     }
 
-    public LinkedHashMap<Integer, Integer> getAverageReviews() {
+    public LinkedHashMap<Integer, Integer> getAverageReviews(int page) {
         LinkedHashMap<Integer, Integer> averageReviews = new LinkedHashMap<>();
-        String sql = "SELECT wine, AVG(rating) AS average_rating FROM reviews WHERE reported=false GROUP BY wine ORDER BY average_rating DESC";
+        String sql = "SELECT wine, AVG(rating) AS average_rating FROM reviews WHERE reported=false GROUP BY wine ORDER BY average_rating DESC LIMIT 6 OFFSET ?";
         try (Connection conn = databaseManager.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, page * 6);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 averageReviews.put(rs.getInt("wine"), rs.getInt("average_rating"));
@@ -179,7 +180,22 @@ public class ReviewDAO implements DAOInterface<Review>{
         } catch (SQLException e) {
             log.error(e);
         }
-
         return averageReviews;
+    }
+
+    public int getNumWinesWithReviews() {
+        int size = 0;
+        String sql = "SELECT DISTINCT wine FROM reviews WHERE reported=false;";
+        try (Connection conn = databaseManager.connect();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                size++;
+            }
+            return size;
+        } catch (SQLException e) {
+            log.error(e);
+            return size;
+        }
     }
 }
