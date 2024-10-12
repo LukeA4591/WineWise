@@ -89,6 +89,12 @@ public class MapPageController {
         javaScriptConnector.call("displayMarkers");
     }
 
+    /**
+     * Adds a list of wineries to the wineryList for users to select from. Each row in the listView will be initialised
+     * to change colour if they are selected/hovered over, plotted, or neither. When selected, it will also show the
+     * wines that are produced by the winery and zoom into the location of the winery on the map.
+     * @param wineries A list of wineries to be added to wineListView
+     */
     void setWineryList(List<Winery> wineries) {
         wineries.sort(Comparator.comparing(Winery::getWineryName));
         ObservableList<Winery> wineryNames = FXCollections.observableArrayList(wineries);
@@ -131,6 +137,11 @@ public class MapPageController {
         });
     }
 
+    /**
+     * Adds a list of wines from a winery to the wineListView for users to select from. When selected, it will open a
+     * popup which shows the wine's information and also allows users to read, write, and flag reviews.
+     * @param winery The winery where the wines are from
+     */
     void setWineList(Winery winery) {
         ObservableList<Wine> wineList = FXCollections.observableArrayList(wineManager.getWineWithWinery(winery));
         wineListView.setItems(wineList);
@@ -153,6 +164,10 @@ public class MapPageController {
         });
     }
 
+    /**
+     * Whenever something is written into searchWinery, this method will be called and will change the list of wineries
+     * shown based off the input from the user.
+     */
     @FXML
     void updateSearch() {
         String wineryName = searchWinery.getText();
