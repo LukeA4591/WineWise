@@ -213,7 +213,7 @@ public class HomePageController {
     private void checkScreen(int size) {
         if (size == 0) {
             if (viewCritic) {
-                noReviewsLabel.setText("No wines have been reviewed by critics");
+                noReviewsLabel.setText("No wines to view");
             } else {
                 noReviewsLabel.setText("No wines have been reviewed by users");
             }
