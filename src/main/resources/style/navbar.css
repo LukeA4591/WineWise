@@ -127,6 +127,7 @@
 }
 
 .menu-button:hover, .combo-box:hover {
+    -fx-cursor: hand;
     -fx-background-color: #eccca2;
     -fx-background-insets: 1 1 1 1;
 }
