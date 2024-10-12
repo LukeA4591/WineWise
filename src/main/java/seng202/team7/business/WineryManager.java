@@ -39,4 +39,6 @@ public class WineryManager {
     public Winery getWineryByName(String wineryName) {return wineryDAO.getWineryByName(wineryName); }
 
     public void delete(String name) { wineryDAO.delete(name); }
+
+    public List<Winery> getAllLikeSearch(String wineryName) { return wineryDAO.getAllLikeSearch(wineryName); }
 }
