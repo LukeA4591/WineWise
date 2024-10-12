@@ -11,6 +11,8 @@ import seng202.team7.models.Winery;
 import seng202.team7.repository.DatabaseManager;
 import seng202.team7.repository.WineryDAO;
 
+import java.util.Objects;
+
 public class WineryDAOStepDefs {
     private WineryDAO wineryDAO;
     private DatabaseManager databaseManager;
@@ -73,4 +75,24 @@ public class WineryDAOStepDefs {
         Assertions.assertEquals(wineryDAO.getWineryByName(selectedWinery).getLatitude(), null);
         Assertions.assertEquals(wineryDAO.getWineryByName(selectedWinery).getLongitude(), null);
     }
+
+    @Given("An admin enters a new winery {string} with latitude {string} and longitude {string}")
+    public void addNewWinery(String wineryName, String lat, String lng) {
+        if (Objects.equals(lat, "null") && Objects.equals(lng, "null")) {
+            wineryDAO.add(new Winery(wineryName, null, null));
+        }
+    }
+
+    @When("They enter a location for {string} by address or clicking on the map at lat: {int}, lng: {int}")
+    public void addLocation(String wineryName, int lat, int lng) {
+        wineryDAO.updateLocationByWineryName(wineryName, (float) lat, (float) lng);
+    }
+
+    @Then("The winery {string} is added to the database with the correct latitude and longitude")
+    public void checkWinery(String wineryName) {
+        Winery winery = wineryDAO.getWineryByName(wineryName);
+        Assertions.assertEquals(winery.getLatitude(), 70);
+        Assertions.assertEquals(winery.getLongitude(), 50);
+    }
+
 }

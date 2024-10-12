@@ -8,3 +8,8 @@ Feature: WineryDao
     Given An admin selects winery "Winery 2" to remove location
     When They confirm to remove the winery
     Then The wineries location is set to null, null
+
+  Scenario: An admin adds a new winery and wants to select location
+    Given An admin enters a new winery "newWinery" with latitude "null" and longitude "null"
+    When They enter a location for "newWinery" by address or clicking on the map at lat: 70, lng: 50
+    Then The winery "newWinery" is added to the database with the correct latitude and longitude
