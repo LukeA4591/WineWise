@@ -115,11 +115,13 @@ public class AdminMapPageController {
                     } else {
                         setText(winery.getWineryName());
                         Winery selectedWinery = wineryList.getSelectionModel().getSelectedItem();
-                        if (winery == selectedWinery) {
-                            setStyle("-fx-background-color: #eccca2");
+                        this.setOnMouseClicked(event -> {
                             if (winery.getLatitude() != null && winery.getLongitude() != null) {
                                 javaScriptConnector.call("zoomToLocation", winery.getLatitude(), winery.getLongitude(), 13);
                             }
+                        });
+                        if (winery == selectedWinery) {
+                            setStyle("-fx-background-color: #eccca2");
                         } else if (winery.getLatitude() == null || winery.getLongitude() == null) {
                             setStyle("-fx-background-color: #ffb3b3");
                         } else {

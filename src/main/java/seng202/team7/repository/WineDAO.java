@@ -24,7 +24,7 @@ public class WineDAO implements DAOInterface<Wine> {
     /**
      * Creates a new UserDAO object and gets a reference to the database singleton
      */
-    public WineDAO(){
+    public WineDAO() {
         databaseManager = DatabaseManager.getInstance();
     }
 
@@ -34,15 +34,16 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Gets all wines in database
+     *
      * @return a list of all wines
      */
     @Override
     public List<Wine> getAll() {
         List<Wine> wines = new ArrayList<>();
         String sql = "SELECT * FROM wines";
-        try(Connection conn = databaseManager.connect();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conn = databaseManager.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 wines.add(new Wine(
                         rs.getString("type"),
@@ -62,9 +63,10 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Gets a list of wines depending on filters and a search query, generates a sql string and then calls a helper method to execute it
-     * @param filters User inputted string filters
+     *
+     * @param filters      User inputted string filters
      * @param scoreFilters User inputted integer filters
-     * @param search User inputted search query
+     * @param search       User inputted search query
      * @return List of filtered wines
      */
     public List<Wine> getFilteredWines(Map<String, String> filters, Map<String, List<String>> scoreFilters, String search) {
@@ -108,6 +110,7 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Helper function for getting filtered wines
+     *
      * @param filters the string filters that the user has submitted
      * @return StringBuilder of the sql query getting string filters
      */
@@ -142,19 +145,20 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Helps the filtered wine method to execute the sql query
-     * @param sql sql query
-     * @param filters user inputted string filters
-     * @param scoreFilters user inputted score filters
+     *
+     * @param sql                 sql query
+     * @param filters             user inputted string filters
+     * @param scoreFilters        user inputted score filters
      * @param criticScoreIncluded bool if critic score is included
-     * @param searchIncluded bool if search is included
-     * @param search search string
-     * @param isNum bool to determine if search in an integer
+     * @param searchIncluded      bool if search is included
+     * @param search              search string
+     * @param isNum               bool to determine if search in an integer
      * @return List of wines which contain the wines from the sql query
      */
     private List<Wine> executeFilterSql(StringBuilder sql, Map<String, String> filters, Map<String, List<String>> scoreFilters, boolean criticScoreIncluded, boolean searchIncluded, String search, boolean isNum) {
         List<Wine> wines = new ArrayList<>();
-        try(Connection conn = databaseManager.connect();
-            PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
             int index = 1;
             for (Map.Entry<String, String> filter : filters.entrySet()) {
                 String value = filter.getValue();
@@ -181,7 +185,7 @@ public class WineDAO implements DAOInterface<Wine> {
             }
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                wines.add(new Wine(rs.getString("type"), rs.getString("name"), rs.getString("winery"), rs.getInt("vintage"),  (Integer) rs.getObject("score"), rs.getString("region"), rs.getString("description")));
+                wines.add(new Wine(rs.getString("type"), rs.getString("name"), rs.getString("winery"), rs.getInt("vintage"), (Integer) rs.getObject("score"), rs.getString("region"), rs.getString("description")));
             }
             return wines;
         } catch (SQLException sqlException) {
@@ -192,6 +196,7 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Method for getting all the distinct values of a column from the wine table + SQL INJECTION Protection with hecking val column (WILL NEED TO CHANGE IF CHANGE WINE table)
+     *
      * @param column column which all the distinct values are needed
      * @return list of the distinct values
      */
@@ -200,9 +205,9 @@ public class WineDAO implements DAOInterface<Wine> {
         if (validCols.contains(column)) {
             List<String> result = new ArrayList<>();
             String sql = "SELECT DISTINCT " + column + " FROM wines";
-            try(Connection conn = databaseManager.connect();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(sql)) {
+            try (Connection conn = databaseManager.connect();
+                 Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
                 while (rs.next()) {
                     result.add(rs.getString(column));
                 }
@@ -218,6 +223,7 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Adds single wine to database
+     *
      * @param toAdd object of type Wine to add
      * @return int -1 if unsuccessful, otherwise the insertId
      */
@@ -249,8 +255,9 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Delete method to remove a wine from the database
-     * @param name name of the wine
-     * @param winery winery the wine is from
+     *
+     * @param name    name of the wine
+     * @param winery  winery the wine is from
      * @param vintage vintage of the wine
      */
     public void delete(String name, String winery, int vintage) {
@@ -273,9 +280,10 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Adds a batch of wines to the database and sends a list of wines to the WineryDAO, so it can add any new wineries.
+     *
      * @param wines list of wines to be added
      */
-    public void addBatch (List <Wine> wines) {
+    public void addBatch(List<Wine> wines) {
         Set<Winery> uniqueWineries = new HashSet<>();
         for (Wine wine : wines) {
             Winery winery = new Winery(wine.getWineryString());
@@ -311,7 +319,7 @@ public class WineDAO implements DAOInterface<Wine> {
 
             conn.commit();
             ResultSet rs = ps.getGeneratedKeys();
-            while (rs.next()){
+            while (rs.next()) {
                 log.info(rs.getLong(1));
             }
             conn.commit();
@@ -323,6 +331,7 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Get the three top-rated wines do display on the home page of our application
+     *
      * @return a list of the top 3 rated wines
      */
     public List<Wine> getTopRated(int page) {
@@ -349,13 +358,14 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Gets an instance of a wine from the database based on the wine ID
+     *
      * @param wineID ID of the wine
      * @return wine which matches ID
      */
     public Wine getWineFromID(int wineID) {
         String sql = "SELECT * from wines WHERE wineID=?";
-        try(Connection conn = databaseManager.connect();
-            PreparedStatement ps = conn.prepareStatement(sql)){
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, wineID);
             ResultSet rs = ps.executeQuery();
 
@@ -375,14 +385,15 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Gets an ID of a wine
+     *
      * @param toSearch wine being queried
      * @return ID of wine
      */
     public int getWineID(Wine toSearch) {
         int wineID;
         String sql = "SELECT wineID FROM wines WHERE name=? AND vintage=? AND winery=?";
-        try(Connection conn = databaseManager.connect();
-            PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, toSearch.getWineName());
             ps.setInt(2, toSearch.getVintage());
             ps.setString(3, toSearch.getWineryString());
@@ -397,8 +408,9 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Updates the wine and checks if it can be updated, returns true if successfully updated
+     *
      * @param toUpdate new wine details
-     * @param oldWine old wine details
+     * @param oldWine  old wine details
      * @return success of update
      */
     public boolean updateWine(Wine toUpdate, Wine oldWine) {
@@ -408,8 +420,8 @@ public class WineDAO implements DAOInterface<Wine> {
             return false;
         }
         String sql = "UPDATE wines SET type=?, name=?, winery=?, vintage=?, score=?, region=?, description=? WHERE wineID=?";
-        try(Connection conn = databaseManager.connect();
-            PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, toUpdate.getColor());
             ps.setString(2, toUpdate.getWineName());
             ps.setString(3, toUpdate.getWineryString());
@@ -427,9 +439,9 @@ public class WineDAO implements DAOInterface<Wine> {
     }
 
 
-
     /**
      * Returns a List of the top 3 wines with the 1st being same colour, 2nd being same winery, 3rd being same year
+     *
      * @param wine Wine displayed
      * @return List of wines that are similar to the displayed wine
      */
@@ -444,19 +456,20 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Used by getSimilarWines() - Returns the top-rated wine of the same colour BUT if same wine return next highest
+     *
      * @param givenWine wine that has the type we want to be the same as
      * @return top wine of same colour
      */
     public Wine getSimilarColour(Wine givenWine) {
         Wine NewWine = null;
         String sql = "SELECT * FROM wines WHERE type=? ORDER BY score DESC LIMIT 2";
-        try(Connection conn = databaseManager.connect();
-        PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, givenWine.getColor());
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 NewWine = new Wine(rs.getString("type"), rs.getString("name"),
-                        rs.getString("winery"), rs.getInt("vintage"),  (Integer) rs.getObject("score"),
+                        rs.getString("winery"), rs.getInt("vintage"), (Integer) rs.getObject("score"),
                         rs.getString("region"), rs.getString("description"));
 
                 if (NewWine.equals(givenWine) || alreadySelected.contains(NewWine)) {
@@ -479,19 +492,20 @@ public class WineDAO implements DAOInterface<Wine> {
     /**
      * Used by getSimilarWines() - Returns the top-rated wine from the same Winery BUT if same wine return next highest
      * Checks if NewWine being set to itself escapes while loop (case where only 1 wine from winery), returns random wine
+     *
      * @param givenWine wine we want to be from the same winery
      * @return top-rated wine from the same Winery
      */
     public Wine getSimilarWinery(Wine givenWine) {
         Wine NewWine = null;
         String sql = "SELECT * FROM wines WHERE winery=? ORDER BY score DESC LIMIT 2";
-        try(Connection conn = databaseManager.connect();
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, givenWine.getWineryString());
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 NewWine = new Wine(rs.getString("type"), rs.getString("name"),
-                        rs.getString("winery"), rs.getInt("vintage"),  (Integer) rs.getObject("score"),
+                        rs.getString("winery"), rs.getInt("vintage"), (Integer) rs.getObject("score"),
                         rs.getString("region"), rs.getString("description"));
                 if (NewWine.equals(givenWine) || alreadySelected.contains(NewWine)) {
                     continue;
@@ -512,19 +526,20 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Used by getSimilarWines() - Returns the top-rated wine from the same Year BUT if same wine return next highest
+     *
      * @param givenWine wine that we want to have the same year in
      * @return top-rated wine from the same Year
      */
     public Wine getSimilarVintage(Wine givenWine) {
         Wine NewWine = null;
         String sql = "SELECT * FROM wines WHERE vintage=? ORDER BY score DESC LIMIT 2";
-        try(Connection conn = databaseManager.connect();
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, givenWine.getVintage());
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 NewWine = new Wine(rs.getString("type"), rs.getString("name"),
-                        rs.getString("winery"), rs.getInt("vintage"),  (Integer) rs.getObject("score"),
+                        rs.getString("winery"), rs.getInt("vintage"), (Integer) rs.getObject("score"),
                         rs.getString("region"), rs.getString("description"));
                 if (NewWine.equals(givenWine) || alreadySelected.contains(NewWine)) {
                     continue;
@@ -546,6 +561,7 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * returns a Wine that is anything but the given wine
+     *
      * @param givenWine wine that we want the returned wine NOT TO BE
      * @return a wine that is anything but the given wine and wines already used
      */
@@ -593,8 +609,8 @@ public class WineDAO implements DAOInterface<Wine> {
 
     public boolean checkIfWineExists(Wine wine) {
         String sql = "SELECT * FROM wines WHERE vintage=? AND name=? AND winery=?";
-        try(Connection conn = databaseManager.connect();
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, wine.getVintage());
             pstmt.setString(2, wine.getWineName());
             pstmt.setString(3, wine.getWineryString());
@@ -609,5 +625,30 @@ public class WineDAO implements DAOInterface<Wine> {
         }
 
         return false;
+    }
+
+    public List<Wine> getWineWithWinery(Winery winery) {
+        List<Wine> wineList = new ArrayList<>();
+        String sql = "SELECT * FROM wines WHERE winery=?";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, winery.getWineryName());
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                Wine wine = new Wine(
+                        resultSet.getString("type"),
+                        resultSet.getString("name"),
+                        resultSet.getString("winery"),
+                        resultSet.getInt("vintage"),
+                        (Integer) resultSet.getObject("score"),
+                        resultSet.getString("region"),
+                        resultSet.getString("description")
+                );
+                wineList.add(wine);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return wineList;
     }
 }

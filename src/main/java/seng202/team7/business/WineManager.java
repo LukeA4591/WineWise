@@ -2,6 +2,7 @@ package seng202.team7.business;
 
 import seng202.team7.io.Importable;
 import seng202.team7.models.Wine;
+import seng202.team7.models.Winery;
 import seng202.team7.repository.WineDAO;
 
 import java.io.File;
@@ -109,4 +110,6 @@ public class WineManager {
     public List<Wine> searchWines(String search) {return  wineDAO.searchWines(search);}
 
     public boolean checkIfWineExists(Wine wine) {return wineDAO.checkIfWineExists(wine);}
+
+    public List<Wine> getWineWithWinery(Winery winery) { return wineDAO.getWineWithWinery(winery); }
 }
