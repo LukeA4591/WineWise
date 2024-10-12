@@ -326,25 +326,25 @@ public class AdminScreenController {
 //
 //            addBatchThread.start();
 //        }
-
-        try {
-            FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/import_preview.fxml"));
-            AnchorPane root = newStageLoader.load();
-            Scene modalScene = new Scene(root);
-            Stage modalStage = new Stage();
-            ImportPreviewController importPreviewController = newStageLoader.getController();
-            importPreviewController.init(file, appEnvironment);
-            modalStage.setScene(modalScene);
-            modalStage.setResizable(false);
-            modalStage.setTitle("Add a Dataset");
-            modalStage.initModality(Modality.APPLICATION_MODAL);
-            Stage primaryStage = (Stage) addWine.getScene().getWindow();
-            modalStage.initOwner(primaryStage);
-            modalStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (file != null && file.exists()) {
+            try {
+                FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/import_preview.fxml"));
+                AnchorPane root = newStageLoader.load();
+                Scene modalScene = new Scene(root);
+                Stage modalStage = new Stage();
+                ImportPreviewController importPreviewController = newStageLoader.getController();
+                importPreviewController.init(file, appEnvironment);
+                modalStage.setScene(modalScene);
+                modalStage.setResizable(false);
+                modalStage.setTitle("Add a Dataset");
+                modalStage.initModality(Modality.APPLICATION_MODAL);
+                Stage primaryStage = (Stage) addWine.getScene().getWindow();
+                modalStage.initOwner(primaryStage);
+                modalStage.showAndWait();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
     }
 
     @FXML
