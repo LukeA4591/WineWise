@@ -103,11 +103,17 @@ public class WineUserRatingScreenController {
         savedLabel.setText("");
     }
 
+    /**
+     * Resets message when user opens the review text area.
+     */
     @FXML
     private void textSelected() {
         savedLabel.setText("");
     }
 
+    /**
+     * Whenever the user types in the review text box, it checks if the review is too long.
+     */
     @FXML
     private void checkCharacterLimit() {
         int textLength = reviewTextArea.getLength();
