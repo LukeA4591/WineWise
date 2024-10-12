@@ -1,5 +1,6 @@
 package seng202.team7.gui;
 
+import javafx.animation.PauseTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -131,7 +132,8 @@ public class HomePageController {
     }
 
     /**
-     * TODO
+     * Sets the size of the wine collection depending on whether critic or user reviews are being viewed.
+     * Retrieves the size from either the wineManager or reviewManager based on the viewCritic flag.
      */
     private void setSize() {
         if (viewCritic) {
@@ -142,7 +144,8 @@ public class HomePageController {
     }
 
     /**
-     * TODO
+     * Calculates the total number of pages based on the size of the wine collection.
+     * Resets the finalPage flag to false.
      */
     private void calculateTotalPagesAndReset() {
         finalPage = false;
@@ -154,8 +157,10 @@ public class HomePageController {
     }
 
     /**
-     * TODO
-     * @param wines
+     * Sets the wines to be displayed on the current page.
+     * Populates the screen with the wine names, wineries, ratings, and images.
+     *
+     * @param wines List of wines to be displayed.
      */
     private void setWines(List<Wine> wines) {
         displayWines(wines);
@@ -165,7 +170,8 @@ public class HomePageController {
     }
 
     /**
-     * TODO
+     * Initializes the screen with the correct number of wines based on the current page.
+     * Determines whether to load critic or user reviews and initializes the panes with wine data.
      */
     private void initScreen() {
         page = 0;
@@ -185,8 +191,9 @@ public class HomePageController {
     }
 
     /**
-     * TODO
-     * @param wines
+     * Initializes the panes on the screen based on the number of wines available.
+     *
+     * @param wines List of wines to display.
      */
     private void initScreenPanes(List<Wine> wines) {
         if (wines.size() >= 6) {
@@ -198,7 +205,10 @@ public class HomePageController {
     }
 
     /**
-     * Checks the current state of the screen and clears or hides elements if there are no reviews to display.
+     * Checks if the screen should display reviews or if it should indicate that no reviews are available.
+     * Hides elements if there are no wines to display.
+     *
+     * @param size The size of the wine collection to check.
      */
     private void checkScreen(int size) {
         if (size == 0) {
@@ -244,13 +254,23 @@ public class HomePageController {
         List<Wine> wines = wineManager.getTopRated(page);
         getTopUsers();
         slidePanes(true);
-        if (viewCritic) {
-            checkNextPage(wines);
-        } else {
-            checkNextPage(topUserWinesPage);
-        }
+        PauseTransition pause = new PauseTransition(Duration.millis(250));
+        pause.setOnFinished( event -> {
+            if (viewCritic) {
+                checkNextPage(wines);
+            } else {
+                checkNextPage(topUserWinesPage);
+            }
+        });
+        pause.play();
     }
 
+    /**
+     * Checks the wines for the next page and updates the screen accordingly.
+     * If it's the final page, it adjusts the number of panes displayed.
+     *
+     * @param wines The list of wines to check for the next page.
+     */
     private void checkNextPage(List<Wine> wines) {
         if (finalPage) {
             setPanes(wines.size());
@@ -258,6 +278,11 @@ public class HomePageController {
         setWines(wines);
     }
 
+    /**
+     * Sets the number of visible panes based on the number of wines to display.
+     *
+     * @param numPanes The number of panes to be made visible.
+     */
     private void setPanes(int numPanes) {
         for (Pane pane : panes) {
             pane.setVisible(false);
@@ -267,6 +292,9 @@ public class HomePageController {
         }
     }
 
+    /**
+     * Resets the panes to their visible state and toggles the finalPage flag.
+     */
     private void resetPanes() {
         for (Pane pane : panes) {
             pane.setVisible(true);
@@ -279,13 +307,25 @@ public class HomePageController {
      */
     @FXML
     private void prevPage() {
+        page--;
+        setPage();
+        slidePanes(false);
+        PauseTransition pause = new PauseTransition(Duration.millis(250));
+        pause.setOnFinished( event -> {
+            prevEvent();
+        });
+        pause.play();
+    }
+
+    /**
+     * Delayed event when the previous button is pressed
+     * Allows panes to transition off the screen, then change wines before transitioning on.
+     */
+    private void prevEvent() {
         if (finalPage) {
             resetPanes();
         }
-        slidePanes(false);
-        page--;
         validateButtons();
-        setPage();
         if (viewCritic) {
             List<Wine> wines = wineManager.getTopRated(page);
             setWines(wines);
@@ -294,7 +334,6 @@ public class HomePageController {
             setWines(topUserWinesPage);
         }
     }
-
     /**
      * Sets the current page label based on the page number.
      */
@@ -302,11 +341,21 @@ public class HomePageController {
         pageLabel.setText("Page " + (page + 1));
     }
 
+    /**
+     * Sets the visibility of the "next page" button and the pane that contains it.
+     *
+     * @param setter Boolean value indicating whether the "next" button should be visible or not.
+     */
     private void setNext(boolean setter) {
         nextImage.setVisible(setter);
         nextImagePane.setVisible(setter);
     }
 
+    /**
+     * Sets the visibility of the "previous page" button and the pane that contains it.
+     *
+     * @param setter Boolean value indicating whether the "previous" button should be visible or not.
+     */
     private void setPrev(boolean setter) {
         prevImage.setVisible(setter);
         prevImagePane.setVisible(setter);
@@ -411,6 +460,12 @@ public class HomePageController {
         }
     }
 
+    /**
+     * Fetches and displays the details of the selected wine when it is clicked.
+     * The wine is displayed in a popup window, and the image is fetched using the WinePopupService.
+     *
+     * @param wineNum The index of the selected wine in the list of displayed wines.
+     */
     public void winePressed(int wineNum) {
         List<Wine> wines;
         Wine wine;
