@@ -54,10 +54,13 @@ public class AdminScreenController {
     private Button deleteReviewButton;
     @FXML
     private Button unflagReviewButton;
+    @FXML
+    private Stage helpStage;
     private final AppEnvironment appEnvironment;
     private final WineManager wineManager;
     private final ReviewManager reviewManager;
     private final List<Review> selectedReviews = new ArrayList<>();
+
 
 
 
@@ -221,7 +224,7 @@ public class AdminScreenController {
             modalStage.setHeight(500);
             modalStage.setResizable(false);
             modalStage.setTitle("Add Wine");
-            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.initModality(Modality.WINDOW_MODAL);
             Stage primaryStage = (Stage) addWine.getScene().getWindow();
             modalStage.initOwner(primaryStage);
             modalStage.showAndWait();
@@ -255,9 +258,10 @@ public class AdminScreenController {
                     modalStage.setScene(modalScene);
                     modalStage.setWidth(900);
                     modalStage.setHeight(655);
+
                     modalStage.setResizable(false);
                     modalStage.setTitle("View Wines");
-                    modalStage.initModality(Modality.APPLICATION_MODAL);
+                    modalStage.initModality(Modality.WINDOW_MODAL);
                     modalStage.initOwner(primaryStage);
                     modalStage.showAndWait();
                 } catch (IOException e) {
@@ -273,17 +277,22 @@ public class AdminScreenController {
     @FXML
     private void onHelp() {
         try {
-            FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_help_popup.fxml"));
-            BorderPane root = newStageLoader.load();
-            Scene modalScene = new Scene(root);
-            Stage modalStage = new Stage();
-            modalStage.setScene(modalScene);
-            modalStage.setResizable(false);
-            modalStage.setTitle("Admin Help Screen");
-            modalStage.initModality(Modality.APPLICATION_MODAL);
-            Stage primaryStage = (Stage) addWine.getScene().getWindow();
-            modalStage.initOwner(primaryStage);
-            modalStage.showAndWait();
+            if (helpStage == null || !helpStage.isShowing()) {
+                FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/admin_help_popup.fxml"));
+                BorderPane root = newStageLoader.load();
+                Scene modalScene = new Scene(root);
+                helpStage = new Stage();
+                helpStage.setScene(modalScene);
+                helpStage.setResizable(false);
+                helpStage.setTitle("Admin Help Screen");
+                helpStage.initModality(Modality.NONE);
+
+                Stage primaryStage = (Stage) addWine.getScene().getWindow();
+                helpStage.initOwner(primaryStage);
+                helpStage.show();
+            } else {
+                helpStage.requestFocus();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -337,7 +346,7 @@ public class AdminScreenController {
                 modalStage.setScene(modalScene);
                 modalStage.setResizable(false);
                 modalStage.setTitle("Add a Dataset");
-                modalStage.initModality(Modality.APPLICATION_MODAL);
+                modalStage.initModality(Modality.WINDOW_MODAL);
                 Stage primaryStage = (Stage) addWine.getScene().getWindow();
                 modalStage.initOwner(primaryStage);
                 modalStage.showAndWait();
@@ -393,7 +402,7 @@ public class AdminScreenController {
                     modalStage.setHeight(624);
                     modalStage.setResizable(false);
                     modalStage.setTitle("Place Wineries");
-                    modalStage.initModality(Modality.APPLICATION_MODAL);
+                    modalStage.initModality(Modality.WINDOW_MODAL);
                     modalStage.initOwner(primaryStage);
                     modalStage.show();
                 } catch (IOException e) {
@@ -410,6 +419,9 @@ public class AdminScreenController {
      */
     @FXML
     void adminLogout() {
+        if (helpStage != null && helpStage.isShowing()) {
+            helpStage.close();
+        }
         appEnvironment.getClearRunnable().run();
         appEnvironment.launchNavBar();
     }
