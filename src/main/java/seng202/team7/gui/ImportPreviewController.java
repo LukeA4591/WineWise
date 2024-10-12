@@ -20,9 +20,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-
+/**
+ * Controller class for the import_preview.fxml file
+ */
 public class ImportPreviewController {
-    private static final Logger log = LogManager.getLogger(seng202.team7.gui.ImportPreviewController.class);
 
     @FXML
     Button changeTableButton;
@@ -62,9 +63,16 @@ public class ImportPreviewController {
     AppEnvironment appEnvironment;
 
     /**
-     * TODO
-     * @param file
-     * @param appEnvironment
+     * Default constructor for the ImportPreviewController
+     */
+    public ImportPreviewController() {
+
+    }
+
+    /**
+     * Init method for the ImportPreviewController, shows the first six lines of the file which the admin is changing th
+     * @param file file which is being uploaded
+     * @param appEnvironment instance of AppEnvironment
      */
     public void init(File file, AppEnvironment appEnvironment) {
         this.file = file;

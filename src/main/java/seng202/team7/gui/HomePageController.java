@@ -113,6 +113,14 @@ public class HomePageController {
     private List<ImageView> images;
     private int size;
     private List<Wine> topUserWinesPage;
+
+    /**
+     * Default constructor for the home page controller
+     */
+    public HomePageController() {
+
+    }
+
     /**
      * Initializes the HomePageController. Sets the stage and loads the top 3 rated wines to be displayed with their
      * information. If there aren't 3 wines in the database, it doesn't load any.

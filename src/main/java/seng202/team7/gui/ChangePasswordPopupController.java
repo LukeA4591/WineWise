@@ -12,25 +12,38 @@ import javafx.stage.Stage;
 import seng202.team7.services.AdminLoginService;
 import seng202.team7.services.AppEnvironment;
 
+/**
+ * Controller for the admin_change_password_popup.fxml
+ */
 public class ChangePasswordPopupController {
-
-
-    public Label errorLabel;
-    public Button viewButton;
-    public TextField currentPasswordInputField;
-
-    public PasswordField currentPasswordField;
-    public TextField newPasswordInputField;
-    public PasswordField newPasswordField;
-    public TextField confirmNewPasswordInputField;
-    public PasswordField confirmNewPasswordField;
-
-
+    @FXML
+    private Label errorLabel;
+    @FXML
+    private Button viewButton;
+    @FXML
+    private TextField currentPasswordInputField;
+    @FXML
+    private PasswordField currentPasswordField;
+    @FXML
+    private TextField newPasswordInputField;
+    @FXML
+    private PasswordField newPasswordField;
+    @FXML
+    private TextField confirmNewPasswordInputField;
+    @FXML
+    private PasswordField confirmNewPasswordField;
     private AdminLoginService adminLoginService;
 
     /**
-     * Initializes the Change Password Popup window & all UI objects
-     * @param appEnvironment
+     * Default constructor for ChangePasswordPopupController
+     */
+    public ChangePasswordPopupController() {
+
+    }
+
+    /**
+     * Initializes the Change Password Popup window and all UI objects
+     * @param appEnvironment instance of AppEnvironment
      */
     @FXML
     public void init(AppEnvironment appEnvironment) {

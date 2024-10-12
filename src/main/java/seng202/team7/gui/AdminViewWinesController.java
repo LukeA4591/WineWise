@@ -36,6 +36,13 @@ public class AdminViewWinesController {
     private List<Wine> wines;
 
     /**
+     * Default constructor for AdminViewWinesController
+     */
+    public AdminViewWinesController() {
+
+    }
+
+    /**
      * Initializes the wineManager and then gets all the wines from the wine database table as wine objects. Using the
      * wine objects, a table is filled with the details of all the wines.
      */
@@ -151,7 +158,7 @@ public class AdminViewWinesController {
 
     /**
      * On click of a wine in the table open the edit wine window/modal
-     * @param wineClicked
+     * @param wineClicked wine which was clicked on
      */
     public void onWineClicked(Wine wineClicked) {
         try {

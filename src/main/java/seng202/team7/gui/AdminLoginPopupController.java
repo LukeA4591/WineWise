@@ -30,6 +30,13 @@ public class AdminLoginPopupController {
     private AdminLoginService adminLoginInstance;
 
     /**
+     * Default constructor for the AdminLoginPopupController
+     */
+    public AdminLoginPopupController() {
+
+    }
+
+    /**
      * Init method for admin login popup. It is called from in the AdminScreenController. Passes in the wine
      * environment and gets the singleton instance of admin login service. Sets up a listener that listens for when the
      * TextField is attached to the scene.

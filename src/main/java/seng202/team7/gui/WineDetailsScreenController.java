@@ -31,34 +31,23 @@ public class WineDetailsScreenController {
     private Label winery;
     @FXML
     private Label wineDesc;
-
-    @FXML
-    private Pane recommendWine1;
     @FXML
     private ImageView recommendImage1;
     @FXML
     private Label recommendLabel1;
     @FXML
-    private Pane recommendWine2;
-    @FXML
     private ImageView recommendImage2;
     @FXML
     private Label recommendLabel2;
     @FXML
-    private Pane recommendWine3;
-    @FXML
     private ImageView recommendImage3;
     @FXML
     private Label recommendLabel3;
-
     @FXML
     ImageView[] RecommendedImageList;
     @FXML
     Label[] RecommendedLabelList;
-
-
     List<Wine> wineList;
-
     String wineName1;
     Integer score;
     int vintage;
@@ -72,6 +61,13 @@ public class WineDetailsScreenController {
 
     private WinePopupService winePopupService;
     private final String defaultImageFilePath = "/images/defaultwine.png";
+
+    /**
+     * Default constructor for the wine details screen controller
+     */
+    public WineDetailsScreenController() {
+
+    }
 
     /**
      * Provide all information about the wine to allow the user to read more about any specific wine
