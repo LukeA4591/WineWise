@@ -69,10 +69,8 @@ public class ReviewManager {
      */
     public List<Review> getFlaggedReviews() { return reviewDAO.getFlaggedReviews(); }
 
-    /**
-     * Gets the average of all user reviews for all wines
-     * @return a linked hash map, where the key is the wine id and the value is the average user review
-     */
-    public LinkedHashMap<Integer, Integer> getAverageReviews() {return reviewDAO.getAverageReviews(); }
+    public LinkedHashMap<Integer, Integer> getAverageReviews(int page) {return reviewDAO.getAverageReviews(page); }
+
+    public int getNumWinesWithReviews() {return reviewDAO.getNumWinesWithReviews(); }
 
 }
