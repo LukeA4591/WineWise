@@ -45,6 +45,11 @@
     -fx-pref-width: 100;
 }
 
+.button-sort {
+    -fx-pref-height: 20;
+    -fx-pref-width: 110;
+}
+
 .button-add-winery {
     -fx-pref-height: 20;
     -fx-pref-width: 120;

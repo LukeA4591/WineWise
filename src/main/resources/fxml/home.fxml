@@ -172,7 +172,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="sortButton" layoutX="699.0" layoutY="23.0" mnemonicParsing="false" onAction="#sortByButton" styleClass="button-search" text="Critics">
+      <Button fx:id="sortButton" layoutX="690.0" layoutY="23.0" mnemonicParsing="false" onAction="#sortByButton" styleClass="button-sort" text="Critic">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
