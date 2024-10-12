@@ -34,6 +34,14 @@ public class WinePopupController {
     private Image image;
 
     private final String turnButtonIndigo = "-fx-background-color: indigo; -fx-text-fill: white";
+
+    /**
+     * Default constructor for the wine popup controller
+     */
+    public WinePopupController() {
+
+    }
+
     /**
      * Init method for the wine popup navbar
      * @param wine wine which details are being presented

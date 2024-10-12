@@ -9,6 +9,13 @@ import seng202.team7.gui.MainWindow;
 public class App {
 
     /**
+     * Default constructor for the App class
+     */
+    public App() {
+
+    }
+
+    /**
      * Entry point which runs the javaFX application
      * @param args program arguments from command line
      */

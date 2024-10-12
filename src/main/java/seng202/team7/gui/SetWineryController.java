@@ -14,11 +14,12 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+/**
+ * Controller for the set_winery.fxml file
+ */
 public class SetWineryController {
     @FXML
     private ListView<String> wineryList;
-    @FXML
-    private Button confirmButton;
     @FXML
     private Label selectedWineryLabel;
     @FXML
@@ -30,6 +31,13 @@ public class SetWineryController {
     float lon;
     SetWineryInterface setWineryInterface;
     String selectedWinery = null;
+
+    /**
+     * Default constructor for the SetWineryController class
+     */
+    public SetWineryController() {
+
+    }
 
     /**
      * initializes the page with the wineryInterface and the lat/long floats

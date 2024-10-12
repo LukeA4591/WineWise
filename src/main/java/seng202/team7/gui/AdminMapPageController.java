@@ -34,6 +34,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Controller class for the admin_map_page.fxml file
+ */
 public class AdminMapPageController {
     private AppEnvironment appEnvironment;
     private Geolocator geolocator;
@@ -54,6 +57,13 @@ public class AdminMapPageController {
     private ListView<Winery> wineryList;
     @FXML
     private Label addressErrorLabel;
+
+    /**
+     * Default constructor for the AdminMapPageController
+     */
+    public AdminMapPageController() {
+
+    }
 
     /**
      * Initializes the AdminMapPageController with the given AppEnvironment and Stage.

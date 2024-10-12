@@ -2,8 +2,17 @@ package seng202.team7.services;
 
 import java.time.Year;
 
+/**
+ * Service class for the Wine model
+ */
 public class WineService {
 
+    /**
+     * Default constructor for the WineService
+     */
+    public WineService() {
+
+    }
 
     /**
      * Validates a wine depending on whether the user inputted string are valid for the database
