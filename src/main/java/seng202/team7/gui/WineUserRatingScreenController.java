@@ -11,6 +11,9 @@ import seng202.team7.exceptions.DuplicateExc;
 import seng202.team7.models.Review;
 import seng202.team7.models.Wine;
 
+/**
+ * Constructor for the wine_user_rating_screen.fxml file
+ */
 public class WineUserRatingScreenController {
 
     @FXML
@@ -35,6 +38,13 @@ public class WineUserRatingScreenController {
     private boolean movedSlider = false;
     private final int MAX_CHARACTERS = 500;
     private final String charRemaining = "Characters Remaining: ";
+
+    /**
+     * Default constructor for the WineUserRatingScreenController
+     */
+    public WineUserRatingScreenController() {
+
+    }
 
     /**
      * Init method for the user rating screen

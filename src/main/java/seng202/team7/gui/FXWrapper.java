@@ -22,6 +22,13 @@ public class FXWrapper {
     private Stage stage;
 
     /**
+     * Default constructor for the FXWrapper class
+     */
+    public FXWrapper() {
+
+    }
+
+    /**
      * Initializes the FXWrapper with the primary stage of the application.
      * @param stage The primary stage of the application.
      */

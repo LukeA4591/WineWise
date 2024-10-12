@@ -17,6 +17,9 @@ import seng202.team7.repository.WineryDAO;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * JavaScriptBridge class, used to communicate with JavaScript for the maps page
+ */
 public class JavaScriptBridge {
     private SetWineryInterface setWineryInterface;
     private GetWineryInterface getWineryInterface;

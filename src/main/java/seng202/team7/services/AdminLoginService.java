@@ -275,11 +275,11 @@ public class AdminLoginService {
     }
 
     /**
-     * //TODO skips the username using read line.
-     * @param currentPassword
-     * @param newPassword
-     * @param confirmNewPassword
-     * @return
+     * Method to change the password of the admin, creates a new file for the new credentials
+     * @param currentPassword current password of the admin
+     * @param newPassword new password of the admin
+     * @param confirmNewPassword confirm new password of the admin
+     * @return error message from password creation
      */
     public String changePassword(String currentPassword, String newPassword, String confirmNewPassword) {
         try {
