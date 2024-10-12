@@ -83,6 +83,7 @@ public class WineManager {
 
     /**
      * Gets a list of the top-rated wines, depending on the page of the home screen.
+     * @param page page of the home screen that hte user is currently on
      * @return A list of the top wines.
      */
     public List<Wine> getTopRated(int page) { return wineDAO.getTopRated(page); }
@@ -123,5 +124,10 @@ public class WineManager {
      */
     public boolean checkIfWineExists(Wine wine) {return wineDAO.checkIfWineExists(wine);}
 
+    /**
+     * Method to get all wines associated with a winery
+     * @param winery winery to check
+     * @return list of all wines produced by the given winery
+     */
     public List<Wine> getWineWithWinery(Winery winery) { return wineDAO.getWineWithWinery(winery); }
 }

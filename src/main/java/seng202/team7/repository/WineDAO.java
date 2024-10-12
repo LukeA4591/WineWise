@@ -28,6 +28,9 @@ public class WineDAO implements DAOInterface<Wine> {
         databaseManager = DatabaseManager.getInstance();
     }
 
+    /**
+     * Method used for testing, clears the already selected list
+     */
     public void clearAlreadySelected() {
         alreadySelected.clear();
     }
@@ -331,7 +334,7 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Get the three top-rated wines do display on the home page of our application
-     *
+     * @param page current page of the home page
      * @return a list of the top 3 rated wines
      */
     public List<Wine> getTopRated(int page) {
@@ -578,6 +581,11 @@ public class WineDAO implements DAOInterface<Wine> {
         return givenWine;
     }
 
+    /**
+     * Search method for getting wines like the search
+     * @param searchText search bar text from user input
+     * @return a list of all wines with types, names, wineries, regions, or score with a string matching the search field
+     */
     public List<Wine> searchWines(String searchText) {
         List<Wine> wineList = new ArrayList<>();
         String sql = "SELECT * FROM wines WHERE " + "type LIKE ? OR " + "name LIKE ? OR "
@@ -607,6 +615,11 @@ public class WineDAO implements DAOInterface<Wine> {
         return wineList;
     }
 
+    /**
+     * Method to check if a wine already exists in the database
+     * @param wine wine to check
+     * @return boolean true if it exists, false if not
+     */
     public boolean checkIfWineExists(Wine wine) {
         String sql = "SELECT * FROM wines WHERE vintage=? AND name=? AND winery=?";
         try (Connection conn = databaseManager.connect();
@@ -619,7 +632,6 @@ public class WineDAO implements DAOInterface<Wine> {
                 return true;
             }
 
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -627,6 +639,11 @@ public class WineDAO implements DAOInterface<Wine> {
         return false;
     }
 
+    /**
+     * Method to get all wines associated with a winery
+     * @param winery winery to check
+     * @return list of all wines produced by the given winery
+     */
     public List<Wine> getWineWithWinery(Winery winery) {
         List<Wine> wineList = new ArrayList<>();
         String sql = "SELECT * FROM wines WHERE winery=?";

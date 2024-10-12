@@ -12,7 +12,18 @@ import seng202.team7.models.Wine;
 
 import java.io.IOException;
 
+/**
+ * Service for the wine popup
+ */
 public class WinePopupService {
+
+    /**
+     * Default constructor for the WinePopupService
+     */
+    public WinePopupService() {
+
+    }
+
     /**
      * Retrieves the appropriate image based on the wine's color.
      *

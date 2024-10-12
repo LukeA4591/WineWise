@@ -49,6 +49,12 @@ public class AddWineController {
     Wine wine;
 
     /**
+     * Default constructor for the AddWineController class.
+     */
+    public AddWineController() {
+    }
+
+    /**
      * Method for going back to admin when the go back button is pressed.
      * **/
     private void goBackToAdmin() {

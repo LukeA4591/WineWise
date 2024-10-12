@@ -69,8 +69,17 @@ public class ReviewManager {
      */
     public List<Review> getFlaggedReviews() { return reviewDAO.getFlaggedReviews(); }
 
+    /**
+     * Gets the average of all reviews for each wine on a given page
+     * @param page current page of the home pae
+     * @return a linked hash map mapping the wine id to the average user review
+     */
     public LinkedHashMap<Integer, Integer> getAverageReviews(int page) {return reviewDAO.getAverageReviews(page); }
 
+    /**
+     * Method to get the number of wines with reviews
+     * @return int number of wines with reviews
+     */
     public int getNumWinesWithReviews() {return reviewDAO.getNumWinesWithReviews(); }
 
 }

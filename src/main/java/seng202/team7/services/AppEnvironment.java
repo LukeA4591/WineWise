@@ -4,6 +4,9 @@ import javafx.stage.Stage;
 
 import java.util.function.Consumer;
 
+/**
+ * AppEnvironemnt class, keeps track of the state of the application
+ */
 public class AppEnvironment {
 
     /**
@@ -90,10 +93,7 @@ public class AppEnvironment {
         adminScreenLauncher.accept(this);
     }
 
-    /**
-     * Gets the clear runnable that controllers use to clear the page.
-     * @return returns the clear runnable.
-     */
+
 
     public void setLoadingScreenOwner(Stage appStage) {
         loadingScreenService.positionScreen(appStage);
@@ -107,6 +107,10 @@ public class AppEnvironment {
         loadingScreenService.hideLoadingScreen();
     }
 
+    /**
+     * Gets the clear runnable that controllers use to clear the page.
+     * @return returns the clear runnable.
+     */
     public Runnable getClearRunnable() {
         return clear;
     }

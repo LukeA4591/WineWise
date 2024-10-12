@@ -167,6 +167,11 @@ public class ReviewDAO implements DAOInterface<Review>{
         }
     }
 
+    /**
+     * Gets the average of all reviews for each wine on a given page
+     * @param page current page of the home pae
+     * @return a linked hash map mapping the wine id to the average user review
+     */
     public LinkedHashMap<Integer, Integer> getAverageReviews(int page) {
         LinkedHashMap<Integer, Integer> averageReviews = new LinkedHashMap<>();
         String sql = "SELECT wine, AVG(rating) AS average_rating FROM reviews WHERE reported=false GROUP BY wine ORDER BY average_rating DESC LIMIT 6 OFFSET ?";
@@ -183,6 +188,10 @@ public class ReviewDAO implements DAOInterface<Review>{
         return averageReviews;
     }
 
+    /**
+     * Method to get the number of wines with reviews
+     * @return int number of wines with reviews
+     */
     public int getNumWinesWithReviews() {
         int size = 0;
         String sql = "SELECT DISTINCT wine FROM reviews WHERE reported=false;";

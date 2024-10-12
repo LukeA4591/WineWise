@@ -104,6 +104,10 @@ public class Wine {
         return wineryString;
     }
 
+    /**
+     * The setter method for the critic score of the wine
+     * @param rating score to set
+     */
     public void setWineScore(Integer rating) {
         this.score = rating;
     }

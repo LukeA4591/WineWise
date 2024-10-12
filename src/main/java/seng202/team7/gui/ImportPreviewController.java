@@ -62,9 +62,16 @@ public class ImportPreviewController {
     AppEnvironment appEnvironment;
 
     /**
-     * Init function for the import preview controller to initialize all UI objects and helper functions/classes
-     * @param file uploaded file from the user
-     * @param appEnvironment AppEnvironment to allow hiding/showing of loading screen
+     * Default constructor for the ImportPreviewController
+     */
+    public ImportPreviewController() {
+
+    }
+
+    /**
+     * Init method for the ImportPreviewController, shows the first six lines of the file which the admin is changing th
+     * @param file file which is being uploaded
+     * @param appEnvironment instance of AppEnvironment
      */
     public void init(File file, AppEnvironment appEnvironment) {
         this.file = file;
