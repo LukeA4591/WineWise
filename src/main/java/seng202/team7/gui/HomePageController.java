@@ -95,6 +95,10 @@ public class HomePageController {
     private Pane pane5;
     @FXML
     private Pane pane6;
+    @FXML
+    Pane prevImagePane;
+    @FXML
+    Pane nextImagePane;
 
     private int page;
     private int totalPages;
@@ -316,16 +320,20 @@ public class HomePageController {
         }
         if (page == 0) {
             prevImage.setVisible(false);
+            prevImagePane.setVisible(false);
         } else {
             prevImage.setVisible(true);
+            prevImagePane.setVisible(true);
         }
         if ((page + 2) * 6 <= size) {
             nextImage.setVisible(true);
+            nextImagePane.setVisible(true);
         } else {
             if (!finalPage) {
                 finalPageButton();
             } else {
                 nextImage.setVisible(false);
+                nextImagePane.setVisible(false);
             }
         }
     }
