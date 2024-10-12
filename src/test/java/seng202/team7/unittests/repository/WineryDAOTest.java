@@ -80,7 +80,7 @@ public class WineryDAOTest {
     }
 
     @Test
-    public void testAllGetAllWithNullLocation() {
+    public void testGetAllWithNullLocation() {
         populateDatabase();
         wineryDAO.add(new Winery("Four Winery", null, null));
         wineryDAO.add(new Winery("Five Winery", null, null));
@@ -89,5 +89,49 @@ public class WineryDAOTest {
         for (int i = 0; i < wineryList.size(); i++) {
             Assertions.assertEquals(expectedWineryList.get(i), wineryList.get(i));
         }
+    }
+
+    @Test
+    public void testGetAllWithNullLocationAndSearch() {
+        populateDatabase();
+        Winery winery = new Winery("Four Winery", null, null);
+        wineryDAO.add(winery);
+        wineryDAO.add(new Winery("Five Winery", null, null));
+        List<Winery> wineryList = wineryDAO.getAllWithNullLocation("Four");
+        Assertions.assertEquals(wineryList.size(), 1);
+        Assertions.assertEquals(wineryList.getFirst(), winery);
+    }
+
+    @Test
+    public void testUpdateLocationWithWineryName() {
+        populateDatabase();
+        Winery winery = new Winery("Four Winery", null, null);
+        wineryDAO.add(winery);
+        wineryDAO.updateLocationByWineryName("Four Winery", (float) 2, (float) 2);
+        winery = wineryDAO.getWineryByName("Four Winery");
+        Assertions.assertEquals(2, winery.getLatitude());
+        Assertions.assertEquals(2, winery.getLongitude());
+    }
+
+    @Test
+    public void testGetAllWithValidLocation() {
+        populateDatabase();
+        wineryDAO.add(new Winery("Four Winery", null, null));
+        wineryDAO.add(new Winery("Five Winery", null, null));
+        List<Winery> wineries = wineryDAO.getAllWithValidLocation();
+        Assertions.assertEquals(wineries.size(), 3);
+        for (Winery winery : wineries) {
+            Assertions.assertNotEquals(winery.getLatitude(), null);
+            Assertions.assertNotEquals(winery.getLongitude(), null);
+        }
+    }
+
+    @Test
+    public void testGetWineryByName() {
+        populateDatabase();
+        Winery winery = wineryDAO.getWineryByName("One Winery");
+        Assertions.assertEquals(winery.getWineryName(), "One Winery");
+        Assertions.assertEquals(winery.getLatitude(), 2);
+        Assertions.assertEquals(winery.getLongitude(), 1);
     }
 }
