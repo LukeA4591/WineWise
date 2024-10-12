@@ -65,7 +65,7 @@
                 <ToggleGroup fx:id="wineTypeToggle" />
             </toggleGroup></RadioButton>
         <RadioButton fx:id="wineTypeRed" layoutX="254.0" layoutY="200.0" mnemonicParsing="false" text="Red" toggleGroup="$wineTypeToggle" />
-        <RadioButton fx:id="wineTypeRose" layoutX="344.0" layoutY="200.0" mnemonicParsing="false" text="Rose" toggleGroup="$wineTypeToggle" />
+        <RadioButton fx:id="wineTypeRose" layoutX="344.0" layoutY="200.0" mnemonicParsing="false" text="Rosé" toggleGroup="$wineTypeToggle" />
         <TextField fx:id="wineRegion" layoutX="160.0" layoutY="239.0" prefHeight="24.0" prefWidth="320.0" />
         <Button layoutX="315.0" layoutY="392.0" mnemonicParsing="false" onAction="#saveNewWine" text="Save New Wine">
             <font>
