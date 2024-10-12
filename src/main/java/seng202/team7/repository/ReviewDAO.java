@@ -169,7 +169,7 @@ public class ReviewDAO implements DAOInterface<Review>{
 
     public LinkedHashMap<Integer, Integer> getAverageReviews() {
         LinkedHashMap<Integer, Integer> averageReviews = new LinkedHashMap<>();
-        String sql = "SELECT wine, AVG(rating) AS average_rating FROM reviews GROUP BY wine ORDER BY average_rating DESC";
+        String sql = "SELECT wine, AVG(rating) AS average_rating FROM reviews WHERE reported=false GROUP BY wine ORDER BY average_rating DESC";
         try (Connection conn = databaseManager.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
