@@ -25,13 +25,15 @@ public class ChangePasswordPopupController {
     public TextField confirmNewPasswordInputField;
     public PasswordField confirmNewPasswordField;
 
-    private AppEnvironment appEnvironment;
 
     private AdminLoginService adminLoginService;
 
+    /**
+     * Initializes the Change Password Popup window & all UI objects
+     * @param appEnvironment
+     */
     @FXML
     public void init(AppEnvironment appEnvironment) {
-        this.appEnvironment = appEnvironment;
         adminLoginService = appEnvironment.getAdminLoginInstance();
         currentPasswordInputField.textProperty().bindBidirectional(currentPasswordField.textProperty());
         newPasswordInputField.textProperty().bindBidirectional(newPasswordField.textProperty());
@@ -43,6 +45,9 @@ public class ChangePasswordPopupController {
         viewButton.setText("View");
     }
 
+    /**
+     * Takes the input text fields and calls the adminLoginService to change the values to the ones given
+     */
     public void changePassword() {
         String currentPassword = currentPasswordInputField.getText();
         String newPassword = newPasswordInputField.getText();
@@ -82,6 +87,9 @@ public class ChangePasswordPopupController {
         }
     }
 
+    /**
+     * Ties change password button to corresponding function
+     */
     @FXML
     public void changeAdminPassword() {
         changePassword();

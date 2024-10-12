@@ -55,7 +55,6 @@ public class AdminScreenController {
     @FXML
     private Button unflagReviewButton;
     private final AppEnvironment appEnvironment;
-    private final WineManager wineManager;
     private final ReviewManager reviewManager;
     private final List<Review> selectedReviews = new ArrayList<>();
 
@@ -68,7 +67,6 @@ public class AdminScreenController {
      */
     public AdminScreenController(AppEnvironment appEnvironment) {
         this.appEnvironment = appEnvironment;
-        wineManager = new WineManager();
         reviewManager = new ReviewManager();
     }
 
@@ -114,6 +112,9 @@ public class AdminScreenController {
         reviewTable.setItems(observableWineReviews);
     }
 
+    /**
+     * Enables/Disables buttons if they're reviews in the table or not
+     */
     private void checkReviewCount() {
         if (selectedReviews.isEmpty()) {
             deleteReviewButton.setDisable(true);
@@ -124,6 +125,9 @@ public class AdminScreenController {
         }
     }
 
+    /**
+     * making so checkbox is actually selecting a wine
+     */
     private void setFlaggedColumnCellFactory() {
         flaggedColumn.setCellFactory(column -> new TableCell<>() {
             private final CheckBox checkBox = new CheckBox();
@@ -150,6 +154,9 @@ public class AdminScreenController {
         });
     }
 
+    /**
+     * Updates the reviews in the Review columns if there is/should be one there
+     */
     private void setReviewColumnCellFactory() {
         reviewColumn.setCellFactory(column -> new TableCell<>() {
             @Override
@@ -270,6 +277,9 @@ public class AdminScreenController {
 
     }
 
+    /**
+     * On click of the help button launch the admin help screen
+     */
     @FXML
     private void onHelp() {
         try {
@@ -347,6 +357,9 @@ public class AdminScreenController {
         }
     }
 
+    /**
+     * Allows the admin to change the password by launching the change password window/modal
+     */
     @FXML
     void adminChangePassword() {
         try {
@@ -368,6 +381,9 @@ public class AdminScreenController {
         }
     }
 
+    /**
+     * On click of the add winery button, launches the add winery window/modal
+     */
     @FXML
     void onAddWinery() {
         Stage primaryStage = (Stage) addWine.getScene().getWindow();

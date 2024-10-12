@@ -38,12 +38,19 @@ public class EditWineController {
     private Wine origionalWine;
     private WineService wineService;
 
+    /**
+     * Constructor for the EditWineController class
+     * @param wine
+     */
     public EditWineController(Wine wine) {
         this.origionalWine = wine;
         this.wineManager = new WineManager();
         this.wineService = new WineService();
     }
 
+    /**
+     * Initializes the UI objects on the edit wine page
+     */
     @FXML
     public void initialize() {
         wineWineryName.setText(origionalWine.getWineryString());
@@ -61,6 +68,9 @@ public class EditWineController {
         }
     }
 
+    /**
+     * Saves the new wine to the db through the wineManager.updateWine function, and changes UI depending on the outcome
+     */
     @FXML
     public void saveWine() {
         String wineNameString = wineName.getText();

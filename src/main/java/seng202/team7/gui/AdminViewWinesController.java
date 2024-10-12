@@ -47,6 +47,9 @@ public class AdminViewWinesController {
         initTables();
     }
 
+    /**
+     * on Search button is clicked call the wineManager to search for the search text field's value
+     */
     @FXML
     private void searchPressed() {
         String search = searchText.getText();
@@ -154,6 +157,10 @@ public class AdminViewWinesController {
         });
     }
 
+    /**
+     * On click of a wine in the table open the edit wine window/modal
+     * @param wineClicked
+     */
     public void onWineClicked(Wine wineClicked) {
         try {
             FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/edit_wine.fxml"));
