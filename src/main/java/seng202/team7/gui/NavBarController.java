@@ -12,6 +12,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seng202.team7.business.WineManager;
 import seng202.team7.services.AppEnvironment;
 
 import java.io.IOException;
@@ -29,6 +30,7 @@ public class NavBarController {
     private Pane logoSelectPane;
     private Stage stage;
     private AppEnvironment appEnvironment;
+    private WineManager wineManager = new WineManager();
 
     /**
      * Integer between 0-3 to indicate which page user is on to avoid
@@ -36,6 +38,11 @@ public class NavBarController {
      * 0 - Home, 1 - Search, 2 - Map, 3 - Help
      */
     private int currentPage = 0;
+
+    /**
+     * Used to calculate how many ms the loading screen should approximatly run for.
+     */
+    private static final int SLEEP_DIVIDER = 20000;
 
     /**
      * NavBarController initializer, needs to be empty for FXML
@@ -111,6 +118,10 @@ public class NavBarController {
         }
     }
 
+    private int sleepTimeMS() {
+        return 500 + (wineManager.getTotalWinesInDB() / SLEEP_DIVIDER);
+    }
+
     /**
      * Displays the loading screen while loading a page in the background.
      * This ensures that the UI is responsive even when there are intensive tasks when changing pages.
@@ -129,7 +140,7 @@ public class NavBarController {
         Thread switchPageThread = new Thread(() -> {
 
             try {
-                Thread.sleep(2500);
+                Thread.sleep(sleepTimeMS());
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
