@@ -2,6 +2,7 @@ package seng202.team7.business;
 
 import seng202.team7.io.Importable;
 import seng202.team7.models.Wine;
+import seng202.team7.models.Winery;
 import seng202.team7.repository.WineDAO;
 
 import java.io.File;
@@ -26,7 +27,8 @@ public class WineManager {
      * Sends all entries in a file to the DAO using a specified importer.
      * @param importer Importer object (e.g. CSV importer)
      * @param file File with the same type as the importer
-     * **/
+     * @param headerIndexes Indexes of the headers for each column of data that the admin selected
+     */
     public void addBatch(Importable<Wine> importer, File file, List<Integer> headerIndexes) {
         List<Wine> wines = importer.readFromFile(file, headerIndexes);
         wineDAO.addBatch(wines);
@@ -67,7 +69,8 @@ public class WineManager {
      *                filter that the user selects for it.
      * @param scoreFilters A map of the score filter. The list in the map will contain the lower and upper bounds of
      *                     the score.
-     * @return A list of wines based on the filters.
+     * @param search The search input from the user.
+     * @return List of filtered wines.
      */
     public List<Wine> getFilteredWines(Map<String, String> filters, Map<String, List<String>> scoreFilters, String search) { return wineDAO.getFilteredWines(filters, scoreFilters, search); }
 
@@ -79,7 +82,7 @@ public class WineManager {
     public List<String> getDistinct(String column) { return wineDAO.getDistinct(column); }
 
     /**
-     * Gets a list of the top 3 rated wines in the wine database.
+     * Gets a list of the top-rated wines, depending on the page of the home screen.
      * @return A list of the top wines.
      */
     public List<Wine> getTopRated(int page) { return wineDAO.getTopRated(page); }
@@ -88,7 +91,7 @@ public class WineManager {
      * Updates the wine and checks if it can be updated, returns true if successfully updated
      * @param toUpdate new wine details
      * @param oldWine old wine details
-     * @return success of update
+     * @return boolean depending on success of update
      */
     public boolean updateWine(Wine toUpdate, Wine oldWine) { return wineDAO.updateWine(toUpdate, oldWine); }
 
@@ -101,12 +104,24 @@ public class WineManager {
 
     /**
      * Gets a list of 3 top wines similar to the given wine in 1.colour 2.winery 3.vintage
-     * @param wine
-     * @return
+     * @param wine wine which has been selected by the user.
+     * @return A list of length 3 containing wines which are similar to the selected wine.
      */
     public List<Wine> getTheSimilarWines(Wine wine) {return wineDAO.getSimilarWines(wine); }
 
+    /**
+     * Searches the database for wines with text matching a search.
+     * @param search text inputted by user.
+     * @return list of wines matching the search.
+     */
     public List<Wine> searchWines(String search) {return  wineDAO.searchWines(search);}
 
+    /**
+     * Checks if the details given already exists in the database.
+     * @param wine wine to check if it already exists in the database.
+     * @return boolean true if already exists, false if it doesn't.
+     */
     public boolean checkIfWineExists(Wine wine) {return wineDAO.checkIfWineExists(wine);}
+
+    public List<Wine> getWineWithWinery(Winery winery) { return wineDAO.getWineWithWinery(winery); }
 }
