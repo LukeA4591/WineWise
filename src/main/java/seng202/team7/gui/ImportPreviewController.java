@@ -61,6 +61,11 @@ public class ImportPreviewController {
     WineManager wineManager;
     AppEnvironment appEnvironment;
 
+    /**
+     * TODO
+     * @param file
+     * @param appEnvironment
+     */
     public void init(File file, AppEnvironment appEnvironment) {
         this.file = file;
         this.csvImporter = new WineCSVImporter();
@@ -73,6 +78,9 @@ public class ImportPreviewController {
         initComboBoxes();
     }
 
+    /**
+     * TODO
+     */
     private void goBackToAdmin() {
         Stage stage = (Stage) dataTable.getScene().getWindow();
         stage.close();
@@ -89,6 +97,9 @@ public class ImportPreviewController {
         }
     }
 
+    /**
+     * TODO
+     */
     private void initCSVTable() {
         dataTable.getColumns().clear();
         dataTable.getItems().clear();
@@ -103,6 +114,10 @@ public class ImportPreviewController {
         }
     }
 
+    /**
+     * TODO
+     * @param headerIndexes
+     */
     private void initPreviewTable(List<Integer> headerIndexes) {
         String[] wineHeaders = new String[]{"Type", "Name", "Winery", "Vintage", "Score", "Region", "Description"};
         dataTable.getColumns().clear();
@@ -118,6 +133,9 @@ public class ImportPreviewController {
         }
     }
 
+    /**
+     * TODO
+     */
     private void initComboBoxes() {
         comboBoxList = (ComboBox<String>[]) new ComboBox<?>[] {typeComboBox, nameComboBox, wineryComboBox, vintageComboBox, scoreComboBox, regionComboBox, descriptionComboBox};
         for (ComboBox<String> comboBox : comboBoxList) {
@@ -125,6 +143,10 @@ public class ImportPreviewController {
         }
     }
 
+    /**
+     * TODO
+     * @return
+     */
     private List<String> getComboBoxHeaders() {
         String typeComboBoxHeader = typeComboBox.getValue();
         String nameComboBoxHeader = nameComboBox.getValue();
@@ -138,10 +160,16 @@ public class ImportPreviewController {
                 descriptionComboBoxHeader);
     }
 
+    /**
+     * TODO
+     */
     public void onExitPopup() {
         goBackToAdmin();
     }
 
+    /**
+     * TODO
+     */
     public void onSaveDataset() {
         List<String> headerArray = getComboBoxHeaders();
         String headerMessage;
@@ -170,6 +198,9 @@ public class ImportPreviewController {
         }
     }
 
+    /**
+     * TODO
+     */
     public void onChangeTable() {
         if (Objects.equals(changeTableButton.getText(), "Preview import")) {
             List<String> headerArray = getComboBoxHeaders();
