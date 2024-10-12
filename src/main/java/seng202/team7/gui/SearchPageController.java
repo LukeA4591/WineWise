@@ -233,11 +233,17 @@ public class SearchPageController {
         initTable(wines);
     }
 
+    /**
+     * On Action method call for the search button
+     */
     @FXML
     private void searchPressed() {
         search();
     }
 
+    /**
+     * Runs search along with the filters to get a result from a combination of the search box & the filters
+     */
     private void search() {
         String search = searchText.getText();
         String criticScoreMax = criticScoreMaxText.getText();
