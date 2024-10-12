@@ -212,10 +212,12 @@ public class HomePageController {
      */
     private void checkScreen(int size) {
         if (size == 0) {
-            noReviewsLabel.setText("No wines have been reviewed by users");
-            for (Pane pane : panes) {
-                pane.setVisible(false);
+            if (viewCritic) {
+                noReviewsLabel.setText("No wines have been reviewed by critics");
+            } else {
+                noReviewsLabel.setText("No wines have been reviewed by users");
             }
+            setPanes(0);
             pageLabel.setVisible(false);
             setPrev(false);
             setNext(false);
@@ -495,45 +497,35 @@ public class HomePageController {
      * a popup.
      */
     @FXML
-    void wine2Pressed() {
-        winePressed(1);
-    }
+    void wine2Pressed() { winePressed(1); }
 
     /**
      * Event handler for pressing the third wine label. Fetches the third top-rated wine and displays its details in a
      * popup.
      */
     @FXML
-    void wine3Pressed() {
-        winePressed(2);
-    }
+    void wine3Pressed() { winePressed(2); }
 
     /**
      * Event handler for pressing the fourth wine label.
      * Displays the details of the fourth wine in a popup.
      */
     @FXML
-    void wine4Pressed() {
-        winePressed(3);
-    }
+    void wine4Pressed() { winePressed(3); }
 
     /**
      * Event handler for pressing the fifth wine label.
      * Displays the details of the fifth wine in a popup.
      */
     @FXML
-    void wine5Pressed() {
-        winePressed(4);
-    }
+    void wine5Pressed() { winePressed(4); }
 
     /**
      * Event handler for pressing the sixth wine label.
      * Displays the details of the sixth wine in a popup.
      */
     @FXML
-    void wine6Pressed() {
-        winePressed(5);
-    }
+    void wine6Pressed() { winePressed(5); }
 
     /**
      * Triggers the sliding animation for all panes.
@@ -543,11 +535,11 @@ public class HomePageController {
     public void slidePanes(boolean next) {
         if (next) {
             for (Pane pane : panes) {
-                animatePaneNext(pane);
+                animatePane(pane, true);
             }
         } else {
             for (Pane pane : panes) {
-                animatePanePrev(pane);
+                animatePane(pane, false);
             }
         }
     }
@@ -558,37 +550,22 @@ public class HomePageController {
      *
      * @param pane The pane to be animated.
      */
-    private void animatePaneNext(Pane pane) {
-        // Slide the pane off to the left
+    private void animatePane(Pane pane, boolean next) {
+        // Slide the pane off by it width * 1.75
+        double width;
+        if (next) {
+            width = pane.getPrefWidth() * 1.75;
+        } else {
+            width = -(pane.getPrefWidth() * 1.75);
+        }
         TranslateTransition slideOff = new TranslateTransition(Duration.seconds(0.25), pane);
-        slideOff.setByX(-pane.getPrefWidth() * 1.75); // Move the pane to the left by its width
+        slideOff.setByX(-(width)); // Move the pane off
         slideOff.setOnFinished(event -> {
-            pane.setTranslateX(pane.getPrefWidth() * 1.75);
+            pane.setTranslateX(width); // move pane to other side
             TranslateTransition slideIn = new TranslateTransition(Duration.seconds(0.25), pane);
-            slideIn.setToX(0);
+            slideIn.setToX(0); // slide back to center
             slideIn.play();
         });
         slideOff.play();
     }
-
-
-    /**
-     * Animate the Pane to slide off to the right and come back in from the left.
-     *
-     * @param pane The Pane to be animated.
-     */
-    private void animatePanePrev(Pane pane) {
-        // Slide the pane off to the right
-        TranslateTransition slideOff = new TranslateTransition(Duration.seconds(0.25), pane);
-        slideOff.setByX(pane.getPrefWidth() * 1.75);
-        slideOff.setOnFinished(event -> {
-            pane.setTranslateX(-pane.getPrefWidth() * 1.75);
-            TranslateTransition slideIn = new TranslateTransition(Duration.seconds(0.25), pane);
-            slideIn.setToX(0);
-            slideIn.play();
-        });
-        // Start the slide-off animation
-        slideOff.play();
-    }
-
 }
