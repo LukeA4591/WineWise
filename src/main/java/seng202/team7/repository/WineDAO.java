@@ -74,7 +74,7 @@ public class WineDAO implements DAOInterface<Wine> {
         StringBuilder sqlScores = new StringBuilder("SELECT * FROM wines WHERE 1=1");
         boolean criticScoreIncluded = false;
         for (Map.Entry<String, List<String>> filter : scoreFilters.entrySet()) {
-            if (!Objects.equals(filter.getValue().get(0), "")) {
+            if (!Objects.equals(filter.getValue().getFirst(), "")) {
                 criticScoreIncluded = true;
                 sqlScores.append(" AND score <= ? ");
                 sqlScores.append(" AND score >= ? ");
@@ -149,7 +149,7 @@ public class WineDAO implements DAOInterface<Wine> {
      * @param searchIncluded bool if search is included
      * @param search search string
      * @param isNum bool to determine if search in an integer
-     * @return
+     * @return List of wines which contain the wines from the sql query
      */
     private List<Wine> executeFilterSql(StringBuilder sql, Map<String, String> filters, Map<String, List<String>> scoreFilters, boolean criticScoreIncluded, boolean searchIncluded, String search, boolean isNum) {
         List<Wine> wines = new ArrayList<>();
@@ -358,7 +358,8 @@ public class WineDAO implements DAOInterface<Wine> {
             PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, wineID);
             ResultSet rs = ps.executeQuery();
-            Wine result = new Wine(
+
+            return new Wine(
                     rs.getString("type"),
                     rs.getString("name"),
                     rs.getString("winery"),
@@ -366,8 +367,6 @@ public class WineDAO implements DAOInterface<Wine> {
                     (Integer) rs.getObject("score"),
                     rs.getString("region"),
                     rs.getString("description"));
-
-            return result;
         } catch (SQLException sqlException) {
             log.error(sqlException);
             return null;
@@ -431,8 +430,8 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Returns a List of the top 3 wines with the 1st being same colour, 2nd being same winery, 3rd being same year
-     * @param wine
-     * @return
+     * @param wine Wine displayed
+     * @return List of wines that are similar to the displayed wine
      */
     public List<Wine> getSimilarWines(Wine wine) {
 
@@ -445,7 +444,7 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Used by getSimilarWines() - Returns the top-rated wine of the same colour BUT if same wine return next highest
-     * @param givenWine
+     * @param givenWine wine that has the type we want to be the same as
      * @return top wine of same colour
      */
     public Wine getSimilarColour(Wine givenWine) {
@@ -480,7 +479,7 @@ public class WineDAO implements DAOInterface<Wine> {
     /**
      * Used by getSimilarWines() - Returns the top-rated wine from the same Winery BUT if same wine return next highest
      * Checks if NewWine being set to itself escapes while loop (case where only 1 wine from winery), returns random wine
-     * @param givenWine
+     * @param givenWine wine we want to be from the same winery
      * @return top-rated wine from the same Winery
      */
     public Wine getSimilarWinery(Wine givenWine) {
@@ -513,7 +512,7 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * Used by getSimilarWines() - Returns the top-rated wine from the same Year BUT if same wine return next highest
-     * @param givenWine
+     * @param givenWine wine that we want to have the same year in
      * @return top-rated wine from the same Year
      */
     public Wine getSimilarVintage(Wine givenWine) {
@@ -547,15 +546,15 @@ public class WineDAO implements DAOInterface<Wine> {
 
     /**
      * returns a Wine that is anything but the given wine
-     * @param givenWine
-     * @return
+     * @param givenWine wine that we want the returned wine NOT TO BE
+     * @return a wine that is anything but the given wine and wines already used
      */
     public Wine getRandomOtherWine(Wine givenWine) {
         List<Wine> randomWines = getAll();
         Collections.shuffle(randomWines);
-        for (int i = 0; i < randomWines.size(); i++) {
-            if (!randomWines.get(i).equals(givenWine) && !alreadySelected.contains(randomWines.get(i))) {
-                return randomWines.get(i);
+        for (Wine randomWine : randomWines) {
+            if (!randomWine.equals(givenWine) && !alreadySelected.contains(randomWine)) {
+                return randomWine;
             } else {
                 continue;
             }
@@ -593,7 +592,6 @@ public class WineDAO implements DAOInterface<Wine> {
     }
 
     public boolean checkIfWineExists(Wine wine) {
-        Wine NewWine = null;
         String sql = "SELECT * FROM wines WHERE vintage=? AND name=? AND winery=?";
         try(Connection conn = databaseManager.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {

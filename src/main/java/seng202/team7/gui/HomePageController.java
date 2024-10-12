@@ -4,7 +4,6 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import org.apache.poi.openxml4j.opc.PackageNamespaces;
 import seng202.team7.business.ReviewManager;
 import seng202.team7.business.WineManager;
 import seng202.team7.models.Wine;
@@ -12,7 +11,6 @@ import seng202.team7.models.Wine;
 import java.util.*;
 
 import javafx.fxml.FXML;
-import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -189,7 +187,7 @@ public class HomePageController {
      */
     private void checkClearScreen() {
         if (viewCritic) {
-            if (wineManager.getAll().size() == 0) {
+            if (wineManager.getAll().isEmpty()) {
                 noReviewsLabel.setText("No reviews to display");
                 for (Pane pane : panes) {
                     pane.setVisible(false);
@@ -205,7 +203,7 @@ public class HomePageController {
                 pageLabel.setVisible(true);
             }
         } else {
-            if (topUserWines.size() == 0) {
+            if (topUserWines.isEmpty()) {
                 noReviewsLabel.setText("No reviews to display");
                 for (Pane pane : panes) {
                     pane.setVisible(false);
@@ -549,11 +547,7 @@ public class HomePageController {
             }
         }
     }
-    /**
-     * Creates and plays a sliding animation for the given Pane.
-     *
-     * @param pane The Pane to be animated.
-     */
+
     /**
      * Creates and plays a sliding animation for all panes to slide off the screen,
      * but only a specified number of panes slide back on.
