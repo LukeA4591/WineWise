@@ -122,7 +122,7 @@ public class WineServiceTest {
     public void validateWineCharsInVintage() {
         winery = "This is a winery";
         name = "This is a wine";
-        vintage = "2022 omg thats a char";
+        vintage = "2022 omg that's a char";
         score = "20";
         region = "Canterbury";
         description = "This is a wine from canterbury";
