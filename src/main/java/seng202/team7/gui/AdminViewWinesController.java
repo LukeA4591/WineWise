@@ -34,7 +34,6 @@ public class AdminViewWinesController {
     private static final Logger log = LogManager.getLogger(AdminViewWinesController.class);
     private WineManager wineManager;
     private List<Wine> wines;
-    private Wine editedWine;
 
     /**
      * Initializes the wineManager and then gets all the wines from the wine database table as wine objects. Using the
@@ -71,13 +70,6 @@ public class AdminViewWinesController {
      * wineManager.
      */
     private void initTables() {
-        if (editedWine != null) {
-            int previousIndex = wines.indexOf(editedWine);
-            if (previousIndex != -1) {
-                wines.remove(previousIndex);
-                wines.addFirst(editedWine);
-            }
-        }
 
         wineTable.getColumns().clear();
 
@@ -177,7 +169,6 @@ public class AdminViewWinesController {
             Stage primaryStage = (Stage) wineTable.getScene().getWindow();
             modalStage.initOwner(primaryStage);
             modalStage.showAndWait();
-            editedWine = wineClicked;
             wines = wineManager.getAll();
             initTables();
         } catch (IOException e) {
