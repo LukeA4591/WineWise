@@ -6,6 +6,7 @@ import seng202.team7.models.Winery;
 import seng202.team7.repository.WineDAO;
 
 import java.io.File;
+import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,8 @@ import java.util.Map;
  * **/
 public class WineManager {
     private final WineDAO wineDAO;
+
+    private static int totalWinesInDB = 0;
 
     /**
      * Creates a new WineManager object with its initialized WineDAO.
@@ -31,7 +34,7 @@ public class WineManager {
      */
     public void addBatch(Importable<Wine> importer, File file, List<Integer> headerIndexes) {
         List<Wine> wines = importer.readFromFile(file, headerIndexes);
-        wineDAO.addBatch(wines);
+        totalWinesInDB += wineDAO.addBatch(wines);
     }
 
     /**
@@ -124,4 +127,8 @@ public class WineManager {
     public boolean checkIfWineExists(Wine wine) {return wineDAO.checkIfWineExists(wine);}
 
     public List<Wine> getWineWithWinery(Winery winery) { return wineDAO.getWineWithWinery(winery); }
+
+    public int getTotalWinesInDB() {
+        return totalWinesInDB;
+    }
 }
