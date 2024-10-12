@@ -177,12 +177,12 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label layoutX="816.0" layoutY="30.0" text="ratings">
+      <Label layoutX="816.0" layoutY="30.0" text="Ratings">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="noReviewsLabel" alignment="CENTER" layoutX="210.0" layoutY="240.0">
+      <Label fx:id="noReviewsLabel" alignment="CENTER" layoutX="21.0" layoutY="240.0" prefHeight="49.0" prefWidth="869.0">
          <font>
             <Font name="System Bold" size="38.0" />
          </font>

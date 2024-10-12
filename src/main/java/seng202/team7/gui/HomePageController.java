@@ -188,7 +188,7 @@ public class HomePageController {
     private void checkClearScreen() {
         if (viewCritic) {
             if (wineManager.getAll().isEmpty()) {
-                noReviewsLabel.setText("No reviews to display");
+                noReviewsLabel.setText("No wines have been reviewed by users");
                 for (Pane pane : panes) {
                     pane.setVisible(false);
                 }
@@ -204,7 +204,7 @@ public class HomePageController {
             }
         } else {
             if (topUserWines.isEmpty()) {
-                noReviewsLabel.setText("No reviews to display");
+                noReviewsLabel.setText("No wines have been reviewed by users");
                 for (Pane pane : panes) {
                     pane.setVisible(false);
                 }
