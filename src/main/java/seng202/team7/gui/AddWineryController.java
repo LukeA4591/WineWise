@@ -18,18 +18,27 @@ public class AddWineryController {
     Label saveNewWineryMessage;
 
     private WineryManager wineryManager;
-    private final String setLabelRed = "-fx-text-fill: #ff0000";
 
+    /**
+     * closes the add winery pop-up
+     */
     private void goBackToAdmin() {
         Stage stage = (Stage) wineryName.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Creates an instance of wineryManager when the controller is initialised.
+     */
     @FXML
     void initialize() {
         wineryManager = new WineryManager();
     }
 
+    /**
+     * Calls validate winery, and if that function returns a non-null winery it adds it to the
+     * db through the manager
+     */
     public void saveNewWinery() {
         Winery winery = validateWinery();
         if (winery != null) {
@@ -38,7 +47,12 @@ public class AddWineryController {
         }
     }
 
+    /**
+     * Function that checks the global variables if they are valid inputs for a winery
+     * @return Winery that has passed all checks, if not it's null
+     */
     private Winery validateWinery() {
+        String setLabelRed = "-fx-text-fill: #ff0000";
         try {
             String wineryNameString = wineryName.getText();
             if (wineryNameString.isEmpty()) {

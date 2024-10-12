@@ -1,7 +1,6 @@
 package seng202.team7.gui;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
@@ -10,7 +9,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
@@ -44,6 +42,9 @@ public class MapPageController {
     private WineManager wineManager;
     private WinePopupService winePopupService;
 
+    /**
+     * Initializes the FX objects on the page
+     */
     void init() {
         wineryManager = new WineryManager();
         wineManager = new WineManager();
@@ -52,6 +53,9 @@ public class MapPageController {
         setWineryList(wineryManager.getAll());
     }
 
+    /**
+     * Initializes the map with the objects it needs to contain
+     */
     private void initMap() {
         webEngine = webView.getEngine();
         webEngine.setJavaScriptEnabled(true);
@@ -66,6 +70,10 @@ public class MapPageController {
                 });
     }
 
+    /**
+     * gets all valid winery locations and places them on the map
+     */
+
     private void addWineryMarkers() {
         List<Winery> wineries = wineryManager.getAllWithValidLocation();
         for (Winery winery : wineries) {
@@ -74,6 +82,9 @@ public class MapPageController {
         displayMarkers();
     }
 
+    /**
+     * calls the javaScriptConnector displayMarkers function to show the markers
+     */
     private void displayMarkers() {
         javaScriptConnector.call("displayMarkers");
     }

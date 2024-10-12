@@ -64,6 +64,9 @@ public class AdminMapPageController {
         javaScriptBridge = new JavaScriptBridge(this::addWineryMarker, this::getWineryFromClick, stage);
     }
 
+    /**
+     * Closes the current stage/pop up
+     */
     @FXML
     void onBackButton() {
         Stage stage = (Stage) backButton.getScene().getWindow();

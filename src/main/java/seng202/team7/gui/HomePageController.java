@@ -129,6 +129,10 @@ public class HomePageController {
         prevImage.setVisible(false);
         initScreen();
     }
+
+    /**
+     * TODO
+     */
     private void setSize() {
         if (viewCritic) {
             size = wineManager.getAll().size();
@@ -137,6 +141,9 @@ public class HomePageController {
         }
     }
 
+    /**
+     * TODO
+     */
     private void calculateTotalPagesAndReset() {
         finalPage = false;
         if (viewCritic) {
@@ -146,6 +153,10 @@ public class HomePageController {
         }
     }
 
+    /**
+     * TODO
+     * @param wines
+     */
     private void setWines(List<Wine> wines) {
         displayWines(wines);
         displayWinery(wines);
@@ -153,6 +164,9 @@ public class HomePageController {
         setImage(wines);
     }
 
+    /**
+     * TODO
+     */
     private void initScreen() {
         page = 0;
         List<Wine> wines;
@@ -170,6 +184,10 @@ public class HomePageController {
         }
     }
 
+    /**
+     * TODO
+     * @param wines
+     */
     private void initScreenPanes(List<Wine> wines) {
         if (wines.size() >= 6) {
             setWines(wines);
