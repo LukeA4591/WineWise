@@ -1,5 +1,6 @@
 package seng202.team7.gui;
 
+import javafx.animation.PauseTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -246,18 +247,22 @@ public class HomePageController {
      * Moves to the next page of wines and updates the displayed information accordingly.
      */
     @FXML
-    private void nextPage() {
+    private void nextPage() throws InterruptedException {
         page++;
         validateButtons();
         setPage();
         List<Wine> wines = wineManager.getTopRated(page);
         getTopUsers();
         slidePanes(true);
-        if (viewCritic) {
-            checkNextPage(wines);
-        } else {
-            checkNextPage(topUserWinesPage);
-        }
+        PauseTransition pause = new PauseTransition(Duration.millis(250));
+        pause.setOnFinished( event -> {
+            if (viewCritic) {
+                checkNextPage(wines);
+            } else {
+                checkNextPage(topUserWinesPage);
+            }
+        });
+        pause.play();
     }
 
     /**
@@ -302,13 +307,25 @@ public class HomePageController {
      */
     @FXML
     private void prevPage() {
+        page--;
+        setPage();
+        slidePanes(false);
+        PauseTransition pause = new PauseTransition(Duration.millis(250));
+        pause.setOnFinished( event -> {
+            prevEvent();
+        });
+        pause.play();
+    }
+
+    /**
+     * Delayed event when the previous button is pressed
+     * Allows panes to transition off the screen, then change wines before transitioning on.
+     */
+    private void prevEvent() {
         if (finalPage) {
             resetPanes();
         }
-        slidePanes(false);
-        page--;
         validateButtons();
-        setPage();
         if (viewCritic) {
             List<Wine> wines = wineManager.getTopRated(page);
             setWines(wines);

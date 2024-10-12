@@ -31,6 +31,9 @@ public class WinePopupService {
             case "Rosé":
                 imagePath = "/images/rosetransparent.png";
                 break;
+            case "Rose":
+                imagePath = "/images/rosetransparent.png";
+                break;
             default:
                 imagePath = "/images/defaultwinetransparent.png";
         }
