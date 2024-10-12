@@ -9,6 +9,9 @@ public class LoadingScreenController {
     @FXML
     private ImageView wineWiseGif;
 
+    /**
+     * Initializes the loading screen, setting the screen to the loading screen gif
+     */
     @FXML
     private void initialize() {
         Image wineWiseImage = new Image(getClass().getResourceAsStream("/images/Winewise_gif_fast.gif"));
