@@ -39,7 +39,8 @@
         addMarker: addMarker,
         displayMarkers: displayMarkers,
         initMap: initMap,
-        removeMarker: removeMarker
+        removeMarker: removeMarker,
+        zoomToLocation: zoomToLocation
     };
 
     /**
@@ -83,6 +84,10 @@
         let marker = markers[markerIndex];
         map.removeLayer(marker);
         markers.splice(markerIndex, 1);
+    }
+
+    function zoomToLocation(latitude, longitude, zoomLevel) {
+        map.setView([latitude, longitude], zoomLevel);
     }
 
 </script>

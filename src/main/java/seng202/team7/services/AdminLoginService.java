@@ -313,6 +313,12 @@ public class AdminLoginService {
         return "";
     }
 
+    /**
+     * Writes the updates password to the credentials.txt file
+     * @param storedUsername Username of the admin
+     * @param hashedPassword New password of the admin
+     * @return boolean based on the success of the password change
+     */
     private boolean writeUpdatedCredentials(String storedUsername, String hashedPassword) {
         File credentialsFile = getCredentialsFile();
         File tempNewCredentialsFile = new File(credentialsFile.getParent(), "credentials_temp.txt");
