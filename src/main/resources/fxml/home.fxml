@@ -11,6 +11,18 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.gui.HomePageController">
    <children>
+      <Pane fx:id="prevImagePane" layoutX="358.0" layoutY="540.0" onMouseClicked="#prevPage" prefHeight="35.0" prefWidth="35.0" styleClass="pressable-button">
+         <children>
+            <ImageView fx:id="prevImage" fitHeight="30.0" fitWidth="30.0" layoutX="3.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/prevpage.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </Pane>
       <Pane fx:id="nextImagePane" layoutX="512.0" layoutY="540.0" onMouseClicked="#nextPage" prefHeight="35.0" prefWidth="35.0" styleClass="pressable-button">
          <children>
             <ImageView fx:id="nextImage" fitHeight="30.0" fitWidth="30.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
@@ -28,7 +40,7 @@
             <Font name="Liberation Sans Bold" size="26.0" />
          </font>
       </Label>
-      <Pane fx:id="pane1" layoutX="20.0" layoutY="65.0" onMouseClicked="#wine1Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
+      <Pane fx:id="pane1" layoutX="20.0" layoutY="65.0" onMouseReleased="#wine1Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -50,7 +62,7 @@
                </font>
             </Label>
          </children></Pane>
-      <Pane fx:id="pane2" layoutX="20.0" layoutY="225.0" onMouseClicked="#wine2Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
+      <Pane fx:id="pane2" layoutX="20.0" layoutY="225.0" onMouseReleased="#wine2Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -72,7 +84,7 @@
                </font>
             </Label>
          </children></Pane>
-      <Pane fx:id="pane3" layoutX="20.0" layoutY="385.0" onMouseClicked="#wine3Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
+      <Pane fx:id="pane3" layoutX="20.0" layoutY="385.0" onMouseReleased="#wine3Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -94,7 +106,7 @@
                </font>
             </Label>
          </children></Pane>
-      <Pane fx:id="pane4" layoutX="463.0" layoutY="65.0" onMouseClicked="#wine4Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
+      <Pane fx:id="pane4" layoutX="463.0" layoutY="65.0" onMouseReleased="#wine4Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -114,7 +126,7 @@
                </font></Label>
          </children>
       </Pane>
-      <Pane fx:id="pane5" layoutX="463.0" layoutY="225.0" onMouseClicked="#wine5Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
+      <Pane fx:id="pane5" layoutX="463.0" layoutY="225.0" onMouseReleased="#wine5Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -134,7 +146,7 @@
                </font></Label>
          </children>
       </Pane>
-      <Pane fx:id="pane6" layoutX="463.0" layoutY="385.0" onMouseClicked="#wine6Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
+      <Pane fx:id="pane6" layoutX="463.0" layoutY="385.0" onMouseReleased="#wine6Pressed" prefHeight="138.0" prefWidth="426.0" style="-fx-border-color: Black;" styleClass="suggestedwine-pane">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -175,17 +187,5 @@
             <Font name="System Bold" size="38.0" />
          </font>
       </Label>
-      <Pane fx:id="prevImagePane" layoutX="358.0" layoutY="540.0" onMouseClicked="#prevPage" prefHeight="35.0" prefWidth="35.0" styleClass="pressable-button">
-         <children>
-            <ImageView fx:id="prevImage" fitHeight="30.0" fitWidth="30.0" layoutX="3.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/prevpage.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-         </children>
-      </Pane>
    </children>
 </AnchorPane>
