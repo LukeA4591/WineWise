@@ -436,12 +436,15 @@ public class HomePageController {
     @FXML
     void wine1Pressed() {
         List<Wine> wines;
+        Wine wine;
         if (viewCritic) {
             wines = wineManager.getTopRated(page);
+            wine = wines.getFirst();
         } else {
             wines = topUserWinesPage;
+            wine = wines.getFirst();
+            wine = wineManager.getWineFromID(wineManager.getWineID(wine));
         }
-        Wine wine = wines.getFirst();
         Image image = wineService.getImage(wine);
         wineService.winePressed(wine, image, rating1);
     }
@@ -453,12 +456,15 @@ public class HomePageController {
     @FXML
     void wine2Pressed() {
         List<Wine> wines;
+        Wine wine;
         if (viewCritic) {
             wines = wineManager.getTopRated(page);
+            wine = wines.get(1);
         } else {
             wines = topUserWinesPage;
+            wine = wines.get(1);
+            wine = wineManager.getWineFromID(wineManager.getWineID(wine));
         }
-        Wine wine = wines.get(1);
         Image image = wineService.getImage(wine);
         wineService.winePressed(wine, image, rating1);
     }
@@ -470,12 +476,16 @@ public class HomePageController {
     @FXML
     void wine3Pressed() {
         List<Wine> wines;
+        Wine wine;
         if (viewCritic) {
             wines = wineManager.getTopRated(page);
+            wine = wines.get(2);
+            wine = wineManager.getWineFromID(wineManager.getWineID(wine));
         } else {
             wines = topUserWinesPage;
+            wine = wines.get(2);
+            wine = wineManager.getWineFromID(wineManager.getWineID(wine));
         }
-        Wine wine = wines.get(2);
         Image image = wineService.getImage(wine);
         wineService.winePressed(wine, image, rating1);
     }
@@ -487,12 +497,15 @@ public class HomePageController {
     @FXML
     void wine4Pressed() {
         List<Wine> wines;
+        Wine wine;
         if (viewCritic) {
             wines = wineManager.getTopRated(page);
+            wine = wines.get(3);
         } else {
             wines = topUserWinesPage;
+            wine = wines.get(3);
+            wine = wineManager.getWineFromID(wineManager.getWineID(wine));
         }
-        Wine wine = wines.get(3);
         Image image = wineService.getImage(wine);
         wineService.winePressed(wine, image, rating1);
     }
@@ -504,12 +517,15 @@ public class HomePageController {
     @FXML
     void wine5Pressed() {
         List<Wine> wines;
+        Wine wine;
         if (viewCritic) {
             wines = wineManager.getTopRated(page);
+            wine = wines.get(4);
         } else {
             wines = topUserWinesPage;
+            wine = wines.get(4);
+            wine = wineManager.getWineFromID(wineManager.getWineID(wine));
         }
-        Wine wine = wines.get(4);
         Image image = wineService.getImage(wine);
         wineService.winePressed(wine, image, rating1);
     }
@@ -521,12 +537,15 @@ public class HomePageController {
     @FXML
     void wine6Pressed() {
         List<Wine> wines;
+        Wine wine;
         if (viewCritic) {
             wines = wineManager.getTopRated(page);
+            wine = wines.get(5);
         } else {
             wines = topUserWinesPage;
+            wine = wines.get(5);
+            wine = wineManager.getWineFromID(wineManager.getWineID(wine));
         }
-        Wine wine = wines.get(5);
         Image image = wineService.getImage(wine);
         wineService.winePressed(wine, image, rating1);
     }
