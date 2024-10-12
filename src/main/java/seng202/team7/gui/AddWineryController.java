@@ -61,12 +61,17 @@ public class AddWineryController {
                         saveNewWineryMessage.setText("Latitude should be between -90 and 90.");
                         return null;
                     }
+                } else if (!wineryLongitude.getText().isEmpty() || !wineryLatitude.getText().isEmpty()) {
+                    saveNewWineryMessage.setStyle(setLabelRed);
+                    saveNewWineryMessage.setText("Enter a latitude and longitude.");
+                    return null;
+                } else {
+                    saveNewWineryMessage.setStyle("-fx-text-fill: #008000");
+                    saveNewWineryMessage.setText("New winery saved.");
+                    wineryName.setText("");
+                    wineryLongitude.setText("");
+                    wineryLatitude.setText("");
                 }
-                saveNewWineryMessage.setStyle("-fx-text-fill: #008000");
-                saveNewWineryMessage.setText("New winery saved.");
-                wineryName.setText("");
-                wineryLongitude.setText("");
-                wineryLatitude.setText("");
                 return new Winery(wineryNameString, wineryLongitudeFloat, wineryLatitudeFloat);
             }
         } catch (NumberFormatException e) {
