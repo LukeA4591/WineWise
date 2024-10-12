@@ -60,7 +60,7 @@ public class WineDetailsScreenController {
     List<Wine> wineList;
 
     String wineName1;
-    int score;
+    Integer score;
     int vintage;
     String region;
     String wineryString;
@@ -94,7 +94,11 @@ public class WineDetailsScreenController {
         wineDesc.setText(description);
         wineRegion.setText(region);
         wineYear.setText(vintageString);
-        rating.setText(wine.getScore() + " / 100");
+        if (wine.getScore() != null) {
+            rating.setText(wine.getScore() + " / 100");
+        } else {
+            rating.setText("No Critic Rating");
+        }
         wineManager = new WineManager();
         winePopupService = new WinePopupService();
         showSimilarWines();

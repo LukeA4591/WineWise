@@ -13,7 +13,6 @@ import seng202.team7.models.Wine;
 import seng202.team7.models.Winery;
 import seng202.team7.services.WineService;
 
-import java.time.Year;
 
 /**
  * Controller class for the add_wine.fxml page.
@@ -46,6 +45,8 @@ public class AddWineController {
     private WineryManager wineryManager;
     private WineService wineService;
     private final String setLabelRed = "-fx-text-fill: FF0000";
+    /** Global wine var to be assigned **/
+    Wine wine;
 
     /**
      * Method for going back to admin when the go back button is pressed.
@@ -79,17 +80,18 @@ public class AddWineController {
         String wineScoreString = wineScore.getText();
         String wineDescriptionString = wineDescription.getText();
         String wineTypeString = ((RadioButton) wineTypeToggle.getSelectedToggle()).getText();
-        int wineScore = 0;
 
 
         String errorLabel = wineService.validateWine(wineNameString, wineryNameString, wineVintageString, wineScoreString, wineRegionString, wineDescriptionString);
         if (errorLabel.isEmpty()) {
 
             if (!wineScoreString.isEmpty()) {
-                wineScore = Integer.parseInt(wineScoreString);
-            }
+                int wineScore = Integer.parseInt(wineScoreString);
+                wine = new Wine(wineTypeString, wineNameString, wineryNameString, Integer.parseInt(wineVintageString), wineScore, wineRegionString, wineDescriptionString);
+            } else {
+                wine = new Wine(wineTypeString, wineNameString, wineryNameString, Integer.parseInt(wineVintageString), null, wineRegionString, wineDescriptionString);
 
-            Wine wine = new Wine(wineTypeString, wineNameString, wineryNameString, Integer.parseInt(wineVintageString), wineScore, wineRegionString, wineDescriptionString);
+            }
 
             if (!wineManager.checkIfWineExists(wine)) {
                 confirmChangeUI();

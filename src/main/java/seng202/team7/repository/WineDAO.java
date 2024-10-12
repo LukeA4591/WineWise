@@ -49,7 +49,7 @@ public class WineDAO implements DAOInterface<Wine> {
                         rs.getString("name"),
                         rs.getString("winery"),
                         rs.getInt("vintage"),
-                        rs.getInt("score"),
+                        (Integer) rs.getObject("score"),
                         rs.getString("region"),
                         rs.getString("description")));
             }
@@ -181,7 +181,7 @@ public class WineDAO implements DAOInterface<Wine> {
             }
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                wines.add(new Wine(rs.getString("type"), rs.getString("name"), rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"), rs.getString("region"), rs.getString("description")));
+                wines.add(new Wine(rs.getString("type"), rs.getString("name"), rs.getString("winery"), rs.getInt("vintage"),  (Integer) rs.getObject("score"), rs.getString("region"), rs.getString("description")));
             }
             return wines;
         } catch (SQLException sqlException) {
@@ -230,7 +230,7 @@ public class WineDAO implements DAOInterface<Wine> {
             ps.setString(2, toAdd.getWineName());
             ps.setString(3, toAdd.getWineryString());
             ps.setInt(4, toAdd.getVintage());
-            ps.setInt(5, toAdd.getScore());
+            ps.setObject(5, toAdd.getScore());
             ps.setString(6, toAdd.getRegion());
             ps.setString(7, toAdd.getDescription());
 
@@ -301,7 +301,7 @@ public class WineDAO implements DAOInterface<Wine> {
                 ps.setString(2, toAdd.getWineName());
                 ps.setString(3, toAdd.getWineryString());
                 ps.setInt(4, toAdd.getVintage());
-                ps.setInt(5, toAdd.getScore());
+                ps.setObject(5, toAdd.getScore());
                 ps.setString(6, toAdd.getRegion());
                 ps.setString(7, toAdd.getDescription());
                 ps.addBatch();
@@ -333,8 +333,9 @@ public class WineDAO implements DAOInterface<Wine> {
             pstmt.setInt(1, page * 6);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
+
                     topRated.add(new Wine(rs.getString("type"), rs.getString("name"),
-                            rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"),
+                            rs.getString("winery"), rs.getInt("vintage"), (Integer) rs.getObject("score"),
                             rs.getString("region"), rs.getString("description")));
                 }
             }
@@ -362,7 +363,7 @@ public class WineDAO implements DAOInterface<Wine> {
                     rs.getString("name"),
                     rs.getString("winery"),
                     rs.getInt("vintage"),
-                    rs.getInt("score"),
+                    (Integer) rs.getObject("score"),
                     rs.getString("region"),
                     rs.getString("description"));
 
@@ -414,7 +415,7 @@ public class WineDAO implements DAOInterface<Wine> {
             ps.setString(2, toUpdate.getWineName());
             ps.setString(3, toUpdate.getWineryString());
             ps.setInt(4, toUpdate.getVintage());
-            ps.setInt(5, toUpdate.getScore());
+            ps.setObject(5, toUpdate.getScore());
             ps.setString(6, toUpdate.getRegion());
             ps.setString(7, toUpdate.getDescription());
             ps.setInt(8, id1);
@@ -456,7 +457,7 @@ public class WineDAO implements DAOInterface<Wine> {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 NewWine = new Wine(rs.getString("type"), rs.getString("name"),
-                        rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"),
+                        rs.getString("winery"), rs.getInt("vintage"),  (Integer) rs.getObject("score"),
                         rs.getString("region"), rs.getString("description"));
 
                 if (NewWine.equals(givenWine) || alreadySelected.contains(NewWine)) {
@@ -491,7 +492,7 @@ public class WineDAO implements DAOInterface<Wine> {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 NewWine = new Wine(rs.getString("type"), rs.getString("name"),
-                        rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"),
+                        rs.getString("winery"), rs.getInt("vintage"),  (Integer) rs.getObject("score"),
                         rs.getString("region"), rs.getString("description"));
                 if (NewWine.equals(givenWine) || alreadySelected.contains(NewWine)) {
                     continue;
@@ -524,7 +525,7 @@ public class WineDAO implements DAOInterface<Wine> {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 NewWine = new Wine(rs.getString("type"), rs.getString("name"),
-                        rs.getString("winery"), rs.getInt("vintage"), rs.getInt("score"),
+                        rs.getString("winery"), rs.getInt("vintage"),  (Integer) rs.getObject("score"),
                         rs.getString("region"), rs.getString("description"));
                 if (NewWine.equals(givenWine) || alreadySelected.contains(NewWine)) {
                     continue;
@@ -579,7 +580,7 @@ public class WineDAO implements DAOInterface<Wine> {
                         resultSet.getString("name"),
                         resultSet.getString("winery"),
                         resultSet.getInt("vintage"),
-                        resultSet.getInt("score"),
+                        (Integer) resultSet.getObject("score"),
                         resultSet.getString("region"),
                         resultSet.getString("description")
                 );

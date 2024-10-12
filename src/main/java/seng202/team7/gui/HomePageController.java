@@ -410,7 +410,11 @@ public class HomePageController {
     public void displayRatings(List<Wine> wines) {
         for (int i = 0; i < wines.size(); i++) {
             Label rating = ratings.get(i);
-            rating.setText(wines.get(i).getScore() + " / 100");
+            if (wines.get(i).getScore() == null) {
+                rating.setText("No Critic Rating");
+            } else {
+                rating.setText(wines.get(i).getScore() + " / 100");
+            }
         }
     }
 

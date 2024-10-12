@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS wines (
     name TEXT not null,
     winery TEXT not null,
     vintage int not null,
-    score int,
+    score INTEGER DEFAULT null,
     region TEXT,
     description TEXT,
     FOREIGN KEY (winery) REFERENCES wineries(wineryName) ON DELETE CASCADE,

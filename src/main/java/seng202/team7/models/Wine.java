@@ -6,7 +6,7 @@ package seng202.team7.models;
 public class Wine {
     String colour;
     String wineName;
-    int score;
+    Integer score;
     int vintage;
     String region;
     String wineryString;
@@ -22,7 +22,7 @@ public class Wine {
      * @param region region wine is from
      * @param description description of wine
      */
-    public Wine(String type, String name, String wineryString, int vintage, int score, String region, String description)
+    public Wine(String type, String name, String wineryString, int vintage, Integer score, String region, String description)
     {
         this.colour = type;
         this.wineName = name;
@@ -76,7 +76,7 @@ public class Wine {
      * The Getter method for the critic score that the wine received
      * @return score
      */
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 
