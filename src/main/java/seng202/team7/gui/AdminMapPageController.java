@@ -1,6 +1,7 @@
 package seng202.team7.gui;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
@@ -42,6 +43,8 @@ public class AdminMapPageController {
     private WebView webView;
     @FXML
     private TextField addressText;
+    @FXML
+    private TextField searchWinery;
     private WebEngine webEngine;
     private JSObject javaScriptConnector;
     private WineryManager wineryManager;
@@ -58,8 +61,8 @@ public class AdminMapPageController {
         this.appEnvironment = appEnvironment;
         wineryManager = new WineryManager();
         geolocator = new Geolocator();
-        setWineryList();
         initMap();
+        setWineryList(wineryManager.getAll());
         javaScriptBridge = new JavaScriptBridge(this::addWineryMarker, this::getWineryFromClick, stage);
     }
 
@@ -88,17 +91,16 @@ public class AdminMapPageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        setWineryList();
+        setWineryList(wineryManager.getAll());
     }
 
-    void setWineryList() {
+    void setWineryList(List<Winery> wineries) {
 //        List<Winery> wineries = wineryManager.getAllWithNullLocation("");
 //        ObservableList<String> wineryNames = FXCollections.observableArrayList();
 //        for (Winery winery : wineries) {
 //            wineryNames.add(winery.getWineryName());
 //        }
 //        wineryList.setItems(wineryNames);
-        List<Winery> wineries = wineryManager.getAll();
         wineries.sort(Comparator.comparing(Winery::getWineryName));
         ObservableList<Winery> wineryNames = FXCollections.observableArrayList(wineries);
         wineryList.setItems(wineryNames);
@@ -115,6 +117,9 @@ public class AdminMapPageController {
                         Winery selectedWinery = wineryList.getSelectionModel().getSelectedItem();
                         if (winery == selectedWinery) {
                             setStyle("-fx-background-color: #eccca2");
+                            if (winery.getLatitude() != null && winery.getLongitude() != null) {
+                                javaScriptConnector.call("zoomToLocation", winery.getLatitude(), winery.getLongitude(), 13);
+                            }
                         } else if (winery.getLatitude() == null || winery.getLongitude() == null) {
                             setStyle("-fx-background-color: #ffb3b3");
                         } else {
@@ -175,7 +180,7 @@ public class AdminMapPageController {
 
     private void addWineryMarker(Winery winery) {
         javaScriptConnector.call("addMarker", winery.getWineryName(), winery.getLatitude(), winery.getLongitude());
-        setWineryList();
+        setWineryList(wineryManager.getAll());
     }
 
     private void removeMarker(String wineryName) {
@@ -205,7 +210,7 @@ public class AdminMapPageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        setWineryList();
+        setWineryList(wineryManager.getAll());
         return true;
     }
 
@@ -216,9 +221,19 @@ public class AdminMapPageController {
         Position coords = geolocator.queryAddress(address);
         if (coords.getLng() != -1000) {
             javaScriptBridge.setWineryFromClick(coords.toString());
-            setWineryList();
+            setWineryList(wineryManager.getAll());
         } else {
             addressErrorLabel.setText("Address not found.");
+        }
+    }
+
+    @FXML
+    void updateSearch() {
+        String wineryName = searchWinery.getText();
+        if (wineryName.isBlank()) {
+            setWineryList(wineryManager.getAll());
+        } else {
+            setWineryList(wineryManager.getAllLikeSearch(wineryName));
         }
     }
 }
