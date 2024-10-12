@@ -19,7 +19,17 @@ public interface Importable<T> {
      */
     List<T> readFromFile(File file, List<Integer> headerIndexes);
 
+    /**
+     * Reads the first six lines from a file
+     * @param file file to read from
+     * @return list of the lines
+     */
     List<String[]> readSixLinesFromFile(File file);
 
+    /**
+     * Read wine from line of csv
+     * @param line current csv line as list of Strings
+     * @return Wine object parsed from line
+     */
     Wine readWineFromLine(String[] line, List<Integer> headerIndexes);
 }

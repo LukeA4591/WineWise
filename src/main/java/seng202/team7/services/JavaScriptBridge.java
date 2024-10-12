@@ -6,8 +6,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -20,12 +18,16 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class JavaScriptBridge {
-    private static final Logger log = LogManager.getLogger(JavaScriptBridge.class);
     private SetWineryInterface setWineryInterface;
     private GetWineryInterface getWineryInterface;
     private Stage parentStage;
 
-
+    /**
+     * Constructor for the JavaScriptBridge
+     * @param setWineryInterface Interface for setting wineries
+     * @param getWineryInterface Interface for getting wineries
+     * @param parentStage Stage of the controller calling the bridge
+     */
     public JavaScriptBridge(SetWineryInterface setWineryInterface, GetWineryInterface getWineryInterface, Stage parentStage) {
         this.setWineryInterface = setWineryInterface;
         this.getWineryInterface = getWineryInterface;
@@ -38,7 +40,6 @@ public class JavaScriptBridge {
      */
     public void setWineryFromClick(String latlng){
         JSONParser parser = new JSONParser();
-        WineryDAO wineryDAO = new WineryDAO();
         try {
             JSONObject latlng_json = (JSONObject) parser.parse(latlng);
             float lat = ((Double) latlng_json.get("lat")).floatValue();
@@ -66,6 +67,11 @@ public class JavaScriptBridge {
         }
     }
 
+    /**
+     * Used by JavaScript to get the winery from the name of the winery from the map
+     * @param wineryName name of the winery
+     * @return boolean of success rate
+     */
     public boolean getWineryFromClick(String wineryName) {
         return getWineryInterface.operation(wineryName);
     }
