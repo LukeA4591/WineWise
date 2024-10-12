@@ -6,9 +6,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import seng202.team7.models.Wine;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class WineCSVImporter implements Importable<Wine>{
     public List<Wine> readFromFile(File file, List<Integer> headerIndexes) {
         List<Wine> wines = new ArrayList<>();
         try {
-            CSVReader csvreader = new CSVReader(new FileReader(file));
+            CSVReader csvreader = new CSVReader(new InputStreamReader(new FileInputStream(file), Charset.forName("Windows-1256")));
             csvreader.skip(1);
             List<String[]> lines = csvreader.readAll();
             for (String[] line : lines) {
