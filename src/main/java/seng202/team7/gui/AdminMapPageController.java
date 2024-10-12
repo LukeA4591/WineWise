@@ -102,26 +102,35 @@ public class AdminMapPageController {
         wineries.sort(Comparator.comparing(Winery::getWineryName));
         ObservableList<Winery> wineryNames = FXCollections.observableArrayList(wineries);
         wineryList.setItems(wineryNames);
-        wineryList.setCellFactory(cell -> new ListCell<>() {
-            @Override
-            protected void updateItem(Winery winery, boolean empty) {
-                super.updateItem(winery, empty);
-                if (empty || winery == null) {
-                    setText(null);
-                    setStyle("");
-                } else {
-                    setText(winery.getWineryName());
-                    Winery selectedWinery = wineryList.getSelectionModel().getSelectedItem();
-                    if (winery == selectedWinery) {
-                        setStyle("-fx-background-color: #eccca2");
-                    }
-                    else if (winery.getLatitude() == null || winery.getLongitude() == null) {
-                        setStyle("-fx-background-color: #ffb3b3");
+        wineryList.setCellFactory(lv -> {
+            ListCell<Winery> cell = new ListCell<>() {
+                @Override
+                protected void updateItem(Winery winery, boolean empty) {
+                    super.updateItem(winery, empty);
+                    if (empty || winery == null) {
+                        setText(null);
+                        setStyle("");
                     } else {
-                        setStyle("-fx-background-color: #a6f2ad");
+                        setText(winery.getWineryName());
+                        Winery selectedWinery = wineryList.getSelectionModel().getSelectedItem();
+                        if (winery == selectedWinery) {
+                            setStyle("-fx-background-color: #eccca2");
+                        } else if (winery.getLatitude() == null || winery.getLongitude() == null) {
+                            setStyle("-fx-background-color: #ffb3b3");
+                        } else {
+                            setStyle("-fx-background-color: #a6f2ad");
+                        }
                     }
                 }
-            }
+            };
+            cell.hoverProperty().addListener((observer, wasHovered, isNowHovered) -> {
+                if (isNowHovered && !cell.isEmpty()) {
+                    cell.setStyle("-fx-background-color: #eccca2");
+                } else {
+                    cell.updateSelected(true);
+                }
+            });
+            return cell;
         });
         wineryList.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.DELETE || e.getCode() == KeyCode.BACK_SPACE) {

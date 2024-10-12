@@ -257,6 +257,9 @@ public class WineDAO implements DAOInterface<Wine> {
         String sql = "DELETE FROM wines WHERE name=? AND winery=? AND vintage=?;";
         try (Connection conn = databaseManager.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
+            try (Statement stmt = conn.createStatement()) {
+                stmt.execute("PRAGMA foreign_keys = ON;");
+            }
             ps.setString(1, name);
             ps.setString(2, winery);
             ps.setInt(3, vintage);
