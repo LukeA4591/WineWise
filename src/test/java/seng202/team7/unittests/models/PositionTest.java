@@ -1,4 +1,4 @@
-package seng202.team7.unittests.services;
+package seng202.team7.unittests.models;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

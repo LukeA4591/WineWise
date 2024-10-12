@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.gui.HomePageController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="nav-Window" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.gui.HomePageController">
    <children>
       <Pane fx:id="prevImagePane" layoutX="358.0" layoutY="540.0" onMouseClicked="#prevPage" prefHeight="35.0" prefWidth="35.0" styleClass="pressable-button">
          <children>
