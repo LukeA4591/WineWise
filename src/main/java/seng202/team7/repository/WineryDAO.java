@@ -194,4 +194,27 @@ public class WineryDAO implements DAOInterface<Winery> {
             log.error(sqlException);
         }
     }
+
+    public List<Winery> getAllLikeSearch(String wineryName) {
+        List<Winery> wineries = new ArrayList<>();
+        String sql = "SELECT * FROM wineries WHERE wineryName LIKE ? ORDER BY wineryName;";
+        try (Connection conn = databaseManager.connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            if (!Objects.equals(wineryName, "")) {
+                wineryName = wineryName + "%";
+                stmt.setString(1, wineryName);
+            }
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("wineryName");
+                Float longitude = rs.getObject("longitude") != null ? rs.getFloat("longitude") : null;
+                Float latitude = rs.getObject("latitude") != null ? rs.getFloat("latitude") : null;
+                wineries.add(new Winery(name, longitude, latitude));
+            }
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            return new ArrayList<>();
+        }
+        return wineries;
+    }
 }
