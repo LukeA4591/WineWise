@@ -11,6 +11,7 @@ import seng202.team7.repository.ReviewDAO;
 import seng202.team7.repository.DatabaseManager;
 import seng202.team7.repository.WineDAO;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class ReviewDAOTest {
@@ -110,5 +111,20 @@ public class ReviewDAOTest {
         reviewDao.markAsReported(reviewId);
         List<Review> flaggedReviews = reviewDao.getFlaggedReviews();
         Assertions.assertEquals(reviewId, flaggedReviews.get(0).getReviewID());
+    }
+
+    @Test
+    public void testAverageReviews() throws DuplicateExc {
+        populateDatabase();
+        LinkedHashMap<Integer, Integer> averageReviews = reviewDao.getAverageReviews(0);
+        Assertions.assertEquals(75, averageReviews.get(wineDAO.getWineID(testWine1)));
+        Assertions.assertEquals(30, averageReviews.get(wineDAO.getWineID(testWine2)));
+    }
+
+    @Test
+    public void testNumWinesWithReviews() throws DuplicateExc {
+        populateDatabase();
+        int numWines = reviewDao.getNumWinesWithReviews();
+        Assertions.assertEquals(wineDAO.getAll().size(), numWines);
     }
 }
