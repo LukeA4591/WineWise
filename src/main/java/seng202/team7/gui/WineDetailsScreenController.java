@@ -104,6 +104,9 @@ public class WineDetailsScreenController {
         showSimilarWines();
     }
 
+    /**
+     * Initialize the images and labels on the page
+     */
     @FXML
     public void initialize() {
         recommendImage1.setImage(new Image(getClass().getResourceAsStream(defaultImageFilePath)));
@@ -115,6 +118,9 @@ public class WineDetailsScreenController {
 
     }
 
+    /**
+     * Using this.wine search for 3 similar wines too it that aren't the same wine and aren't the same as eachother
+     */
     private void showSimilarWines() {
         wineList = wineManager.getTheSimilarWines(this.wine);
 
@@ -128,18 +134,27 @@ public class WineDetailsScreenController {
         }
     }
 
+    /**
+     * Open a Pop-up for the first recommended wine
+     */
     @FXML
     void recWine1Pressed() {
         winePopupService.winePressed(wineList.getFirst(), RecommendedImageList[0].getImage(), rating);
         stage = (Stage) wineYear.getScene().getWindow();
         stage.close();
     }
+    /**
+     * Open a Pop-up for the second recommended wine
+     */
     @FXML
     void recWine2Pressed() {
         winePopupService.winePressed(wineList.get(1), RecommendedImageList[1].getImage(), rating);
         stage = (Stage) wineYear.getScene().getWindow();
         stage.close();
     }
+    /**
+     * Open a Pop-up for the third recommended wine
+     */
     @FXML
     void recWine3Pressed() {
         winePopupService.winePressed(wineList.get(2), RecommendedImageList[2].getImage(), rating);
