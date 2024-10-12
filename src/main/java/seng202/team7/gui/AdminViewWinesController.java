@@ -34,7 +34,6 @@ public class AdminViewWinesController {
     private static final Logger log = LogManager.getLogger(AdminViewWinesController.class);
     private WineManager wineManager;
     private List<Wine> wines;
-    private Wine editedWine;
 
     /**
      * Initializes the wineManager and then gets all the wines from the wine database table as wine objects. Using the
@@ -47,6 +46,9 @@ public class AdminViewWinesController {
         initTables();
     }
 
+    /**
+     * on Search button is clicked call the wineManager to search for the search text field's value
+     */
     @FXML
     private void searchPressed() {
         String search = searchText.getText();
@@ -68,13 +70,6 @@ public class AdminViewWinesController {
      * wineManager.
      */
     private void initTables() {
-        if (editedWine != null) {
-            int previousIndex = wines.indexOf(editedWine);
-            if (previousIndex != -1) {
-                wines.remove(previousIndex);
-                wines.addFirst(editedWine);
-            }
-        }
 
         wineTable.getColumns().clear();
 
@@ -154,6 +149,10 @@ public class AdminViewWinesController {
         });
     }
 
+    /**
+     * On click of a wine in the table open the edit wine window/modal
+     * @param wineClicked
+     */
     public void onWineClicked(Wine wineClicked) {
         try {
             FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/edit_wine.fxml"));
@@ -170,7 +169,6 @@ public class AdminViewWinesController {
             Stage primaryStage = (Stage) wineTable.getScene().getWindow();
             modalStage.initOwner(primaryStage);
             modalStage.showAndWait();
-            editedWine = wineClicked;
             wines = wineManager.getAll();
             initTables();
         } catch (IOException e) {

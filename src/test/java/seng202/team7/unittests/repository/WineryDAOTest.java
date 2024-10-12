@@ -1,5 +1,6 @@
 package seng202.team7.unittests.repository;
 
+import io.cucumber.java.bs.A;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -98,8 +99,8 @@ public class WineryDAOTest {
         wineryDAO.add(winery);
         wineryDAO.add(new Winery("Five Winery", null, null));
         List<Winery> wineryList = wineryDAO.getAllWithNullLocation("Four");
-        Assertions.assertEquals(wineryList.size(), 1);
-        Assertions.assertEquals(wineryList.getFirst(), winery);
+        Assertions.assertEquals(1, wineryList.size());
+        Assertions.assertEquals(winery, wineryList.getFirst());
     }
 
     @Test
@@ -109,8 +110,8 @@ public class WineryDAOTest {
         wineryDAO.add(winery);
         wineryDAO.updateLocationByWineryName("Four Winery", (float) 2, (float) 2);
         winery = wineryDAO.getWineryByName("Four Winery");
-        Assertions.assertEquals(2, winery.getLatitude());
-        Assertions.assertEquals(2, winery.getLongitude());
+        Assertions.assertEquals(winery.getLatitude(), 2);
+        Assertions.assertEquals(winery.getLongitude(),2);
     }
 
     @Test
@@ -119,10 +120,10 @@ public class WineryDAOTest {
         wineryDAO.add(new Winery("Four Winery", null, null));
         wineryDAO.add(new Winery("Five Winery", null, null));
         List<Winery> wineries = wineryDAO.getAllWithValidLocation();
-        Assertions.assertEquals(wineries.size(), 3);
+        Assertions.assertEquals(3, wineries.size());
         for (Winery winery : wineries) {
-            Assertions.assertNotEquals(winery.getLatitude(), null);
-            Assertions.assertNotEquals(winery.getLongitude(), null);
+            Assertions.assertNotEquals(null, winery.getLatitude());
+            Assertions.assertNotEquals(null, winery.getLongitude());
         }
     }
 
@@ -130,8 +131,23 @@ public class WineryDAOTest {
     public void testGetWineryByName() {
         populateDatabase();
         Winery winery = wineryDAO.getWineryByName("One Winery");
-        Assertions.assertEquals(winery.getWineryName(), "One Winery");
-        Assertions.assertEquals(winery.getLatitude(), 2);
-        Assertions.assertEquals(winery.getLongitude(), 1);
+        Assertions.assertEquals("One Winery", winery.getWineryName());
+        Assertions.assertEquals(2, winery.getLatitude());
+        Assertions.assertEquals(1, winery.getLongitude());
+    }
+
+    @Test
+    public void testSearchWinerySuccess() {
+        populateDatabase();
+        List<Winery> wineries = wineryDAO.getAllLikeSearch("One");
+        Assertions.assertEquals(1, wineries.size());
+        Assertions.assertEquals("One Winery", wineries.getFirst().getWineryName());
+    }
+
+    @Test
+    public void testSearchWineryFail() {
+        populateDatabase();
+        List<Winery> wineries = wineryDAO.getAllLikeSearch("This has nothing to do with any wineries");
+        Assertions.assertEquals(0, wineries.size());
     }
 }

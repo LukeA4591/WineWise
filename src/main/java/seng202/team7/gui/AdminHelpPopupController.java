@@ -8,6 +8,9 @@ public class AdminHelpPopupController {
     @FXML
     private Button backButton;
 
+    /**
+     * Closes the current stage/pop-up
+     */
     @FXML
     private void onBack() {
         Stage stage = (Stage) backButton.getScene().getWindow();

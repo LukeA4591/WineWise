@@ -12,6 +12,11 @@ public class RemoveWineryPopupController {
     private WineryManager wineryManager;
     Runnable onConfirmRemove;
 
+    /**
+     * Initializes the remove winery popup
+     * @param wineryName
+     * @param onConfirmRemove
+     */
     void init(String wineryName, Runnable onConfirmRemove) {
         this.onConfirmRemove = onConfirmRemove;
         this.wineryName = wineryName;
@@ -19,6 +24,9 @@ public class RemoveWineryPopupController {
         removeWineryLabel.setText("Remove Winery: " + wineryName + "?");
     }
 
+    /**
+     * Actually removes the winery's lat & lon
+     */
     @FXML
     void confirmRemove() {
         wineryManager.updateLocationByWineryName(wineryName, null, null);
@@ -27,6 +35,9 @@ public class RemoveWineryPopupController {
         stage.close();
     }
 
+    /**
+     * Cancel removing the winery's and closes the pop-up
+     */
     @FXML
     void cancelRemove() {
         Stage stage = (Stage) removeWineryLabel.getScene().getWindow();

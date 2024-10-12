@@ -110,12 +110,20 @@ public class AddWineController {
 
     }
 
+    /**
+     * Adds a winery with only a name to the db through the manager
+     * @param wineryName
+     */
     private void addWinery(String wineryName) {
         Winery winery = wineryManager.getWineryByName(wineryName);
         if (winery == null) {
             wineryManager.add(new Winery(wineryName, null, null));
         }
     }
+
+    /**
+     * Shows green text saying the wine has been saved to confirm to the user the wine has been saved
+     */
     private void confirmChangeUI() {
         saveNewWineMessage.setStyle("-fx-text-fill: #008000");
         saveNewWineMessage.setText("New wine saved.");
@@ -128,10 +136,13 @@ public class AddWineController {
         wineDescription.setText("");
     }
 
+    /**
+     * Closes the pop-up after a delay to give users time to see the confirmation message
+     */
     private void closePage() {
         Platform.runLater(() -> {
             try {
-                Thread.sleep(1500);
+                Thread.sleep(1250);
                 goBackToAdmin();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

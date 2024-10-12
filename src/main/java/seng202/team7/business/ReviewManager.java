@@ -69,6 +69,8 @@ public class ReviewManager {
      */
     public List<Review> getFlaggedReviews() { return reviewDAO.getFlaggedReviews(); }
 
-    public LinkedHashMap<Integer, Integer> getAverageReviews() {return reviewDAO.getAverageReviews(); }
+    public LinkedHashMap<Integer, Integer> getAverageReviews(int page) {return reviewDAO.getAverageReviews(page); }
+
+    public int getNumWinesWithReviews() {return reviewDAO.getNumWinesWithReviews(); }
 
 }

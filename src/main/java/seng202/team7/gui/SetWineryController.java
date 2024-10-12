@@ -31,13 +31,19 @@ public class SetWineryController {
     SetWineryInterface setWineryInterface;
     String selectedWinery = null;
 
+    /**
+     * initializes the page with the wineryInterface and the lat/long floats
+     * @param setWineryInterface interface for the winery
+     * @param lat lat coordinate as a float
+     * @param lon lon cordinate as a float
+     */
     public void init(SetWineryInterface setWineryInterface, float lat, float lon) {
         wineryManager = new WineryManager();
         List<Winery> wineries = wineryManager.getAllWithNullLocation("");
         this.setWineryInterface = setWineryInterface;
         this.lat = lat;
         this.lon = lon;
-        displayWines(wineries);
+        displayWineries(wineries);
         wineryList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 selectedWinery = newValue;
@@ -47,7 +53,11 @@ public class SetWineryController {
 
     }
 
-    void displayWines(List<Winery> wineries) {
+    /**
+     * displays the wineries from the observable array list by adding them to the wineryList
+     * @param wineries
+     */
+    void displayWineries(List<Winery> wineries) {
         ObservableList<String> wineryNames = FXCollections.observableArrayList();
         for (Winery winery : wineries) {
             wineryNames.add(winery.getWineryName());
@@ -55,6 +65,9 @@ public class SetWineryController {
         wineryList.setItems(wineryNames);
     }
 
+    /**
+     * On Action confirm button to add the selected winery to the map
+     */
     @FXML
     void onConfirmButton() {
         if (selectedWinery == null) {
@@ -67,17 +80,23 @@ public class SetWineryController {
         }
     }
 
+    /**
+     * On Action cancel the action and close the current pop-up
+     */
     @FXML
     void cancelPressed() {
         Stage stage = (Stage) selectedWineryLabel.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Updates the search to the new text in the search field
+     */
     @FXML
     void updateSearch() {
         List<Winery> wineries;
         search = searchText.getText();
         wineries = wineryManager.getAllWithNullLocation(search);
-        displayWines(wineries);
+        displayWineries(wineries);
     }
 }

@@ -154,6 +154,9 @@ public class NavBarController {
         }
     }
 
+    /**
+     * OnAction method that loads the help page as long as not already on said page
+     */
     @FXML
     private void helpPressed() {
         if (currentPage != 3) {
@@ -173,6 +176,9 @@ public class NavBarController {
         }
     }
 
+    /**
+     * OnAction method that loads the map page as long as not already on said page
+     */
     @FXML
     void mapPressed() {
         if (currentPage != 2) {
@@ -228,6 +234,9 @@ public class NavBarController {
         this.stage = stage;
     }
 
+    /**
+     * adjusts the brightness of the logo when the user hovers over the icon
+     */
     private void setLogoHover() {
         ColorAdjust colorAdjust = new ColorAdjust();
 
