@@ -62,9 +62,9 @@ public class ImportPreviewController {
     AppEnvironment appEnvironment;
 
     /**
-     * TODO
-     * @param file
-     * @param appEnvironment
+     * Init function for the import preview controller to initialize all UI objects and helper functions/classes
+     * @param file uploaded file from the user
+     * @param appEnvironment AppEnvironment to allow hiding/showing of loading screen
      */
     public void init(File file, AppEnvironment appEnvironment) {
         this.file = file;
@@ -79,7 +79,7 @@ public class ImportPreviewController {
     }
 
     /**
-     * TODO
+     * On Action that closes the current Pop-up/window
      */
     private void goBackToAdmin() {
         Stage stage = (Stage) dataTable.getScene().getWindow();
@@ -98,7 +98,7 @@ public class ImportPreviewController {
     }
 
     /**
-     * TODO
+     * Initializes the CSV table by clearing everything and resetting the values then adding the data
      */
     private void initCSVTable() {
         dataTable.getColumns().clear();
@@ -115,7 +115,7 @@ public class ImportPreviewController {
     }
 
     /**
-     * TODO
+     * Init function to set the preview table headers
      * @param headerIndexes
      */
     private void initPreviewTable(List<Integer> headerIndexes) {
@@ -134,7 +134,7 @@ public class ImportPreviewController {
     }
 
     /**
-     * TODO
+     * Initializes the option boxes for the options to import
      */
     private void initComboBoxes() {
         comboBoxList = (ComboBox<String>[]) new ComboBox<?>[] {typeComboBox, nameComboBox, wineryComboBox, vintageComboBox, scoreComboBox, regionComboBox, descriptionComboBox};
@@ -144,8 +144,8 @@ public class ImportPreviewController {
     }
 
     /**
-     * TODO
-     * @return
+     * Returns a list of the headers currently user in the combo boxes
+     * @return List<String> of used headers
      */
     private List<String> getComboBoxHeaders() {
         String typeComboBoxHeader = typeComboBox.getValue();
@@ -161,14 +161,14 @@ public class ImportPreviewController {
     }
 
     /**
-     * TODO
+     * On Action to call the function to return to the admin page
      */
     public void onExitPopup() {
         goBackToAdmin();
     }
 
     /**
-     * TODO
+     * Imports the given data to the correct headers on a background thread to not lock UI elements
      */
     public void onSaveDataset() {
         List<String> headerArray = getComboBoxHeaders();
@@ -199,7 +199,7 @@ public class ImportPreviewController {
     }
 
     /**
-     * TODO
+     *
      */
     public void onChangeTable() {
         if (Objects.equals(changeTableButton.getText(), "Preview import")) {
