@@ -55,6 +55,13 @@ public class AdminMapPageController {
     @FXML
     private Label addressErrorLabel;
 
+    /**
+     * Initializes the AdminMapPageController with the given AppEnvironment and Stage.
+     * Sets up the map, winery list, and JavaScript bridge to interact with the web map.
+     *
+     * @param appEnvironment The application environment.
+     * @param stage The current stage.
+     */
     void init(AppEnvironment appEnvironment, Stage stage) {
         this.appEnvironment = appEnvironment;
         wineryManager = new WineryManager();
@@ -64,12 +71,20 @@ public class AdminMapPageController {
         javaScriptBridge = new JavaScriptBridge(this::addWineryMarker, this::getWineryFromClick, stage);
     }
 
+    /**
+     * Handles the action when the back button is pressed.
+     * Closes the current window.
+     */
     @FXML
     void onBackButton() {
         Stage stage = (Stage) backButton.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Opens a new modal window to add a winery.
+     * After adding the winery, updates the winery list to include the new entry.
+     */
     @FXML
     public void onAddWinery() {
         try {
@@ -93,12 +108,6 @@ public class AdminMapPageController {
     }
 
     void setWineryList(List<Winery> wineries) {
-//        List<Winery> wineries = wineryManager.getAllWithNullLocation("");
-//        ObservableList<String> wineryNames = FXCollections.observableArrayList();
-//        for (Winery winery : wineries) {
-//            wineryNames.add(winery.getWineryName());
-//        }
-//        wineryList.setItems(wineryNames);
         wineries.sort(Comparator.comparing(Winery::getWineryName));
         ObservableList<Winery> wineryNames = FXCollections.observableArrayList(wineries);
         wineryList.setItems(wineryNames);
@@ -154,6 +163,10 @@ public class AdminMapPageController {
         });
     }
 
+    /**
+     * Initializes the web map using WebView's WebEngine.
+     * Sets up the JavaScript bridge to allow interaction between JavaFX and JavaScript.
+     */
     void initMap() {
         webEngine = webView.getEngine();
         webEngine.setJavaScriptEnabled(true);
@@ -170,6 +183,10 @@ public class AdminMapPageController {
                 });
     }
 
+    /**
+     * Adds markers for all wineries that have valid locations on the map.
+     * Calls the addWineryMarker method for each winery.
+     */
     private void addWineryMarkers() {
         List<Winery> wineries = wineryManager.getAllWithValidLocation();
         for (Winery winery : wineries) {
@@ -178,19 +195,39 @@ public class AdminMapPageController {
         displayMarkers();
     }
 
+    /**
+     * Adds a marker for the given winery on the map at the winery's latitude and longitude.
+     *
+     * @param winery The winery to add a marker for.
+     */
     private void addWineryMarker(Winery winery) {
         javaScriptConnector.call("addMarker", winery.getWineryName(), winery.getLatitude(), winery.getLongitude());
         setWineryList(wineryManager.getAll());
     }
 
+    /**
+     * Removes the marker for the given winery from the map.
+     *
+     * @param wineryName The name of the winery whose marker should be removed.
+     */
     private void removeMarker(String wineryName) {
         javaScriptConnector.call("removeMarker", wineryName);
     }
 
+    /**
+     * Displays all winery markers on the map.
+     */
     private void displayMarkers() {
         javaScriptConnector.call("displayMarkers");
     }
 
+    /**
+     * Handles the selection of a winery from the map click event.
+     * Opens a popup window to confirm the removal of the winery marker.
+     *
+     * @param wineryName The name of the winery selected from the map click.
+     * @return true if the winery is successfully retrieved and handled, false otherwise.
+     */
     public boolean getWineryFromClick(String wineryName) {
         try {
             FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/fxml/remove_winery_location.fxml"));
@@ -214,6 +251,11 @@ public class AdminMapPageController {
         return true;
     }
 
+    /**
+     * Handles the search button press.
+     * Queries the geolocator service to find the position of the entered address
+     * and updates the map with the location if found.
+     */
     @FXML
     private void searchPressed() {
         addressErrorLabel.setText("");
@@ -227,6 +269,10 @@ public class AdminMapPageController {
         }
     }
 
+    /**
+     * Updates the displayed list of wineries based on the search query entered.
+     * If no query is entered, it resets the list to display all wineries.
+     */
     @FXML
     void updateSearch() {
         String wineryName = searchWinery.getText();
