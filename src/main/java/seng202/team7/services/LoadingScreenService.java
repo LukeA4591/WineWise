@@ -17,6 +17,9 @@ public class LoadingScreenService {
      */
     private Stage loadingStage;
 
+    /**
+     * Constructor for the loading screen service, initializes the stage and sets the loading screen as an undecorated modal
+     */
     public LoadingScreenService() {
         this.loadingStage = new Stage();
         this.loadingStage.initModality(Modality.APPLICATION_MODAL);

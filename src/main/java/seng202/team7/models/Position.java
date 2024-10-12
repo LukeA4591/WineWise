@@ -1,6 +1,4 @@
-package seng202.team7.services;
-
-import javafx.scene.control.Label;
+package seng202.team7.models;
 
 public class Position {
     private double lat;

@@ -42,6 +42,11 @@ public class WineCSVImporter implements Importable<Wine>{
         return wines;
     }
 
+    /**
+     * Reads six lines from a file, used to show a preview of the input
+     * @param file file to read from
+     * @return List of the lines from the file
+     */
     public List<String[]> readSixLinesFromFile(File file) {
         List<String[]> lines = new ArrayList<>();
         String[] line;
