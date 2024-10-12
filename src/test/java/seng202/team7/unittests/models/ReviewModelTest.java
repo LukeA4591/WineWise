@@ -28,16 +28,19 @@ public class ReviewModelTest {
         Assertions.assertEquals(90, reviewWithId.getRating());
         Assertions.assertEquals("Very nice", reviewWithId.getDescription());
         Assertions.assertEquals(createWine(), reviewWithId.getWine());
-        Assertions.assertFalse(reviewWithId.getReported());
+        reviewWithId.setReported(true);
+        Assertions.assertTrue(reviewWithId.getReported());
     }
 
     @Test
     public void testCreateReviewWithoutId() {
-        Review reviewWithId = createReviewWithId();
-        Assertions.assertEquals(90, reviewWithId.getRating());
-        Assertions.assertEquals("Very nice", reviewWithId.getDescription());
-        Assertions.assertEquals(createWine(), reviewWithId.getWine());
-        Assertions.assertFalse(reviewWithId.getReported());
+        Review reviewWithoutId = createReviewWithId();
+        Assertions.assertEquals(90, reviewWithoutId.getRating());
+        Assertions.assertEquals("Very nice", reviewWithoutId.getDescription());
+        Assertions.assertEquals(createWine(), reviewWithoutId.getWine());
+        Assertions.assertFalse(reviewWithoutId.getReported());
+        reviewWithoutId.setReported(true);
+        Assertions.assertTrue(reviewWithoutId.getReported());
     }
 
     @Test

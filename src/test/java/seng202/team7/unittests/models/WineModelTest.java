@@ -20,6 +20,8 @@ public class WineModelTest {
         Assertions.assertEquals(90, wine.getScore());
         Assertions.assertEquals("Canterbury", wine.getRegion());
         Assertions.assertEquals("This is a wine from canterbury", wine.getDescription());
+        wine.setWineScore(40);
+        Assertions.assertEquals(40, wine.getScore());
     }
 
     @Test

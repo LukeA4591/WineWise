@@ -8,7 +8,7 @@ public class Position {
         this.lng = lng;
     }
 
-    private double getLat() {
+    public double getLat() {
         return lat;
     }
     public double getLng() {
