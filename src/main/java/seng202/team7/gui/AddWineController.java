@@ -8,7 +8,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import seng202.team7.business.WineManager;
+import seng202.team7.business.WineryManager;
 import seng202.team7.models.Wine;
+import seng202.team7.models.Winery;
 import seng202.team7.services.WineService;
 
 import java.time.Year;
@@ -41,6 +43,7 @@ public class AddWineController {
     @FXML
     ToggleGroup wineTypeToggle;
     private WineManager wineManager;
+    private WineryManager wineryManager;
     private WineService wineService;
     private final String setLabelRed = "-fx-text-fill: FF0000";
 
@@ -58,6 +61,7 @@ public class AddWineController {
     @FXML
     void initialize() {
         wineManager = new WineManager();
+        wineryManager = new WineryManager();
         wineService = new WineService();
     }
 
@@ -65,6 +69,7 @@ public class AddWineController {
      * Sends the new wine to the wineManager when the save wine button is pressed if all the wine values filled in the
      * text fields were all valid.
      */
+    @FXML
     public void saveNewWine() {
 
         String wineNameString = wineName.getText();
@@ -89,6 +94,7 @@ public class AddWineController {
             if (!wineManager.checkIfWineExists(wine)) {
                 confirmChangeUI();
                 wineManager.add(wine);
+                addWinery(wineryNameString);
                 Platform.runLater(this::closePage);
 
             } else {
@@ -99,8 +105,15 @@ public class AddWineController {
             saveNewWineMessage.setText(errorLabel);
             saveNewWineMessage.setStyle(setLabelRed);
         }
+
     }
 
+    private void addWinery(String wineryName) {
+        Winery winery = wineryManager.getWineryByName(wineryName);
+        if (winery == null) {
+            wineryManager.add(new Winery(wineryName, null, null));
+        }
+    }
     private void confirmChangeUI() {
         saveNewWineMessage.setStyle("-fx-text-fill: #008000");
         saveNewWineMessage.setText("New wine saved.");
