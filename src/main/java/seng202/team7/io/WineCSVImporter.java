@@ -19,6 +19,13 @@ public class WineCSVImporter implements Importable<Wine>{
     private static final Logger log = LogManager.getLogger(WineCSVImporter.class);
 
     /**
+     * Default constructor for the WineCSVImporter
+     */
+    public WineCSVImporter() {
+
+    }
+
+    /**
      * Read wines from csv file
      * @param file File to read from
      * @return List of wines in csv file

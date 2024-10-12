@@ -6,6 +6,9 @@ import javafx.stage.Stage;
 import seng202.team7.business.WineryManager;
 import seng202.team7.models.Winery;
 
+/**
+ * Controller for the add_winery.fxml file
+ */
 public class AddWineryController {
 
     @FXML
@@ -18,6 +21,13 @@ public class AddWineryController {
     Label saveNewWineryMessage;
 
     private WineryManager wineryManager;
+
+    /**
+     * Default constructor for add winery controller
+     */
+    public AddWineryController() {
+
+    }
 
     /**
      * closes the add winery pop-up

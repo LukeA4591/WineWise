@@ -14,6 +14,9 @@ import seng202.team7.models.Wine;
 
 import java.util.List;
 
+/**
+ * Controller class for the wine_reviews_screen.fxml file
+ */
 public class WineReviewsScreenController {
 
     @FXML
@@ -40,6 +43,13 @@ public class WineReviewsScreenController {
     private WineManager wineManager = new WineManager();
     private ReviewManager reviewManager;
     private Wine wine;
+
+    /**
+     * Default constructor for the WineReviewsScreenController
+     */
+    public WineReviewsScreenController() {
+
+    }
 
     /**
      * Init method for wine reviews screen
