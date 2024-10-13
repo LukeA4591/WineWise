@@ -7,7 +7,6 @@ import seng202.team7.business.WineManager;
 import seng202.team7.models.Wine;
 import seng202.team7.services.WineService;
 
-import java.time.Year;
 import java.util.Objects;
 
 /**
@@ -59,7 +58,9 @@ public class EditWineController {
         wineWineryName.setText(origionalWine.getWineryString());
         wineName.setText(origionalWine.getWineName());
         wineVintage.setText(Integer.toString(origionalWine.getVintage()));
-        wineScore.setText(Integer.toString(origionalWine.getScore()));
+        if (origionalWine.getScore() != null) {
+            wineScore.setText(Integer.toString(origionalWine.getScore()));
+        }
         wineRegion.setText(origionalWine.getRegion());
         wineDescription.setText(origionalWine.getDescription());
         if (origionalWine.getColor().equals("Red")) {
@@ -88,7 +89,6 @@ public class EditWineController {
             Wine wine = new Wine(wineTypeString, wineNameString, wineryNameString, Integer.parseInt(wineVintageString), Integer.parseInt(wineScoreString), wineRegionString, wineDescriptionString);
             boolean successfulUpdate = wineManager.updateWine(wine, this.origionalWine);
             if (!successfulUpdate) {
-                saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
                 saveNewWineMessage.setText("This wine already exists.");
             } else {
                 Stage stage = (Stage) wineWineryName.getScene().getWindow();
@@ -96,7 +96,6 @@ public class EditWineController {
             }
         } else {
             saveNewWineMessage.setText(errorLabel);
-            saveNewWineMessage.setStyle("-fx-text-fill: #ff0000");
         }
     }
 }

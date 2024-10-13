@@ -12,13 +12,14 @@ import org.json.simple.parser.ParseException;
 import seng202.team7.gui.SetWineryController;
 import seng202.team7.io.SetWineryInterface;
 import seng202.team7.io.GetWineryInterface;
-import seng202.team7.repository.WineryDAO;
 
 import java.io.IOException;
 import java.util.Objects;
 
 /**
  * JavaScriptBridge class, used to communicate with JavaScript for the maps page
+ * originally from  https://eng-git.canterbury.ac.nz/men63/seng202-advanced-fx-public"
+ *
  */
 public class JavaScriptBridge {
     private SetWineryInterface setWineryInterface;

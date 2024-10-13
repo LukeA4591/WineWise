@@ -41,7 +41,6 @@ public class SearchPageController {
     private Map<String, List<String>> scoreFilters = new HashMap<>();
     private WineManager wineManager;
     private WinePopupService wineMethods = new WinePopupService();
-    private final String errorLabelStyle = "-fx-text-fill: white;";
 
     /**
      * Constructor for search page controller
@@ -250,16 +249,12 @@ public class SearchPageController {
         String criticScoreMin = criticScoreMinText.getText();
         if ((Objects.equals(criticScoreMin, "") && !(Objects.equals(criticScoreMax, ""))) || (!(Objects.equals(criticScoreMin, "")) && Objects.equals(criticScoreMax, ""))) {
             errorLabel.setText("Please input both scores");
-            errorLabel.setStyle(errorLabelStyle);
         } else if (!validScore(criticScoreMax) || !validScore(criticScoreMin)) {
             errorLabel.setText("Please enter integers");
-            errorLabel.setStyle(errorLabelStyle);
         } else if (!Objects.equals(criticScoreMax, "") && !Objects.equals(criticScoreMin, "") && (Integer.parseInt(criticScoreMax) < Integer.parseInt(criticScoreMin))) {
             errorLabel.setText("Please have from <= to");
-            errorLabel.setStyle(errorLabelStyle);
         } else if ((!Objects.equals(criticScoreMax, "") && !Objects.equals(criticScoreMin, "")) && (Integer.parseInt(criticScoreMax) > 100 || Integer.parseInt(criticScoreMin) > 100)) {
             errorLabel.setText("Please have both scores <= 100");
-            errorLabel.setStyle(errorLabelStyle);
         } else {
             errorLabel.setText("");
             scoreFilters.put("score", Arrays.asList(criticScoreMinText.getText(), criticScoreMaxText.getText()));

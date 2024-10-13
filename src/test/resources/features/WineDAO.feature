@@ -35,7 +35,7 @@ Feature: WineDAO
     Then There will be a wine with details "Famous Wine 2", "White", "Famous Winery", 2019
     And The wine with details "Famous Wine", "Famous Winery", 2020 is deleted from the database
 
-  Scenario: Admin unsuccessfully updates wine - AT_20
+  Scenario: Admin unsuccessfully updates wine - AT_19
     Given A database with the following wines:
       | wineName    | wineType | winery | year |
       | Famous Wine  | White | Famous Winery | 2020 |
@@ -79,7 +79,7 @@ Feature: WineDAO
     And The generated wines will have a size of 3
     And The database has a size of 4
 
-  Scenario: A user getting filtered wines - AT_19
+  Scenario: A user getting filtered wines - AT_18
     Given A database with the following wines:
       | wineName    | wineType | winery | year |
       | First Wine  | White | First Winery | 2020 |
@@ -95,7 +95,7 @@ Feature: WineDAO
       | Fourth Wine  | Red | Fourth Winery | 2020 |
     And The generated wines will have a size of 2
 
-  Scenario: A user getting an empty filter - AT_19
+  Scenario: A user getting an empty filter - AT_18
     Given A database with the following wines:
       | wineName    | wineType | winery | year |
       | First Wine  | White | First Winery | 2020 |
@@ -109,7 +109,7 @@ Feature: WineDAO
       | wineName    | wineType | winery | year |
     And The generated wines will have a size of 0
 
-  Scenario: A user doesnt do any filters - AT_19
+  Scenario: A user doesnt do any filters - AT_18
     Given A database with the following wines:
       | wineName    | wineType | winery | year |
       | First Wine  | White | First Winery | 2020 |
@@ -125,3 +125,16 @@ Feature: WineDAO
       | Third Wine  | Rose | Second Winery | 2018 |
       | Fourth Wine  | Red | Fourth Winery | 2020 |
     And The generated wines will have a size of 4
+
+  Scenario: A user searches for wines
+    Given A database with the following wines:
+      | wineName    | wineType | winery | year |
+      | First Wine  | White | First Winery | 2020 |
+      | Second Wine  | Red | Second Winery | 2019 |
+      | Third Wine  | Rose | Second Winery | 2018 |
+      | Fourth Wine  | Red | Fourth Winery | 2020 |
+    When a user searches for wines with the search "Red"
+    Then The generated wines will contain the following wines:
+      | wineName    | wineType | winery | year |
+      | Second Wine  | Red | Second Winery | 2019 |
+      | Fourth Wine  | Red | Fourth Winery | 2020 |

@@ -21,7 +21,9 @@
          </font>
       </Label>
       <Button fx:id="exitButton" layoutX="683.0" layoutY="21.0" mnemonicParsing="false" onAction="#onExitPopup" text="Exit" />
-      <AnchorPane fx:id="mainAnchor" layoutY="70.0" prefHeight="554.0" prefWidth="900.0">
+      <Button fx:id="saveDatasetButton" layoutX="363.0" layoutY="551.0" mnemonicParsing="false" onAction="#onSaveDataset" text="Save dataset" />
+      <Label layoutX="36.0" layoutY="349.0" text="All fields must be selected.      Match the preview column name with the header names." />
+      <StackPane layoutX="225.0" layoutY="483.0" prefHeight="55.0" prefWidth="446.0">
          <children>
             <TableView fx:id="dataTable" layoutX="27.0" layoutY="2.0" prefHeight="174.0" prefWidth="844.0" />
             <Button fx:id="changeTableButton" layoutX="27.0" layoutY="193.0" mnemonicParsing="false" onAction="#onChangeTable" text="Preview import" />

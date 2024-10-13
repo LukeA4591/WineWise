@@ -35,9 +35,9 @@ import java.util.Objects;
 
 /**
  * Controller class for the admin_map_page.fxml file
+ * some map functionality is originally from  https://eng-git.canterbury.ac.nz/men63/seng202-advanced-fx-public
  */
 public class AdminMapPageController {
-    private AppEnvironment appEnvironment;
     private Geolocator geolocator;
     @FXML
     private WebView webView;
@@ -68,11 +68,9 @@ public class AdminMapPageController {
      * Initializes the AdminMapPageController with the given AppEnvironment and Stage.
      * Sets up the map, winery list, and JavaScript bridge to interact with the web map.
      *
-     * @param appEnvironment The application environment.
      * @param stage The current stage.
      */
-    void init(AppEnvironment appEnvironment, Stage stage) {
-        this.appEnvironment = appEnvironment;
+    void init(Stage stage) {
         wineryManager = new WineryManager();
         geolocator = new Geolocator();
         initMap();
@@ -125,6 +123,28 @@ public class AdminMapPageController {
         wineries.sort(Comparator.comparing(Winery::getWineryName));
         ObservableList<Winery> wineryNames = FXCollections.observableArrayList(wineries);
         wineryList.setItems(wineryNames);
+        setWineryListCellFactory();
+        wineryList.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.DELETE || e.getCode() == KeyCode.BACK_SPACE) {
+                try {
+                    Winery selectedWinery = wineryList.getSelectionModel().getSelectedItem();
+                    if (selectedWinery.getLongitude() != null && selectedWinery.getLatitude() != null) {
+                        removeMarker(selectedWinery.getWineryName());
+                    }
+                    wineryList.getItems().remove(selectedWinery);
+                    wineryManager.delete(selectedWinery.getWineryName());
+                } catch (NullPointerException nullPointerException) {
+                    log.warn("No wine selected for delete");
+                    log.warn(nullPointerException.getMessage());
+                }
+            }
+        });
+    }
+
+    /**
+     * Helper method to set the winery list cell factory so that they zoom to the location when they are clicked
+     */
+    private void setWineryListCellFactory() {
         wineryList.setCellFactory(lv -> {
             ListCell<Winery> cell = new ListCell<>() {
                 @Override
@@ -151,28 +171,21 @@ public class AdminMapPageController {
                     }
                 }
             };
-            cell.hoverProperty().addListener((observer, wasHovered, isNowHovered) -> {
-                if (isNowHovered && !cell.isEmpty()) {
-                    cell.setStyle("-fx-background-color: #eccca2");
-                } else {
-                    cell.updateSelected(true);
-                }
-            });
+            addHoverListenerToCell(cell);
             return cell;
         });
-        wineryList.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.DELETE || e.getCode() == KeyCode.BACK_SPACE) {
-                try {
-                    Winery selectedWinery = wineryList.getSelectionModel().getSelectedItem();
-                    if (selectedWinery.getLongitude() != null && selectedWinery.getLatitude() != null) {
-                        removeMarker(selectedWinery.getWineryName());
-                    }
-                    wineryList.getItems().remove(selectedWinery);
-                    wineryManager.delete(selectedWinery.getWineryName());
-                } catch (NullPointerException nullPointerException) {
-                    log.warn("No wine selected for delete");
-                    log.warn(nullPointerException.getMessage());
-                }
+    }
+
+    /**
+     * Helper method to add the hover listener to each cell of the winery list
+     * @param cell current cell of the winery list
+     */
+    private void addHoverListenerToCell(ListCell<Winery> cell) {
+        cell.hoverProperty().addListener((observer, wasHovered, isNowHovered) -> {
+            if (isNowHovered && !cell.isEmpty()) {
+                cell.setStyle("-fx-background-color: #eccca2");
+            } else {
+                cell.updateSelected(true);
             }
         });
     }

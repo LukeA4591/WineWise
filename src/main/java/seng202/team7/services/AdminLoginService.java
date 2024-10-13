@@ -250,7 +250,7 @@ public class AdminLoginService {
         } catch (FileNotFoundException | InvalidKeySpecException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        setLoggedIn(true);;
+        setLoggedIn(true);
         return "";
     }
 

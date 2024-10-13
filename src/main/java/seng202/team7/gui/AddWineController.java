@@ -108,11 +108,9 @@ public class AddWineController {
 
             } else {
                 saveNewWineMessage.setText("Wine Already Exists in the Database");
-                saveNewWineMessage.setStyle(setLabelRed);
             }
         } else {
             saveNewWineMessage.setText(errorLabel);
-            saveNewWineMessage.setStyle(setLabelRed);
         }
 
     }

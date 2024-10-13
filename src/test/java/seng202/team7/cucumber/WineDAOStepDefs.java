@@ -168,4 +168,8 @@ public class WineDAOStepDefs {
         assertFalse(generatedWines.contains(null));
     }
 
+    @When("a user searches for wines with the search {string}")
+    public void search(String search) {
+        generatedWines = wineManager.searchWines(search);
+    }
 }

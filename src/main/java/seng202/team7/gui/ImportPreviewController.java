@@ -8,8 +8,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import seng202.team7.business.WineManager;
 import seng202.team7.io.Importable;
 import seng202.team7.io.WineCSVImporter;
@@ -103,7 +101,19 @@ public class ImportPreviewController {
         stage.close();
     }
 
-
+    /**
+     * Gets the top six lines of the file and adds it to the table
+     * @param file file to read from
+     */
+    private void getStringFromFile(File file) {
+        List<String[]> lines = csvImporter.readSixLinesFromFile(file);
+        if (!lines.isEmpty()) {
+            headers = importPreviewService.modifyHeaders(lines.getFirst());
+        }
+        for (int i = 1; i < lines.size(); i++) {
+            data.add(lines.get(i));
+        }
+    }
 
     /**
      * Initializes the CSV table by clearing everything and resetting the values then adding the data

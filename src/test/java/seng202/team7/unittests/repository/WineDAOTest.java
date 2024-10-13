@@ -232,6 +232,22 @@ public class WineDAOTest {
     }
 
     @Test
+    public void testAddBatchDuplicate() {
+        wineDao.add(new Wine("Red", "Plume Pinot Noir", "Lake Chalice", 2019, 80, "Marlborough", "High quality wine with woody notes"));
+
+        Wine wine1 = new Wine("Red", "Plume Pinot Noir", "Lake Chalice", 2019, 80, "Marlborough", "High quality wine with woody notes");
+        Wine wine2 = new Wine("White", "Plume Sav", "Lake Chalice", 2019, 85, "Marlborough", "So tasty");
+        Wine wine3 = new Wine("Rose", "Rosy Rose", "Lakes Winery", 2020, 90, "Otago", "Very rosy");
+        Wine wine4 = new Wine("White", "Bland Blanc", "Fields of Grapes", 2019, 50, "Canterbury", "Bland and boring");
+
+        List<Wine> wines = Arrays.asList(wine1, wine2, wine3, wine4);
+
+        wineDao.addBatch(wines);
+
+        Assertions.assertEquals(wineDao.getAll().size(), 4);
+    }
+
+    @Test
     public void testFilteredWinesWithSearch() throws DuplicateExc {
         populateDatabase();
 

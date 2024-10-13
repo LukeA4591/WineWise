@@ -12,8 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import seng202.team7.business.WineManager;
 import seng202.team7.business.WineryManager;
 import seng202.team7.models.Wine;
@@ -27,7 +25,6 @@ import java.util.List;
  * Controller class for the map_page.fxml file
  */
 public class MapPageController {
-    private static final Logger log = LogManager.getLogger(seng202.team7.gui.MapPageController.class);
     @FXML
     private WebView webView;
     @FXML
@@ -135,14 +132,18 @@ public class MapPageController {
                     }
                 }
             };
-            cell.hoverProperty().addListener((observer, wasHovered, isNowHovered) -> {
-                if (isNowHovered && !cell.isEmpty()) {
-                    cell.setStyle("-fx-background-color: #eccca2");
-                } else {
-                    cell.updateSelected(true);
-                }
-            });
+            addHoverListenerToCell(cell);
             return cell;
+        });
+    }
+
+    private void addHoverListenerToCell(ListCell<Winery> cell) {
+        cell.hoverProperty().addListener((observer, wasHovered, isNowHovered) -> {
+            if (isNowHovered && !cell.isEmpty()) {
+                cell.setStyle("-fx-background-color: #eccca2");
+            } else {
+                cell.updateSelected(true);
+            }
         });
     }
 
