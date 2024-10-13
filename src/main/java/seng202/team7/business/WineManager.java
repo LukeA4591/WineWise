@@ -18,6 +18,8 @@ import java.util.Map;
 public class WineManager {
     private final WineDAO wineDAO;
 
+    private static int totalWinesInDB = 0;
+
     /**
      * Creates a new WineManager object with its initialized WineDAO.
      * **/
@@ -130,4 +132,12 @@ public class WineManager {
      * @return list of all wines produced by the given winery
      */
     public List<Wine> getWineWithWinery(Winery winery) { return wineDAO.getWineWithWinery(winery); }
+
+    public int getTotalWinesInDB() {
+        return totalWinesInDB;
+    }
+
+    public void setTotalWinesInDB(int totalWinesInDB) {
+        WineManager.totalWinesInDB = totalWinesInDB;
+    }
 }

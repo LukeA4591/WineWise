@@ -2,6 +2,9 @@ package seng202.team7;
 
 import seng202.team7.gui.MainWindow;
 
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+
 /**
  * Default entry point class
  * @author seng202 teaching team
@@ -20,6 +23,12 @@ public class App {
      * @param args program arguments from command line
      */
     public static void main(String[] args) {
-        MainWindow.main(args);
+       try {
+           PrintStream fileout = new PrintStream("logs.txt");
+           System.setOut(fileout);
+           MainWindow.main(args);
+       } catch (FileNotFoundException e) {
+           e.printStackTrace();
+       }
     }
 }

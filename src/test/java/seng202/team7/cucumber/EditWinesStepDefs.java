@@ -8,6 +8,7 @@ import seng202.team7.business.WineManager;
 import seng202.team7.io.Importable;
 import seng202.team7.io.WineCSVImporter;
 import seng202.team7.models.Wine;
+import seng202.team7.services.WineService;
 
 import java.io.File;
 import java.net.URL;
@@ -23,6 +24,8 @@ public class EditWinesStepDefs {
     private Wine selectedWine;
     int wineID;
     private Wine updatedWine;
+
+    private WineService wineService = new WineService();
     @Given("The admin has added the dataset {string}")
     public void addDataset(String filename) {
         Importable wineCSVImporter = new WineCSVImporter();
@@ -81,8 +84,17 @@ public class EditWinesStepDefs {
     @And("The admin clicks Save Wine")
     public void saveWineDetails() {
         // Simulating the admin clicking the 'save wine' button on the edit wines popup.
-        // This simulates the EditWineController's check to see if the updated score is in valid ranges.
-        if (updatedWine.getScore() <= 100 & updatedWine.getScore() >= 0) {
+        // This uses the WineSerivce to update wine if validation message is successful: "" otherwise doesn't update.
+        String wineType = updatedWine.getColor();
+        String wineName = updatedWine.getWineName();
+        String wineryName = updatedWine.getWineryString();
+        int vintage = updatedWine.getVintage();
+        int score = updatedWine.getScore();
+        String wineRegion = updatedWine.getRegion();
+        String wineDescription = updatedWine.getDescription();
+        String validationMessage = wineService.validateWine(wineName, wineryName, Integer.toString(vintage),
+                Integer.toString(score), wineRegion, wineDescription);
+        if (validationMessage == "") {
             wineManager.updateWine(updatedWine, selectedWine);
         }
     }
