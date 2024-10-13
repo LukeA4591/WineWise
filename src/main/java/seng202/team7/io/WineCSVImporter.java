@@ -19,6 +19,13 @@ public class WineCSVImporter implements Importable<Wine>{
     private static final Logger log = LogManager.getLogger(WineCSVImporter.class);
 
     /**
+     * Default constructor for the WineCSVImporter
+     */
+    public WineCSVImporter() {
+
+    }
+
+    /**
      * Read wines from csv file
      * @param file File to read from
      * @return List of wines in csv file
@@ -76,6 +83,9 @@ public class WineCSVImporter implements Importable<Wine>{
             int score = Integer.parseInt(line[headerIndexes.get(4)]);
             String region = line[headerIndexes.get(5)];
             String description = line[headerIndexes.get(6)];
+            if (name.isBlank() || winery.isBlank()) {
+                return null;
+            }
             return new Wine(type, name, winery, vintage, score, region, description);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             log.error(e);

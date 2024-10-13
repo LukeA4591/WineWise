@@ -5,6 +5,9 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import seng202.team7.business.WineryManager;
 
+/**
+ * Controller class for the remove_winery_location.fxml file
+ */
 public class RemoveWineryPopupController {
     @FXML
     private Label removeWineryLabel;
@@ -13,9 +16,16 @@ public class RemoveWineryPopupController {
     Runnable onConfirmRemove;
 
     /**
+     * Default constructor for the RemoveWineryPopupController class
+     */
+    public RemoveWineryPopupController() {
+
+    }
+
+    /**
      * Initializes the remove winery popup
-     * @param wineryName
-     * @param onConfirmRemove
+     * @param wineryName name of the winery
+     * @param onConfirmRemove runnable onActionMethod to confirm the removal of the winery
      */
     void init(String wineryName, Runnable onConfirmRemove) {
         this.onConfirmRemove = onConfirmRemove;

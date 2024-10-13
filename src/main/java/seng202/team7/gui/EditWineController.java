@@ -10,6 +10,9 @@ import seng202.team7.services.WineService;
 import java.time.Year;
 import java.util.Objects;
 
+/**
+ * Controller class for the edit_wine.fxml file
+ */
 public class EditWineController {
 
     @FXML
@@ -40,7 +43,7 @@ public class EditWineController {
 
     /**
      * Constructor for the EditWineController class
-     * @param wine
+     * @param wine wine which has been selected
      */
     public EditWineController(Wine wine) {
         this.origionalWine = wine;

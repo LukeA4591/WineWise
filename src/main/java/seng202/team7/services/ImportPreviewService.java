@@ -11,6 +11,13 @@ import java.util.*;
 public class ImportPreviewService {
 
     /**
+     * Default constructor for the ImportPreviewService
+     */
+    public ImportPreviewService() {
+
+    }
+
+    /**
      * Modifies the headers from the CSV file to make sure there are no duplicate
      * or blank headers. This is so that when the user has to select a header
      * for each wine attribute, they won't get confused if a header is named the

@@ -7,6 +7,9 @@ import seng202.team7.models.Winery;
 import java.util.*;
 import java.sql.*;
 
+/**
+ * Database Access Object for the Winery class, used to get Winery data from the database
+ */
 public class WineryDAO implements DAOInterface<Winery> {
 
     private static final Logger log = LogManager.getLogger(WineDAO.class);
@@ -19,7 +22,10 @@ public class WineryDAO implements DAOInterface<Winery> {
         databaseManager = DatabaseManager.getInstance();
     }
 
-    //TODO test this method:
+    /**
+     * Gets all wineries from the database
+     * @return List of all wineries
+     */
     @Override
     public List<Winery> getAll() {
         List<Winery> wineries = new ArrayList<>();
@@ -39,6 +45,11 @@ public class WineryDAO implements DAOInterface<Winery> {
         }
     }
 
+    /**
+     * Adds a single winery to the database
+     * @param toAdd object of Winery type to add
+     * @return 1 if successful, -1 if not
+     */
     @Override
     public int add(Winery toAdd) {
         String sql = "INSERT INTO wineries (wineryName, longitude, latitude) VALUES (?, ?, ?);";
@@ -58,7 +69,10 @@ public class WineryDAO implements DAOInterface<Winery> {
 
     }
 
-    //TODO not sure about the duplicateExc
+    /**
+     * Adds a batch of wineries to the database
+     * @param wineries List of Winery objects
+     */
     public void addBatch (Set <Winery> wineries) {
         String sql = "INSERT OR IGNORE INTO wineries (wineryName, longitude, latitude) VALUES (?, ?, ?);";
         try (Connection conn = databaseManager.connect();
@@ -84,6 +98,10 @@ public class WineryDAO implements DAOInterface<Winery> {
         }
     }
 
+    /**
+     * Gets the names of all existing wineries
+     * @return Set of all existing winery names
+     */
     public Set<String> getExistingWineryNames() {
         Set<String> existingWineryNames = new HashSet<>();
         String sql = "SELECT wineryName FROM wineries;";
@@ -101,6 +119,11 @@ public class WineryDAO implements DAOInterface<Winery> {
 
     }
 
+    /**
+     * Gets all wineries without a location (not places on the map) matching the given search
+     * @param search string from admin input
+     * @return List of all wineries without a location whos names match the search
+     */
     public List<Winery> getAllWithNullLocation(String search) {
         List<Winery> wineries = new ArrayList<>();
         String sql = "SELECT * FROM wineries WHERE latitude IS NULL AND longitude IS NULL";
@@ -127,6 +150,13 @@ public class WineryDAO implements DAOInterface<Winery> {
     }
 
 
+    /**
+     * Updates the location of the winery by the winery name
+     * @param wineryName name of the winery
+     * @param newLatitude new latitude of the winery
+     * @param newLongitude new longitude of the winery
+     * @return number of rows updated if successful, otherwise -1
+     */
     public int updateLocationByWineryName(String wineryName, Float newLatitude, Float newLongitude) {
         String sql = "UPDATE wineries SET latitude = ?, longitude = ? WHERE wineryName = ?;";
         try (Connection conn = databaseManager.connect();
@@ -142,6 +172,10 @@ public class WineryDAO implements DAOInterface<Winery> {
         }
     }
 
+    /**
+     * Gets all wineries with a location that is not null (have been placed on the map)
+     * @return List of all wineries with a valid location
+     */
     public List<Winery> getAllWithValidLocation() {
         List<Winery> wineries = new ArrayList<>();
         String sql = "SELECT * FROM wineries WHERE latitude IS NOT NULL AND longitude IS NOT NULL;";
@@ -160,6 +194,11 @@ public class WineryDAO implements DAOInterface<Winery> {
         }
     }
 
+    /**
+     * Gets a winery object based on the name of the winery
+     * @param wineryName name of the winery where object is needed
+     * @return Winery object with a matching name of the wineryName
+     */
     public Winery getWineryByName(String wineryName) {
         String sql = "SELECT * FROM wineries WHERE wineryName = ?;";
         Winery winery = null;
@@ -181,6 +220,10 @@ public class WineryDAO implements DAOInterface<Winery> {
         return winery;
     }
 
+    /**
+     * Deletes a winery from the database
+     * @param name name of the winery needing deleting
+     */
     public void delete(String name) {
         String sql = "DELETE FROM wineries WHERE wineryName=?";
         try (Connection conn = databaseManager.connect();
@@ -195,6 +238,11 @@ public class WineryDAO implements DAOInterface<Winery> {
         }
     }
 
+    /**
+     * Gets all wineries with a name like the search provided
+     * @param wineryName query from user input
+     * @return List of all wineries with names like the search
+     */
     public List<Winery> getAllLikeSearch(String wineryName) {
         List<Winery> wineries = new ArrayList<>();
         String sql = "SELECT * FROM wineries WHERE wineryName LIKE ? ORDER BY wineryName;";

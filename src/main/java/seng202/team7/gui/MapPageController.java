@@ -23,7 +23,9 @@ import seng202.team7.services.WinePopupService;
 import java.util.Comparator;
 import java.util.List;
 
-
+/**
+ * Controller class for the map_page.fxml file
+ */
 public class MapPageController {
     private static final Logger log = LogManager.getLogger(seng202.team7.gui.MapPageController.class);
     @FXML
@@ -41,6 +43,13 @@ public class MapPageController {
     private WineryManager wineryManager;
     private WineManager wineManager;
     private WinePopupService winePopupService;
+
+    /**
+     * Default constructor for the MapPageController
+     */
+    public MapPageController() {
+
+    }
 
     /**
      * Initializes the FX objects on the page

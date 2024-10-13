@@ -19,8 +19,16 @@ import java.net.http.HttpResponse;
 public class Geolocator {
 
     /**
+     * Default constructor for the Geolocator class
+     */
+    public Geolocator() {
+
+    }
+
+    /**
      * Runs a query with the address given and finds the most applicable lat, lng co-ordinates
      * @param address address to find lat, lng for
+     * @return position of the address as a Position model
      */
     public Position queryAddress(String address) {
         String logMessage = String.format("Requesting geolocation from Nominatim for address: %s, New Zealand", address);
