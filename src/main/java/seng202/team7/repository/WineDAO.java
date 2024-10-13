@@ -318,6 +318,8 @@ public class WineDAO implements DAOInterface<Wine> {
                 ps.addBatch();
             }
 
+            ps.executeBatch();
+
             conn.commit();
             ResultSet rs = ps.getGeneratedKeys();
             while (rs.next()) {
