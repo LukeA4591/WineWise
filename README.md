@@ -21,6 +21,10 @@ For Kiosk Users:
 - Viewing wineries on a map
 - Interactive home page to view the highest rated wines by the critics and users
 
+
+Other Features:
+- The GUI is designed to be run on the linux OS, functionality will not be effected on other OS however the GUI may not line up
+- 
 ## Authors
 - SENG202 Group 7 (Luke Armstrong, Oliver Barclay, Felix Blanchard, Ryan Hamilton, Alex Wilson)
 
@@ -35,6 +39,7 @@ This project comes with some basic examples of the following (including dependen
 - Junit 5 (testing logic / service classes)
 - Cucumber (for acceptance testing)
 - OpenCSV (for CSVImporter)
+- Leaflet (for maps)
 
 ## Build Project 
 - Open a command line interface inside the project directory (folder team-7) and run `./gradlew jar` to build a .jar file. 
@@ -53,11 +58,5 @@ This project comes with some basic examples of the following (including dependen
 -**** In order to create a new account without losing data you can just delete `credentials.txt` and rerun the jar.
 
 ## Credits
-- Wine Image used on Homepage and Wine Popup is taken from Shutterstock.com and Luke edited its colouring in Gimp.
-- This image will need to be changed before final submission as it is not creative commons.
+- Geolocator.java and most methods in map.html, JavaScriptBridge.java were provided by Morgan English
 
-## Note
-- We have included the `Decanter23NZ.csv` file in this submission as it is an example of how a winery / liquor store would store their data.
-- This file can be used to demo WineWise
-- Currently, WineWise is not equipped to deal with larger CSV files so please dont use larger files.
-- This is being addressed in deliverable 3's submission.
