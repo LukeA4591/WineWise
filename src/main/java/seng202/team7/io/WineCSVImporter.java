@@ -80,11 +80,12 @@ public class WineCSVImporter implements Importable<Wine>{
             String type = line[headerIndexes.getFirst()];
             String name = line[headerIndexes.get(1)];
             String winery = line[headerIndexes.get(2)];
-            int vintage = Integer.parseInt(line[headerIndexes.get(3)]);
-            int score = Integer.parseInt(line[headerIndexes.get(4)]);
+            Integer vintage = Integer.parseInt(line[headerIndexes.get(3)]);
+            Integer score = Integer.parseInt(line[headerIndexes.get(4)]);
             String region = line[headerIndexes.get(5)];
             String description = line[headerIndexes.get(6)];
-            if (name.isBlank() || winery.isBlank()) {
+            if (name.isBlank() || winery.isBlank() || vintage.equals(null)) {
+                //dataset not added
                 return null;
             }
             return new Wine(type, name, winery, vintage, score, region, description);

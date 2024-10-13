@@ -1,7 +1,6 @@
 package seng202.team7.gui;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
@@ -117,6 +116,11 @@ public class AdminMapPageController {
         setWineryList(wineryManager.getAll());
     }
 
+    /**
+     * Sets up a list of wineries in a sorted order, displays them with customized colors and click behavior,
+     * and allows users to delete wineries or zoom to their location on a map.
+     * @param wineries a list of winery objects.
+     */
     void setWineryList(List<Winery> wineries) {
         wineries.sort(Comparator.comparing(Winery::getWineryName));
         ObservableList<Winery> wineryNames = FXCollections.observableArrayList(wineries);

@@ -59,7 +59,7 @@ public class AdminSetupScreenController {
 
     /**
      * When the create account button is pressed, if the password is validated, the method creates a new account by
-     * calling adminLoginInstance to set up the hashed password and storage of user details and then launches the admin
+     * calling adminLoginInstance to set up the hashed password and storage of user details and then launches the admin.
      * screen.
      * The loading screen is shown whilst waiting for the app to create the new user and switch screens.
      */

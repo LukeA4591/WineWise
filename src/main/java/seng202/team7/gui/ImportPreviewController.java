@@ -20,6 +20,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Controller class for the import_preview.fxml file
+ */
 
 public class ImportPreviewController {
     private static final Logger log = LogManager.getLogger(seng202.team7.gui.ImportPreviewController.class);
@@ -54,7 +57,6 @@ public class ImportPreviewController {
     ComboBox<String>[] comboBoxList;
 
     File file;
-    Importable<Wine> csvImporter;
     String[] headers;
     List<String[]> data;
     ImportPreviewService importPreviewService;
@@ -75,12 +77,11 @@ public class ImportPreviewController {
      */
     public void init(File file, AppEnvironment appEnvironment) {
         this.file = file;
-        this.csvImporter = new WineCSVImporter();
         this.data = new ArrayList<>();
         this.importPreviewService = new ImportPreviewService();
         this.wineManager = new WineManager();
         this.appEnvironment = appEnvironment;
-        getStringFromFile(file);
+        headers = importPreviewService.getStringFromFile(file, data);
         initCSVTable();
         initComboBoxes();
     }
@@ -93,16 +94,7 @@ public class ImportPreviewController {
         stage.close();
     }
 
-    //TODO put into service class
-    private void getStringFromFile(File file) {
-        List<String[]> lines = csvImporter.readSixLinesFromFile(file);
-        if (!lines.isEmpty()) {
-            headers = importPreviewService.modifyHeaders(lines.getFirst());
-        }
-        for (int i = 1; i < lines.size(); i++) {
-            data.add(lines.get(i));
-        }
-    }
+
 
     /**
      * Initializes the CSV table by clearing everything and resetting the values then adding the data

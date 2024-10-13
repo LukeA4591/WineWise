@@ -133,10 +133,18 @@ public class WineManager {
      */
     public List<Wine> getWineWithWinery(Winery winery) { return wineDAO.getWineWithWinery(winery); }
 
+    /**
+     * Getter method for the total number of wines in the database.
+     * @return totalWinesInDB integer total of the number of wines in the database.
+     */
     public int getTotalWinesInDB() {
         return totalWinesInDB;
     }
 
+    /**
+     * Setter method for the total number of wines in the database.
+     * @param totalWinesInDB integer total of the number of wines in the database.
+     */
     public void setTotalWinesInDB(int totalWinesInDB) {
         WineManager.totalWinesInDB = totalWinesInDB;
     }
