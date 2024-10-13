@@ -12,6 +12,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seng202.team7.business.WineManager;
 import seng202.team7.services.AppEnvironment;
 
 import java.io.IOException;
@@ -29,6 +30,7 @@ public class NavBarController {
     private Pane logoSelectPane;
     private Stage stage;
     private AppEnvironment appEnvironment;
+    private WineManager wineManager = new WineManager();
 
     /**
      * Integer between 0-3 to indicate which page user is on to avoid
@@ -36,6 +38,11 @@ public class NavBarController {
      * 0 - Home, 1 - Search, 2 - Map, 3 - Help
      */
     private int currentPage = 0;
+
+    /**
+     * Used to calculate how many ms the loading screen should approximatly run for.
+     */
+    private static final int SLEEP_DIVIDER = 10;
 
     /**
      * NavBarController initializer, needs to be empty for FXML
@@ -111,12 +118,16 @@ public class NavBarController {
         }
     }
 
+    private int sleepTimeMS() {
+        return 500 + (wineManager.getTotalWinesInDB() / SLEEP_DIVIDER);
+    }
+
     /**
      * Displays the loading screen while loading a page in the background.
      * This ensures that the UI is responsive even when there are intensive tasks when changing pages.
      * @param loadPageMethod a {@code Runnable} type that contains the logic for loading a specific page.
      */
-    private void showPageWithLoadingScreen(Runnable loadPageMethod) {
+    private void showPageWithLoadingScreen(Runnable loadPageMethod, boolean isSearchPage) {
         Stage stage = (Stage) mainWindow.getScene().getWindow();
 
         //show loading screen on JAVAFX thread
@@ -129,7 +140,11 @@ public class NavBarController {
         Thread switchPageThread = new Thread(() -> {
 
             try {
-                Thread.sleep(2500);
+                if (isSearchPage) {
+                    Thread.sleep(sleepTimeMS()); //extended time for searchpage, and large databases.
+                } else {
+                    Thread.sleep(500); //default time of 500ms for all screens and database size.
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -150,7 +165,7 @@ public class NavBarController {
     private void homePressed() {
         if (currentPage != 0) {
             currentPage = 0;
-            showPageWithLoadingScreen(this::loadHomePage);
+            showPageWithLoadingScreen(this::loadHomePage, false);
         }
     }
 
@@ -161,7 +176,7 @@ public class NavBarController {
     private void helpPressed() {
         if (currentPage != 3) {
             currentPage = 3;
-            showPageWithLoadingScreen(this::loadHelpPage);
+            showPageWithLoadingScreen(this::loadHelpPage, false);
         }
     }
 
@@ -172,7 +187,7 @@ public class NavBarController {
     private void searchPressed() {
         if (currentPage != 1) {
             currentPage = 1;
-            showPageWithLoadingScreen(this::loadSearchPage);
+            showPageWithLoadingScreen(this::loadSearchPage, true);
         }
     }
 
@@ -183,7 +198,7 @@ public class NavBarController {
     void mapPressed() {
         if (currentPage != 2) {
             currentPage = 2;
-            showPageWithLoadingScreen(this::loadMapPage);
+            showPageWithLoadingScreen(this::loadMapPage, false);
         }
     }
 
