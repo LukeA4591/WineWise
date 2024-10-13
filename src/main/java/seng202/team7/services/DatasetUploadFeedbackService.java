@@ -26,6 +26,7 @@ public class DatasetUploadFeedbackService {
      */
     public static void setUploadMessage(int uploadedStatusCode) {
         uploadMessageCodes.add(uploadedStatusCode);
+        System.out.println(uploadMessageCodes);
     }
 
     /**
@@ -44,7 +45,7 @@ public class DatasetUploadFeedbackService {
      * @return a string with all the error messages concatenated into one message.
      */
     private static String getSpecificErrors() {
-        String errorMessage = "Incomplete wine upload:";
+        String errorMessage = "Partial dataset upload:\nSome wines were not added";
         for (Integer messageCode: uploadMessageCodes) {
             switch(messageCode) {
                 case 0:

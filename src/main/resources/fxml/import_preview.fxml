@@ -99,7 +99,7 @@
             </StackPane>
          </children>
       </AnchorPane>
-      <Text fx:id="importErrorMessage" layoutX="224.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error-label" text=" " wrappingWidth="454.0">
+      <Text fx:id="importErrorMessage" layoutX="224.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-class" text=" " textAlignment="CENTER" wrappingWidth="454.0">
          <font>
             <Font size="20.0" />
          </font>
