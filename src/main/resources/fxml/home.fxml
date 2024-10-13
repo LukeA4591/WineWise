@@ -9,8 +9,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="nav-Window" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.gui.HomePageController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="nav-Window" stylesheets="@../style/navbar.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.gui.HomePageController">
    <children>
+      <Label fx:id="noReviewsLabel" alignment="CENTER" layoutX="21.0" layoutY="240.0" prefHeight="49.0" prefWidth="869.0">
+         <font>
+            <Font name="System Bold" size="38.0" />
+         </font>
+      </Label>
       <Pane fx:id="prevImagePane" layoutX="358.0" layoutY="540.0" onMouseClicked="#prevPage" prefHeight="35.0" prefWidth="35.0" styleClass="pressable-button">
          <children>
             <ImageView fx:id="prevImage" fitHeight="30.0" fitWidth="30.0" layoutX="3.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
@@ -45,7 +50,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
          <children>
-            <ImageView fx:id="imageView1" fitHeight="150.0" fitWidth="150.0" layoutX="5.0" layoutY="5.0" onMouseReleased="#wine1Pressed" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageView1" fitHeight="130.0" fitWidth="130.0" layoutX="20.0" layoutY="5.0" onMouseReleased="#wine1Pressed" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="wine1" layoutX="160.0" layoutY="7.0" onMouseClicked="#wine1Pressed" prefHeight="30.0" prefWidth="257.0" text="Name:">
                <font>
                   <Font name="Liberation Sans" size="16.0" />
@@ -67,7 +72,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
          <children>
-            <ImageView fx:id="imageView2" fitHeight="150.0" fitWidth="150.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#wine2Pressed" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageView2" fitHeight="130.0" fitWidth="130.0" layoutX="20.0" layoutY="5.0" onMouseClicked="#wine2Pressed" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="wine2" layoutX="160.0" layoutY="7.0" onMouseClicked="#wine2Pressed" prefHeight="30.0" prefWidth="257.0" text="Name:" wrapText="true">
                <font>
                   <Font name="Liberation Sans" size="16.0" />
@@ -89,7 +94,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
          <children>
-            <ImageView fx:id="imageView3" fitHeight="150.0" fitWidth="150.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#wine3Pressed" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageView3" fitHeight="130.0" fitWidth="130.0" layoutX="20.0" layoutY="5.0" onMouseClicked="#wine3Pressed" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="wine3" layoutX="160.0" layoutY="7.0" onMouseClicked="#wine3Pressed" prefHeight="30.0" prefWidth="257.0" text="Name:" wrapText="true">
                <font>
                   <Font name="Liberation Sans" size="16.0" />
@@ -111,7 +116,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
          <children>
-            <ImageView fx:id="imageView4" fitHeight="150.0" fitWidth="150.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#wine2Pressed" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageView4" fitHeight="130.0" fitWidth="130.0" layoutX="20.0" layoutY="5.0" onMouseClicked="#wine4Pressed" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="wine4" layoutX="160.0" layoutY="7.0" prefHeight="30.0" prefWidth="257.0" text="Name:">
                <font>
                   <Font size="16.0" />
@@ -131,7 +136,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
          <children>
-            <ImageView fx:id="imageView5" fitHeight="150.0" fitWidth="150.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#wine2Pressed" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageView5" fitHeight="130.0" fitWidth="130.0" layoutX="20.0" layoutY="5.0" onMouseClicked="#wine5Pressed" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="wine5" layoutX="160.0" layoutY="7.0" prefHeight="30.0" prefWidth="257.0" text="Name:" wrapText="true">
                <font>
                   <Font size="16.0" />
@@ -151,7 +156,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
          <children>
-            <ImageView fx:id="imageView6" fitHeight="150.0" fitWidth="150.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#wine2Pressed" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageView6" fitHeight="130.0" fitWidth="130.0" layoutX="20.0" layoutY="5.0" onMouseClicked="#wine6Pressed" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="wine6" layoutX="160.0" layoutY="7.0" prefHeight="30.0" prefWidth="257.0" text="Name:" wrapText="true">
                <font>
                   <Font size="16.0" />
@@ -180,11 +185,6 @@
       <Label layoutX="816.0" layoutY="30.0" text="Ratings">
          <font>
             <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <Label fx:id="noReviewsLabel" alignment="CENTER" layoutX="21.0" layoutY="240.0" prefHeight="49.0" prefWidth="869.0">
-         <font>
-            <Font name="System Bold" size="38.0" />
          </font>
       </Label>
    </children>

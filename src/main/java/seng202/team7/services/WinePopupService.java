@@ -34,19 +34,19 @@ public class WinePopupService {
         String imagePath;
         switch (wine.getColor()) {
             case "Red":
-                imagePath = "/images/redwinetransparent.png";
+                imagePath = "/images/redwine.png";
                 break;
             case "White":
-                imagePath = "/images/whitewinetransparent.png";
+                imagePath = "/images/whitewine.png";
                 break;
             case "Rosé":
-                imagePath = "/images/rosetransparent.png";
+                imagePath = "/images/rose.png";
                 break;
             case "Rose":
-                imagePath = "/images/rosetransparent.png";
+                imagePath = "/images/rose.png";
                 break;
             default:
-                imagePath = "/images/defaultwinetransparent.png";
+                imagePath = "/images/defaultwine.png";
         }
         return new Image(getClass().getResourceAsStream(imagePath));
     }
