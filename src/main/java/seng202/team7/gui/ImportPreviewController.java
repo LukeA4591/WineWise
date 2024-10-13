@@ -18,7 +18,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-
+/**
+ * Controller class for the import_preview.fxml file
+ */
 public class ImportPreviewController {
     @FXML
     Button changeTableButton;
@@ -205,7 +207,7 @@ public class ImportPreviewController {
     }
 
     /**
-     *
+     * Loads the preview of the import into the table
      */
     public void onChangeTable() {
         if (Objects.equals(changeTableButton.getText(), "Preview import")) {

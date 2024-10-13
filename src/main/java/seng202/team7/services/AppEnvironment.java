@@ -93,16 +93,24 @@ public class AppEnvironment {
         adminScreenLauncher.accept(this);
     }
 
-
-
+    /**
+     * Sets the owner of the loading screen
+     * @param appStage current stage of the app
+     */
     public void setLoadingScreenOwner(Stage appStage) {
         loadingScreenService.positionScreen(appStage);
     }
 
+    /**
+     * Shows the loading screen
+     */
     public void showLoadingScreen() {
         loadingScreenService.showLoadingScreen();
     }
 
+    /**
+     * Hides the loading screen
+     */
     public void hideLoadingScreen() {
         loadingScreenService.hideLoadingScreen();
     }

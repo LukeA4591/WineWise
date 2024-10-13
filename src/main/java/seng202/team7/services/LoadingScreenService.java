@@ -7,9 +7,14 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import seng202.team7.gui.LoadingScreenController;
+
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Service class for the loading screen
+ */
 public class LoadingScreenService {
 
     /**
