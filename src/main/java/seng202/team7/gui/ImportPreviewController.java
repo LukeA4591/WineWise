@@ -9,9 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seng202.team7.business.WineManager;
-import seng202.team7.io.Importable;
 import seng202.team7.io.WineCSVImporter;
-import seng202.team7.models.Wine;
 import seng202.team7.services.AppEnvironment;
 import seng202.team7.services.DatasetUploadFeedbackService;
 import seng202.team7.services.ImportPreviewService;
@@ -27,7 +25,6 @@ import java.util.Objects;
  */
 
 public class ImportPreviewController {
-    private static final Logger log = LogManager.getLogger(seng202.team7.gui.ImportPreviewController.class);
     private DatasetUploadFeedbackService datasetUploadFeedbackService = new DatasetUploadFeedbackService();
 
     @FXML
@@ -99,20 +96,6 @@ public class ImportPreviewController {
     private void goBackToAdmin() {
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
-    }
-
-    /**
-     * Gets the top six lines of the file and adds it to the table
-     * @param file file to read from
-     */
-    private void getStringFromFile(File file) {
-        List<String[]> lines = csvImporter.readSixLinesFromFile(file);
-        if (!lines.isEmpty()) {
-            headers = importPreviewService.modifyHeaders(lines.getFirst());
-        }
-        for (int i = 1; i < lines.size(); i++) {
-            data.add(lines.get(i));
-        }
     }
 
     /**
