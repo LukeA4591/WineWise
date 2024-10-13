@@ -69,6 +69,10 @@ public class AddWineryController {
                 saveNewWineryMessage.setStyle(setLabelRed);
                 saveNewWineryMessage.setText("Name field is empty.");
                 return null;
+            } else if (wineryManager.getWineryByName(wineryNameString) != null) {
+                saveNewWineryMessage.setStyle(setLabelRed);
+                saveNewWineryMessage.setText("Winery name exists.");
+                return null;
             } else {
                 Float wineryLongitudeFloat = null;
                 Float wineryLatitudeFloat = null;
