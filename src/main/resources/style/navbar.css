@@ -226,8 +226,9 @@
     -fx-background-color: #e0e0e0;
 }
 
-.text {
+.text-class {
     -fx-background-color: #e0e0e0;
+    -fx-font-family: "Liberation Mono";
 }
 
 .pressable-button:hover {

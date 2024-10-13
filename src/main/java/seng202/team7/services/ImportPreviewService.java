@@ -1,5 +1,11 @@
 package seng202.team7.services;
 
+import seng202.team7.io.Importable;
+import seng202.team7.io.WineCSVImporter;
+import seng202.team7.models.Wine;
+
+import java.io.File;
+import java.time.Year;
 import java.util.*;
 
 /**
@@ -10,11 +16,30 @@ import java.util.*;
  */
 public class ImportPreviewService {
 
+    Importable<Wine> csvImporter;
     /**
      * Default constructor for the ImportPreviewService
      */
     public ImportPreviewService() {
+        this.csvImporter = new WineCSVImporter();
+    }
 
+    /**
+     * Processes the first 6 lines of a csv file, taking the first line as the column headers
+     * and the next 5 as examples data from that file.
+     * @param file the csv file that was imported.
+     */
+
+    public String[] getStringFromFile(File file, List<String[]> data) {
+        String[] headers = new String[]{};
+        List<String[]> lines = csvImporter.readSixLinesFromFile(file);
+        if (!lines.isEmpty()) {
+            headers = modifyHeaders(lines.getFirst());
+        }
+        for (int i = 1; i < lines.size(); i++) {
+            data.add(lines.get(i));
+        }
+        return headers;
     }
 
     /**
@@ -101,6 +126,12 @@ public class ImportPreviewService {
         if (!validMandatoryAttributes(headerIndexes.subList(1, 4), data)) {
             return "Name, winery, and vintage fields must have values.";
         }
+        if (!validVintageValues(headerIndexes.get(3), data)) {
+            return "Vintage should be between 0 and the current year.";
+        }
+        if (!validScoreValues(headerIndexes.get(4), data)) {
+            return "Score should be between 0-100.";
+        }
         return "";
     }
 
@@ -154,6 +185,40 @@ public class ImportPreviewService {
         for (Integer index : nameWineryVintageIndexes) {
             for (String[] line : data) {
                 if (line[index].isEmpty()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Validates that the score field contains values between 0 and 100.
+     * @param scoreIndex the index of the score field in the CSV data.
+     * @param data a list of lines from the csv file.
+     * @return true if score values are valid, false otherwise.
+     */
+    public boolean validScoreValues(Integer scoreIndex, List<String[]> data) {
+        for (String[] line : data) {
+            if (line[scoreIndex] != null) {
+                if (Integer.parseInt(line[scoreIndex]) < 0 || Integer.parseInt(line[scoreIndex]) > 100) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Validates that the vintage fields contain values between 0 and the current year.
+     * @param headerIndex the index of the vintage field in the csv data.
+     * @param data a list of lines from the csv file.
+     * @return true if vintage values are valid, false otherwise.
+     */
+    public boolean validVintageValues(Integer headerIndex, List<String[]> data) {
+        for (String[] line : data) {
+            if (line[headerIndex] != null) {
+                if (Integer.parseInt(line[headerIndex]) < 0 || (Integer.parseInt(line[headerIndex]) > Year.now().getValue())) {
                     return false;
                 }
             }

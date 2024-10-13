@@ -4,12 +4,16 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seng202.team7.business.WineManager;
 import seng202.team7.io.Importable;
 import seng202.team7.io.WineCSVImporter;
 import seng202.team7.models.Wine;
 import seng202.team7.services.AppEnvironment;
+import seng202.team7.services.DatasetUploadFeedbackService;
 import seng202.team7.services.ImportPreviewService;
 
 import java.io.File;
@@ -21,7 +25,13 @@ import java.util.Objects;
 /**
  * Controller class for the import_preview.fxml file
  */
+
 public class ImportPreviewController {
+    private static final Logger log = LogManager.getLogger(seng202.team7.gui.ImportPreviewController.class);
+    private DatasetUploadFeedbackService datasetUploadFeedbackService = new DatasetUploadFeedbackService();
+
+    @FXML
+    AnchorPane mainAnchor;
     @FXML
     Button changeTableButton;
     @FXML
@@ -48,11 +58,12 @@ public class ImportPreviewController {
     Label errorMessageLabel;
     @FXML
     Label tableErrorMessageLabel;
+    @FXML
+    Text importErrorMessage;
 
     ComboBox<String>[] comboBoxList;
 
     File file;
-    Importable<Wine> csvImporter;
     String[] headers;
     List<String[]> data;
     ImportPreviewService importPreviewService;
@@ -73,12 +84,11 @@ public class ImportPreviewController {
      */
     public void init(File file, AppEnvironment appEnvironment) {
         this.file = file;
-        this.csvImporter = new WineCSVImporter();
         this.data = new ArrayList<>();
         this.importPreviewService = new ImportPreviewService();
         this.wineManager = new WineManager();
         this.appEnvironment = appEnvironment;
-        getStringFromFile(file);
+        headers = importPreviewService.getStringFromFile(file, data);
         initCSVTable();
         initComboBoxes();
     }
@@ -87,7 +97,7 @@ public class ImportPreviewController {
      * On Action that closes the current Pop-up/window
      */
     private void goBackToAdmin() {
-        Stage stage = (Stage) dataTable.getScene().getWindow();
+        Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
     }
 
@@ -194,12 +204,13 @@ public class ImportPreviewController {
 
                 wineManager.addBatch(new WineCSVImporter(), file, importPreviewService.getHeaderIndexes(Arrays.asList(headers), headerArray));
 
-                Platform.runLater(() -> appEnvironment.hideLoadingScreen());
+                Platform.runLater(() -> {
+                    datasetUploadResponse();
+                    appEnvironment.hideLoadingScreen();
+                });
             });
 
             addBatchThread.start();
-
-            goBackToAdmin();
 
         } else {
             errorMessageLabel.setText(headerMessage);
@@ -207,7 +218,28 @@ public class ImportPreviewController {
     }
 
     /**
-     * Loads the preview of the import into the table
+     * Displays the result of the dataset upload.
+     * Cleans pane with upload buttons and table.
+     * Sets text to green if no errors.
+     * Red if there are some errors.
+     */
+    private void datasetUploadResponse() {
+        String uploadMessage = datasetUploadFeedbackService.getUploadMessage();
+        importErrorMessage.setText(uploadMessage);
+        mainAnchor.getChildren().clear();
+        mainAnchor.getChildren().add(importErrorMessage);
+        if (uploadMessage.equals("Wines uploaded")) {
+            importErrorMessage.setFill(Color.GREEN);
+        } else {
+            importErrorMessage.setFill(Color.RED);
+        }
+
+
+    }
+
+    /**
+     * Using a button it toggles between CSV preview and import preview.
+     * Includes error handling.
      */
     public void onChangeTable() {
         if (Objects.equals(changeTableButton.getText(), "Preview import")) {

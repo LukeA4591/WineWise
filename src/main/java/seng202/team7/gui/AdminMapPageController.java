@@ -115,8 +115,9 @@ public class AdminMapPageController {
     }
 
     /**
-     * Sets the winery list in the table of the map page
-     * @param wineries List of all wineries in the database
+     * Sets up a list of wineries in a sorted order, displays them with customized colors and click behavior,
+     * and allows users to delete wineries or zoom to their location on a map.
+     * @param wineries a list of winery objects.
      */
     void setWineryList(List<Winery> wineries) {
         wineries.sort(Comparator.comparing(Winery::getWineryName));

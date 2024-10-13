@@ -44,6 +44,8 @@ public class AddWineController {
     private WineManager wineManager;
     private WineryManager wineryManager;
     private WineService wineService;
+    private final String setLabelRed = "-fx-text-fill: FF0000";
+
     /** Global wine var to be assigned **/
     Wine wine;
 
