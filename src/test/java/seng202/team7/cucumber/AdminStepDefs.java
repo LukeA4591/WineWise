@@ -17,6 +17,7 @@ import java.io.IOException;
 public class AdminStepDefs {
     private String username;
     private String password;
+    private String errorMessage;
     private String confirmPassword;
     private AdminLoginService adminLoginService;
 
@@ -71,13 +72,6 @@ public class AdminStepDefs {
         //TODO, invalid accounts are still created which is probably not good
     }
 
-    @Given("An admin registers using username {string}, password {string}, and confirm password {string}")
-    public void signupCredentials(String username, String password, String confirmPassword) {
-        this.username = username;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
-    }
-
     @When("The admin creates the account")
     public void createAccout() {
         Assertions.assertEquals("", adminLoginService.checkPasswordConfirmation(this.password, this.confirmPassword));
@@ -95,6 +89,16 @@ public class AdminStepDefs {
     public void wrongLogin() {
         String error = adminLoginService.login(username, password);
         Assertions.assertEquals(error, "Password is incorrect");
+    }
+
+    @Given("The admin changes their password from {string} to {string}")
+    public void changePassword(String oldPass, String newPass) {
+        errorMessage = adminLoginService.changePassword(oldPass, newPass, newPass);
+    }
+
+    @Then("The password of the account is {string}")
+    public void checkPassword(String newPass) {
+        Assertions.assertEquals(errorMessage, "");
     }
 
 }

@@ -11,7 +11,12 @@ Feature: Register and login admin
     Then The account is not created
 
   Scenario: Trying to login to admin with incorrect password
-    Given An admin registers using username "admin", password "password", and confirm password "password"
+    Given An admin registers with username "admin", password "password", and confirm password "password"
     When The admin creates the account
     And A user tries to log in with username "admin" and password "wrongpassord"
     Then The user is not able to login to the admin account
+
+  Scenario: An admin wants to change their password
+    Given An admin registers with username "admin", password "password", and confirm password "password"
+    When The admin changes their password from "password" to "newPassword"
+    Then The password of the account is "newPassword"
