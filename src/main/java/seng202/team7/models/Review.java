@@ -87,4 +87,10 @@ public class Review {
     {
         return reviewID;
     }
+
+    /**
+     * The Getter for whether the review has been reported or not
+     * @return reported boolean
+     */
+    public Boolean getReported() { return reported; }
 }
