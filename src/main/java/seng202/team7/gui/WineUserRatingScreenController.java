@@ -101,7 +101,6 @@ public class WineUserRatingScreenController {
         ratingSlider.setValue(0);
         reviewTextArea.setText("");
         characterLimitLabel.setText(charRemaining + MAX_CHARACTERS);
-        savedLabel.setText("");
     }
 
     /**
