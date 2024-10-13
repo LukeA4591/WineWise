@@ -327,7 +327,6 @@ public class AdminScreenController {
                 Stage primaryStage = (Stage) addWine.getScene().getWindow();
                 modalStage.initOwner(primaryStage);
                 modalStage.showAndWait();
-                System.out.println("Herehere");
             } catch (IOException e) {
                 e.printStackTrace();
             }

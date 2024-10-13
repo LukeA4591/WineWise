@@ -100,21 +100,15 @@ public class WineCSVImporter implements Importable<Wine>{
 
     private boolean validateLine(String type, String name, String wineryString, Integer vintage, Integer score, String region, String description) {
         boolean isError = false;
-        System.out.println("Hello");
         if (name.isBlank() || wineryString.isBlank() || vintage == null) {
-            System.out.println(name);
-            System.out.println(wineryString);
-            System.out.println(vintage);
             datasetUploadFeedbackService.setUploadMessage(0);
             isError = true;
         }
         if (vintage < 0 || vintage > Year.now().getValue()) {
-            System.out.println(vintage);
             datasetUploadFeedbackService.setUploadMessage(1);
             isError = true;
         }
         if (score < 0 || score > 100) {
-            System.out.println(score);
             datasetUploadFeedbackService.setUploadMessage(2);
             isError = true;
         }

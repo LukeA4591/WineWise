@@ -14,7 +14,6 @@ public class DatasetUploadFeedbackService {
 
     public static void setUploadMessage(int uploadedStatusCode) {
         uploadMessageCodes.add(uploadedStatusCode);
-        System.out.println(uploadMessageCodes);
     }
 
     public static String getUploadMessage() {
@@ -25,12 +24,11 @@ public class DatasetUploadFeedbackService {
     }
 
     /**
-     * Maps first error of in line to error message. //TODO change
+     * Maps first error of in line to error message.
      * @return
      */
     private static String getSpecificErrors() {
         String errorMessage = "Incomplete wine upload:";
-        System.out.println(uploadMessageCodes);
         for (Integer messageCode: uploadMessageCodes) {
             switch(messageCode) {
                 case 0:
