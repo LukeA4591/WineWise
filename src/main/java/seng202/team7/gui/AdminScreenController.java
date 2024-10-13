@@ -295,7 +295,7 @@ public class AdminScreenController {
      * wines.
      */
     @FXML
-    private void addDataSet() throws InterruptedException {
+    private void addDataSet() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));

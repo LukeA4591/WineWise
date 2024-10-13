@@ -23,7 +23,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import seng202.team7.business.WineryManager;
 import seng202.team7.models.Winery;
-import seng202.team7.services.AppEnvironment;
 import seng202.team7.services.Geolocator;
 import seng202.team7.services.JavaScriptBridge;
 import seng202.team7.models.Position;
