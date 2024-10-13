@@ -58,7 +58,7 @@ public class ImportPreviewController {
     @FXML
     Text importErrorMessage;
 
-    ComboBox<String>[] comboBoxList;
+    List<ComboBox<String>> comboBoxList;
 
     File file;
     String[] headers;
@@ -117,7 +117,7 @@ public class ImportPreviewController {
 
     /**
      * Init function to set the preview table headers
-     * @param headerIndexes
+     * @param headerIndexes indexes of the headers
      */
     private void initPreviewTable(List<Integer> headerIndexes) {
         String[] wineHeaders = new String[]{"Type", "Name", "Winery", "Vintage", "Score", "Region", "Description"};
@@ -138,7 +138,7 @@ public class ImportPreviewController {
      * Initializes the option boxes for the options to import
      */
     private void initComboBoxes() {
-        comboBoxList = (ComboBox<String>[]) new ComboBox<?>[] {typeComboBox, nameComboBox, wineryComboBox, vintageComboBox, scoreComboBox, regionComboBox, descriptionComboBox};
+        comboBoxList = Arrays.asList(typeComboBox, nameComboBox, wineryComboBox, vintageComboBox, scoreComboBox, regionComboBox, descriptionComboBox);
         for (ComboBox<String> comboBox : comboBoxList) {
            comboBox.getItems().addAll(headers);
         }
