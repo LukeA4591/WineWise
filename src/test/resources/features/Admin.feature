@@ -9,3 +9,9 @@ Feature: Register and login admin
     Given An admin registers with username "admin", password "a", and confirm password "a"
     When The admin creates an invalid account
     Then The account is not created
+
+  Scenario: Trying to login to admin with incorrect password
+    Given An admin registers using username "admin", password "password", and confirm password "password"
+    When The admin creates the account
+    And A user tries to log in with username "admin" and password "wrongpassord"
+    Then The user is not able to login to the admin account

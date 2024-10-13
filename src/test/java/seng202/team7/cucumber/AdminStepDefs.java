@@ -71,5 +71,30 @@ public class AdminStepDefs {
         //TODO, invalid accounts are still created which is probably not good
     }
 
+    @Given("An admin registers using username {string}, password {string}, and confirm password {string}")
+    public void signupCredentials(String username, String password, String confirmPassword) {
+        this.username = username;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+    }
+
+    @When("The admin creates the account")
+    public void createAccout() {
+        Assertions.assertEquals("", adminLoginService.checkPasswordConfirmation(this.password, this.confirmPassword));
+        if (adminLoginService.doesFileExist()) {adminLoginService.createCredentialsFile();}
+        adminLoginService.createNewUser(this.username, this.password);
+    }
+
+    @And("A user tries to log in with username {string} and password {string}")
+    public void login(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    @Then("The user is not able to login to the admin account")
+    public void wrongLogin() {
+        String error = adminLoginService.login(username, password);
+        Assertions.assertEquals(error, "Password is incorrect");
+    }
 
 }
