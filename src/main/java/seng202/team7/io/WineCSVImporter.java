@@ -5,9 +5,11 @@ import com.opencsv.exceptions.CsvException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import seng202.team7.models.Wine;
+import seng202.team7.services.DatasetUploadFeedbackService;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,8 @@ import java.util.List;
 public class WineCSVImporter implements Importable<Wine>{
 
     private static final Logger log = LogManager.getLogger(WineCSVImporter.class);
+
+    private DatasetUploadFeedbackService datasetUploadFeedbackService = new DatasetUploadFeedbackService();
 
     /**
      * Default constructor for the WineCSVImporter
@@ -84,14 +88,36 @@ public class WineCSVImporter implements Importable<Wine>{
             Integer score = Integer.parseInt(line[headerIndexes.get(4)]);
             String region = line[headerIndexes.get(5)];
             String description = line[headerIndexes.get(6)];
-            if (name.isBlank() || winery.isBlank() || vintage.equals(null)) {
-                //dataset not added
-                return null;
+            if (!validateLine(type, name, winery, vintage, score, region, description)) {
+                return new Wine(type, name, winery, vintage, score, region, description);
             }
-            return new Wine(type, name, winery, vintage, score, region, description);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             log.error(e);
+            datasetUploadFeedbackService.setUploadMessage(3);
         }
         return null;
+    }
+
+    private boolean validateLine(String type, String name, String wineryString, Integer vintage, Integer score, String region, String description) {
+        boolean isError = false;
+        System.out.println("Hello");
+        if (name.isBlank() || wineryString.isBlank() || vintage == null) {
+            System.out.println(name);
+            System.out.println(wineryString);
+            System.out.println(vintage);
+            datasetUploadFeedbackService.setUploadMessage(0);
+            isError = true;
+        }
+        if (vintage < 0 || vintage > Year.now().getValue()) {
+            System.out.println(vintage);
+            datasetUploadFeedbackService.setUploadMessage(1);
+            isError = true;
+        }
+        if (score < 0 || score > 100) {
+            System.out.println(score);
+            datasetUploadFeedbackService.setUploadMessage(2);
+            isError = true;
+        }
+        return isError;
     }
 }

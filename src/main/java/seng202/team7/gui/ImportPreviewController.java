@@ -4,6 +4,9 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +15,7 @@ import seng202.team7.io.Importable;
 import seng202.team7.io.WineCSVImporter;
 import seng202.team7.models.Wine;
 import seng202.team7.services.AppEnvironment;
+import seng202.team7.services.DatasetUploadFeedbackService;
 import seng202.team7.services.ImportPreviewService;
 
 import java.io.File;
@@ -26,7 +30,10 @@ import java.util.Objects;
 
 public class ImportPreviewController {
     private static final Logger log = LogManager.getLogger(seng202.team7.gui.ImportPreviewController.class);
+    private DatasetUploadFeedbackService datasetUploadFeedbackService = new DatasetUploadFeedbackService();
 
+    @FXML
+    AnchorPane mainAnchor;
     @FXML
     Button changeTableButton;
     @FXML
@@ -53,6 +60,8 @@ public class ImportPreviewController {
     Label errorMessageLabel;
     @FXML
     Label tableErrorMessageLabel;
+    @FXML
+    Text importErrorMessage;
 
     ComboBox<String>[] comboBoxList;
 
@@ -90,7 +99,7 @@ public class ImportPreviewController {
      * On Action that closes the current Pop-up/window
      */
     private void goBackToAdmin() {
-        Stage stage = (Stage) dataTable.getScene().getWindow();
+        Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
     }
 
@@ -185,16 +194,35 @@ public class ImportPreviewController {
 
                 wineManager.addBatch(new WineCSVImporter(), file, importPreviewService.getHeaderIndexes(Arrays.asList(headers), headerArray));
 
-                Platform.runLater(() -> appEnvironment.hideLoadingScreen());
+                Platform.runLater(() -> {
+                    datasetUploadResponse();
+                    appEnvironment.hideLoadingScreen();
+                });
             });
 
             addBatchThread.start();
-
-            goBackToAdmin();
+//            goBackToAdmin();
 
         } else {
             errorMessageLabel.setText(headerMessage);
         }
+    }
+
+    private void datasetUploadResponse() {
+        String uploadMessage = datasetUploadFeedbackService.getUploadMessage();
+        importErrorMessage.setText(uploadMessage);
+        errorMessageLabel.setText("");
+//        saveDatasetButton.setDisable(true);
+//        changeTableButton.setDisable(true);
+        mainAnchor.getChildren().clear();
+        mainAnchor.getChildren().add(importErrorMessage);
+        if (uploadMessage.equals("Wines uploaded")) {
+            importErrorMessage.setFill(Color.GREEN);
+        } else {
+            importErrorMessage.setFill(Color.RED);
+        }
+
+
     }
 
     /**

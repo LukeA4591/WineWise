@@ -56,10 +56,11 @@ public class AdminScreenController {
     private Button unflagReviewButton;
     @FXML
     private Stage helpStage;
+    @FXML
+    private Text importErrorMessage;
     private final AppEnvironment appEnvironment;
     private final ReviewManager reviewManager;
     private final List<Review> selectedReviews = new ArrayList<>();
-
 
 
 
@@ -326,6 +327,7 @@ public class AdminScreenController {
                 Stage primaryStage = (Stage) addWine.getScene().getWindow();
                 modalStage.initOwner(primaryStage);
                 modalStage.showAndWait();
+                System.out.println("Herehere");
             } catch (IOException e) {
                 e.printStackTrace();
             }
