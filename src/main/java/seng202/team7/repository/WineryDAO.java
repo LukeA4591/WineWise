@@ -12,7 +12,7 @@ import java.sql.*;
  */
 public class WineryDAO implements DAOInterface<Winery> {
 
-    private static final Logger log = LogManager.getLogger(WineDAO.class);
+    private static final Logger log = LogManager.getLogger(WineryDAO.class);
     private final DatabaseManager databaseManager;
 
     /**

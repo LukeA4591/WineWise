@@ -4,7 +4,6 @@ import seng202.team7.exceptions.DuplicateExc;
 import seng202.team7.models.Review;
 import seng202.team7.repository.ReviewDAO;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 

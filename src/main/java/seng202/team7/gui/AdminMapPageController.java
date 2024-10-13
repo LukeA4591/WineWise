@@ -1,7 +1,6 @@
 package seng202.team7.gui;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
@@ -117,10 +116,36 @@ public class AdminMapPageController {
         setWineryList(wineryManager.getAll());
     }
 
+    /**
+     * Sets the winery list in the table of the map page
+     * @param wineries List of all wineries in the database
+     */
     void setWineryList(List<Winery> wineries) {
         wineries.sort(Comparator.comparing(Winery::getWineryName));
         ObservableList<Winery> wineryNames = FXCollections.observableArrayList(wineries);
         wineryList.setItems(wineryNames);
+        setWineryListCellFactory();
+        wineryList.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.DELETE || e.getCode() == KeyCode.BACK_SPACE) {
+                try {
+                    Winery selectedWinery = wineryList.getSelectionModel().getSelectedItem();
+                    if (selectedWinery.getLongitude() != null && selectedWinery.getLatitude() != null) {
+                        removeMarker(selectedWinery.getWineryName());
+                    }
+                    wineryList.getItems().remove(selectedWinery);
+                    wineryManager.delete(selectedWinery.getWineryName());
+                } catch (NullPointerException nullPointerException) {
+                    log.warn("No wine selected for delete");
+                    log.warn(nullPointerException.getMessage());
+                }
+            }
+        });
+    }
+
+    /**
+     * Helper method to set the winery list cell factory so that they zoom to the location when they are clicked
+     */
+    private void setWineryListCellFactory() {
         wineryList.setCellFactory(lv -> {
             ListCell<Winery> cell = new ListCell<>() {
                 @Override
@@ -147,28 +172,21 @@ public class AdminMapPageController {
                     }
                 }
             };
-            cell.hoverProperty().addListener((observer, wasHovered, isNowHovered) -> {
-                if (isNowHovered && !cell.isEmpty()) {
-                    cell.setStyle("-fx-background-color: #eccca2");
-                } else {
-                    cell.updateSelected(true);
-                }
-            });
+            addHoverListenerToCell(cell);
             return cell;
         });
-        wineryList.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.DELETE || e.getCode() == KeyCode.BACK_SPACE) {
-                try {
-                    Winery selectedWinery = wineryList.getSelectionModel().getSelectedItem();
-                    if (selectedWinery.getLongitude() != null && selectedWinery.getLatitude() != null) {
-                        removeMarker(selectedWinery.getWineryName());
-                    }
-                    wineryList.getItems().remove(selectedWinery);
-                    wineryManager.delete(selectedWinery.getWineryName());
-                } catch (NullPointerException nullPointerException) {
-                    log.warn("No wine selected for delete");
-                    log.warn(nullPointerException.getMessage());
-                }
+    }
+
+    /**
+     * Helper method to add the hover listener to each cell of the winery list
+     * @param cell current cell of the winery list
+     */
+    private void addHoverListenerToCell(ListCell<Winery> cell) {
+        cell.hoverProperty().addListener((observer, wasHovered, isNowHovered) -> {
+            if (isNowHovered && !cell.isEmpty()) {
+                cell.setStyle("-fx-background-color: #eccca2");
+            } else {
+                cell.updateSelected(true);
             }
         });
     }
