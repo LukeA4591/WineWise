@@ -28,6 +28,8 @@ public class ImportPreviewService {
      * Processes the first 6 lines of a csv file, taking the first line as the column headers
      * and the next 5 as examples data from that file.
      * @param file the csv file that was imported.
+     * @param data lines of data for wines from the csv
+     * @return a line of data
      */
 
     public String[] getStringFromFile(File file, List<String[]> data) {
