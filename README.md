@@ -1,28 +1,30 @@
-# WineWise APP Overview
-WineWise is a kiosk-based offline app designed to simplify wine discovery and reviewing. It allows its users to browse and filter wines that are provided by a winery or liquor store. The kiosk owners are able to manage user's reviews and import their own wines in the form of CSV files. WineWise is powered by Java and JavaFX, and it uses a local SQLite database for offline functionality.
+# WineWise App Overview
+WineWise is a kiosk-based online application designed to simplify wine discovery and reviewing. It allows its users to browse and filter wines that are provided by a winery or liquor store. The kiosk owners are able to manage user's reviews and import their own wines in the form of CSV files. WineWise is powered by Java and JavaFX, and it uses a local SQLite database for offline functionality.
 
 ## Key Features
 For Kiosk Admins:
 - Create a secure account
-- Adding wines (manually or imported CSV Files)
-- Deleting wines
-- Bulk viewing wines
+- Change credentials
+- Adding wines and wineries (manually or imported CSV Files)
+- Deleting wines and wineries
+- Bulk viewing wines and wineries
+- Placing wineries on a map
 - Viewing all reported reviews with options to un-flag (un-report) or delete them
 
 For Kiosk Users:
-- Browsing and filtering provided wines
+- Browsing, filtering and searching through wines
 - More in-depth views of wine details
+- Recommended wines for a wine you view
 - Leaving reviews for wines
 - Viewing all reviews for a wine
 - Reporting invalid reviews
+- Viewing wineries on a map
+- Interactive home page to view the highest rated wines by the critics and users
 
-## Upcoming Features
-- Recommend top wines taking user reviews into account
-- Vineyard map
-- Ability to change credentials after initial setup
-- Graphing of wineries wines.
-- Wines are loaded and displayed in smaller groups (faster response times).
 
+Other Features:
+- The GUI is designed to be run on the linux OS, functionality will not be effected on other OS however the GUI may not line up
+- 
 ## Authors
 - SENG202 Group 7 (Luke Armstrong, Oliver Barclay, Felix Blanchard, Ryan Hamilton, Alex Wilson)
 
@@ -37,6 +39,7 @@ This project comes with some basic examples of the following (including dependen
 - Junit 5 (testing logic / service classes)
 - Cucumber (for acceptance testing)
 - OpenCSV (for CSVImporter)
+- Leaflet (for maps)
 
 ## Build Project 
 - Open a command line interface inside the project directory (folder team-7) and run `./gradlew jar` to build a .jar file. 
@@ -50,16 +53,10 @@ This project comes with some basic examples of the following (including dependen
 ## Reset App
 - If WineWise has already been run once - and therefore the credentials have been set, and database created - then to hard reset the app these steps will need to be taken:
 - Delete the `credentials.txt` file
-- Delete the `database.db'` file
+- Delete the `database.db` file
 - Rerun the command: `java -jar WineWise-1.0-SNAPSHOT.jar` in the terminal.
 -**** In order to create a new account without losing data you can just delete `credentials.txt` and rerun the jar.
 
 ## Credits
-- Wine Image used on Homepage and Wine Popup is taken from Shutterstock.com and Luke edited its colouring in Gimp.
-- This image will need to be changed before final submission as it is not creative commons.
+- Geolocator.java and most methods in map.html, JavaScriptBridge.java were provided by Morgan English
 
-## Note
-- We have included the `Decanter23NZ.csv` file in this submission as it is an example of how a winery / liquor store would store their data.
-- This file can be used to demo WineWise
-- Currently, WineWise is not equipped to deal with larger CSV files so please dont use larger files.
-- This is being addressed in deliverable 3's submission.
