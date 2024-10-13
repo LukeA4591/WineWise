@@ -35,9 +35,9 @@ import java.util.Objects;
 
 /**
  * Controller class for the admin_map_page.fxml file
+ * some map functionality is originally from  https://eng-git.canterbury.ac.nz/men63/seng202-advanced-fx-public
  */
 public class AdminMapPageController {
-    private AppEnvironment appEnvironment;
     private Geolocator geolocator;
     @FXML
     private WebView webView;
@@ -68,11 +68,9 @@ public class AdminMapPageController {
      * Initializes the AdminMapPageController with the given AppEnvironment and Stage.
      * Sets up the map, winery list, and JavaScript bridge to interact with the web map.
      *
-     * @param appEnvironment The application environment.
      * @param stage The current stage.
      */
-    void init(AppEnvironment appEnvironment, Stage stage) {
-        this.appEnvironment = appEnvironment;
+    void init(Stage stage) {
         wineryManager = new WineryManager();
         geolocator = new Geolocator();
         initMap();

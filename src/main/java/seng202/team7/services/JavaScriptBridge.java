@@ -18,6 +18,8 @@ import java.util.Objects;
 
 /**
  * JavaScriptBridge class, used to communicate with JavaScript for the maps page
+ * originally from  https://eng-git.canterbury.ac.nz/men63/seng202-advanced-fx-public"
+ *
  */
 public class JavaScriptBridge {
     private SetWineryInterface setWineryInterface;
