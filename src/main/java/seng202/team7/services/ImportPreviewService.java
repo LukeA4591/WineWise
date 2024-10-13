@@ -192,6 +192,12 @@ public class ImportPreviewService {
         return true;
     }
 
+    /**
+     * Validates that the score field contains values between 0 and 100.
+     * @param scoreIndex the index of the score field in the CSV data.
+     * @param data a list of lines from the csv file.
+     * @return true if score values are valid, false otherwise.
+     */
     public boolean validScoreValues(Integer scoreIndex, List<String[]> data) {
         for (String[] line : data) {
             if (line[scoreIndex] != null) {
@@ -203,6 +209,12 @@ public class ImportPreviewService {
         return true;
     }
 
+    /**
+     * Validates that the vintage fields contain values between 0 and the current year.
+     * @param headerIndex the index of the vintage field in the csv data.
+     * @param data a list of lines from the csv file.
+     * @return true if vintage values are valid, false otherwise.
+     */
     public boolean validVintageValues(Integer headerIndex, List<String[]> data) {
         for (String[] line : data) {
             if (line[headerIndex] != null) {

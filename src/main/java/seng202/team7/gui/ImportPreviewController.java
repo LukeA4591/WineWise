@@ -201,19 +201,21 @@ public class ImportPreviewController {
             });
 
             addBatchThread.start();
-//            goBackToAdmin();
 
         } else {
             errorMessageLabel.setText(headerMessage);
         }
     }
 
+    /**
+     * Displays the result of the dataset upload.
+     * Cleans pane with upload buttons and table.
+     * Sets text to green if no errors.
+     * Red if there are some errors.
+     */
     private void datasetUploadResponse() {
         String uploadMessage = datasetUploadFeedbackService.getUploadMessage();
         importErrorMessage.setText(uploadMessage);
-        errorMessageLabel.setText("");
-//        saveDatasetButton.setDisable(true);
-//        changeTableButton.setDisable(true);
         mainAnchor.getChildren().clear();
         mainAnchor.getChildren().add(importErrorMessage);
         if (uploadMessage.equals("Wines uploaded")) {
@@ -226,7 +228,8 @@ public class ImportPreviewController {
     }
 
     /**
-     *
+     * Using a button it toggles between CSV preview and import preview.
+     * Includes error handling.
      */
     public void onChangeTable() {
         if (Objects.equals(changeTableButton.getText(), "Preview import")) {

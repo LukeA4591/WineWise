@@ -7,15 +7,31 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * This service manages feedback messages during the dataset upload process.
+ * It stores error codes and returns appropriate messages based on those codes.
+ */
 public class DatasetUploadFeedbackService {
 
     private static Set<Integer> uploadMessageCodes = new HashSet<>();
+
+    /**
+     *  constructor for the DatasetUploadFeedbackService.
+     */
     public DatasetUploadFeedbackService(){}
 
+    /**
+     * stores the status code representing the result of the wine upload.
+     * @param uploadedStatusCode the integer status code representing an upload error
+     */
     public static void setUploadMessage(int uploadedStatusCode) {
         uploadMessageCodes.add(uploadedStatusCode);
     }
 
+    /**
+     * Returns the error feedback message.
+     * @return feedback message detailing what errors were found if any.
+     */
     public static String getUploadMessage() {
         if (uploadMessageCodes.isEmpty()) {
             return "Wines uploaded";
@@ -24,8 +40,8 @@ public class DatasetUploadFeedbackService {
     }
 
     /**
-     * Maps first error of in line to error message.
-     * @return
+     * Maps the stored error codes to detailed error messages.
+     * @return a string with all the error messages concatenated into one message.
      */
     private static String getSpecificErrors() {
         String errorMessage = "Incomplete wine upload:";

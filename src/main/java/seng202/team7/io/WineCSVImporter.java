@@ -32,6 +32,7 @@ public class WineCSVImporter implements Importable<Wine>{
     /**
      * Read wines from csv file
      * @param file File to read from
+     * @param headerIndexes A list of header indexes for column mapping
      * @return List of wines in csv file
      */
     @Override
@@ -77,6 +78,7 @@ public class WineCSVImporter implements Importable<Wine>{
     /**
      * Read wine from line of csv
      * @param line current csv line as list of Strings
+     * @param headerIndexes A list of header indexes to map CSV fields.
      * @return Wine object parsed from line
      */
     public Wine readWineFromLine(String[] line, List<Integer> headerIndexes) {
@@ -98,6 +100,17 @@ public class WineCSVImporter implements Importable<Wine>{
         return null;
     }
 
+    /**
+     * Validates the fields of the wine and sets appropriate error messages.
+     * @param type the type of the wine.
+     * @param name the name of the wine.
+     * @param wineryString the winery that made the wine.
+     * @param vintage the vintage year of the wine.
+     * @param score the score of the wine.
+     * @param region the region of the wine.
+     * @param description a description of the wine.
+     * @return true if validation errors exist, otherwise false.
+     */
     private boolean validateLine(String type, String name, String wineryString, Integer vintage, Integer score, String region, String description) {
         boolean isError = false;
         if (name.isBlank() || wineryString.isBlank() || vintage == null) {
