@@ -68,8 +68,6 @@ public class AdminLoginPopupController {
         if (!errorMessage.isEmpty()) {
             adminLoginErrorLabel.setText(errorMessage);
         } else {
-            // go to admin screen
-            // close controller
             ((Stage) usernameInput.getScene().getWindow()).close();
             appEnvironment.getClearRunnable().run();
             appEnvironment.launchAdminScreen();

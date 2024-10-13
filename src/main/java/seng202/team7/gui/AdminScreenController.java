@@ -52,10 +52,11 @@ public class AdminScreenController {
     private Button unflagReviewButton;
     @FXML
     private Stage helpStage;
+    @FXML
+    private Text importErrorMessage;
     private final AppEnvironment appEnvironment;
     private final ReviewManager reviewManager;
     private final List<Review> selectedReviews = new ArrayList<>();
-
 
 
 
