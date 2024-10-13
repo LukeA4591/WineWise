@@ -29,7 +29,7 @@ public class DatasetUploadFeedbackService {
      * @return
      */
     private static String getSpecificErrors() {
-        String errorMessage = "Incomplete wine upload:";
+        String errorMessage = "Partial dataset upload:\nSome wines were not added";
         System.out.println(uploadMessageCodes);
         for (Integer messageCode: uploadMessageCodes) {
             switch(messageCode) {
