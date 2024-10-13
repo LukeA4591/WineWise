@@ -60,7 +60,6 @@ public class Winery {
         return longitude;
     }
 
-
     /**
      * The Getter for the latitudinal value of the winery's location
      * @return latitude

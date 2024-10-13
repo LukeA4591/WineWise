@@ -74,38 +74,43 @@ public class AddWineryController {
                 saveNewWineryMessage.setText("Winery name exists.");
                 return null;
             } else {
-                Float wineryLongitudeFloat = null;
-                Float wineryLatitudeFloat = null;
-                if (!wineryLongitude.getText().isEmpty() && !wineryLatitude.getText().isEmpty()) {
-                    wineryLongitudeFloat = Float.parseFloat(wineryLongitude.getText());
-                    wineryLatitudeFloat = Float.parseFloat(wineryLatitude.getText());
-                    if (wineryLongitudeFloat < -180 || wineryLongitudeFloat >= 180) {
-                        saveNewWineryMessage.setStyle(setLabelRed);
-                        saveNewWineryMessage.setText("Longitude should be >= -180 and less than 180.");
-                        return null;
-                    }
-                    if (wineryLatitudeFloat < -90 || wineryLatitudeFloat > 90) {
-                        saveNewWineryMessage.setStyle(setLabelRed);
-                        saveNewWineryMessage.setText("Latitude should be between -90 and 90.");
-                        return null;
-                    }
-                } else if (!wineryLongitude.getText().isEmpty() || !wineryLatitude.getText().isEmpty()) {
-                    saveNewWineryMessage.setStyle(setLabelRed);
-                    saveNewWineryMessage.setText("Enter a latitude and longitude.");
-                    return null;
-                } else {
-                    saveNewWineryMessage.setStyle("-fx-text-fill: #008000");
-                    saveNewWineryMessage.setText("New winery saved.");
-                    wineryName.setText("");
-                    wineryLongitude.setText("");
-                    wineryLatitude.setText("");
-                }
-                return new Winery(wineryNameString, wineryLongitudeFloat, wineryLatitudeFloat);
+                return validateWineryLongLat(wineryNameString);
             }
         } catch (NumberFormatException e) {
             saveNewWineryMessage.setStyle(setLabelRed);
             saveNewWineryMessage.setText("Longitude and latitude should be a float.");
             return null;
         }
+    }
+
+    private Winery validateWineryLongLat(String wineryNameString) {
+        String setLabelRed = "-fx-text-fill: #ff0000";
+        Float wineryLongitudeFloat = null;
+        Float wineryLatitudeFloat = null;
+        if (!wineryLongitude.getText().isEmpty() && !wineryLatitude.getText().isEmpty()) {
+            wineryLongitudeFloat = Float.parseFloat(wineryLongitude.getText());
+            wineryLatitudeFloat = Float.parseFloat(wineryLatitude.getText());
+            if (wineryLongitudeFloat < -180 || wineryLongitudeFloat >= 180) {
+                saveNewWineryMessage.setStyle(setLabelRed);
+                saveNewWineryMessage.setText("Longitude should be >= -180 and less than 180.");
+                return null;
+            }
+            if (wineryLatitudeFloat < -90 || wineryLatitudeFloat > 90) {
+                saveNewWineryMessage.setStyle(setLabelRed);
+                saveNewWineryMessage.setText("Latitude should be between -90 and 90.");
+                return null;
+            }
+        } else if (!wineryLongitude.getText().isEmpty() || !wineryLatitude.getText().isEmpty()) {
+            saveNewWineryMessage.setStyle(setLabelRed);
+            saveNewWineryMessage.setText("Enter a latitude and longitude.");
+            return null;
+        } else {
+            saveNewWineryMessage.setStyle("-fx-text-fill: #008000");
+            saveNewWineryMessage.setText("New winery saved.");
+            wineryName.setText("");
+            wineryLongitude.setText("");
+            wineryLatitude.setText("");
+        }
+        return new Winery(wineryNameString, wineryLongitudeFloat, wineryLatitudeFloat);
     }
 }
