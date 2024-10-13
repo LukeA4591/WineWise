@@ -42,7 +42,7 @@ public class NavBarController {
     /**
      * Used to calculate how many ms the loading screen should approximatly run for.
      */
-    private static final int SLEEP_DIVIDER = 20000;
+    private static final int SLEEP_DIVIDER = 10;
 
     /**
      * NavBarController initializer, needs to be empty for FXML
@@ -127,7 +127,7 @@ public class NavBarController {
      * This ensures that the UI is responsive even when there are intensive tasks when changing pages.
      * @param loadPageMethod a {@code Runnable} type that contains the logic for loading a specific page.
      */
-    private void showPageWithLoadingScreen(Runnable loadPageMethod) {
+    private void showPageWithLoadingScreen(Runnable loadPageMethod, boolean isSearchPage) {
         Stage stage = (Stage) mainWindow.getScene().getWindow();
 
         //show loading screen on JAVAFX thread
@@ -140,7 +140,12 @@ public class NavBarController {
         Thread switchPageThread = new Thread(() -> {
 
             try {
-                Thread.sleep(sleepTimeMS());
+                if (isSearchPage) {
+                    Thread.sleep(sleepTimeMS()); //extended time for searchpage, and large databases.
+                } else {
+                    Thread.sleep(500); //default time of 500ms for all screens and database size.
+                }
+                System.out.println(sleepTimeMS());
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -161,7 +166,7 @@ public class NavBarController {
     private void homePressed() {
         if (currentPage != 0) {
             currentPage = 0;
-            showPageWithLoadingScreen(this::loadHomePage);
+            showPageWithLoadingScreen(this::loadHomePage, false);
         }
     }
 
@@ -172,7 +177,7 @@ public class NavBarController {
     private void helpPressed() {
         if (currentPage != 3) {
             currentPage = 3;
-            showPageWithLoadingScreen(this::loadHelpPage);
+            showPageWithLoadingScreen(this::loadHelpPage, false);
         }
     }
 
@@ -183,7 +188,7 @@ public class NavBarController {
     private void searchPressed() {
         if (currentPage != 1) {
             currentPage = 1;
-            showPageWithLoadingScreen(this::loadSearchPage);
+            showPageWithLoadingScreen(this::loadSearchPage, true);
         }
     }
 
@@ -194,7 +199,7 @@ public class NavBarController {
     void mapPressed() {
         if (currentPage != 2) {
             currentPage = 2;
-            showPageWithLoadingScreen(this::loadMapPage);
+            showPageWithLoadingScreen(this::loadMapPage, false);
         }
     }
 

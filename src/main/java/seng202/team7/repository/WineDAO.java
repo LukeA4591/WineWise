@@ -286,10 +286,8 @@ public class WineDAO implements DAOInterface<Wine> {
      *
      * @param wines list of wines to be added
      */
-    public int addBatch(List<Wine> wines) {
-        int totalWinesAdded = 0;
+    public void addBatch(List<Wine> wines) {
         Set<Winery> uniqueWineries = new HashSet<>();
-        Set<Wine> uniqueWines = new HashSet<>(wines);
         wines.size();
         for (Wine wine : wines) {
             Winery winery = new Winery(wine.getWineryString());
@@ -321,14 +319,6 @@ public class WineDAO implements DAOInterface<Wine> {
                 ps.addBatch();
             }
 
-            int[] updateCounts = ps.executeBatch();
-
-            for (int count: updateCounts) {
-                if (count != PreparedStatement.SUCCESS_NO_INFO && count != PreparedStatement.EXECUTE_FAILED) {
-                    totalWinesAdded += count;
-                }
-            }
-
             conn.commit();
             ResultSet rs = ps.getGeneratedKeys();
             while (rs.next()) {
@@ -339,7 +329,6 @@ public class WineDAO implements DAOInterface<Wine> {
         } catch (SQLException sqlException) {
             log.error(sqlException);
         }
-        return totalWinesAdded;
     }
 
     /**

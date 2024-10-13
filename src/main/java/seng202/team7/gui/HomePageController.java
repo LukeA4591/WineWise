@@ -146,6 +146,7 @@ public class HomePageController {
     private void setSize() {
         if (viewCritic) {
             size = wineManager.getAll().size();
+            wineManager.setTotalWinesInDB(size);
         } else {
             size = reviewManager.getNumWinesWithReviews();
         }

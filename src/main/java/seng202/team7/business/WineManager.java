@@ -34,7 +34,7 @@ public class WineManager {
      */
     public void addBatch(Importable<Wine> importer, File file, List<Integer> headerIndexes) {
         List<Wine> wines = importer.readFromFile(file, headerIndexes);
-        totalWinesInDB += wineDAO.addBatch(wines);
+        wineDAO.addBatch(wines);
     }
 
     /**
@@ -136,5 +136,9 @@ public class WineManager {
 
     public int getTotalWinesInDB() {
         return totalWinesInDB;
+    }
+
+    public void setTotalWinesInDB(int totalWinesInDB) {
+        WineManager.totalWinesInDB = totalWinesInDB;
     }
 }
