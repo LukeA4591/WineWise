@@ -288,7 +288,6 @@ public class WineDAO implements DAOInterface<Wine> {
      */
     public void addBatch(List<Wine> wines) {
         Set<Winery> uniqueWineries = new HashSet<>();
-        wines.size();
         for (Wine wine : wines) {
             Winery winery = new Winery(wine.getWineryString());
             uniqueWineries.add(winery);
@@ -630,6 +629,7 @@ public class WineDAO implements DAOInterface<Wine> {
             while (rs.next()) {
                 return true;
             }
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
