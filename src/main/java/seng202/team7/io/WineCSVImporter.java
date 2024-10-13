@@ -37,6 +37,7 @@ public class WineCSVImporter implements Importable<Wine>{
             CSVReader csvreader = new CSVReader(new InputStreamReader(new FileInputStream(file), Charset.forName("Windows-1256")));
             csvreader.skip(1);
             List<String[]> lines = csvreader.readAll();
+            csvreader.close();
             for (String[] line : lines) {
                 Wine wine = readWineFromLine(line, headerIndexes);
                 if (wine != null) {
