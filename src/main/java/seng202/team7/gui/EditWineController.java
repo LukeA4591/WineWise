@@ -59,7 +59,9 @@ public class EditWineController {
         wineWineryName.setText(origionalWine.getWineryString());
         wineName.setText(origionalWine.getWineName());
         wineVintage.setText(Integer.toString(origionalWine.getVintage()));
-        wineScore.setText(Integer.toString(origionalWine.getScore()));
+        if (origionalWine.getScore() != null) {
+            wineScore.setText(Integer.toString(origionalWine.getScore()));
+        }
         wineRegion.setText(origionalWine.getRegion());
         wineDescription.setText(origionalWine.getDescription());
         if (origionalWine.getColor().equals("Red")) {

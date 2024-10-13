@@ -140,6 +140,13 @@
     -fx-font-size: 13px;
 }
 
+.error-label {
+    -fx-text-fill: #ff0000;
+    -fx-font-family: "Liberation Mono";
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
 .title-label {
     -fx-font-size: 24px;
     -fx-font-weight: bold;

@@ -15,7 +15,7 @@
       <Label layoutX="160.0" layoutY="140.0" styleClass="colon-label" text="Username:" />
       <Label layoutX="160.0" layoutY="183.0" styleClass="colon-label" text="Password:" />
       <Label layoutX="98.0" layoutY="227.0" styleClass="colon-label" text="Confirm Password:" />
-      <Label fx:id="errorLabel" alignment="CENTER" layoutX="81.0" layoutY="254.0" prefHeight="17.0" prefWidth="439.0" styleClass="colon-label" textAlignment="CENTER" wrapText="true">
+      <Label fx:id="errorLabel" alignment="CENTER" layoutX="81.0" layoutY="254.0" prefHeight="17.0" prefWidth="439.0" styleClass="error-label" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>

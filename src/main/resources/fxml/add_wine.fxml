@@ -51,7 +51,7 @@
                 <Font name="Liberation Sans Bold" size="13.0" />
             </font>
         </Label>
-        <Label fx:id="saveNewWineMessage" alignment="CENTER" contentDisplay="CENTER" layoutY="368.0" maxWidth="600.0" prefHeight="17.0" prefWidth="600.0" styleClass="colon-label" textAlignment="CENTER">
+        <Label fx:id="saveNewWineMessage" alignment="CENTER" contentDisplay="CENTER" layoutY="368.0" maxWidth="600.0" prefHeight="17.0" prefWidth="600.0" styleClass="error-label" textAlignment="CENTER">
             <font>
                 <Font size="13.0" />
             </font>

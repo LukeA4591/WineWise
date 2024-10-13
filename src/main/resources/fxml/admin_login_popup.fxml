@@ -31,7 +31,7 @@
       <Label layoutX="209.0" layoutY="54.0" styleClass="subtitle-label" text="Please enter details below" />
       <StackPane layoutX="211.0" layoutY="207.0" prefHeight="30.0" prefWidth="200.0">
          <children>
-            <Label fx:id="adminLoginErrorLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="colon-label" textFill="RED" />
+            <Label fx:id="adminLoginErrorLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="error-label" textFill="RED" />
          </children>
       </StackPane>
    </children>
