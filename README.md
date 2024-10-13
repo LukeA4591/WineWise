@@ -53,7 +53,7 @@ This project comes with some basic examples of the following (including dependen
 ## Reset App
 - If WineWise has already been run once - and therefore the credentials have been set, and database created - then to hard reset the app these steps will need to be taken:
 - Delete the `credentials.txt` file
-- Delete the `database.db'` file
+- Delete the `database.db` file
 - Rerun the command: `java -jar WineWise-1.0-SNAPSHOT.jar` in the terminal.
 -**** In order to create a new account without losing data you can just delete `credentials.txt` and rerun the jar.
 
