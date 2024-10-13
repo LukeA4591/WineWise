@@ -1,5 +1,5 @@
 # WineWise App Overview
-WineWise is a kiosk-based online application designed to simplify wine discovery and reviewing. It allows its users to browse and filter wines that are provided by a winery or liquor store. The kiosk owners are able to manage user's reviews and import their own wines in the form of CSV files. WineWise is powered by Java and JavaFX, and it uses a local SQLite database for offline functionality.
+WineWise is a kiosk-based online application designed to simplify wine discovery and reviewing. It allows its users to browse and filter wines that are provided by a winery, liquor store, or iSite location. The kiosk owners are able to manage user's reviews and import their own wines in the form of CSV files. WineWise is powered by Java and JavaFX, and it uses a local SQLite database but needs Internet Connectivity for Interactive Maps.
 
 ## Key Features
 For Kiosk Admins:
@@ -24,7 +24,9 @@ For Kiosk Users:
 
 Other Features:
 - The GUI is designed to be run on the linux OS, functionality will not be effected on other OS however the GUI may not line up
-- 
+- SQLite Injection Protection to prevent malicious users from deleting or editing the data in the SQL Database
+
+
 ## Authors
 - SENG202 Group 7 (Luke Armstrong, Oliver Barclay, Felix Blanchard, Ryan Hamilton, Alex Wilson)
 
@@ -49,6 +51,10 @@ This project comes with some basic examples of the following (including dependen
 - If the jar is not provided, build the project (see above). 
 - Open a command line interface and navigate to the directory containing `WineWise-1.0-SNAPSHOT.jar`
 - Run the command `java -jar WineWise-1.0-SNAPSHOT.jar` to open the application.
+
+## Run Tests
+- Run the command `./gradlew test` in the terminal to run the JUnit Tests
+- Run the command `./gradlew cucumber` in the terminal to run the Cucumber Tests
 
 ## Reset App
 - If WineWise has already been run once - and therefore the credentials have been set, and database created - then to hard reset the app these steps will need to be taken:
