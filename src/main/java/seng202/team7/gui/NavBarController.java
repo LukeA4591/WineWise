@@ -145,7 +145,6 @@ public class NavBarController {
                 } else {
                     Thread.sleep(500); //default time of 500ms for all screens and database size.
                 }
-                System.out.println(sleepTimeMS());
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
