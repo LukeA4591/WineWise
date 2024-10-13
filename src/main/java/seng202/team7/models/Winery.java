@@ -53,29 +53,11 @@ public class Winery {
     }
 
     /**
-     * The Setter for the name of the winery
-     * @param wineryName Name of the winery
-     */
-    //TODO Does this need to be deleted
-    public void setWineryName(String wineryName) {
-        this.wineryName = wineryName;
-    }
-
-    /**
      * The Getter for the longitudinal value of the winery's location
      * @return longitude
      */
     public Float getLongitude() {
         return longitude;
-    }
-
-    /**
-     * The Setter for the longitudinal value of the winery's location
-     * @param longitude Longitudinal value of the winery's location
-     */
-    //TODO Does this need to be deleted
-    public void setLongitude(Float longitude) {
-        this.longitude = longitude;
     }
 
     /**
@@ -86,12 +68,4 @@ public class Winery {
         return latitude;
     }
 
-    /**
-     * The Setter for the latitudinal value of the winery's location
-     * @param latitude Latitudinal value of the winery's location
-     */
-    //TODO Does this need to be deleted
-    public void setLatitude(Float latitude) {
-        this.latitude = latitude;
-    }
 }

@@ -16,7 +16,7 @@ import java.util.*;
  */
 public class ReviewDAO implements DAOInterface<Review>{
 
-    private static final Logger log = LogManager.getLogger(WineDAO.class);
+    private static final Logger log = LogManager.getLogger(ReviewDAO.class);
     private final DatabaseManager databaseManager;
     private final WineDAO wineDao;
 

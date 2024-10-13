@@ -1,11 +1,9 @@
 package seng202.team7.gui;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -16,8 +14,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seng202.team7.business.ReviewManager;
-import seng202.team7.business.WineManager;
-import seng202.team7.io.WineCSVImporter;
 import seng202.team7.models.Review;
 import seng202.team7.services.AppEnvironment;
 

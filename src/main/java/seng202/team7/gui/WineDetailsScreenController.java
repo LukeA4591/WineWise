@@ -3,7 +3,6 @@ package seng202.team7.gui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seng202.team7.business.WineManager;
 import seng202.team7.models.Wine;
