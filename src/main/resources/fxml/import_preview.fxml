@@ -83,7 +83,7 @@
       </GridPane>
       <Button fx:id="exitButton" layoutX="683.0" layoutY="21.0" mnemonicParsing="false" onAction="#onExitPopup" text="Exit" />
       <Button fx:id="saveDatasetButton" layoutX="363.0" layoutY="551.0" mnemonicParsing="false" onAction="#onSaveDataset" text="Save dataset" />
-      <Label layoutX="27.0" layoutY="349.0" text="All fields must be selected" />
+      <Label layoutX="36.0" layoutY="349.0" text="All fields must be selected.      Match the preview column name with the header names." />
       <StackPane layoutX="225.0" layoutY="483.0" prefHeight="55.0" prefWidth="446.0">
          <children>
             <Label fx:id="errorMessageLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="409.0" />
