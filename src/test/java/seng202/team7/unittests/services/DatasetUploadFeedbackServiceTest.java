@@ -20,7 +20,10 @@ public class DatasetUploadFeedbackServiceTest {
     public void getUploadMessageWithOneError() {
         DatasetUploadFeedbackService.setUploadMessage(0);
         String message = DatasetUploadFeedbackService.getUploadMessage();
-        String expectedMessage = "Incomplete wine upload:" + "\nName, Winery and/or Vintage is null";
+        String expectedMessage = """
+                Partial dataset upload:
+                Some wines were not added
+                Name, Winery and/or Vintage is null""";
         Assertions.assertEquals(expectedMessage, message);
     }
 
@@ -31,7 +34,8 @@ public class DatasetUploadFeedbackServiceTest {
         }
         String message = DatasetUploadFeedbackService.getUploadMessage();
         String expectedMessage = """
-                Incomplete wine upload:
+                Partial dataset upload:
+                Some wines were not added
                 Name, Winery and/or Vintage is null
                 Year is not between 0 and current year
                 Score is not between 0 and 100
