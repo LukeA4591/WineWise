@@ -68,7 +68,6 @@ public class ChangePasswordPopupController {
         String errorMessage = adminLoginService.changePassword(currentPassword, newPassword, confirmPassword);
         if (!errorMessage.isEmpty()) {
             errorLabel.setText(errorMessage);
-            errorLabel.setTextFill(Color.RED);
 
         } else {
             errorLabel.setText("Password successfully changed");

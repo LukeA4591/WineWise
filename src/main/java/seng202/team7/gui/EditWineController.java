@@ -88,7 +88,6 @@ public class EditWineController {
             Wine wine = new Wine(wineTypeString, wineNameString, wineryNameString, Integer.parseInt(wineVintageString), Integer.parseInt(wineScoreString), wineRegionString, wineDescriptionString);
             boolean successfulUpdate = wineManager.updateWine(wine, this.origionalWine);
             if (!successfulUpdate) {
-                saveNewWineMessage.setStyle("-fx-text-fill: #FF0000");
                 saveNewWineMessage.setText("This wine already exists.");
             } else {
                 Stage stage = (Stage) wineWineryName.getScene().getWindow();
@@ -96,7 +95,6 @@ public class EditWineController {
             }
         } else {
             saveNewWineMessage.setText(errorLabel);
-            saveNewWineMessage.setStyle("-fx-text-fill: #ff0000");
         }
     }
 }
