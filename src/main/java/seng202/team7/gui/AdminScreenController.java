@@ -250,7 +250,7 @@ public class AdminScreenController {
             Stage modalStage = new Stage();
             modalStage.setScene(modalScene);
             modalStage.setWidth(900);
-            modalStage.setHeight(624);
+            modalStage.setHeight(655);
             modalStage.setResizable(false);
             modalStage.setTitle("View Wines");
             modalStage.initModality(Modality.WINDOW_MODAL);
