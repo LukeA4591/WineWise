@@ -4,24 +4,22 @@ WineWise is a kiosk-based online application designed to simplify wine discovery
 ## Key Features
 For Kiosk Admins:
 - Create a secure account
-- Adding wines (manually or imported CSV Files)
-- Deleting wines
-- Bulk viewing wines
+- Change credentials
+- Adding wines and wineries (manually or imported CSV Files)
+- Deleting wines and wineries
+- Bulk viewing wines and wineries
+- Placing wineries on a map
 - Viewing all reported reviews with options to un-flag (un-report) or delete them
 
 For Kiosk Users:
-- Browsing and filtering provided wines
+- Browsing, filtering and searching through wines
 - More in-depth views of wine details
+- Recommended wines for a wine you view
 - Leaving reviews for wines
 - Viewing all reviews for a wine
 - Reporting invalid reviews
-
-## Upcoming Features
-- Recommend top wines taking user reviews into account
-- Vineyard map
-- Ability to change credentials after initial setup
-- Graphing of wineries wines.
-- Wines are loaded and displayed in smaller groups (faster response times).
+- Viewing wineries on a map
+- Interactive home page to view the highest rated wines by the critics and users
 
 ## Authors
 - SENG202 Group 7 (Luke Armstrong, Oliver Barclay, Felix Blanchard, Ryan Hamilton, Alex Wilson)
